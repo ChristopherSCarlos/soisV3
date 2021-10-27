@@ -1,0 +1,213 @@
+<div class="p-6">
+    <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
+        <x-jet-button wire:click="createOrganization">
+            {{ __('Create Organization') }}
+        </x-jet-button>
+    </div>
+
+        <div class="flex flex-col items-center">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Organization Photo</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Organization Name</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Organization Details</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Organization Slug</th>
+                                <!-- <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Primary Color</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Secondary Color</th> -->
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                                @if($organizationData->count())
+                                    @foreach($organizationData as $item)
+                                        <tr>
+                                            <td class="px-6 py-2">
+                                                @if (!empty($item->organization_logo))
+                                                    <img width="100px" src="{{ asset('/files/' . $item->organization_logo) }}"/>
+                                                @else
+                                                    No featured image available!
+                                                @endif</td>
+                                            <td class="px-6 py-2">{{ $item->organization_name }}</td>
+                                            <td class="px-6 py-2">{{ $item->organization_details }}</td>
+                                            <td class="px-6 py-2">
+                                                <a href="{{ url($item->organization_slug) }}" class="text-indigo-600 hover:text-indigo-900" target="_blank">
+                                                   {{ $item->organization_slug }}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <x-jet-button wire:click="updateShowModal({{ $item->organizations_id }})">
+                                                    {{__('Update')}}
+                                                </x-jet-button>
+                                                <x-jet-button wire:click="updateImageShowModal({{ $item->organizations_id }})">
+                                                    {{__('Update Logo')}}
+                                                </x-jet-button>
+                                                <x-jet-danger-button wire:click="deleteShowModal({{ $item->organizations_id }})">
+                                                    {{__('Delete')}}
+                                                </x-jet-danger-button>
+                                            </td>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+<!--==================================================
+=            Create Modal Section comment            =
+===================================================-->
+    <x-jet-dialog-modal wire:model="modalFormVisible">
+        <x-slot name="title">
+            {{ __('Organization') }}
+        </x-slot>
+        <x-slot name="content">
+            <div class="mt-4">
+                <x-jet-label for="organization_name" value="{{ __('Organization name') }}" />
+                <x-jet-input wire:model="organization_name" id="organization_name" class="block mt-1 w-full" type="text" />
+                @error('organization_name') <span class="error">{{ $message }}</span> @enderror
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="organization_details" value="{{ __('Organization details') }}" />
+                <x-jet-input wire:model="organization_details" id="organization_details" class="block mt-1 w-full" type="text" />
+                @error('organization_details') <span class="error">{{ $message }}</span> @enderror
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="organization_slug" value="{{ __('organization slug') }}" />
+                <div class="mt-1 flex rounded-md shadow-sm">
+                    <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                        http://localhost:8000/
+                    </span>
+                    <input wire:model="organization_slug" class="form-input flex-1 block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5" placeholder="url-slug">
+                </div>
+                @error('organization_slug') <span class="error">{{ $message }}</span> @enderror
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="organization_primary_color" value="{{ __('organization primary color') }}" />
+                <x-jet-input wire:model="organization_primary_color" id="organization_primary_color" class="block mt-1 w-full" type="color" />
+                @error('organization_primary_color') <span class="error">{{ $message }}</span> @enderror
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="organization_secondary_color" value="{{ __('organization secondary color') }}" />
+                <x-jet-input wire:model="organization_secondary_color" id="organization_secondary_color" class="block mt-1 w-full" type="color" />
+                @error('organization_secondary_color') <span class="error">{{ $message }}</span> @enderror
+            </div>
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$toggle('modalFormVisible')" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-secondary-button>
+            <x-jet-secondary-button class="ml-2" wire:click="create" wire:loading.attr="disabled">
+                {{ __('Create Organization') }}
+            </x-jet-secondary-button>
+        </x-slot>
+    </x-jet-dialog-modal>
+
+
+<!--====  End of Create Modal Section comment  ====-->
+
+<!--==================================================
+=            Update Modal Section comment            =
+===================================================-->
+<x-jet-dialog-modal wire:model="updatemodalFormVisible">
+            <x-slot name="title">
+                {{ __('Update Organization') }}
+            </x-slot>
+
+            <x-slot name="content">
+            <div class="mt-4">
+                <x-jet-label for="organization_name" value="{{ __('Organization name') }}" />
+                <x-jet-input wire:model="organization_name" id="organization_name" class="block mt-1 w-full" type="text" />
+                @error('organization_name') <span class="error">{{ $message }}</span> @enderror
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="organization_details" value="{{ __('Organization details') }}" />
+                <x-jet-input wire:model="organization_details" id="organization_details" class="block mt-1 w-full" type="text" />
+                @error('organization_details') <span class="error">{{ $message }}</span> @enderror
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="organization_slug" value="{{ __('Organization slug') }}" />
+                <div class="mt-1 flex rounded-md shadow-sm">
+                    <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                        http://localhost:8000/
+                    </span>
+                    <input wire:model="organization_slug" class="form-input flex-1 block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5" placeholder="url-slug">
+                </div>
+                @error('organization_slug') <span class="error">{{ $message }}</span> @enderror
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="organization_primary_color" value="{{ __('organization primary color') }}" />
+                <x-jet-input wire:model="organization_primary_color" id="organization_primary_color" class="block mt-1 w-full" type="color" />
+                @error('organization_primary_color') <span class="error">{{ $message }}</span> @enderror
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="organization_secondary_color" value="{{ __('organization secondary color') }}" />
+                <x-jet-input wire:model="organization_secondary_color" id="organization_secondary_color" class="block mt-1 w-full" type="color" />
+                @error('organization_secondary_color') <span class="error">{{ $message }}</span> @enderror
+            </div>
+        </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('updatemodalFormVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+                    <x-jet-secondary-button class="ml-2" wire:click="update" wire:loading.attr="disabled">
+                        {{ __('Update Details') }}
+                    </x-jet-secondary-button>                    
+            </x-slot>
+        </x-jet-dialog-modal>
+
+
+<!--====  End of Update Modal Section comment  ====-->
+
+<!--==================================================
+=            Delete Modal Section comment            =
+===================================================-->
+        <x-jet-dialog-modal wire:model="modelConfirmDeleteVisible">
+            <x-slot name="title">
+                {{ __('Delete Organization') }}
+            </x-slot>
+
+            <x-slot name="content">
+                {{ __('Are you sure you want to delete your page? Once your page is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your page.') }}
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('modelConfirmDeleteVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+
+                <x-jet-danger-button class="ml-2" wire:click="delete" wire:loading.attr="disabled">
+                    {{ __('Delete Organization') }}
+                </x-jet-danger-button>
+            </x-slot>
+        </x-jet-dialog-modal>
+
+
+<!--====  End of Delete Modal Section comment  ====-->
+
+
+
+
+
+
+
+<!-- final div -->
+</div>

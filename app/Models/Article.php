@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Article extends Model
+{
+    use HasFactory;
+
+    protected $primaryKey = 'articles_id';
+
+    protected $fillable = [
+        'article_title',
+        'article_subtitle',
+        'article_content',
+        'type',
+        'status',
+        'image',
+        'user_id',
+        'article_slug',
+        'is_featured_in_newspage',
+        'is_article_featured_landing_page',
+    ];
+}
