@@ -23,4 +23,5 @@ class Article extends Model
         'is_featured_in_newspage',
         'is_article_featured_landing_page',
     ];
+    
 }
