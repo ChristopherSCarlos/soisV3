@@ -74,6 +74,9 @@ class Articles extends Component
     public $newsFeaturedNull = null;
     public $isArticleInFeaturedId;
     public $isArticleTopNews;
+    public $role;
+
+    public $rolesss;
 
 
     /*====================================================
@@ -89,6 +92,8 @@ class Articles extends Component
     {
         $this->userId = Auth::user()->users_id;
         $this->user = User::find($this->userId);
+        $this->article_slug = strtolower($this->article_title);
+        $this->article_slug = str_replace(" ","-",$this->article_slug);
         // $this->OrgDataFromUser = $this->user->organization->first();
         // $this->OrgDataFromUserOrganizationNameString = $this->OrgDataFromUser->organization_name;
         Article::create($this->createModel());
@@ -107,6 +112,8 @@ class Articles extends Component
             'status' => $this->status,
             'user_id' => $this->userId,
             'article_slug' => $this->article_slug,
+            'is_featured_in_newspage' => '0',
+            'is_article_featured_landing_page' => '0',
         ];
     }
     public function syncArticleOrganization()
@@ -307,7 +314,31 @@ class Articles extends Component
     public function getArticleTableData()
     {
         $this->userId = Auth::user()->users_id;
-        // dd($this->userId);
+        $this->userData = User::find($this->userId);
+        $this->role = $this->userData->roles->first();
+        $this->userRoles = $this->role->role_name;
+        $this->rolesss = Auth::user()->roles;
+        
+        // if (Auth::user()->roles == 'Super Admin') {
+        //     echo "hello";
+        // }elseif(Auth::user()->roles == 'Organization Admin'){
+        //     echo "rowld";
+        // }
+
+        // dd(Auth::user()->roles->role_id);
+
+
+
+
+
+
+
+
+
+
+
+
+
         return DB::table('articles')
            ->where('user_id', '=', $this->userId)
            ->paginate(5);
