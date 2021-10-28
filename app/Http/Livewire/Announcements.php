@@ -37,6 +37,7 @@ class Announcements extends Component
 
     // variables
         public $announcement_id;
+        public $userID;
 
         public $announcements_title;
         public $announcements_content;
@@ -224,7 +225,10 @@ class Announcements extends Component
      */
     public function getAnnouncements()
     {
-        return DB::table('announcements')->where('status','=','1')->orderBy('created_at','desc')->paginate(5);
+        $this->userID = Auth::user()->users_id;
+        // dd($this->userID);
+        // dd(DB::table('announcements')->where('status','=','1')->where('user_id','=',$this->userID)->orderBy('created_at','desc')->paginate(5));
+        return DB::table('announcements')->where('status','=','1')->where('user_id','=',$this->userID)->orderBy('created_at','desc')->paginate(5);
     }
 
     public function render()

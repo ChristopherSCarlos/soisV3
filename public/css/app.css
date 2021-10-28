@@ -1422,13 +1422,13 @@ select {
 	--tw-divide-opacity: 1;
 	border-color: rgba(229, 231, 235, var(--tw-divide-opacity));
 }
-.divide-gray-800 > :not([hidden]) ~ :not([hidden]) {
-	--tw-divide-opacity: 1;
-	border-color: rgba(31, 41, 55, var(--tw-divide-opacity));
-}
 .divide-gray-700 > :not([hidden]) ~ :not([hidden]) {
 	--tw-divide-opacity: 1;
 	border-color: rgba(55, 65, 81, var(--tw-divide-opacity));
+}
+.divide-gray-800 > :not([hidden]) ~ :not([hidden]) {
+	--tw-divide-opacity: 1;
+	border-color: rgba(31, 41, 55, var(--tw-divide-opacity));
 }
 .overflow-hidden {
 	overflow: hidden;
@@ -2154,7 +2154,7 @@ hr{
   /* The image used */
   /*background-image: url('/image/svg/backgroudn.svg');*/
   /*background-image: url('/image/sample-bg.jpg');*/
-  background-image: linear-gradient(to bottom, transparent, #0a0000), url('/image/sample-bg.jpg');
+  /*background-image: linear-gradient(to bottom, transparent, #0a0000), url('/image/sample-bg.jpg');*/
 
   width: 100%;
   height: 100vh;
@@ -2166,11 +2166,6 @@ hr{
   
   /* Needed to position the navbar */
   position: relative;
-}
-.frontpage-title-logo-container{
-    margin: auto;
-  width: 50%;
-  padding: 10px;
 }
 .frontpage-title-container{
   display: flex;

@@ -26,6 +26,8 @@ class Frontpage extends Component
     public $systemPagesDataForSlugSelection;
     public $urlslug;
     public $isFrontPageSlugNull = null;
+    public $homepageID;
+    public $homepage;
 
     public function mount($urlslug = null)
     {
@@ -59,26 +61,24 @@ class Frontpage extends Component
     {
         $this->getPagesDataFromDB = DB::table('pages')->get();
         foreach ($this->getPagesDataFromDB as $this->data) {
-            // echo $this->data->title . " || ";
             if($this->data->is_default_home == '1'){
-                // echo $this->data->title . " || ";
                 $this->isDefaultHomeID = $this->data->pages_id;
-                // echo $this->isDefaultHomeID;
-                $this->getDataOfDefaultHomepage = Page::find($this->isDefaultHomeID);
-                // $this->getDataOfDefaultHomepage;
+                $this->getDataOfDefaultHomepage = Page::find($this->isDefaultHomeID)->first();
+                $this->homepageID = $this->getDataOfDefaultHomepage->pages_id;
+                
+                $this->homepage = DB::table('pages')->where('pages_id','=',$this->isDefaultHomeID)->get();
+                return $this->homepage;
             }
-            // else{
-            //     $this->dateIDExpired = $this->data->announcements_id;
-            //     if ($this->data->exp_time < $this->checkCurrentTime) {
-            //         Announcement::where('announcements_id', '=', $this->dateIDExpired)->update(['status' => '1']);
-            //     }
-            // }
         }
-        // echo '<br><br><br>This is the data: '.count($this->getPagesDataFromDB);
-        // dd(count(array($this->getPagesDataFromDB)));
     }
 
     
+
+    /**
+     *
+     * Get Top Bar Links
+     *
+     */
     public function topBarLinks()
     {
         return DB::table('navigation_menus')
@@ -99,7 +99,6 @@ class Frontpage extends Component
                                     ->orderBy('pages_id','asc')
                                     ->get()
                                     ->pluck('slug');
-        // dd($this->systemPagesDataForSlugSelection);                                    
         return $this->systemPagesDataForSlugSelection;
     }
 
@@ -115,11 +114,55 @@ class Frontpage extends Component
             ->get();
     }
 
+    /**
+     *
+     * Get Organization Data
+     *
+     */
+    public function getOrgPageData()
+    {
+        return Organization::select('organizations_id','organization_name','organization_logo','organization_details','organization_primary_color','organization_secondary_color','organization_slug','page_type','created_at','updated_at','status')->get();
+    }
 
 
+    /**
+     *
+     * Get Articles Data
+     *
+     */
+    public function getArticleAllData()
+    {
+        return Article::select('articles_id','article_title','article_subtitle','article_content','type','image','status','user_id','article_slug','created_at','updated_at','is_featured_in_newspage','is_article_featured_landing_page')->get();
+    }
 
+    /**
+     *
+     * Get Top News
+     *
+     */
+    public function getTopNews()
+    {
+        return DB::table('articles')->where('is_article_featured_landing_page','=','1')->get();
+        // dd(DB::table('articles')->where('is_article_featured_landing_page','=','1')->first());
+    }
 
+    /**
+     *
+     * Get Lates News
+     *
+     */
+    public function getLatestArticle()
+    {
+        // dd(DB::table('articles')->orderBy('created_at','asc')->first());
+        return DB::table('articles')->orderBy('created_at','asc')->first();
+    }
 
+    public function getArticleTime()
+    {
+        // dd(DB::table('articles')->orderBy('created_at','asc')->skip(1)->take(10)->get());
+        return DB::table('articles')->orderBy('created_at','asc')->skip(1)->take(8)->get();
+        // return DB::table('articles')->orderBy('created_at','asc')->paginate(10);
+    }
 
     public function render()
     {
@@ -128,6 +171,11 @@ class Frontpage extends Component
             'isCurrentSlugInSystemPage' => $this->selectSlugForSystemPagesViews(),
             'getTopBarNav' => $this->topBarLinks(),
             'orgLinks' => $this->organizationLinks(),
+            'pageOrgData' => $this->getOrgPageData(),
+            'getDsiplayArticleDataOnNewsPage' => $this->getArticleAllData(),
+            'getTopNewsArticleOnCreatedPage' => $this->getTopNews(),
+            'getDsiplayArticleLatestOnCreatedPage' => $this->getLatestArticle(),
+            'getDsiplayArticleDataOnCreatedPage' => $this->getArticletime(),
         ])->layout('layouts.frontpage');
     }
 }

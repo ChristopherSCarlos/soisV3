@@ -114,16 +114,6 @@
                     @error('article_content') <span class="error">{{ $message }}</span> @enderror
                 </div>
                 <!--  -->
-                <div class="mt-4">
-                    <x-jet-label for="article_slug" value="{{ __('organization slug') }}" />
-                    <div class="mt-1 flex rounded-md shadow-sm">
-                        <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
-                            http://localhost:8000/{{$userOrgSlug}}/
-                        </span>
-                        <input wire:model="article_slug" class="form-input flex-1 block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5" placeholder="url-slug">
-                    </div>
-                    @error('article_slug') <span class="error">{{ $message }}</span> @enderror
-                </div>
 
             </x-slot>
             <x-slot name="footer">
