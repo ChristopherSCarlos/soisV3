@@ -28,7 +28,8 @@ class Organizations extends Component
 {
     /* Traits */
     use WithPagination;
-    use WithFileUploads;    
+    use WithFileUploads;
+    
     /* Modals */
     public $modalFormVisible = false;
     public $updatemodalFormVisible = false;
@@ -101,7 +102,6 @@ class Organizations extends Component
 
     public function create()
     {
-        echo "Hello";
         $this->resetValidation();
         $this->validate(); 
         Organization::create($this->modelData());
