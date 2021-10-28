@@ -183,7 +183,59 @@ class Organizations extends Component
     /*=====  End of Delete Organization Section comment block  ======*/
     
 
+    public function specificOrganization()
+    {
+        $this->authUser = Auth::id();
+        $this->user = User::find($this->authUser);
+        $this->OrgDataFromUser = $this->user->organizations->first();
+        // dd($this->OrgDataFromUser->id);
+        if($this->OrgDataFromUser){
+            $this->orgUserId = $this->OrgDataFromUser->organizations_id;
+            $this->userOrganization = $this->OrgDataFromUser->organization_name;
+            // dd($this->orgUserId);
+            $this->orgCount = true;
+            // dd($this->orgCount);
+            // dd(DB::table('organizations')->where('organizations_id', '=', $this->orgUserId)->get());
+            return DB::table('organizations')
+           ->where('organizations_id', '=', $this->orgUserId)
+           ->get();
 
+
+
+        }else{
+            $this->orgCount = false;
+            
+            dd("2");
+            return $this->orgCount;
+        }
+        // dd($this->orgUserId);
+        // $this->organizationUserData = Organization::find($this->orgUserId);        
+        // return $this->organizationUserData;
+        // dd(gettype(Organization::where($this->orgUserId)));
+        // return Organization::where($this->orgUserId);
+                
+        // dd($this->organizationUserData);
+        // dd(gettype($this->OrgDataFromUser));        
+
+        // $this->user = User::find($this->userId);
+        // dd($this->OrgDataFromUser->organization_name);
+    }
+
+    /**
+     *
+     * Get User Role
+     *
+     */
+    public function getAuthUserRole()
+    {
+        $this->authUserId = Auth::id();
+        $this->authUserData = User::find($this->authUserId);        
+        $this->authUserRole = $this->authUserData->roles->first();
+        $this->authUserRoleType = $this->authUserRole->role_name;         
+        // dd($this->authUserRoleType);
+        // dd($this->authUserRoleType);
+        return $this->authUserRoleType;
+    }
 
     /**
      *
@@ -199,6 +251,8 @@ class Organizations extends Component
     {
         return view('livewire.organizations',[
             'organizationData' => $this->getOrganizationData(),
+            'userAuthRole' => $this->getAuthUserRole(),
+            'userAffliatedOrganization' => $this->specificOrganization(),
         ]);
     }
 }

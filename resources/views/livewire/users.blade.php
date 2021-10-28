@@ -205,7 +205,39 @@
 <!--===============================================================
 =            Sync User to Organization Section comment            =
 ================================================================-->
+<x-jet-dialog-modal wire:model="modalAddOrganizationFormVisible">
+            <x-slot name="title">
+                {{ __('Add Organization To User') }} {{$userId}}
+            </x-slot>
 
+            <x-slot name="content">
+               <div class="mb-4">
+                    <div class="form-group row">
+                        <label for="role" class="col-md-4 col-form-label text-md-right">Organization</label>
+                        <div class="col-md-6">
+                            <select wire:model="organizationModel" class="form-control">
+                                <option value="" selected>Choose Organization</option>
+                                @foreach($displayOrganizationData as $organization)
+                                    <option value="{{ $organization->organizations_id }}">{{ $organization->organization_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('modalAddOrganizationFormVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+
+                @if($userId)
+                    <x-jet-secondary-button class="ml-2" wire:click="addOrganizationToUser" wire:loading.attr="disabled">
+                        {{ __('Add Organization to User') }}
+                    </x-jet-secondary-button>                    
+                @endif
+            </x-slot>
+        </x-jet-dialog-modal>
 
 
 <!--====  End of Sync User to Organization Section comment  ====-->

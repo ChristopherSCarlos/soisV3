@@ -1,8 +1,10 @@
 <div class="p-6">
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
-        <x-jet-button wire:click="createOrganization">
-            {{ __('Create Organization') }}
-        </x-jet-button>
+        @if($userAuthRole == 'Super Admin')
+            <x-jet-button wire:click="createOrganization">
+                {{ __('Create Organization') }}
+            </x-jet-button>
+        @endif
     </div>
 
         <div class="flex flex-col items-center">
@@ -23,36 +25,78 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                                @if($organizationData->count())
-                                    @foreach($organizationData as $item)
+                                @if($userAuthRole == 'Super Admin')
+                                    @if($posts->count())
+                                        @foreach($posts as $item)
+                                            <tr>
+                                                <td class="px-6 py-2">
+                                                    @if (!empty($item->organization_logo))
+                                                        <img width="100px" src="{{ asset('/files/' . $item->organization_logo) }}"/>
+                                                    @else
+                                                        No featured image available!
+                                                    @endif</td>
+                                                <td class="px-6 py-2">{{ $item->organization_name }}</td>
+                                                <td class="px-6 py-2">{{ $item->organization_details }}</td>
+                                                <td class="px-6 py-2">
+                                                    <a href="{{ url($item->organization_slug) }}" class="text-indigo-600 hover:text-indigo-900" target="_blank">
+                                                       {{ $item->organization_slug }}
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <x-jet-button wire:click="updateShowModal({{ $item->organizations_id }})">
+                                                        {{__('Update')}}
+                                                    </x-jet-button>
+                                                    <x-jet-button wire:click="updateImageShowModal({{ $item->organizations_id }})">
+                                                        {{__('Update Logo')}}
+                                                    </x-jet-button>
+                                                    <x-jet-danger-button wire:click="deleteShowModal({{ $item->organizations_id }})">
+                                                        {{__('Delete')}}
+                                                    </x-jet-danger-button>
+                                                </td>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
                                         <tr>
-                                            <td class="px-6 py-2">
-                                                @if (!empty($item->organization_logo))
-                                                    <img width="100px" src="{{ asset('/files/' . $item->organization_logo) }}"/>
-                                                @else
-                                                    No featured image available!
-                                                @endif</td>
-                                            <td class="px-6 py-2">{{ $item->organization_name }}</td>
-                                            <td class="px-6 py-2">{{ $item->organization_details }}</td>
-                                            <td class="px-6 py-2">
-                                                <a href="{{ url($item->organization_slug) }}" class="text-indigo-600 hover:text-indigo-900" target="_blank">
-                                                   {{ $item->organization_slug }}
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <x-jet-button wire:click="updateShowModal({{ $item->organizations_id }})">
-                                                    {{__('Update')}}
-                                                </x-jet-button>
-                                                <x-jet-button wire:click="updateImageShowModal({{ $item->organizations_id }})">
-                                                    {{__('Update Logo')}}
-                                                </x-jet-button>
-                                                <x-jet-danger-button wire:click="deleteShowModal({{ $item->organizations_id }})">
-                                                    {{__('Delete')}}
-                                                </x-jet-danger-button>
-                                            </td>
+                                            <td class="px-6 py-4 text-sm whitespace-no-wrap" colspan="4">
+                                                No Results Found
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @endif
+                                @else
+                                    @if($userAffliatedOrganization->count())
+                                        @foreach($userAffliatedOrganization as $item)
+                                            <tr>
+                                                <td class="px-6 py-2">
+                                                    @if (!empty($item->organization_logo))
+                                                        <img width="100px" src="{{ asset('/files/' . $item->organization_logo) }}"/>
+                                                    @else
+                                                        No featured image available!
+                                                    @endif
+                                                </td>
+                                                <td class="px-6 py-2">{{ $item->organization_name }}</td>
+                                                <td class="px-6 py-2">{{ $item->organization_details }}</td>
+                                                <td class="px-6 py-2">
+                                                    <a href="{{ url($item->organization_slug) }}" class="text-indigo-600 hover:text-indigo-900" target="_blank">
+                                                       {{ $item->organization_slug }}
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <x-jet-button wire:click="updateShowModal({{ $item->organizations_id }})">
+                                                        {{__('Update')}}
+                                                    </x-jet-button>
+                                                    <x-jet-button wire:click="updateImageShowModal({{ $item->organizations_id }})">
+                                                        {{__('Update Logo')}}
+                                                    </x-jet-button>
+                                                    @if($userAuthRole == 'Super Admin')
+                                                        <x-jet-danger-button wire:click="deleteShowModal({{ $item->organizations_id }})">
+                                                            {{__('Delete')}}
+                                                        </x-jet-danger-button>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                 @endif
                         </tbody>
                     </table>

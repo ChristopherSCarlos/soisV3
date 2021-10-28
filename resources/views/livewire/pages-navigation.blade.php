@@ -63,7 +63,7 @@
 
 <x-jet-dialog-modal wire:model="modalFormVisible">
             <x-slot name="title">
-                {{ __('Navigation Menu Item') }}
+                {{ __('Navigation Menu Item') }} {{$modelId}}
             </x-slot>
 
             <x-slot name="content">
@@ -95,14 +95,15 @@
                 <x-jet-secondary-button wire:click="$toggle('modalFormVisible')" wire:loading.attr="disabled">
                     {{ __('Cancel') }}
                 </x-jet-secondary-button>
-
+                @if($modelId)
                     <x-jet-secondary-button class="ml-2" wire:click="update" wire:loading.attr="disabled">
                         {{ __('Update Page') }}
-                    </x-jet-secondary-button>                    
+                    </x-jet-secondary-button>              
+                @else
                     <x-jet-secondary-button class="ml-2" wire:click="create" wire:loading.attr="disabled">
                         {{ __('Create Page') }}
                     </x-jet-secondary-button>
-
+                @endif
             </x-slot>
         </x-jet-dialog-modal>
 

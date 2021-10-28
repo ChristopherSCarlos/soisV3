@@ -26,6 +26,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
+                            @if($articleDataController == 'Super Admin')                                    
                                 @if($articleDatas->count())
                                     @foreach($articleDatas as $item)
                                          <tr>
@@ -81,6 +82,56 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                @endif
+                            @else
+                                @if($articleOrganization->count())
+                                    @foreach($articleOrganization as $item)
+                                         <tr>
+                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                {{ $item->articles_id }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                {{ $item->article_title }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                {{ $item->article_subtitle }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                {{ $item->article_content }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                {{ $item->created_at }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                <a href="{{ url($item->article_slug) }}" class="text-indigo-600 hover:text-indigo-900" target="_blank">
+                                                    {{ $item->article_slug }}
+                                                </a>
+                                            </td>
+                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                <x-jet-button wire:click="updateNewsShowModal({{ $item->articles_id }})">
+                                                    {{__('Update')}}
+                                                </x-jet-button>
+                                                <x-jet-danger-button wire:click="deletefeaturedNewsShowModal({{ $item->articles_id }})">
+                                                    {{__('Delete')}}
+                                                </x-jet-danger-button>
+                                            </td>
+                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                <x-jet-button wire:click="featuredNewsToOrganizationPageShowModal({{ $item->articles_id }})">
+                                                    {{__('Feature')}}
+                                                </x-jet-button>
+                                                <x-jet-danger-button wire:click="unFeaturedNewsToOrganizationPageShowModal({{ $item->articles_id }})">
+                                                    {{__('UnFeature')}}
+                                                </x-jet-danger-button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                        <tr>
+                                            <td class="px-6 py-4 text-sm whitespace-no-wrap" colspan="4">
+                                                No Results Found
+                                            </td>
+                                        </tr>
+                                @endif
                             @endif
                         </tbody>
                     </table>
@@ -88,11 +139,17 @@
             </div>
         </div>
     </div>
-
-    {{$articleDatas->links()}}
+    @if($articleDataController == 'Super Admin')
+        {{$articleDatas->links()}}
+    @else
+        {{$articleOrganization->links()}}
+    @endif
 
 <!-- MODALS -->
     <!-- CREATE NEWS MODALS -->
+<!--=================================================
+=            Create News Section comment            =
+==================================================-->
         <x-jet-dialog-modal wire:model="modalCreateNewsFormVisible">
             <x-slot name="title">
                 {{ __('News') }}
@@ -124,7 +181,6 @@
                     </div>
                     @error('article_slug') <span class="error">{{ $message }}</span> @enderror
                 </div>
-
             </x-slot>
             <x-slot name="footer">
                 <x-jet-secondary-button wire:click="$toggle('modalCreateNewsFormVisible')" wire:loading.attr="disabled">
@@ -136,7 +192,13 @@
             </x-slot>
         </x-jet-dialog-modal>
 
-    <!-- UPDATA NEWS MODALS -->
+
+<!--====  End of Create News Section comment  ====-->
+
+
+<!--=============================================================
+=            Update News In Homepage Section comment            =
+==============================================================-->
         <x-jet-dialog-modal wire:model="modalUpdateNewsFormVisible">
             <x-slot name="title">
                 {{ __('News') }}
@@ -175,7 +237,13 @@
             </x-slot>
         </x-jet-dialog-modal>
 
-    <!-- DELETE NEWS MODALS -->
+
+<!--====  End of Update News In Homepage Section comment  ====-->
+
+
+<!--=================================================
+=            Delete News Section comment            =
+==================================================-->
         <x-jet-dialog-modal wire:model="modalDeleteNewsFormVisible">
             <x-slot name="title">
                 {{ __('News') }}
@@ -195,7 +263,13 @@
             </x-slot>
         </x-jet-dialog-modal>
 
-    <!-- ADD FEATURE MODALS -->
+
+<!--====  End of Delete News Section comment  ====-->
+
+
+<!--=============================================================
+=            Add Feature In Homepage Section comment            =
+==============================================================-->
         <x-jet-dialog-modal wire:model="modalFeatureNewsFormVisible">
             <x-slot name="title">
                 {{ __('News') }}
@@ -204,7 +278,6 @@
                 <div class="mt-4">
                     <x-jet-label for="article_title" value="{{ __('Continuing this process will enable this news to be displayed in the featured section of News page in the homepage. Do you want to continue wth this process?') }}" />
                 </div>
-
             </x-slot>
             <x-slot name="footer">
                 <x-jet-secondary-button wire:click="$toggle('modalFeatureNewsFormVisible')" wire:loading.attr="disabled">
@@ -216,7 +289,13 @@
             </x-slot>
         </x-jet-dialog-modal>
 
-    <!-- NOT ADD FEATURE MODAL -->
+
+<!--====  End of Add Feature In Homepage Section comment  ====-->
+
+
+<!--=================================================================
+=            UnFeaturre News in Homepage Section comment            =
+==================================================================-->
         <x-jet-dialog-modal wire:model="modalDeleteFeatureNewsFormVisible">
             <x-slot name="title">
                 {{ __('News') }}
@@ -225,7 +304,6 @@
                 <div class="mt-4">
                     <x-jet-label for="article_title" value="{{ __('Continuing this process will enable this news to be displayed in the featured section of News page in the homepage. Do you want to continue wth this process?') }}" />
                 </div>
-
             </x-slot>
             <x-slot name="footer">
                 <x-jet-secondary-button wire:click="$toggle('modalDeleteFeatureNewsFormVisible')" wire:loading.attr="disabled">
@@ -237,7 +315,13 @@
             </x-slot>
         </x-jet-dialog-modal>
 
-    <!-- SET NEWS AS TOP NEWS -->
+
+<!--====  End of UnFeaturre News in Homepage Section comment  ====-->
+
+
+<!--==========================================================
+=            Set News as Top News Section comment            =
+===========================================================-->
         <x-jet-dialog-modal wire:model="modalSetTopNewsFormVisible">
             <x-slot name="title">
                 {{ __('News') }} {{$newsId}}
@@ -257,8 +341,13 @@
                 </x-jet-secondary-button>
             </x-slot>
         </x-jet-dialog-modal>
+<!--====  End of Set News as Top News Section comment  ====-->
 
-    <!-- UNSET NEWS AS TOP NEWS -->
+
+
+<!--============================================================
+=            Unset News as Top News Section comment            =
+=============================================================-->
         <x-jet-dialog-modal wire:model="modalUnSetTopNewsFormVisible">
             <x-slot name="title">
                 {{ __('News') }} {{$newsId}}
@@ -278,6 +367,68 @@
                 </x-jet-secondary-button>
             </x-slot>
         </x-jet-dialog-modal>
+<!--====  End of Unset News as Top News Section comment  ====-->
+
+
+<!--===============================================================================
+=            Set News as Featured in Organization Page Section comment            =
+================================================================================-->
+<x-jet-dialog-modal wire:model="modalFeatureNewsInOrganizationPageFormVisible">
+    <x-slot name="title">
+        {{ __('News') }} {{$newsId}}
+    </x-slot>
+    <x-slot name="content">
+        <div class="mt-4">
+            <x-jet-label for="article_title" value="{{ __('Continuing this process will enable this news to be displayed in the featured section of News page in the homepage. Do you want to continue wth this process?') }}" />
+        </div>
+    </x-slot>
+    <x-slot name="footer">
+        <x-jet-secondary-button wire:click="$toggle('modalFeatureNewsInOrganizationPageFormVisible')" wire:loading.attr="disabled">
+            {{ __('Cancel') }}
+        </x-jet-secondary-button>
+        <x-jet-secondary-button class="ml-2" wire:click="featureInOrganizationPage" wire:loading.attr="disabled">
+            {{ __('Feature News in Organization Page') }}
+        </x-jet-secondary-button>
+    </x-slot>
+</x-jet-dialog-modal>
+<!--====  End of Set News as Featured in Organization Page Section comment  ====-->
+
+<!--=================================================================================
+=            Unset News as Featured in Organization Page Section comment            =
+==================================================================================-->
+<x-jet-dialog-modal wire:model="modalUnFeatureNewsInOrganizationPageFormVisible">
+    <x-slot name="title">
+        {{ __('News') }} {{$newsId}}
+    </x-slot>
+    <x-slot name="content">
+        <div class="mt-4">
+            <x-jet-label for="article_title" value="{{ __('Continuing this process will disable this news to be displayed in the featured section of News page in the homepage. Do you want to continue wth this process?') }}" />
+        </div>
+    </x-slot>
+    <x-slot name="footer">
+        <x-jet-secondary-button wire:click="$toggle('modalUnFeatureNewsInOrganizationPageFormVisible')" wire:loading.attr="disabled">
+            {{ __('Cancel') }}
+        </x-jet-secondary-button>
+        <x-jet-secondary-button class="ml-2" wire:click="unFeatureInOrganizationPage" wire:loading.attr="disabled">
+            {{ __('UnFeature News in Organization Page') }}
+        </x-jet-secondary-button>
+    </x-slot>
+</x-jet-dialog-modal>
+<!--====  End of Unset News as Featured in Organization Page Section comment  ====-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

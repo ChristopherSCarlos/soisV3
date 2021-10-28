@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddOrganizationIdToUsersTable extends Migration
+class AddIsFeaturedOrgpageToArticlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddOrganizationIdToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
+        Schema::table('articles', function (Blueprint $table) {
+            $table->integer('is_article_featured_organization_page')->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ class AddOrganizationIdToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('articles', function (Blueprint $table) {
             //
         });
     }

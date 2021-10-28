@@ -45,6 +45,7 @@ class PagesNavigation extends Component
         // dd($this->label);
         $this->pageData = Page::find($this->label);
         $this->navLabel = $this->pageData->title;
+        // dd($this->navLabel);
         $this->slug = $this->pageData->slug;
         $this->validate();
         NavigationMenu::create($this->modelData());

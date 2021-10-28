@@ -14,7 +14,23 @@ class CreateOfficersTable extends Migration
     public function up()
     {
         Schema::create('officers', function (Blueprint $table) {
-            $table->id();
+            $table->id('officers_id');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('middle_name');
+            $table->string('suffix');
+
+            $table->unsignedBigInteger('organization_id');
+            $table->foreign('organization_id')->references('organizations_id')->on('organizations');
+
+            $table->string('school_year');
+            $table->string('semester');
+            $table->string('position');
+
+            $table->date('exp_date');
+
+            $table->integer('status');
+
             $table->timestamps();
         });
     }

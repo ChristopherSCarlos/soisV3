@@ -41,6 +41,9 @@
                     <x-jet-nav-link href="{{ route('tags') }}" :active="request()->routeIs('tags')">
                         {{ __('Tags') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('officers') }}" :active="request()->routeIs('officers')">
+                        {{ __('Officers') }}
+                    </x-jet-nav-link>
                     @endif
                     @if($getUserRole == "Organization Admin")
                     <x-jet-nav-link href="{{ route('Organization/dashboard') }}" :active="request()->routeIs('Organization/dashboard')">
@@ -57,6 +60,9 @@
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('Organization/announcements') }}" :active="request()->routeIs('Organization/announcements')">
                         {{ __('Announcements') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('Organization/officers') }}" :active="request()->routeIs('Organization/officers')">
+                        {{ __('Officers') }}
                     </x-jet-nav-link>
                     @endif
                 </div>
