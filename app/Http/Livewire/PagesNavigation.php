@@ -16,6 +16,7 @@ class PagesNavigation extends Component
 
     /* Modals */
     public $modalFormVisible = false;
+    public $updatemodalFormVisible = false;
 
     public $modelConfirmDeleteVisible;
 
@@ -32,27 +33,7 @@ class PagesNavigation extends Component
     /*===================================================================
     =            Create Navigation MenuSection comment block            =
     ===================================================================*/
-    public function createShowModel()
-    {
-        $this->resetValidation();
-        $this->reset();
-        $this->modalFormVisible = true;
-    }
-
-
-    public function create()
-    {
-        // dd($this->label);
-        $this->pageData = Page::find($this->label);
-        $this->navLabel = $this->pageData->title;
-        $this->slug = $this->pageData->slug;
-        $this->validate();
-        NavigationMenu::create($this->modelData());
-        $this->modalFormVisible = false;
-        $this->reset();
-        $this->resetValidation();
-    }
-
+    
     public function modelData()
     {
         return [
@@ -63,10 +44,89 @@ class PagesNavigation extends Component
         ];
     }
     
+    public function createShowModel()
+    {
+        $this->resetValidation();
+        $this->reset();
+        $this->modalFormVisible = true;
+    }
+
+
+    public function create()
+    {
+        $this->pageData = Page::find($this->label);
+        $this->navLabel = $this->pageData->title;
+        $this->slug = $this->pageData->slug;
+        NavigationMenu::create($this->modelData());
+        $this->modalFormVisible = false;
+        $this->reset();
+        $this->resetValidation();
+    }
+
+    
     
     /*=====  End of Create Navigation MenuSection comment block  ======*/
     
+    /*=========================================
+    =            Update Navigation            =
+    =========================================*/
 
+    public function loadModel()
+    {
+        $data = NavigationMenu::find($this->modelId);
+        $this->label = $data->label;
+        $this->slug = $data->slug;
+        $this->type = $data->type;
+        $this->sequence = $data->sequence;
+    }
+    
+    public function updateShowModal($id)
+    {
+        $this->resetValidation();
+        $this->reset();
+        $this->updatemodalFormVisible = true;
+        $this->modelId = $id;
+        $this->loadModel();
+    }
+
+    public function update()
+    {
+        // $this->pageData = Page::find($this->label);
+        // $this->navLabel = $this->pageData->title;
+        // $this->slug = $this->pageData->slug;
+        $this->validate();
+        NavigationMenu::find($this->modelId)->update($this->modelData());
+        $this->updatemodalFormVisible = false;
+        $this->reset();
+        $this->resetValidation();
+
+        // $this->validate();
+        // NavigationMenu::find($this->modelId)->update($this->modelData());
+        // $this->modalFormVisible = false;
+    }
+    
+    /*=====  End of Update Navigation  ======*/
+
+
+    /*=========================================
+    =            Delete Navigation            =
+    =========================================*/
+    
+    public function deleteShowModal($id)
+    {
+        $this->modelId = $id;
+        $this->modelConfirmDeleteVisible = true;
+    }
+
+    public function delete()
+    {
+        NavigationMenu::destroy($this->modelId);
+        $this->modelConfirmDeleteVisible = false;
+        $this->resetPage();
+    }
+    
+    /*=====  End of Delete Navigation  ======*/
+    
 
 
     /**
