@@ -5,6 +5,8 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Page;
 
+use App\Http\Livewire\Objects;
+
 use Illuminate\Validation\Rule;
 use Livewire\withPagination;
 
@@ -13,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 class Pages extends Component
 {
-     use WithPagination;
+    use WithPagination;
     public $modalFormVisible = false;
     public $modelConfirmDeleteVisible = false;
     public $modelId;

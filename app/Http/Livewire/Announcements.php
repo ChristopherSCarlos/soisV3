@@ -12,6 +12,7 @@ use App\Models\Article;
 use App\Models\Announcement;
 
 use Livewire\withPagination;
+use App\Http\Livewire\Objects;
 use Illuminate\Support\STR;
 use Illuminate\Validation\Rule;
 use Livewire\WithFileUploads;
@@ -70,6 +71,12 @@ class Announcements extends Component
 
         public $countDBTable;
 
+        private $role;
+        private $userData;
+        private $userRoleData;
+        private $userRole;
+
+        private $object;
 
     /*==================================================================
     =            Create Announcements Section comment block            =
@@ -178,7 +185,6 @@ class Announcements extends Component
         $this->currentTime = date('h:i:s');
         $this->newDate=date('d-m-y', strtotime("+2 months"));
 
-        dd($this->newDate);
     }
     public function mount()
     {
@@ -211,12 +217,25 @@ class Announcements extends Component
                 }
         }
     }
-    
-    
     /*=====  End of Change Status on Expired Date Section comment block  ======*/
     
 
 
+
+    /**
+     *
+     * Get Role of Auth User
+     *
+     */
+    public function getAuthRoleUser()
+    {
+        $this->object = new Objects();
+        $this->userRole = $this->object->roles();
+        return $this->userRole;
+        // dd($this->userRole);
+
+        // dd($this->role->role_name);
+    }
     /**
      *
      * Get Announcement Data fro Database
@@ -224,13 +243,24 @@ class Announcements extends Component
      */
     public function getAnnouncements()
     {
-        return DB::table('announcements')->where('status','=','1')->orderBy('created_at','desc')->paginate(5);
+        $this->user_id = Auth::id();
+        if ($this->getAuthRoleUser() == 'Super Admin') {
+            return DB::table('announcements')->where('status','=','1')->orderBy('created_at','desc')->paginate(5);
+        }elseif ($this->getAuthRoleUser() == 'Organization Admin') {
+            // return DB::table('announcements')->where('status','=','1')->orWhere('user_id','=',Auth::id())->orderBy('created_at','desc')->paginate(5);
+            return DB::table('announcements')->where('status','=','1')->where('user_id','=',$this->user_id)->orderBy('created_at','desc')->paginate(5);
+        }else{
+            echo "User";
+        }
+        // dd("Hello");
+        // return DB::table('announcements')->where('status','=','1')->orderBy('created_at','desc')->paginate(5);
     }
 
     public function render()
     {
         return view('livewire.announcements',[
             'displayAnnouncements' => $this->getAnnouncements(),
+            'roleUser' => $this->getAuthRoleUser(),
         ]);
     }
 }

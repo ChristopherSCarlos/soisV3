@@ -29,6 +29,7 @@ class Articles extends Component
     public $modalFeatureNewsFormVisible = false;
     public $modalDeleteFeatureNewsFormVisible = false;
     public $modalSetTopNewsFormVisible = false;
+    public $modalSetOrganizationTopNewsFormVisible = false;
     public $modalUnSetTopNewsFormVisible = false;
     public $modalFeatureNewsInOrganizationPageFormVisible = false;
     public $modalUnFeatureNewsInOrganizationPageFormVisible = false;
@@ -76,6 +77,7 @@ class Articles extends Component
     public $newsFeaturedNull = null;
     public $isArticleInFeaturedId;
     public $isArticleTopNews;
+    public $isArticleOrganizationTopNews;
 
 
     /*====================================================
@@ -265,29 +267,27 @@ class Articles extends Component
         }
         
     }
-    
     /*=====  End of Set Articles as Top News Section comment block  ======*/
     
-    /*========================================================================
-    =            Unset Articles as Top News Section comment block            =
-    ========================================================================*/
-    public function unSetTopNewsShowModal($id)
+    /*===========================================================================================
+    =            Set Articles as Top News in Organization Page Section comment block            =
+    ===========================================================================================*/
+    public function setOrganizationTopNewsShowModal($id)
     {
         $this->newsId = $id;
-        $this->modalUnSetTopNewsFormVisible = true;
+        $this->modalSetOrganizationTopNewsFormVisible = true;
     }
-    public function unSetTopNews()
+    public function setOrganizationTopNews()
     {
+        // dd($this->newsId);
         // Article::find($this->newsId)->update($this->modelData());
-        $this->isArticleTopNews = Article::find($this->newsId);
-        // dd($this->isArticleTopNews);
-
-        if ($this->isArticleTopNews != '1') {
-            Article::where('is_article_featured_landing_page',true)->update([
-                'is_article_featured_landing_page' => false,
+        $this->isArticleOrganizationTopNews = Article::find($this->newsId);
+        if ($this->isArticleOrganizationTopNews != null) {
+            Article::where('is_article_top_news_organization_page',true)->update([
+                'is_article_top_news_organization_page' => false,
             ]);
-            DB::table('articles')->where('articles_id','=',$this->isArticleTopNews->articles_id)->update(['is_article_featured_landing_page'=>"0"]);
-            $this->modalUnSetTopNewsFormVisible = false;
+            DB::table('articles')->where('articles_id','=',$this->isArticleOrganizationTopNews->articles_id)->update(['is_article_top_news_organization_page'=>"1"]);
+            $this->modalSetOrganizationTopNewsFormVisible = false;
             $this->reset();
             $this->resetValidation();
         }else{
@@ -297,8 +297,10 @@ class Articles extends Component
     }
     
     
-    /*=====  End of Unset Articles as Top News Section comment block  ======*/
+    /*=====  End of Set Articles as Top News in Organization Page Section comment block  ======*/
     
+
+
     /*=======================================================================
     =            Featured News to Newspage Section comment block            =
     =======================================================================*/

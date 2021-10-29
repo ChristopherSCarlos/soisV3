@@ -23,10 +23,13 @@ Route::group(['middleware' => [
             'auth:sanctum',
             'verified',
 ]], function(){
-        
         Route::get('/dashboard', function(){
             return view('admin.dashboards');
         })->name('dashboard');
+
+        Route::get('/default-interfaces', function(){
+            return view('admin.default-interfaces');
+        })->name('default-interfaces');
 
         Route::get('/pages', function(){
             return view('admin.pages');

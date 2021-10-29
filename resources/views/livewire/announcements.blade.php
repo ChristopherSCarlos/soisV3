@@ -63,11 +63,11 @@
                                         </tr>
                                     @endforeach
                                 @else
-                                        <tr>
-                                            <td class="px-6 py-4 text-sm whitespace-no-wrap" colspan="4">
-                                                No Results Found
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 text-sm whitespace-no-wrap" colspan="4">
+                                            No Results Found
+                                        </td>
+                                    </tr>
                                 @endif
                         </tbody>
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Livewire\Objects;
+
 // use Auth;
 
 class AuthRolePermsController extends Controller
@@ -12,22 +14,17 @@ class AuthRolePermsController extends Controller
     public $role;
     public $userId;
     public $userData;
+    public $userRole;
+    private $object;
 
     public function index()
     {
         if(Auth::check()){
-            // echo "Hello";
-            $this->userId = Auth::id();
-            $this->userData = User::find($this->userId);
-            // dd($this->userData);
-
-            $this->role = $this->userData->roles->first();
-            // dd($this->role->role_name);
-            if($this->role->role_name == 'Super Admin'){
-                echo 'Super';
+            $this->object = new Objects();
+            $this->userRole = $this->object->roles();
+            if($this->userRole == 'Super Admin'){
                 return redirect('/dashboard');
-            }elseif ($this->role->role_name == 'Organization Admin') {
-                echo "Organization";
+            }elseif ($this->userRole == 'Organization Admin') {
                 return redirect('/Organization/dashboard');
             }else{
                 echo "User";
@@ -38,6 +35,5 @@ class AuthRolePermsController extends Controller
         }else{
             echo 'world';
         }
-            dd("Hello");
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
+use App\Http\Livewire\Objects;
+
 use Auth;
 
 class AdminNavBars extends Component
@@ -13,21 +15,15 @@ class AdminNavBars extends Component
     public $userData;
     public $userRole;
 
+    private $object;
+
     public function getUserData()
     {
-
-            $this->userId = Auth::id();
-            $this->userData = User::find($this->userId);
-
-            $this->role = $this->userData->roles->first();
-            $this->userRole = $this->role->role_name;
-            return $this->userRole; 
-            // dd($this->userRole);
-        
-
-
+        $this->object = new Objects();
+        $this->userRole = $this->object->roles();
+        // dd($this->userRole);
+        return $this->userRole; 
     }
-
     public function render()
     {
         return view('livewire.admin-nav-bars',[

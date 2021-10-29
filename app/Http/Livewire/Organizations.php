@@ -204,9 +204,10 @@ class Organizations extends Component
 
         }else{
             $this->orgCount = false;
-            
-            dd("2");
-            return $this->orgCount;
+            return DB::table('organizations')
+           ->where('status', '=', '1')
+           ->get();            
+            // dd("2");
         }
         // dd($this->orgUserId);
         // $this->organizationUserData = Organization::find($this->orgUserId);        
@@ -252,6 +253,7 @@ class Organizations extends Component
         return view('livewire.organizations',[
             'organizationData' => $this->getOrganizationData(),
             'userAuthRole' => $this->getAuthUserRole(),
+            'posts' => $this->specificOrganization(),
             'userAffliatedOrganization' => $this->specificOrganization(),
         ]);
     }

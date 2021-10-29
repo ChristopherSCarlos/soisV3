@@ -27,6 +27,7 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @if($articleDataController == 'Super Admin')                                    
+                            <!-- this is super admin -->
                                 @if($articleDatas->count())
                                     @foreach($articleDatas as $item)
                                          <tr>
@@ -84,6 +85,7 @@
                                     @endforeach
                                 @endif
                             @else
+                            <!-- this is organization admin -->
                                 @if($articleOrganization->count())
                                     @foreach($articleOrganization as $item)
                                          <tr>
@@ -122,6 +124,11 @@
                                                 <x-jet-danger-button wire:click="unFeaturedNewsToOrganizationPageShowModal({{ $item->articles_id }})">
                                                     {{__('UnFeature')}}
                                                 </x-jet-danger-button>
+                                            </td>
+                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                <x-jet-button wire:click="setOrganizationTopNewsShowModal({{ $item->articles_id }})">
+                                                    {{__('Set as Top News')}}
+                                                </x-jet-button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -342,6 +349,32 @@
             </x-slot>
         </x-jet-dialog-modal>
 <!--====  End of Set News as Top News Section comment  ====-->
+
+<!--=======================================================================
+=            Set News as Top News Organization Section comment            =
+========================================================================-->
+        <x-jet-dialog-modal wire:model="modalSetOrganizationTopNewsFormVisible">
+            <x-slot name="title">
+                {{ __('News') }} {{$newsId}}
+            </x-slot>
+            <x-slot name="content">
+                <div class="mt-4">
+                    <x-jet-label for="article_title" value="{{ __('Continuing this process will enable this news to be displayed in the featured section of News page in the homepage. Do you want to continue wth this process?') }}" />
+                </div>
+
+            </x-slot>
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('modalSetOrganizationTopNewsFormVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+                <x-jet-secondary-button class="ml-2" wire:click="setOrganizationTopNews" wire:loading.attr="disabled">
+                    {{ __('Feature News in Newspage') }}
+                </x-jet-secondary-button>
+            </x-slot>
+        </x-jet-dialog-modal>
+
+
+<!--====  End of Set News as Top News Organization Section comment  ====-->
 
 
 
