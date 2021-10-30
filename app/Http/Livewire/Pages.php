@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use Livewire\withPagination;
 
 use Illuminate\Support\STR;
+use Illuminate\Support\Facades\DB;
 
 
 class Pages extends Component
@@ -17,12 +18,18 @@ class Pages extends Component
     public $modalFormVisible = false;
     public $updatemodalFormVisible = false;
     public $modelConfirmDeleteVisible = false;
+    public $modalSetHomepageFormVisible = false;
+
+
+
     public $modelId;
     public $slug;
     public $title;
     public $content;
     public $isSetToDefaultHomePage;
     public $isSetToDefaultNotFoundPage;
+
+    public $isSetHomepage;
 
     public function rules()
     {
@@ -116,7 +123,7 @@ class Pages extends Component
     public function update()
     {
         $this->validate(); 
-        $this->unassignedDefaultHomePage(); 
+        // $this->unassignedDefaultHomePage(); 
         $this->unassignedDefaultNotFoundPage(); 
         Page::find($this->modelId)->update($this->modelData());
         $this->updatemodalFormVisible = false;
@@ -145,6 +152,7 @@ class Pages extends Component
 
     public function unassignedDefaultHomePage()
     {
+        // dd($this->modelId);
         if ($this->isSetToDefaultHomePage != null) {
             Page::where('is_default_home',true)->update([
                 'is_default_home' => false,
@@ -167,8 +175,8 @@ class Pages extends Component
         $this->title = $data->title;
         $this->slug = $data->slug;
         $this->content = $data->content;
-        $this->isSetToDefaultHomePage = !$data->is_default_home ? null:true;
-        $this->isSetToDefaultHomePage = !$data->is_default_not_found ? null:true;
+        // $this->isSetToDefaultHomePage = !$data->is_default_home ? null:true;
+        // $this->isSetToDefaultHomePage = !$data->is_default_not_found ? null:true;
     }
 
 
@@ -189,6 +197,35 @@ class Pages extends Component
 
 
 
+    /*=============================================================
+    =            Set as Homepage Section comment block            =
+    =============================================================*/
+    public function setAsHomepage($id)
+    {
+        $this->modelId = $id;
+        $this->modalSetHomepageFormVisible =true;
+    }
+    public function setHomepage()
+    {
+        $this->isSetHomepage = Page::find($this->modelId);
+        if ($this->isSetHomepage != null) {
+            Page::where('is_default_home',true)->update([
+                'is_default_home' => false,
+            ]);
+            DB::table('pages')->where('pages_id','=',$this->isSetHomepage->pages_id)->update(['is_default_home'=>"1"]);
+            $this->modalSetHomepageFormVisible = false;
+            $this->reset();
+            $this->resetValidation();
+        }else{
+            dd("HEllo");
+        }
+        // dd($this->isSetHomepage);
+        $this->reset();
+        $this->resetValidation();
+    }    
+    
+    /*=====  End of Set as Homepage Section comment block  ======*/
+    
 
 
     // liveware data rendering

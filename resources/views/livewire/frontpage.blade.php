@@ -135,7 +135,7 @@
                     <img class="frontpage-title-image opacity-70 hover:opacity-100 transition duration-500 ease-in-out" src="{{ asset('image/svg/pup.svg') }}">
                </div>
                <div class="frontpage-title-title-container">
-                    <p class="frontpage-title-title">{{ $title }}</p>
+                    <p class="frontpage-title-title">{{ $getDataOfDefaultHomepage->title }}</p>
                </div>
           </div>
           <!--====  End of Homepage Landing Page Title Section comment  ====-->
@@ -144,11 +144,16 @@
           <!--===================================================================
           =            Homepage Landing Page Content Section comment            =
           ====================================================================-->
-          @if($content)
-          <div class="" style="background: lemonchiffon; height: 100vh;"></div>
+          @if($getDataOfDefaultHomepage->content)
+          <div class="" style="background: lemonchiffon; height: 100vh;">
+               <?php echo htmlspecialchars_decode(stripslashes($getDataOfDefaultHomepage->content));  ?>
+          </div>
           @else
           <div class="" style="background: red; height: 100vh;"></div>
           @endif
+          
+          <!--====  End of Homepage Landing Page Content Section comment  ====-->
+          
           
           <!--====  End of Homepage Landing Page Content Section comment  ====-->
           

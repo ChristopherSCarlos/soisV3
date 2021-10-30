@@ -67,6 +67,10 @@ Route::group(['middleware' => [
             return view('admin.officers');
         })->name('officers');
 
+        Route::get('/system-pages/process', function(){
+            return view('admin.system-pages-process');
+        })->name('system-pages/process');
+
 });
 
 Route::group(['middleware' => [

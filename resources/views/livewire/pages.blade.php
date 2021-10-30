@@ -30,6 +30,7 @@
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Link</th>
                                 <!-- <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Content</th> -->
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Set As Homepage</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -54,10 +55,14 @@
                                             <x-jet-button wire:click="updateShowModal({{ $item->pages_id }})">
                                                 {{__('Update')}}
                                             </x-jet-button>
-
                                             <x-jet-danger-button wire:click="deleteShowModal({{ $item->pages_id }})">
                                                 {{__('Delete')}}
                                             </x-jet-danger-button>
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-right">
+                                            <x-jet-button wire:click="setAsHomepage({{ $item->pages_id }})">
+                                                {{__('Set as Homepage')}}
+                                            </x-jet-button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -180,18 +185,6 @@
                         <span class="error">{{ $message }}</span>
                     @enderror
 
-                 <div class="mt-4">
-                    <label>
-                        <input class="form-checkbox" type="checkbox" value="{{ $isSetToDefaultHomePage }}" wire:model="isSetToDefaultHomePage"/>
-                        <span class="ml-2 text-sm text-gray-600">Set as the default home page</span>
-                    </label>
-                </div>
-                <div class="mt-4">
-                    <label>
-                        <input class="form-checkbox" type="checkbox" value="{{ $isSetToDefaultNotFoundPage }}" wire:model="isSetToDefaultNotFoundPage"/>
-                        <span class="ml-2 text-sm text-red-600">Set as the default 404 error page</span>
-                    </label>
-                </div>
 
                 <div class="mt-4">
                     <x-jet-label for="content" value="{{ __('Content') }}" />
@@ -247,7 +240,25 @@
         </x-jet-dialog-modal>
 
 
+        <x-jet-dialog-modal wire:model="modalSetHomepageFormVisible">
+            <x-slot name="title">
+                {{ __('Delete Page') }}
+            </x-slot>
 
+            <x-slot name="content">
+                {{ __('Are you sure you want to set this page as homepage? ') }}
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('modalSetHomepageFormVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+
+                <x-jet-button class="ml-2" wire:click="setHomepage" wire:loading.attr="disabled">
+                    {{ __('Set as Homepage') }}
+                </x-jet-button>
+            </x-slot>
+        </x-jet-dialog-modal>
 
 
 

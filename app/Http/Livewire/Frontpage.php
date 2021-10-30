@@ -65,7 +65,9 @@ class Frontpage extends Component
                 $this->isDefaultHomeID = $this->data->pages_id;
                 // echo $this->isDefaultHomeID;
                 $this->getDataOfDefaultHomepage = Page::find($this->isDefaultHomeID);
+                // dd($this->getDataOfDefaultHomepage);
                 // $this->getDataOfDefaultHomepage;
+                return $this->getDataOfDefaultHomepage;
             }
             // else{
             //     $this->dateIDExpired = $this->data->announcements_id;
