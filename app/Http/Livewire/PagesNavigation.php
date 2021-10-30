@@ -79,6 +79,15 @@ class PagesNavigation extends Component
             // $this->modalFormVisible = false;
             // $this->reset();
             // $this->resetValidation();
+
+            $this->pageData = Page::find($this->label);
+            $this->navLabel = $this->pageData->title;
+            $this->slug = $this->pageData->slug;
+            // $this->validate();
+            NavigationMenu::create($this->modelData());
+            $this->modalFormVisible = false;
+            $this->reset();
+            $this->resetValidation();
         }else{
             $this->inputLabelError = 1;
         }
