@@ -19,6 +19,7 @@ class Pages extends Component
     public $updatemodalFormVisible = false;
     public $modelConfirmDeleteVisible = false;
     public $modalSetHomepageFormVisible = false;
+    public $modalSetErrorPageFormVisible = false;
 
 
 
@@ -28,8 +29,14 @@ class Pages extends Component
     public $content;
     public $isSetToDefaultHomePage;
     public $isSetToDefaultNotFoundPage;
+    public $status;
 
     public $isSetHomepage;
+    public $isSetErrorPage;
+
+    private $selectedPageDate;
+    public $selectedPageID;
+
 
     public function rules()
     {
@@ -90,9 +97,11 @@ class Pages extends Component
            $image->setAttribute('src', $image_name);
         }
         $content = $dom->saveHTML();
+        $this->status = '1';
         Page::create($this->modelData());
         $this->modalFormVisible = false;
         $this->reset(); 
+        $this->resetValidation(); 
     }
 
     public function modelData()
@@ -103,22 +112,18 @@ class Pages extends Component
             'content' => $this->content,
             'is_default_home' => $this->isSetToDefaultHomePage,
             'is_default_not_found' => $this->isSetToDefaultNotFoundPage,
+            'status' => $this->status,
         ];
     }
 
 
     public function createShowModel()
     {
-        $this->resetValidation();
-        $this->reset();
-        $this->modalFormVisible = true;
+        return redirect('/system-pages/create-system-page');
     }
 
 
-    public function read()
-    {
-        return PAge::paginate(5);
-    }
+    
 
     public function update()
     {
@@ -133,11 +138,28 @@ class Pages extends Component
     public function updateShowModal($id)
     {
         // dd($this->content);
-        $this->resetValidation();
-        $this->reset();
         $this->modelId = $id;
-        $this->loadModel();
-        $this->updatemodalFormVisible = true;
+        $this->selectedPageID = $this->modelId;
+        // dd($this->selectedPageID);
+        $this->selectedPageDate = DB::table('pages')->where('pages_id','=',$this->selectedPageID)->first();
+        // dd($this->selectedPageDate->title);
+        // return redirect('/system-pages/update-system-page');
+        return redirect()->route('system-pages/update-system-page', ['pages_id' => $this->modelId]);
+        // return redirect()->route('/system-pages/update-system-page')->with('pages_id',$this->modelId);
+        // return view('livewire.pages-update-process',compact('selectedPageDate'));
+        // return view('livewire.pages-update-process');
+        
+    }
+    public function getSelectedorganization()
+    {
+        $this->selectedPageID = $this->modelId;
+        dd($this->selectedPageID);
+        $this->selectedPageDate = DB::table('pages')->where('pages_id','=',$this->selectedPageID)->first();
+        // dd($this->selectedPageDate);
+        // $this->selectedPageDate = Page::find($this->selectedPageID)->first();
+        // dd($this->selectedPageDate);
+        // dd('Hello');
+        return $this->selectedPageDate;
     }
 
     public function updatedisSetToDefaultHomePage()
@@ -182,18 +204,24 @@ class Pages extends Component
 
     public function deleteShowModal($id)
     {
+        $this->resetValidation();
+        $this->reset();
         $this->modelId = $id;
-        $this->modelConfirmDeleteVisible = true;
         $this->delete();
+        $this->modelConfirmDeleteVisible = true;
     }
 
     public function delete()
     {
-        Page::destroy($this->modelId);
+        $this->status = '0';
+        DB::table('pages')->where('pages_id','=',$this->modelId)->update(['status'=>"0"]);
         $this->modelConfirmDeleteVisible = false;
-        $this->resetPage();
+        // $this->resetPage();
+
         $this->reset();
+        $this->resetValidation();
     }
+
 
 
 
@@ -223,10 +251,42 @@ class Pages extends Component
         $this->reset();
         $this->resetValidation();
     }    
-    
     /*=====  End of Set as Homepage Section comment block  ======*/
     
-
+    /*==============================================================
+    =            Set as Error PageSection comment block            =
+    ==============================================================*/
+    public function setAsErrorPage($id)
+    {
+        $this->modelId = $id;
+        $this->modalSetErrorPageFormVisible = true;
+    }
+    public function setErrorPage()
+    {
+        $this->isSetErrorPage = Page::find($this->modelId);
+        if ($this->isSetErrorPage != null) {
+            Page::where('is_default_not_found',true)->update([
+                'is_default_not_found' => false,
+            ]);
+            DB::table('pages')->where('pages_id','=',$this->isSetErrorPage->pages_id)->update(['is_default_not_found'=>"1"]);
+            $this->modalSetHomepageFormVisible = false;
+            $this->reset();
+            $this->resetValidation();
+        }else{
+            dd("HEllo");
+        }
+        // dd($this->isSetHomepage);
+        $this->reset();
+        $this->resetValidation();
+    }
+    
+    
+    /*=====  End of Set as Error PageSection comment block  ======*/
+    
+    public function read()
+    {
+        return Page::where('status','!=','0')->paginate(5);
+    }
 
     // liveware data rendering
     public function render()

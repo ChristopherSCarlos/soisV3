@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Frontpage;
 use App\Http\Contollers\AuthRolePermsController;
+use App\Http\Livewire\PagesUpdateProcess;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -67,9 +68,16 @@ Route::group(['middleware' => [
             return view('admin.officers');
         })->name('officers');
 
-        Route::get('/system-pages/process', function(){
-            return view('admin.system-pages-process');
-        })->name('system-pages/process');
+        Route::get('/system-pages/create-system-page', function(){
+            return view('admin.pages-create-process');
+        })->name('system-pages/create-system-page');
+
+        Route::get('/system-pages/update-system-page', function(){
+            return view('admin.pages-update-process');
+        })->name('system-pages/update-system-page');
+        
+        // Route::get('/system-pages/update-system-page/{$pages_id}', [App\Http\Livewire\PagesUpdateProcess::class, 'render'])->name('system-pages/update-system-page');
+
 
 });
 
