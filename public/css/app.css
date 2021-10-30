@@ -2191,6 +2191,17 @@ hr{
   /* Needed to position the navbar */
   position: relative;
 }
+.frontpage-nav-bar-design{
+  font-family: 'Exo 2',sans-serif;
+  /*color: white;*/
+  /*text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000; */
+  text-shadow: 1px 1px 1px black;
+}
+
 .frontpage-title-container{
   display: flex;
   flex-direction: row;
