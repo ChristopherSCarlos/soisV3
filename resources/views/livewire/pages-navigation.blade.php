@@ -70,7 +70,7 @@
             <div class="mt-4">
                 <x-jet-label for="label" value="{{ __('Label') }}" />
                 <select wire:model="label" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                        <option value="">Hello</option>
+                        <option default hidden>Choose label</option>
                     @foreach($getSystemPage as $dataPages)
                         <option value="{{$dataPages->pages_id}}">{{$dataPages->title}}</option>
                     @endforeach
@@ -78,41 +78,101 @@
                 @if($inputLabelError == 1)
                     <p>Label needs some input from you</p>
                 @endif
-
             </div>
             <div class="mt-4">
                 <x-jet-label for="sequence" value="{{ __('Sequence') }}" />
                 <x-jet-input wire:model="sequence" id="sequence" class="block mt-1 w-full" type="text" />
-                @error('sequence') <span class="error">{{ $message }}</span> @enderror
+                @if($inputTypeError == 1)
+                    <p>Type needs some input from you</p>
+                @endif
             </div>
             <div class="mt-4">
                 <x-jet-label for="sequence" value="{{ __('Type') }}" />
                 <select wire:model="type" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option value="0">Click where the navigaiton goes</option>
+                    <option default hidden>Click where the navigaiton goes</option>
                     <option value="1">TopNav</option>
                 </select>
             </div>
-                @if($inputTypeError == 1)
-                    <p>Type needs some input from you</p>
-                @endif
         </x-slot>
 
             <x-slot name="footer">
                 <x-jet-secondary-button wire:click="$toggle('modalFormVisible')" wire:loading.attr="disabled">
                     {{ __('Cancel') }}
                 </x-jet-secondary-button>
-                @if($modelId)
-                    <x-jet-secondary-button class="ml-2" wire:click="update" wire:loading.attr="disabled">
-                        {{ __('Update Page') }}
-                    </x-jet-secondary-button>              
-                @else
                     <x-jet-secondary-button class="ml-2" wire:click="create" wire:loading.attr="disabled">
                         {{ __('Create Page') }}
                     </x-jet-secondary-button>
-                @endif
             </x-slot>
         </x-jet-dialog-modal>
 
+<x-jet-dialog-modal wire:model="updatemodalFormVisible">
+            <x-slot name="title">
+                {{ __('Navigation Menu Item') }}
+            </x-slot>
+
+            <x-slot name="content">
+            <div class="mt-4">
+                <x-jet-label for="label" value="{{ __('Label') }}" />
+                <select wire:model="label" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="label" required>
+                        <!-- <option hidden default value="">Choose a Label</option> -->
+                    @foreach($getSystemPage as $dataPages)
+                        <option value="{{$dataPages->pages_id}}">{{$dataPages->title}}</option>
+                    @endforeach
+                </select>
+                @error('label') <span class="error">{{ $message }}</span> @enderror
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="sequence" value="{{ __('Sequence') }}" />
+                <x-jet-input wire:model="sequence" id="sequence" class="block mt-1 w-full" type="text" placeholder="sequence" />
+                @error('sequence') <span class="error">{{ $message }}</span> @enderror
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="sequence" value="{{ __('Type') }}" />
+                <select wire:model="type" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="type" required>
+                    <option value="1">TopNav</option>
+                </select>
+            </div>
+        </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('updatemodalFormVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+
+                    <x-jet-secondary-button class="ml-2" wire:click="update" wire:loading.attr="disabled">
+                        {{ __('Update Page') }}
+                    </x-jet-secondary-button>  
+
+            </x-slot>
+        </x-jet-dialog-modal>
+
+<x-jet-dialog-modal wire:model="modelConfirmDeleteVisible">
+            <x-slot name="title">
+                {{ __('Delete Page') }}
+            </x-slot>
+
+            <x-slot name="content">
+                {{ __('Are you sure you want to delete this? Once this is deleted, all of its resources and data will be permanently deleted.') }}
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('modelConfirmDeleteVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+
+
+
+
+
+
+
+
+
+                <x-jet-danger-button class="ml-2" wire:click="delete" wire:loading.attr="disabled">
+                    {{ __('Delete Account') }}
+                </x-jet-danger-button>
+            </x-slot>
+        </x-jet-dialog-modal>
 
 
 
