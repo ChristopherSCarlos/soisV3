@@ -60,10 +60,6 @@ Route::group(['middleware' => [
             return view('admin.announcements');
         })->name('announcements');
 
-        Route::get('/officers', function(){
-            return view('admin.officers');
-        })->name('officers');
-
 });
 
 Route::group(['middleware' => [
@@ -91,10 +87,6 @@ Route::group(['middleware' => [
         Route::get('/Organization/announcements', function(){
             return view('orgAdmin.announcements');
         })->name('Organization/announcements');
-
-        Route::get('/Organization/officers', function(){
-            return view('orgAdmin.officers');
-        })->name('Organization/officers');
 
 });
 

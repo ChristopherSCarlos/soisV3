@@ -30,8 +30,6 @@ class Articles extends Component
     public $modalDeleteFeatureNewsFormVisible = false;
     public $modalSetTopNewsFormVisible = false;
     public $modalUnSetTopNewsFormVisible = false;
-    public $modalFeatureNewsInOrganizationPageFormVisible = false;
-    public $modalUnFeatureNewsInOrganizationPageFormVisible = false;
     
     /* VARIABLES */
     public $userId;
@@ -306,80 +304,7 @@ class Articles extends Component
     
     /*=====  End of Unset Articles as Top News Section comment block  ======*/
     
-    /*=======================================================================
-    =            Featured News to Newspage Section comment block            =
-    =======================================================================*/
-    public function featuredNewsToOrganizationPageShowModal($id)
-    {
-        $this->newsId = $id;
-        $this->articleData = Article::where('articles_id','=',$this->newsId)->first();
-        // dd($this->articleData->article_title);
-        $this->modalFeatureNewsInOrganizationPageFormVisible = true;
-        // dd($this->articleData);
-    }
-    public function featureInOrganizationPage()
-    {
-        DB::table('articles')->where('articles_id','=',$this->newsId)->update(['is_article_featured_organization_page'=>"1"]);
-        $this->modalFeatureNewsInOrganizationPageFormVisible = false;
-        $this->reset();
-        $this->resetValidation();
-    }
-    /*=====  End of Featured News to Newspage Section comment block  ======*/
-    
-    /*=================================================================================
-    =            UnFeature News to Organization Page Section comment block            =
-    =================================================================================*/
-    public function unFeaturedNewsToOrganizationPageShowModal($id)
-    {
-        $this->newsId = $id;
-        $this->articleData = Article::where('articles_id','=',$this->newsId)->first();
-        // dd($this->articleData);
-        $this->modalUnFeatureNewsInOrganizationPageFormVisible = true;
-    }
-    public function unFeatureInOrganizationPage()
-    {
-        DB::table('articles')->where('articles_id','=',$this->newsId)->update(['is_article_featured_organization_page'=>"0"]);
-        $this->modalUnFeatureNewsInOrganizationPageFormVisible = false;
-        $this->reset();
-        $this->resetValidation();
-    }
-    
-    /*=====  End of UnFeature News to Organization Page Section comment block  ======*/
-    
 
-
-    /**
-     *
-     * Get User Role for Article
-     *
-     */
-    public function getArticleOrganization()
-    {
-        $this->userId = Auth::id();
-
-        // dd(DB::table('articles')->where('user_id', '=', $this->userId)->get());
-        return DB::table('articles')
-           ->where('user_id', '=', $this->userId)
-           ->paginate(3);
-    }
-
-    /**
-     *
-     * Get User Role
-     *
-     */
-    public function getUserRole()
-    {
-        $this->userId = Auth::id();
-        // dd($this->userId);
-        // dd($this->articleCreatedDataId);
-        $this->userData = User::find($this->userId);
-        $this->userRoles = $this->userData->roles->first();
-        $this->userRolesString = $this->userRoles->role_name;
-        // dd($this->userRolesString);
-        // dd(gettype($this->userRolesString));
-        return $this->userRolesString;
-    }
 
     /**
      *
@@ -423,8 +348,6 @@ class Articles extends Component
     {
         return view('livewire.articles',[
             'articleDatas' => $this->getArticleTableData(),
-            'articleDataController' => $this->getUserRole(),
-            'articleOrganization' => $this->getArticleOrganization(),
         ]);
     }
 }

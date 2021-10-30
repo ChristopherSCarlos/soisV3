@@ -22,7 +22,5 @@ class Article extends Model
         'article_slug',
         'is_featured_in_newspage',
         'is_article_featured_landing_page',
-        'is_article_featured_organization_page',
     ];
-    
 }

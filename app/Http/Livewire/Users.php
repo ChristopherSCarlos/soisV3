@@ -256,7 +256,7 @@ class Users extends Component
     public function addOrganizationToUser()
     {
         $user = User::find($this->userId);
-        $user->organizations()->sync($this->organizationModel);
+        $user->organization()->sync($this->organizationModel);
         $this->modalAddOrganizationFormVisible = false;
         $this->reset();
         $this->resetAddRoleUserValidation();
@@ -265,6 +265,8 @@ class Users extends Component
     
     /*=====  End of Add Organization to UserSection comment block  ======*/
     
+
+
 
 
 
@@ -319,7 +321,7 @@ class Users extends Component
         return view('livewire.users',[
             'displayData' => $this->read(),
             'rolesList' => $this->listOfRoles(),
-            'displayOrganizationData' => $this->displayOrganization(),
+
         ]);
     }
 }
