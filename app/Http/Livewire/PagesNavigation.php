@@ -29,6 +29,9 @@ class PagesNavigation extends Component
 
     public $pageData;
 
+    public $inputLabelError = 0;
+    public $inputTypeError = 0;
+
     /*===================================================================
     =            Create Navigation MenuSection comment block            =
     ===================================================================*/
@@ -39,19 +42,27 @@ class PagesNavigation extends Component
         $this->modalFormVisible = true;
     }
 
-
     public function create()
     {
         // dd($this->label);
-        $this->pageData = Page::find($this->label);
-        $this->navLabel = $this->pageData->title;
-        // dd($this->navLabel);
-        $this->slug = $this->pageData->slug;
-        $this->validate();
-        NavigationMenu::create($this->modelData());
-        $this->modalFormVisible = false;
-        $this->reset();
-        $this->resetValidation();
+        // $this->pageData = Page::find($this->label);
+        // $this->navLabel = $this->pageData->title;
+        // dd($this->type);
+        if($this->navLabel || $this->type != null){
+            // if($this->type != null){
+            //     dd("Hello");
+            // }else{
+            //     $this->inputTypeError = 1;
+            // }
+            // $this->slug = $this->pageData->slug;
+            // $this->validate();
+            // NavigationMenu::create($this->modelData());
+            // $this->modalFormVisible = false;
+            // $this->reset();
+            // $this->resetValidation();
+        }else{
+            $this->inputLabelError = 1;
+        }
     }
 
     public function modelData()

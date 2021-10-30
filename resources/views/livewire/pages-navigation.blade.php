@@ -75,7 +75,10 @@
                         <option value="{{$dataPages->pages_id}}">{{$dataPages->title}}</option>
                     @endforeach
                 </select>
-                @error('label') <span class="error">{{ $message }}</span> @enderror
+                @if($inputLabelError == 1)
+                    <p>Label needs some input from you</p>
+                @endif
+
             </div>
             <div class="mt-4">
                 <x-jet-label for="sequence" value="{{ __('Sequence') }}" />
@@ -89,6 +92,9 @@
                     <option value="1">TopNav</option>
                 </select>
             </div>
+                @if($inputTypeError == 1)
+                    <p>Type needs some input from you</p>
+                @endif
         </x-slot>
 
             <x-slot name="footer">
