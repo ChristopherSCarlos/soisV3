@@ -34,6 +34,7 @@ class Organizations extends Component
     public $updatemodalFormVisible = false;
     public $updateImagemodalFormVisible = false;
     public $modelConfirmDeleteVisible = false;
+    public $viewmodalFormVisible = false;
     
     /* Variables */
     
@@ -48,6 +49,7 @@ class Organizations extends Component
     public $organization_carousel_image_2;
     public $organization_carousel_image_3;
     public $organization_slug;
+    public $organization_type;
     
     public $isSetToDefaultHomePage;
     public $isSetToDefaultNotFoundPage;
@@ -85,9 +87,82 @@ class Organizations extends Component
             'organization_primary_color' => 'required',
             'organization_secondary_color' => 'required',
             'organization_slug' => 'required',
+            'organization_type' => 'required',
             'status' => 'required',
         ];
     }
+
+    /*=================================================
+    =            View Organization Section            =
+    =================================================*/
+    
+    public function viewShowModal($id)
+    {
+        $this->resetValidation();
+        $this->reset();
+        $this->viewmodalFormVisible = true;
+        $this->modelId = $id;
+        $this->loadModel();
+    }
+    
+    /*=====  End of View Organization Section  ======*/
+    
+
+    /*============================================
+    =            Image Upload Section            =
+    ============================================*/
+    
+    public function fileUploadPost(Request $request)
+    {
+        $request->validate([
+            'organization_name' => 'required',
+            'organization_details' => 'required',
+            'organization_primary_color' => 'required',
+            'organization_secondary_color' => 'required',
+            'organization_slug' => 'required',
+            'organization_logo' => 'required|file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
+        ]);
+    
+        $data = [
+            'organization_name' => 'required',
+            'organization_details' => 'required',
+            'organization_primary_color' => 'required',
+            'organization_secondary_color' => 'required',
+            'organization_slug' => 'required',
+            'organization_logo' => 'required|file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip', 
+        ];
+
+        $fileName = time().'.'.$request->organization_logo->extension();  
+     
+        $organization_name = $request->organization_name;
+        $organization_details = $request->organization_details;
+        $organization_primary_color = $request->organization_primary_color;
+        $organization_secondary_color = $request->organization_secondary_color;
+        $organization_slug = $request->organization_slug;
+        $organization_logo = $request->organization_logo;
+
+
+
+        $request->organization_logo->move(public_path('files'), $fileName);
+
+  
+        /* Store $fileName name in DATABASE from HERE */
+        // Organization::create($request->all());
+        Organization::create([
+            'organization_logo' => $fileName,
+            'organization_details' => $organization_details,
+            'organization_name' => $organization_name,
+            'organization_primary_color' => $organization_primary_color,
+            'organization_secondary_color' => $organization_secondary_color,
+            'organization_slug' => $organization_slug,
+        ]);
+
+        $this->cleanVars();
+        return redirect()->route('organization-menus')->with('success','User has been created');
+    }
+    
+    /*=====  End of Image Upload Section  ======*/
+    
 
     /*=================================================================
     =            Create Organization Section comment block            =
@@ -101,12 +176,66 @@ class Organizations extends Component
 
     public function create()
     {
-        echo "Hello";
-        $this->resetValidation();
-        $this->validate(); 
-        Organization::create($this->modelData());
+        // echo "Hello";
+        // dd($this);
+        // $this->resetValidation();
+        // $this->validate(); 
+        // Organization::create($this->modelData());
+        // $this->modalFormVisible = false;
+        // $this->reset(); 
+
+        $this->validate([
+            'organization_name' => 'required',
+            'organization_details' => 'required',
+            'organization_primary_color' => 'required',
+            'organization_secondary_color' => 'required',
+            'organization_slug' => 'required',
+            'organization_type' => 'required',
+            'organization_logo' => 'file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
+        ]);
+    
+        $data = [
+            'organization_name' => 'required',
+            'organization_details' => 'required',
+            'organization_primary_color' => 'required',
+            'organization_secondary_color' => 'required',
+            'organization_slug' => 'required',
+            'organization_type' => 'required',
+            'organization_logo' => 'file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip', 
+        ];
+
+        $fileName = time().'.'.$this->organization_logo->extension();  
+     
+        $organization_name = $this->organization_name;
+        $organization_details = $this->organization_details;
+        $organization_primary_color = $this->organization_primary_color;
+        $organization_secondary_color = $this->organization_secondary_color;
+        $organization_slug = $this->organization_slug;
+        $organization_type = $this->organization_type;
+        $organization_logo = $this->organization_logo;
+
+       
+        // $this->organization_logo->store('files', 'imgfolder',$fileName);
+
+        $this->organization_logo->storeAs('files',$fileName, 'imgfolder');
+        
+
+
+  
+        /* Store $fileName name in DATABASE from HERE */
+        // Organization::create($request->all());
+        Organization::create([
+            'organization_logo' => $fileName,
+            'organization_details' => $organization_details,
+            'organization_name' => $organization_name,
+            'organization_primary_color' => $organization_primary_color,
+            'organization_secondary_color' => $organization_secondary_color,
+            'organization_slug' => $organization_slug,
+            'organization_type' => $organization_type,
+            ]);
+
         $this->modalFormVisible = false;
-        $this->reset(); 
+        $this->reset();
     }
 
     public function modelData()
@@ -117,6 +246,7 @@ class Organizations extends Component
             'organization_primary_color' => $this->organization_primary_color,
             'organization_secondary_color' => $this->organization_secondary_color,
             'organization_slug' => $this->organization_slug,
+            'organization_type' => $this->organization_type,
             'status' => $this->status,
         ];
     }
@@ -145,6 +275,7 @@ class Organizations extends Component
         $this->organization_primary_color = $data->organization_primary_color;
         $this->organization_secondary_color = $data->organization_secondary_color;
         $this->organization_slug = $data->organization_slug;
+        $this->organization_type = $data->organization_type;
     }
 
     public function update()
@@ -155,6 +286,7 @@ class Organizations extends Component
             'organization_primary_color' => 'required',
             'organization_secondary_color' => 'required',
             'organization_slug' => 'required',
+            'organization_type' => 'required',
         ]);
         Organization::find($this->modelId)->update($this->modelData());
         $this->updatemodalFormVisible = false;
@@ -162,6 +294,56 @@ class Organizations extends Component
     
     
     /*=====  End of Update Organization Section comment block  ======*/
+
+    /*============================================
+    =            Update Image Section            =
+    ============================================*/
+    
+    public function ImagemodelData()
+    {
+        $fileName = time().'.'.$this->organization_logo->extension();
+        return [
+            'organization_name' => $this->organization_name,
+            'organization_logo' => $this->organization_logo->storeAs('files',$fileName, 'imgfolder'),
+            'organization_logo' => $fileName,
+            // 'organization_logo' => $this->organization_logo,
+            'organization_details' => $this->organization_details,
+            'organization_primary_color' => $this->organization_primary_color,
+            'organization_secondary_color' => $this->organization_secondary_color,
+            'organization_slug' => $this->organization_slug,
+        ];
+    }
+
+    public function updateImageShowModal($id)
+    {
+        $this->resetValidation();
+        $this->reset();
+        $this->updateImagemodalFormVisible = true;
+        $this->modelId = $id;
+        $this->loadImageModel();
+    }
+
+    public function loadImageModel()
+    {
+        $data = Organization::find($this->modelId);
+        $this->organization_name = $data->organization_name;
+        $this->organization_details = $data->organization_details;
+        $this->organization_primary_color = $data->organization_primary_color;
+        $this->organization_secondary_color = $data->organization_secondary_color;
+        $this->organization_slug = $data->organization_slug;
+        $this->organization_logo = $data->organization_logo;
+    }
+
+    public function Imageupdate()
+    {
+        // dd($this->ImagemodelData());
+        $this->validate(['organization_logo' => 'required|file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',]);
+        Organization::find($this->modelId)->update($this->ImagemodelData());
+        $this->updateImagemodalFormVisible = false;
+    }
+    
+    /*=====  End of Update Image Section  ======*/
+    
     
     /*=================================================================
     =            Delete Organization Section comment block            =
