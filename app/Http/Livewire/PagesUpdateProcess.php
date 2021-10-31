@@ -46,37 +46,14 @@ class PagesUpdateProcess extends Component
         $this->pagesDataIDInt = (int)$this->pagesDataID;
         // substr("multibyte string…", -1);
         // dd($this->pagesDataIDInt);
-        $this->getPageData = Page::where('pages_id','=',$this->pagesDataIDInt)->first();
-
-        $this->title = $this->getPageData->title;
-        $this->slug = $this->getPageData->slug;
-        $this->content = $this->getPageData->content;
-    }
-
-
-    public function update()
-    {
-        $this->validate(); 
-        Page::find($this->pagesDataIDInt)->update($this->modelData());
-        $this->reset();
-    }
-
-    public function modelData()
-    {
-        return [
-            'title' => $this->title,
-            'slug' => $this->slug,
-            'content' => $this->content,
-            'is_default_home' => $this->isSetToDefaultHomePage,
-            'is_default_not_found' => $this->isSetToDefaultNotFoundPage,
-            'status' => $this->status,
-        ];
+        $this->title;
     }
 
     public function read()
     {
+        // dd("hello");
         $this->getPageData = Page::where('pages_id','=',$this->pagesDataIDInt)->first();
-
+        // dd($this->getPageData);
         $this->title = $this->getPageData->title;
         $this->slug = $this->getPageData->slug;
         $this->content = $this->getPageData->content;

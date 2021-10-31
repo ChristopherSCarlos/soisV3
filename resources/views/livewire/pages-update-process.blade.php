@@ -46,7 +46,7 @@
 
 
                 <x-jet-secondary-button class="ml-2" wire:click="update" wire:loading.attr="disabled">
-                        {{ __('Update Page') }}
-                    </x-jet-secondary-button>   
+                    {{ __('Update Page') }}
+                </x-jet-secondary-button>   
 
 </div>

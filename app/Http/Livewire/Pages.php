@@ -37,6 +37,8 @@ class Pages extends Component
     private $selectedPageDate;
     public $selectedPageID;
 
+    public $data;
+
 
     public function rules()
     {
@@ -127,24 +129,31 @@ class Pages extends Component
 
     public function update()
     {
-        $this->validate(); 
+        // $this->validate(); 
         // $this->unassignedDefaultHomePage(); 
-        $this->unassignedDefaultNotFoundPage(); 
+        // $this->unassignedDefaultNotFoundPage(); 
         Page::find($this->modelId)->update($this->modelData());
+        $this->status = 1;
+        // DB::table('pages')->where('pages_id','=',$this->modelId)->update($this->modelData());
         $this->updatemodalFormVisible = false;
         $this->reset();
     }
 
     public function updateShowModal($id)
     {
-        // dd($this->content);
+        $this->resetValidation();
+        $this->reset();
         $this->modelId = $id;
-        $this->selectedPageID = $this->modelId;
-        // dd($this->selectedPageID);
-        $this->selectedPageDate = DB::table('pages')->where('pages_id','=',$this->selectedPageID)->first();
+        $this->loadModel();
+        $this->updatemodalFormVisible = true;
+        // dd($this->content);
+        // $this->modelId = $id;
+        // $this->selectedPageID = $this->modelId;
+        // // dd($this->selectedPageID);
+        // $this->selectedPageDate = DB::table('pages')->where('pages_id','=',$this->selectedPageID)->first();
         // dd($this->selectedPageDate->title);
         // return redirect('/system-pages/update-system-page');
-        return redirect()->route('system-pages/update-system-page', ['pages_id' => $this->modelId]);
+        // return redirect()->route('system-pages/update-system-page', ['pages_id' => $this->modelId]);
         // return redirect()->route('/system-pages/update-system-page')->with('pages_id',$this->modelId);
         // return view('livewire.pages-update-process',compact('selectedPageDate'));
         // return view('livewire.pages-update-process');
@@ -193,10 +202,11 @@ class Pages extends Component
 
     public function loadModel()
     {
-        $data = Page::find($this->modelId);
-        $this->title = $data->title;
-        $this->slug = $data->slug;
-        $this->content = $data->content;
+        $this->data = Page::find($this->modelId);
+        // dd($this->data->content);
+        $this->title = $this->data->title;
+        $this->slug = $this->data->slug;
+        $this->content = $this->data->content;
         // $this->isSetToDefaultHomePage = !$data->is_default_home ? null:true;
         // $this->isSetToDefaultHomePage = !$data->is_default_not_found ? null:true;
     }
@@ -285,7 +295,11 @@ class Pages extends Component
     
     public function read()
     {
-        return Page::where('status','!=','0')->paginate(5);
+        return Page::paginate(5);
+    }
+    public function ggetDBData()
+    {
+        return DB::table('pages')->paginate(5);
     }
 
     // liveware data rendering
@@ -293,6 +307,7 @@ class Pages extends Component
     {
         return view('livewire.pages',[
             'data' => $this->read(),
+            'getData' => $this->ggetDBData(),
         ]);
     }
 }

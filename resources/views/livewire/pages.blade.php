@@ -34,8 +34,8 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @if($data->count())
-                                @foreach($data as $item)
+                            @if($getData->count())
+                                @foreach($getData as $item)
                                     <tr>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                             {{ $item->title }}
@@ -47,10 +47,10 @@
                                                 {{ $item->slug }}
                                             </a>
                                         </td>
-                                       <!--  <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                             {!! \Illuminate\Support\Str::limit($item->content, 50, '...') !!}
                                             {!! $item->content !!}
-                                        </td> -->
+                                        </td>
                                         <td class="px-6 py-4 text-sm text-right">
                                                 <x-jet-button wire:click="updateShowModal({{ $item->pages_id }})">
                                                     {{__('Update')}}
@@ -75,7 +75,7 @@
                                             No Results Found
                                         </td>
                                     </tr>
-                            @endif        
+                            @endif                                 
                         </tbody>
                     </table>
                 </div>
@@ -83,8 +83,7 @@
         </div>
     </div>
 
-    {{ $data->links() }}
-
+    {{$getData->links()}}
 
 
 <!-- MODALS -->
