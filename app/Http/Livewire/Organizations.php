@@ -73,6 +73,8 @@ class Organizations extends Component
     public $authUserRoleType;
     public $status = '1';
 
+    public $orgtype = '0';
+
 
     /**
      *
@@ -120,6 +122,7 @@ class Organizations extends Component
             'organization_primary_color' => 'required',
             'organization_secondary_color' => 'required',
             'organization_slug' => 'required',
+            'organization_type' => 'required',
             'organization_logo' => 'required|file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
         ]);
     
@@ -129,6 +132,7 @@ class Organizations extends Component
             'organization_primary_color' => 'required',
             'organization_secondary_color' => 'required',
             'organization_slug' => 'required',
+            'organization_type' => 'required',
             'organization_logo' => 'required|file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip', 
         ];
 
@@ -140,6 +144,7 @@ class Organizations extends Component
         $organization_secondary_color = $request->organization_secondary_color;
         $organization_slug = $request->organization_slug;
         $organization_logo = $request->organization_logo;
+        $organization_type = $request->organization_type;
 
 
 
@@ -155,6 +160,7 @@ class Organizations extends Component
             'organization_primary_color' => $organization_primary_color,
             'organization_secondary_color' => $organization_secondary_color,
             'organization_slug' => $organization_slug,
+            'organization_type' => $organization_type,
         ]);
 
         $this->cleanVars();
@@ -205,7 +211,7 @@ class Organizations extends Component
         ];
 
         $fileName = time().'.'.$this->organization_logo->extension();  
-     
+
         $organization_name = $this->organization_name;
         $organization_details = $this->organization_details;
         $organization_primary_color = $this->organization_primary_color;
@@ -224,6 +230,7 @@ class Organizations extends Component
   
         /* Store $fileName name in DATABASE from HERE */
         // Organization::create($request->all());
+        // dd($organization_type);
         Organization::create([
             'organization_logo' => $fileName,
             'organization_details' => $organization_details,
@@ -269,6 +276,7 @@ class Organizations extends Component
 
     public function loadModel()
     {
+        $orgtype = 0;
         $data = Organization::find($this->modelId);
         $this->organization_name = $data->organization_name;
         $this->organization_details = $data->organization_details;
@@ -276,10 +284,16 @@ class Organizations extends Component
         $this->organization_secondary_color = $data->organization_secondary_color;
         $this->organization_slug = $data->organization_slug;
         $this->organization_type = $data->organization_type;
+        if($this->organization_type == '1'){
+            $this->orgtype = 1;
+        }else{
+            $this->orgtype = 2;
+        }
     }
 
     public function update()
     {
+        // dd($this);
         $this->validate([
             'organization_name' => 'required',
             'organization_details' => 'required',
@@ -311,6 +325,7 @@ class Organizations extends Component
             'organization_primary_color' => $this->organization_primary_color,
             'organization_secondary_color' => $this->organization_secondary_color,
             'organization_slug' => $this->organization_slug,
+            'organization_type' => $this->organization_type,
         ];
     }
 
@@ -332,6 +347,7 @@ class Organizations extends Component
         $this->organization_secondary_color = $data->organization_secondary_color;
         $this->organization_slug = $data->organization_slug;
         $this->organization_logo = $data->organization_logo;
+        $this->organization_type = $data->organization_type;
     }
 
     public function Imageupdate()

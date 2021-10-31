@@ -43,7 +43,13 @@
                                                        {{ $item->organization_slug }}
                                                     </a>
                                                 </td>
-                                                <td class="px-6 py-2">{{ $item->organization_type }}</td>
+                                                <!-- <td class="px-6 py-2">{{ $item->organization_type }}</td> -->
+
+                                                @if($item->organization_type == '1')
+                                                    <td class="px-6 py-2">Academic</td>
+                                                @else
+                                                    <td class="px-6 py-2">Non-Academic</td>
+                                                @endif
                                                 <td>
                                                     <x-jet-button wire:click="viewShowModal({{ $item->organizations_id }})">
                                                         {{__('View')}}
@@ -147,8 +153,15 @@
                 @error('organization_details') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
-                <x-jet-label for="organization_type" value="{{ __('Organization type') }}" />
+                <!-- <x-jet-label for="organization_type" value="{{ __('Organization type') }}" />
                 <x-jet-input wire:model="organization_type" id="organization_type" class="block mt-1 w-full" type="text" />
+                @error('organization_type') <span class="error">{{ $message }}</span> @enderror -->
+
+                <select wire:model="organization_type" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <option default hidden>Choose Organization Type</option>
+                        <option value="1">Academic Organization</option>
+                        <option value="2">Non-Academic Organization</option>
+                </select>
                 @error('organization_type') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
@@ -218,7 +231,15 @@
             </div>
             <div class="mt-4">
                 <x-jet-label for="organization_type" value="{{ __('Organization type') }}" />
-                <x-jet-input wire:model="organization_type" id="organization_type" class="block mt-1 w-full" type="text" readonly />
+                <select wire:model="organization_type" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500" disabled>
+                        @if($orgtype == 1)
+                            <option default hidden value="1">Academic Organization</option>
+                        @elseif($orgtype == 2)
+                            <option default hidden value="2">Non-Academic Organization</option>
+                        @endif
+                        <option value="1">Academic Organization</option>
+                        <option value="2">Non-Academic Organization</option>
+                </select>
                 @error('organization_type') <span class="error">{{ $message }}</span> @enderror
             </div>
 
@@ -283,7 +304,15 @@
             </div>
             <div class="mt-4">
                 <x-jet-label for="organization_type" value="{{ __('Organization type') }}" />
-                <x-jet-input wire:model="organization_type" id="organization_type" class="block mt-1 w-full" type="text" />
+                <select wire:model="organization_type" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        @if($orgtype == 1)
+                            <option default hidden value="1">Academic Organization</option>
+                        @elseif($orgtype == 2)
+                            <option default hidden value="2">Non-Academic Organization</option>
+                        @endif
+                        <option value="1">Academic Organization</option>
+                        <option value="2">Non-Academic Organization</option>
+                </select>
                 @error('organization_type') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
