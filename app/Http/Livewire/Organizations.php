@@ -102,7 +102,7 @@ class Organizations extends Component
         $this->reset();
         $this->viewmodalFormVisible = true;
         $this->modelId = $id;
-        $this->loadModel();
+        $this->loadImageModel();
     }
     
     /*=====  End of View Organization Section  ======*/

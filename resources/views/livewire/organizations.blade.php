@@ -199,11 +199,12 @@
             <x-slot name="content">
             <div class="mt-4">
                 <x-jet-label for="Organization_logo" value="{{ __('organization logo') }}" />
-                @if (!empty($item->organization_logo))
-                    <img width="100px" src="{{ asset('/files/' . $item->organization_logo) }}"/>
+                @if (!empty($this->organization_logo))
+                    <img width="100px" src="{{ asset('/files/' . $this->organization_logo) }}"/>
                 @else
                     No featured image available!
                 @endif
+                @error('organization_logo') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
                 <x-jet-label for="organization_name" value="{{ __('Organization name') }}" />

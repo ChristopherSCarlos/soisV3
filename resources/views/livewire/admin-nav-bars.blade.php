@@ -15,54 +15,54 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     
                     @if($getUserRole == "Super Admin")
-                    <x-jet-nav-link class="text-white rounded-md hover:bg-yellow-50 hover:text-yellow-700 focus:bg-yellow-50 focus:text-red transition text-red" href="{{ route('default-interfaces') }}" :active="request()->routeIs('default-interfaces')">
+                    <x-jet-nav-link href="{{ route('default-interfaces') }}" :active="request()->routeIs('default-interfaces')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link class="text-white rounded-md hover:bg-yellow-50 hover:text-yellow-700 focus:bg-yellow-50 focus:text-red transition text-red" href="{{ route('pages') }}" :active="request()->routeIs('pages')" >
+                    <x-jet-nav-link href="{{ route('pages') }}" :active="request()->routeIs('pages')" >
                         {{ __('System Pages') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link class="text-white rounded-md hover:bg-yellow-50 hover:text-yellow-700 focus:bg-yellow-50 focus:text-red transition text-red" href="{{ route('articles') }}" :active="request()->routeIs('articles')">
+                    <x-jet-nav-link href="{{ route('articles') }}" :active="request()->routeIs('articles')">
                         {{ __('News') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link class="text-white rounded-md hover:bg-yellow-50 hover:text-yellow-700 focus:bg-yellow-50 focus:text-red transition text-red" href="{{ route('organizations') }}" :active="request()->routeIs('organizations')">
+                    <x-jet-nav-link href="{{ route('organizations') }}" :active="request()->routeIs('organizations')">
                         {{ __('Organization') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link class="text-white rounded-md hover:bg-yellow-50 hover:text-yellow-700 focus:bg-yellow-50 focus:text-red transition text-red" href="{{ route('users') }}" :active="request()->routeIs('users')" >
+                    <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')" >
                         {{ __('Users') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link class="text-white rounded-md hover:bg-yellow-50 hover:text-yellow-700 focus:bg-yellow-50 focus:text-red transition text-red" href="{{ route('roles') }}" :active="request()->routeIs('roles')" >
+                    <x-jet-nav-link href="{{ route('roles') }}" :active="request()->routeIs('roles')" >
                         {{ __('Roles') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link class="text-white rounded-md hover:bg-yellow-50 hover:text-yellow-700 focus:bg-yellow-50 focus:text-red transition text-red" href="{{ route('events') }}" :active="request()->routeIs('events')">
+                    <x-jet-nav-link href="{{ route('events') }}" :active="request()->routeIs('events')">
                         {{ __('Events') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link class="text-white rounded-md hover:bg-yellow-50 hover:text-yellow-700 focus:bg-yellow-50 focus:text-red transition text-red" href="{{ route('announcements') }}" :active="request()->routeIs('announcements')">
+                    <x-jet-nav-link href="{{ route('announcements') }}" :active="request()->routeIs('announcements')">
                         {{ __('Announcements') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link class="text-white rounded-md hover:bg-yellow-50 hover:text-yellow-700 focus:bg-yellow-50 focus:text-red transition text-red" href="{{ route('tags') }}" :active="request()->routeIs('tags')">
+                    <x-jet-nav-link href="{{ route('tags') }}" :active="request()->routeIs('tags')">
                         {{ __('Tags') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link class="text-white rounded-md hover:bg-yellow-50 hover:text-yellow-700 focus:bg-yellow-50 focus:text-red transition text-red" href="{{ route('officers') }}" :active="request()->routeIs('officers')">
+                    <x-jet-nav-link href="{{ route('officers') }}" :active="request()->routeIs('officers')">
                         {{ __('Officers') }}
                     </x-jet-nav-link>
                     @endif
                     @if($getUserRole == "Organization Admin")
-                    <x-jet-nav-link class="text-white rounded-md hover:bg-yellow-50 hover:text-yellow-700 focus:bg-yellow-50 focus:text-red transition text-red" href="{{ route('Organization/dashboard') }}" :active="request()->routeIs('Organization/dashboard')">
+                    <x-jet-nav-link href="{{ route('Organization/dashboard') }}" :active="request()->routeIs('Organization/dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link class="text-white rounded-md hover:bg-yellow-50 hover:text-yellow-700 focus:bg-yellow-50 focus:text-red transition text-red" href="{{ route('Organization/articles') }}" :active="request()->routeIs('Organization/articles')">
+                    <x-jet-nav-link href="{{ route('Organization/articles') }}" :active="request()->routeIs('Organization/articles')">
                         {{ __('News') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link class="text-white rounded-md hover:bg-yellow-50 hover:text-yellow-700 focus:bg-yellow-50 focus:text-red transition text-red" href="{{ route('Organization/organizations') }}" :active="request()->routeIs('Organization/organizations')">
+                    <x-jet-nav-link href="{{ route('Organization/organizations') }}" :active="request()->routeIs('Organization/organizations')">
                         {{ __('Organization') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link class="text-white rounded-md hover:bg-yellow-50 hover:text-yellow-700 focus:bg-yellow-50 focus:text-red transition text-red" href="{{ route('Organization/events') }}" :active="request()->routeIs('Organization/events')">
+                    <x-jet-nav-link href="{{ route('Organization/events') }}" :active="request()->routeIs('Organization/events')">
                         {{ __('Events') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link class="text-white rounded-md hover:bg-yellow-50 hover:text-yellow-700 focus:bg-yellow-50 focus:text-red transition text-red" href="{{ route('Organization/announcements') }}" :active="request()->routeIs('Organization/announcements')">
+                    <x-jet-nav-link href="{{ route('Organization/announcements') }}" :active="request()->routeIs('Organization/announcements')">
                         {{ __('Announcements') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link class="text-white rounded-md hover:bg-yellow-50 hover:text-yellow-700 focus:bg-yellow-50 focus:text-red transition text-red" href="{{ route('Organization/officers') }}" :active="request()->routeIs('Organization/officers')">
+                    <x-jet-nav-link href="{{ route('Organization/officers') }}" :active="request()->routeIs('Organization/officers')">
                         {{ __('Officers') }}
                     </x-jet-nav-link>
                     @endif
