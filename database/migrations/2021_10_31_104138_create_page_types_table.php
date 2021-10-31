@@ -15,7 +15,9 @@ class CreatePageTypesTable extends Migration
     {
         Schema::create('page_types', function (Blueprint $table) {
             $table->id('page_types_id');
-            $table->string('page_ype');
+            $table->string('page_type');
+            $table->string('page_description');
+            $table->boolean('status');
             $table->timestamps();
         });
     }

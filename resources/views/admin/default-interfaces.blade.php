@@ -14,13 +14,24 @@
         </div>
     </div>
 
+
+    <div class="flex flex-wrap items-center justify-center">
+        
     <div class="py-12">
-        <div class="max-w-11xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 @livewire('interface-types')
             </div>
         </div>
     </div>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                @livewire('page-types')
+            </div>
+        </div>
+    </div>
 
+    </div>
 
 </x-app-layout>

@@ -24,7 +24,10 @@ class CreateSystemAssetsTable extends Migration
             $table->foreign('user_id')->references('users_id')->on('users');
 
             $table->unsignedBigInteger('page_type_id');
-            $table->foreign('page_type_id')->references('page_types_id')->on('page_types');            
+            $table->foreign('page_type_id')->references('page_types_id')->on('page_types');
+
+            $table->unsignedBigInteger('organization_id');
+            $table->foreign('organization_id')->references('organizations_id')->on('organizations');            
 
 
             $table->boolean('status');

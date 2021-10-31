@@ -14,11 +14,13 @@ class InterfaceTypes extends Component
     use WithPagination;
     /* Modals */
     public $modalCreateInterfaceTypesFormVisible = false;
+    public $modalDeleteInterfaceTypesFormVisible = false;
     /* Models */
     public $interface_type;
     public $description;
     public $status;
     public $interface_type_id;
+    public $interfaceTypeData;
     
     /*===================================================================
     =            Create Interface Type Section comment block            =
@@ -45,14 +47,56 @@ class InterfaceTypes extends Component
     public function updateInterfaceTypesShowModal($id)
     {
         $this->interface_type_id = $id;
-        dd($this->interface_type_id);
+        $this->modalCreateInterfaceTypesFormVisible = true;
+        // dd($this->interface_type_id);
+        $this->interfaceTypeLoadModel();
     }
-    
+    public function interfaceTypeLoadModel()
+    {
+        $this->interfaceTypeData = InterfaceType::find($this->interface_type_id);
+        $this->interface_type = $this->interfaceTypeData->interface_type;
+        $this->description = $this->interfaceTypeData->description;
+    }
+    public function updateInterfaceType()
+    {
+        $this->status = 1;
+        InterfaceType::find($this->interface_type_id)->update($this->createUpdateModal());
+        $this->modalCreateInterfaceTypesFormVisible = false;
+        $this->reset();
+        $this->resetValidation();
+    }
     
     /*=====  End of Updatte Interface Type Section comment block  ======*/
     
+    /*===================================================================
+    =            Delete Interface Type Section comment block            =
+    ===================================================================*/
+    public function deleteInterfaceTypesShowModal($id)
+    {
+        $this->interface_type_id = $id;
+        $this->modalDeleteInterfaceTypesFormVisible = true;
+        // dd($this->interface_type_id);
+        $this->interfaceTypeLoadModel();
+    }
+    public function deleteInterfaceTypeProcess()
+    {
+        InterfaceType::find($this->interface_type_id)->update(['status' => '0']);
+        $this->modalDeleteInterfaceTypesFormVisible = false;
+        $this->reset();
+        $this->resetValidation();
+    }
+    
+    
+    /*=====  End of Delete Interface Type Section comment block  ======*/
+    
 
 
+    /**
+     *
+     * Create and update Modal
+     *
+     */
+    
     public function createUpdateModal()
     {
         return [
@@ -62,6 +106,12 @@ class InterfaceTypes extends Component
         ];
     }
 
+    /**
+     *
+     * Form Rules
+     *
+     */
+    
     public function rules()
     {
         return [
@@ -72,7 +122,7 @@ class InterfaceTypes extends Component
     }
     public function read()
     {
-        return InterfaceType::paginate(5);
+        return InterfaceType::where('status','=','1')->paginate(5);
     }
     public function render()
     {

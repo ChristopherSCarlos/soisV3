@@ -6,13 +6,17 @@ use App\Http\Livewire\Objects;
 
 use App\Models\DefaultInterface;
 use App\Models\InterfaceType;
+use App\Models\SystemAsset;
+
 
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class DefaultInterfaces extends Component
 {
     /* Traits */
-
+    use WithFileUploads;
+    
     /* Modals */
     public $createDefaultInterfaceShowModalFormVisible = false;
     public $deleteDefaultInterfaceShowModalFormVisible = false;
@@ -29,8 +33,6 @@ class DefaultInterfaces extends Component
     public $interface_type_id;
     public $status;
     public $data;
-
-
 
     /*======================================================================
     =            Create Default Interface Section comment block            =

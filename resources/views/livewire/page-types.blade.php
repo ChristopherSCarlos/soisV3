@@ -1,7 +1,7 @@
 <div class="p-6">
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
-        <x-jet-button wire:click="createInterfaceTypeShowModel">
-            {{ __('Create Interface Type') }}
+        <x-jet-button wire:click="createPageTypeShowModel">
+            {{ __('Create Web Page Type') }}
         </x-jet-button>
     </div>
     <div class="flex flex-col items-center">
@@ -13,29 +13,29 @@
                         <thead>
                             <tr>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Id</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Interface Type</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Page Type</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Description</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Action</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @if($getInterfaceType->count())
-                                @foreach($getInterfaceType as $item)
+                            @if($getPageTypeData->count())
+                                @foreach($getPageTypeData as $item)
                                      <tr>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $item->interface_types_id }}
+                                            {{ $item->page_types_id }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $item->interface_type }}
+                                            {{ $item->page_type }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $item->description }}
+                                            {{ $item->page_description }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            <x-jet-button wire:click="updateInterfaceTypesShowModal({{ $item->interface_types_id }})">
+                                            <x-jet-button wire:click="updatePageTypeShowModal({{ $item->page_types_id }})">
                                                 {{__('Update')}}
                                             </x-jet-button>
-                                            <x-jet-danger-button wire:click="deleteInterfaceTypesShowModal({{ $item->interface_types_id }})">
+                                            <x-jet-danger-button wire:click="deletePageTypeShowModal({{ $item->page_types_id }})">
                                                 {{__('Delete')}}
                                             </x-jet-danger-button>
                                         </td>
@@ -47,7 +47,7 @@
                                         No Results Found
                                     </td>
                                 </tr>
-                            @endif               
+                            @endif   
                         </tbody>
                     </table>
                 </div>
@@ -55,77 +55,75 @@
         </div>
     </div>
 
-    {{$getInterfaceType->links()}}
+    {{$getPageTypeData->links()}}
+
 
 
 <!--=================================================================
-=            Create Interface Type Modal Section comment            =
+=            Craete and Update Page Type Section comment            =
 ==================================================================-->
-<x-jet-dialog-modal wire:model="modalCreateInterfaceTypesFormVisible">
+<x-jet-dialog-modal wire:model="modalCreateUpdatePageTypesFormVisible">
             <x-slot name="title">
-                {{ __('Interface Type #:') }} {{$interface_type_id}}
+                {{ __('Page Type #') }} {{$pageTypeID}}
             </x-slot>
             <x-slot name="content">
                 <div class="mt-4">
-                    <x-jet-label for="interface_type" value="{{ __('Interface Type') }}" />
-                    <x-jet-input wire:model="interface_type" id="interface_type" class="block mt-1 w-full" type="text" />
-                    @error('interface_type') <span class="error">{{ $message }}</span> @enderror
+                    <x-jet-label for="page_type" value="{{ __('Page Type Name') }}" />
+                    <x-jet-input wire:model="page_type" id="page_type" class="block mt-1 w-full" type="text" />
+                    @error('page_type') <span class="error">{{ $message }}</span> @enderror
 
-                    <x-jet-label for="description" value="{{ __('Interface Type Description') }}" />
-                    <x-jet-input wire:model="description" id="description" class="block mt-1 w-full" type="text" />
-                    @error('description') <span class="error">{{ $message }}</span> @enderror
+                    <x-jet-label for="page_description" value="{{ __('Page Type Description') }}" />
+                    <x-jet-input wire:model="page_description" id="page_description" class="block mt-1 w-full" type="text" />
+                    @error('page_description') <span class="error">{{ $message }}</span> @enderror
             
                 </div>
             </x-slot>
             <x-slot name="footer">
-                <x-jet-secondary-button wire:click="$toggle('modalCreateInterfaceTypesFormVisible')" wire:loading.attr="disabled">
+                <x-jet-secondary-button wire:click="$toggle('modalCreateUpdatePageTypesFormVisible')" wire:loading.attr="disabled">
                     {{ __('Cancel') }}
                 </x-jet-secondary-button>
-                @if($interface_type_id)
-                <x-jet-secondary-button class="ml-2" wire:click="updateInterfaceType" wire:loading.attr="disabled">
-                    {{ __('Update Announcement') }}
+                @if($pageTypeID)
+                <x-jet-secondary-button class="ml-2" wire:click="updatePageTypeProcess" wire:loading.attr="disabled">
+                    {{ __('Update Page Type') }}
                 </x-jet-secondary-button>
                 @else
-                <x-jet-secondary-button class="ml-2" wire:click="createInterfaceTypeProcess" wire:loading.attr="disabled">
-                    {{ __('Create Announcement') }}
+                <x-jet-secondary-button class="ml-2" wire:click="createUpdateInterfaceTypeProcess" wire:loading.attr="disabled">
+                    {{ __('Create Page Type') }}
                 </x-jet-secondary-button>
                 @endif
             </x-slot>
         </x-jet-dialog-modal>
+<!--====  End of Craete and Update Page Type Section comment  ====-->
 
-
-<!--====  End of Create Interface Type Modal Section comment  ====-->
-
-
-<!--===========================================================
-=            Delete Interface Type Section comment            =
-============================================================-->
-<x-jet-dialog-modal wire:model="modalDeleteInterfaceTypesFormVisible">
+<!--======================================================
+=            Delete Page Type Section comment            =
+=======================================================-->
+<x-jet-dialog-modal wire:model="modalDeletePageTypesFormVisible">
             <x-slot name="title">
-                {{ __('Interface Type #:') }} {{$interface_type_id}}
+                {{ __('Page Type #') }} {{$pageTypeID}}
             </x-slot>
             <x-slot name="content">
                 <div class="mt-4">
-                    <x-jet-label for="interface_type" value="{{ __('DElete This Interface Type?') }}" />
+                    <x-jet-label for="page_type" value="{{ __('Do you want to delete this page type?') }}" />
                 </div>
             </x-slot>
             <x-slot name="footer">
-                <x-jet-secondary-button wire:click="$toggle('modalDeleteInterfaceTypesFormVisible')" wire:loading.attr="disabled">
+                <x-jet-secondary-button wire:click="$toggle('modalDeletePageTypesFormVisible')" wire:loading.attr="disabled">
                     {{ __('Cancel') }}
                 </x-jet-secondary-button>
                 <x-jet-secondary-button class="ml-2" wire:click="deleteInterfaceTypeProcess" wire:loading.attr="disabled">
-                    {{ __('Delte Interface Type') }}
+                    {{ __('Create Page Type') }}
                 </x-jet-secondary-button>
             </x-slot>
         </x-jet-dialog-modal>
 
 
-<!--====  End of Delete Interface Type Section comment  ====-->
+<!--====  End of Delete Page Type Section comment  ====-->
 
 
 
 
 
 
-
+ <!-- FINAL DIV -->
 </div>
