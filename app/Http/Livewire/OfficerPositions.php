@@ -7,35 +7,24 @@ use Livewire\Component;
 use App\Http\Livewire\Announcements;
 
 use App\Models\User;
-use App\Models\Officer;
+use App\Models\OfficerPosition;
 
 use Livewire\withPagination;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 
 use Auth;
 
-class Officers extends Component
+class OfficerPositions extends Component
 {
     use WithPagination;
 
     public $CreatemodalFormVisible = false;
 
+    public $position_category;
+
     private $role;
     private $userRole;
-
-    public $first_name;
-    public $last_name;
-    public $middle_name;
-    public $suffix;
-    public $organization_id;
-    public $school_year;
-    public $semester;
-    public $position;
-    public $exp_date;
-    public $position_category;
-    public $status;
 
     public $userId;
     public $userData;
@@ -57,17 +46,13 @@ class Officers extends Component
         // dd($this->userOrganizationData->organization_name);
     }
 
-
-    public function FunctionName($value='')
-    {
-        // code...
-    }
-
-    /*==============================================
-    =            Create Officer Section            =
-    ==============================================*/
+    /*================================================
+    =            Officer Position Section            =
+    ================================================*/
     
-    public function createOfficerModal()
+    
+    
+    public function createOfficerPositionModal()
     {
         $this->resetValidation();
         $this->reset();
@@ -76,32 +61,22 @@ class Officers extends Component
 
     public function create()
     {
-        // $this->validate();
-        // dd($this);
-        Officer::create($this->modelCreateOfficer());
+        dd($this);
+        officer_positions::create($this->modelCreateOfficerPosition());
         $this->CreatemodalFormVisible = false;
         $this->reset(); 
         $this->resetValidation(); 
     }
 
-    public function modelCreateOfficer()
+    public function modelCreateOfficerPosition()
     {
         return [
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'middle_name' => $this->middle_name,
-            'suffix' => $this->suffix,
-            'organization_id' => $this->organization_id,
-            'school_year' => $this->school_year,
-            'semester' => $this->semester,
-            'position' => $this->position,
-            'exp_date' => $this->exp_date,
             'position_category' => $this->position_category,
             'status' => '1',
         ];
     }
     
-    /*=====  End of Create Officer Section  ======*/
+    /*=====  End of Create Officer Position Section  ======*/
     
 
     /*====================================================
@@ -168,9 +143,9 @@ class Officers extends Component
      * Get Organization Data from database
      *
      */
-    public function getOfficerData()
+    public function getOfficerPositionData()
     {
-        return DB::table('officers')
+        return DB::table('officer_positions')
                     ->where('status','=','1')
                     ->paginate(10);
     }
@@ -180,8 +155,8 @@ class Officers extends Component
 
     public function render()
     {
-        return view('livewire.officers',[
-            'OfficerData' => $this->getOfficerData(),
+        return view('livewire.officer-positions',[
+            'OfficerPositionData' => $this->getOfficerPositionData(),
             'getAuthUserRole' => $this->userRole,
             // 'userAuthRole' => $this->getAuthUserRole(),
             // 'posts' => $this->specificOrganization(),

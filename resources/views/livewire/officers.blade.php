@@ -73,43 +73,53 @@
         <x-slot name="content">
             <div class="mt-4">
                 <x-jet-label for="first_name" value="{{ __('first name') }}" />
-                <x-jet-input id="first_name" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="name" required autofocus />
+                <x-jet-input wire:model="first_name" id="first_name" class="block mt-1 w-full" type="text" required/>
+                @error('first_name') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
                 <x-jet-label for="last_name" value="{{ __('last name') }}" />
-                <x-jet-input id="last_name" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="name" required autofocus />
+                <x-jet-input wire:model="last_name" id="last_name" class="block mt-1 w-full" type="text" required/>
+                @error('last_name') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
                 <x-jet-label for="middle_name" value="{{ __('middle name') }}" />
-                <x-jet-input id="middle_name" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="name" required autofocus />
+                <x-jet-input wire:model="middle_name" id="middle_name" class="block mt-1 w-full" type="text" required/>
+                @error('middle_name') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
                 <x-jet-label for="suffix" value="{{ __('suffix') }}" />
-                <x-jet-input id="suffix" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="name" required autofocus />
+                <x-jet-input wire:model="suffix" id="suffix" class="block mt-1 w-full" type="text" required/>
+                @error('suffix') <span class="error">{{ $message }}</span> @enderror
             </div>
-            <!-- <div class="mt-4">
+            <div class="mt-4">
                 <x-jet-label for="organization_id" value="{{ __('organization_id') }}" />
-                <x-jet-input id="organization_id" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="name" required autofocus />
-            </div> -->
+                <x-jet-input wire:model="organization_id" id="organization_id" class="block mt-1 w-full" type="text" required/>
+                @error('organization_id') <span class="error">{{ $message }}</span> @enderror
+            </div>
             <div class="mt-4">
                 <x-jet-label for="school_year" value="{{ __('school_year') }}" />
-                <x-jet-input id="school_year" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="name" required autofocus />
+                <x-jet-input wire:model="school_year" id="school_year" class="block mt-1 w-full" type="text" required/>
+                @error('school_year') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
                 <x-jet-label for="semester" value="{{ __('semester') }}" />
-                <x-jet-input id="semester" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="name" required autofocus />
+                <x-jet-input wire:model="semester" id="semester" class="block mt-1 w-full" type="text" required/>
+                @error('semester') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
                 <x-jet-label for="position" value="{{ __('position') }}" />
-                <x-jet-input id="position" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="name" required autofocus />
+                <x-jet-input wire:model="position" id="position" class="block mt-1 w-full" type="text" required/>
+                @error('position') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
                 <x-jet-label for="exp_date" value="{{ __('exp_date') }}" />
-                <x-jet-input id="exp_date" class="block mt-1 w-full" type="date" wire:model.debounce.800ms="name" required autofocus />
+                <x-jet-input wire:model="exp_date" id="exp_date" class="block mt-1 w-full" type="text" required/>
+                @error('exp_date') <span class="error">{{ $message }}</span> @enderror
             </div>
             <!-- <div class="mt-4">
                 <x-jet-label for="position_category" value="{{ __('position_category') }}" />
-                <x-jet-input id="position_category" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="name" required autofocus />
+                <x-jet-input wire:model="position_category" id="position_category" class="block mt-1 w-full" type="text" required/>
+                @error('position_category') <span class="error">{{ $message }}</span> @enderror
             </div> -->
         </x-slot>
         <x-slot name="footer">
