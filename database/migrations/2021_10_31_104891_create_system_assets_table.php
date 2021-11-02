@@ -15,10 +15,13 @@ class CreateSystemAssetsTable extends Migration
     {
         Schema::create('system_assets', function (Blueprint $table) {
             $table->id('system_assets_id');
-            $table->string('asset_type');
+            
+            $table->unsignedBigInteger('asset_type_id');
+            $table->foreign('asset_type_id')->references('asset_types_id')->on('asset_types');
+
             $table->string('asset_name');
-            $table->string('is_latest_logo');
-            $table->string('is_latest_banner');
+            $table->integer('is_latest_logo');
+            $table->integer('is_latest_banner');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('users_id')->on('users');

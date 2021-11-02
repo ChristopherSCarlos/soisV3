@@ -256,6 +256,8 @@ class Users extends Component
     public function addOrganizationToUser()
     {
         $user = User::find($this->userId);
+        // dd($this->user);
+        // dd($this->organizationModel);
         $user->organizations()->sync($this->organizationModel);
         $this->modalAddOrganizationFormVisible = false;
         $this->reset();

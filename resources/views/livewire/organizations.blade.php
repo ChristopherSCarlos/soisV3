@@ -30,6 +30,7 @@
                                     @if($posts->count())
                                         @foreach($posts as $item)
                                             <tr>
+                                                d
                                                 <!-- <td class="px-6 py-2">
                                                     @if (!empty($item->organization_logo))
                                                         <img width="100px" src="{{ asset('/files/' . $item->organization_logo) }}"/>
@@ -78,6 +79,7 @@
                                     @if($userAffliatedOrganization->count())
                                         @foreach($userAffliatedOrganization as $item)
                                             <tr>
+                                                s
                                                 <!-- <td class="px-6 py-2">
                                                     @if (!empty($item->organization_logo))
                                                         <img width="100px" src="{{ asset('/files/' . $item->organization_logo) }}"/>
@@ -120,7 +122,7 @@
         </div>
     </div>
 
-
+    {{$posts->links()}}
 
 
 
@@ -164,6 +166,8 @@
                 </select>
                 @error('organization_type') <span class="error">{{ $message }}</span> @enderror
             </div>
+
+
             <div class="mt-4">
                 <x-jet-label for="organization_slug" value="{{ __('organization slug') }}" />
                 <div class="mt-1 flex rounded-md shadow-sm">
@@ -373,7 +377,7 @@
                     {{ __('Cancel') }}
                 </x-jet-secondary-button>
 
-                    <x-jet-secondary-button class="ml-2" wire:click="Imageupdate" wire:loading.attr="disabled">
+                    <x-jet-secondary-button class="ml-2" wire:click="updateAssetLogo" wire:loading.attr="disabled">
                         {{ __('Update Logo') }}
                     </x-jet-secondary-button>                    
 

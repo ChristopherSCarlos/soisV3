@@ -9,6 +9,8 @@ use Storage;
 use App\Models\Organization;
 use App\Models\User;
 use App\Models\SystemAsset;
+use App\Models\PageType;
+use App\Http\Livewire\Objects;
 
 use Livewire\withPagination;
 
@@ -76,6 +78,39 @@ class Organizations extends Component
 
     public $orgtype = '0';
 
+    public $fileName;
+
+    public $objectData;
+    public $userID;
+    public $pageType;
+    public $pageTypeID;
+    public $pageTypeData;
+    public $latestOrganizationID;
+    public $latestOrganizationIDtoInsertToDB;
+
+    public $asset_type_id;
+    public $asset_name;
+    public $is_latest_logo;
+    public $is_latest_banner;
+    public $user_id;
+    public $page_type_id;
+    public $organization_id;
+    public $asset_status;
+
+
+    public $loadDataVarsFromDB;
+
+    public $systemAssetDataFromDB;
+    public $userDataPivot;
+    public $userDataPivotOrganization;
+    
+    public $selectedOrganizationAssetData;
+    public $selectedOrganizationAssetDataFromDB;
+    public $selectedOrganizationAssetDataCount;
+    public $selectedOrganizationAssetDataIsLatestLogo;
+    public $selectedOrganizationAssetDataID;
+    public $latestSystemAssetForImageUpload;
+    public $getSystemAssetData;
 
     /**
      *
@@ -98,7 +133,6 @@ class Organizations extends Component
     /*=================================================
     =            View Organization Section            =
     =================================================*/
-    
     public function viewShowModal($id)
     {
         $this->resetValidation();
@@ -106,15 +140,19 @@ class Organizations extends Component
         $this->viewmodalFormVisible = true;
         $this->modelId = $id;
         $this->loadImageModel();
+        // $this->getSelectedOrganizationLogo();
     }
-    
+    public function getSelectedOrganizationLogo()
+    {
+        $this->systemAssetDataFromDB = SystemAsset::where('organization_id','=',$this->modelId)->get();
+        dd($this->systemAssetDataFromDB->asset_name);
+    }
     /*=====  End of View Organization Section  ======*/
     
 
     /*============================================
     =            Image Upload Section            =
     ============================================*/
-    
     public function fileUploadPost(Request $request)
     {
         $request->validate([
@@ -183,13 +221,6 @@ class Organizations extends Component
 
     public function create()
     {
-        // echo "Hello";
-        // dd($this);
-        // $this->resetValidation();
-        // $this->validate(); 
-        // Organization::create($this->modelData());
-        // $this->modalFormVisible = false;
-        // $this->reset(); 
 
         $this->validate([
             'organization_name' => 'required',
@@ -201,49 +232,81 @@ class Organizations extends Component
             'organization_logo' => 'file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
         ]);
     
-        $data = [
-            'organization_name' => 'required',
-            'organization_details' => 'required',
-            'organization_primary_color' => 'required',
-            'organization_secondary_color' => 'required',
-            'organization_slug' => 'required',
-            'organization_type' => 'required',
-            'organization_logo' => 'file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip', 
-        ];
 
-        $fileName = time().'.'.$this->organization_logo->extension();  
-
-        $organization_name = $this->organization_name;
-        $organization_details = $this->organization_details;
-        $organization_primary_color = $this->organization_primary_color;
-        $organization_secondary_color = $this->organization_secondary_color;
-        $organization_slug = $this->organization_slug;
-        $organization_type = $this->organization_type;
-        $organization_logo = $this->organization_logo;
+        $this->fileName = time().'.'.$this->organization_logo->extension();  
+        // dd($this->organization_name);
+        $this->organization_name = $this->organization_name;
+        $this->organization_details = $this->organization_details;
+        $this->organization_primary_color = $this->organization_primary_color;
+        $this->organization_secondary_color = $this->organization_secondary_color;
+        $this->organization_slug = $this->organization_slug;
+        $this->organization_type = $this->organization_type;
+        $this->organization_logo = $this->organization_logo;
 
        
-        // $this->organization_logo->store('files', 'imgfolder',$fileName);
+        $this->organization_logo->store('files', 'imgfolder',$this->fileName);
 
-        $this->organization_logo->storeAs('files',$fileName, 'imgfolder');
+        $this->organization_logo->storeAs('files',$this->fileName, 'imgfolder');
         
 
-
+        $this->status = true;
   
         /* Store $fileName name in DATABASE from HERE */
-        // Organization::create($request->all());
-        // dd($organization_type);
         Organization::create([
-            'organization_logo' => $fileName,
-            'organization_details' => $organization_details,
-            'organization_name' => $organization_name,
-            'organization_primary_color' => $organization_primary_color,
-            'organization_secondary_color' => $organization_secondary_color,
-            'organization_slug' => $organization_slug,
-            'organization_type' => $organization_type,
-            ]);
+            'organization_details' => $this->organization_details,
+            'organization_name' => $this->organization_name,
+            'organization_primary_color' => $this->organization_primary_color,
+            'organization_secondary_color' => $this->organization_secondary_color,
+            'organization_slug' => $this->organization_slug,
+            'organization_type' => $this->organization_type,
+            'status' => $this->status,
+        ]);        
+        $this->asset_name = $this->fileName;
+        $this->is_latest_logo = 1;
 
-        $this->modalFormVisible = false;
+
+        $this->user_id = Auth::id();
+        $this->is_latest_banner = 0;
+        $this->asset_status = 1;
+
+
+        $this->page_type_id = 4;
+        $this->asset_type_id = 1;
+        $this->latestOrganizationID = DB::table('organizations')->latest('organizations_id')->first();
+        // dd($this->latestOrganizationID->organizations_id);
+        $this->latestOrganizationIDtoInsertToDB = $this->latestOrganizationID->organizations_id;
+        // $this->latestOrganizationID = (int)$this->organization_id; 
+        // dd(gettype($this->latestOrganizationID));
+        
+        SystemAsset::create([
+            'asset_type_id' => $this->asset_type_id,
+            'asset_name' => $this->fileName,
+            'is_latest_logo' => $this->is_latest_logo,
+            'is_latest_banner' => $this->is_latest_banner,
+            'user_id' => $this->user_id,
+            'page_type_id' => $this->page_type_id,
+            'organization_id' => $this->latestOrganizationIDtoInsertToDB,
+            'status' => $this->asset_status,
+        ]);
+    
+
+
+
         $this->reset();
+        $this->resetValidation();
+        $this->cleanVars();
+        $this->modalFormVisible = false;
+
+    }
+
+    private function cleanVars()
+    {
+        $this->organization_name = null;    
+        $this->organization_details = null; 
+        $this->organization_primary_color = null;   
+        $this->organization_secondary_color = null; 
+        $this->organization_slug = null;    
+        $this->organization_logo = null;    
     }
 
     public function modelData()
@@ -334,9 +397,10 @@ class Organizations extends Component
     {
         $this->resetValidation();
         $this->reset();
-        $this->updateImagemodalFormVisible = true;
         $this->modelId = $id;
-        $this->loadImageModel();
+        // $this->loadImageModel();
+        // dd($this->modelId);
+        $this->updateImagemodalFormVisible = true;
     }
 
     public function loadImageModel()
@@ -347,8 +411,75 @@ class Organizations extends Component
         $this->organization_primary_color = $data->organization_primary_color;
         $this->organization_secondary_color = $data->organization_secondary_color;
         $this->organization_slug = $data->organization_slug;
-        $this->organization_logo = $data->organization_logo;
         $this->organization_type = $data->organization_type;
+        $this->organization_logo = $data->organization_logo;
+    }
+
+    public function updateAssetLogo()
+    {
+    
+        $this->validate([
+            'organization_logo' => 'file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
+        ]);
+    
+
+        $this->fileName = time().'.'.$this->organization_logo->extension();  
+       
+        $this->organization_logo->store('files', 'imgfolder',$this->fileName);
+
+        $this->organization_logo->storeAs('files',$this->fileName, 'imgfolder');
+        
+        $this->asset_name = $this->fileName;
+
+        $this->user_id = Auth::id();
+        // $this->latestOrganizationID = DB::table('organizations')->latest('organizations_id')->first();
+        // $this->latestOrganizationIDtoInsertToDB = $this->latestOrganizationID->organizations_id;
+        
+        /* Get User ID */
+        $this->userDataPivot = User::find(Auth::id());
+        /* Get Organization ID from pivot table using USER ID */
+        $this->userDataPivotOrganization = $this->userDataPivot->organizations->first();
+        $this->latestOrganizationIDtoInsertToDB = $this->userDataPivotOrganization->organizations_id;
+        /* Asset Status is set to true */
+        $this->asset_status = 1;
+        /* Asset Type is set to Logo (Logo is 1 in Asset types table) */
+        $this->asset_type_id = 1;
+        /* Set image as latest organization asset logo */
+        $this->is_latest_logo = 1;
+        /* Unset image as image banenr */
+        $this->is_latest_banner = 0;
+        /* Page Type is set to Organization (Organization is id 4 in pagetypes table) */
+        $this->page_type_id = 4;
+
+        SystemAsset::create([
+            'asset_type_id' => $this->asset_type_id,
+            'asset_name' => $this->fileName,
+            'is_latest_logo' => $this->is_latest_logo,
+            'is_latest_banner' => $this->is_latest_banner,
+            'user_id' => $this->user_id,
+            'page_type_id' => $this->page_type_id,
+            'organization_id' => $this->modelId,
+            'status' => $this->asset_status,
+        ]);
+        
+        $this->selectedOrganizationAssetDataIsLatestLogo = SystemAsset::latest()->where('organization_id','=',$this->modelId)->where('status','=','1')->first();
+        dd($this->selectedOrganizationAssetDataIsLatestLogo);
+        if ($this->selectedOrganizationAssetDataIsLatestLogo != null) {
+            SystemAsset::where('organization_id','=',$this->modelId)->where('is_latest_logo','=','1')->update([
+                'is_latest_logo' => '0',
+            ]);
+            DB::table('system_assets')->where('system_assets_id','=',$this->selectedOrganizationAssetDataID)->update(['is_latest_logo'=>"1"]);
+            $this->updateImagemodalFormVisible = false;
+            $this->reset();
+            $this->resetValidation();
+        }else{
+            dd("HEllo");
+        }
+        
+        // dd(DB::table('organizations_users')->where('user_id','=',Auth::id())->pluck('organization_id'));
+       
+
+
     }
 
     public function Imageupdate()
@@ -381,6 +512,13 @@ class Organizations extends Component
     
     /*=====  End of Delete Organization Section comment block  ======*/
     
+
+
+
+
+
+
+
 
     public function specificOrganization()
     {
@@ -444,7 +582,7 @@ class Organizations extends Component
      */
     public function getOrganizationData()
     {
-        return Organization::paginate(5);
+        return Organization::paginate(10);
     }
 
     public function render()
@@ -452,7 +590,7 @@ class Organizations extends Component
         return view('livewire.organizations',[
             'organizationData' => $this->getOrganizationData(),
             'userAuthRole' => $this->getAuthUserRole(),
-            'posts' => $this->specificOrganization(),
+            'posts' => $this->getOrganizationData(),
             'userAffliatedOrganization' => $this->specificOrganization(),
         ]);
     }

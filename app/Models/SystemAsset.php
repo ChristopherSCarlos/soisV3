@@ -12,6 +12,7 @@ class SystemAsset extends Model
     protected $primaryKey = 'system_assets_id';
 
     protected $fillable = [
+        'asset_type_id',
         'asset_type',
         'asset_name',
         'is_latest_logo',
@@ -19,5 +20,6 @@ class SystemAsset extends Model
         'user_id',
         'page_type_id',
         'organization_id',
+        'status',
     ];
 }
