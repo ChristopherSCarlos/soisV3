@@ -119,9 +119,61 @@ class Frontpage extends Component
 
 
 
+    public function getTopNews()
+    {
+        return DB::table('articles')->where('is_article_featured_landing_page','=','1')->get();
+        // dd(DB::table('articles')->where('is_article_featured_landing_page','=','1')->first());
+    }
 
+    public function getArticleTime()
+    {
+        // dd(DB::table('articles')->orderBy('created_at','asc')->skip(1)->take(10)->get());
+        return DB::table('articles')->orderBy('created_at','asc')->skip(1)->take(8)->get();
+        // return DB::table('articles')->orderBy('created_at','asc')->paginate(10);
+    }
 
+    public function getLatestArticle()
+    {
+        // dd(DB::table('articles')->orderBy('created_at','asc')->first());
+        return DB::table('articles')->orderBy('created_at','asc')->first();
+    }
+    public function getAllFeaturedArticle()
+    {
+        return DB::table('articles')->where('is_featured_in_newspage','=','1')->get();
+    }
 
+    public function getSelectedNewsArticle()
+    {
+        return DB::table('articles')
+            ->orderBy('articles_id','asc')
+            ->get()
+            ->pluck('article_slug');
+    }
+
+    public function getSelectedNewsArticleData()
+    {
+        return DB::table('articles')
+            ->where('article_slug','=',$this->urlslug)
+            ->get();    
+    }
+
+    public function getSelectedOrganization()
+    {
+        return DB::table('organizations')
+            ->orderBy('organizations_id','asc')
+            ->get()
+            ->pluck('organization_slug');
+        // return DB::table('organizations')
+        //     ->where('organization_slug','=',$this->urlslug)
+        //     ->get()
+        //     ->pluck('organization_slug'); 
+    }
+    public function getSelectedOrganizationData()
+    {
+        return DB::table('organizations')
+            ->where('organization_slug','=',$this->urlslug)
+            ->get();
+    }
 
     public function render()
     {
@@ -130,6 +182,14 @@ class Frontpage extends Component
             'isCurrentSlugInSystemPage' => $this->selectSlugForSystemPagesViews(),
             'getTopBarNav' => $this->topBarLinks(),
             'orgLinks' => $this->organizationLinks(),
+            'getTopNewsArticleOnCreatedPage' => $this->getTopNews(),
+            'getDsiplayArticleDataOnCreatedPage' => $this->getArticletime(),
+            'getDsiplayArticleLatestOnCreatedPage' => $this->getLatestArticle(),
+            'getDsiplayFeaturedArticleOnCreatedPage' => $this->getAllFeaturedArticle(),
+            'getDisplaySelectedNewsArticle' => $this->getSelectedNewsArticle(),
+            'getDisplaySelectedNewsArticleData' => $this->getSelectedNewsArticleData(),
+            'getDisplaySelectedOrganization' => $this->getSelectedOrganization(),
+            'getDisplaySelectedOrganizationData' => $this->getSelectedOrganizationData(),
         ])->layout('layouts.frontpage');
     }
 }
