@@ -548,7 +548,9 @@
 
 
 @foreach($getDisplaySelectedNewsArticleData as $articleSelectedData)
-     {{$articleSelectedData->article_title}}
+     <div class="bg-red-900" style="height: 100vh;">
+          <p>hello</p>
+     </div>
 @endforeach
 
 

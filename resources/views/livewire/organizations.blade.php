@@ -61,6 +61,9 @@
                                                     <x-jet-button wire:click="updateImageShowModal({{ $item->organizations_id }})">
                                                         {{__('Update Logo')}}
                                                     </x-jet-button>
+                                                    <x-jet-button wire:click="updateBannerShowModal({{ $item->organizations_id }})">
+                                                        {{__('Update Banner')}}
+                                                    </x-jet-button>
                                                     <x-jet-danger-button wire:click="deleteShowModal({{ $item->organizations_id }})">
                                                         {{__('Delete')}}
                                                     </x-jet-danger-button>
@@ -104,6 +107,9 @@
                                                     </x-jet-button>
                                                     <x-jet-button wire:click="updateImageShowModal({{ $item->organizations_id }})">
                                                         {{__('Update Logo')}}
+                                                    </x-jet-button>
+                                                    <x-jet-button wire:click="updateBannerShowModal({{ $item->organizations_id }})">
+                                                        {{__('Update Banner')}}
                                                     </x-jet-button>
                                                     @if($userAuthRole == 'Super Admin')
                                                         <x-jet-danger-button wire:click="deleteShowModal({{ $item->organizations_id }})">
@@ -365,7 +371,7 @@
 
             <x-slot name="content">
             <div class="mt-4">
-                <x-jet-label for="Organization_logo" value="{{ __('organization logo') }}" />
+                <x-jet-label for="organization_logo" value="{{ __('organization logo') }}" />
                 <x-jet-input wire:model="organization_logo" id="organization_logo" class="block mt-1 w-full" type="file" />
                 @error('organization_logo') <span class="error">{{ $message }}</span> @enderror
             </div>
@@ -385,6 +391,39 @@
         </x-jet-dialog-modal>
 
 <!--====  End of Update Image Modal Section  ====-->
+
+<!--================================================================
+=            Update Organization Banner Section comment            =
+=================================================================-->
+<x-jet-dialog-modal wire:model="updateBannermodalFormVisible">
+            <x-slot name="title">
+                {{ __('Update Organization Image') }}
+            </x-slot>
+
+            <x-slot name="content">
+            <div class="mt-4">
+                <x-jet-label for="organization_banner" value="{{ __('Organization Banner') }}" />
+                <x-jet-input wire:model="organization_banner" id="organization_banner" class="block mt-1 w-full" type="file" />
+                @error('organization_banner') <span class="error">{{ $message }}</span> @enderror
+            </div>
+            
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('updateBannermodalFormVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+
+                    <x-jet-secondary-button class="ml-2" wire:click="updateAssetBanner" wire:loading.attr="disabled">
+                        {{ __('Update Logo') }}
+                    </x-jet-secondary-button>                    
+
+            </x-slot>
+        </x-jet-dialog-modal>
+
+
+<!--====  End of Update Organization Banner Section comment  ====-->
+
 
 
 <!--==================================================

@@ -36,6 +36,7 @@ class Organizations extends Component
     public $modalFormVisible = false;
     public $updatemodalFormVisible = false;
     public $updateImagemodalFormVisible = false;
+    public $updateBannermodalFormVisible = false;
     public $modelConfirmDeleteVisible = false;
     public $viewmodalFormVisible = false;
     
@@ -53,6 +54,7 @@ class Organizations extends Component
     public $organization_carousel_image_3;
     public $organization_slug;
     public $organization_type;
+    public $organization_banner;
     
     public $isSetToDefaultHomePage;
     public $isSetToDefaultNotFoundPage;
@@ -79,6 +81,7 @@ class Organizations extends Component
     public $orgtype = '0';
 
     public $fileName;
+    public $fileNameBanner;
 
     public $objectData;
     public $userID;
@@ -417,11 +420,10 @@ class Organizations extends Component
 
     public function updateAssetLogo()
     {
-    
         $this->validate([
-            'organization_logo' => 'file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
+            'organization_logo' => 'required',
         ]);
-    
+        // dd($this->organization_logo);
 
         $this->fileName = time().'.'.$this->organization_logo->extension();  
        
@@ -439,7 +441,7 @@ class Organizations extends Component
         $this->userDataPivot = User::find(Auth::id());
         /* Get Organization ID from pivot table using USER ID */
         $this->userDataPivotOrganization = $this->userDataPivot->organizations->first();
-        $this->latestOrganizationIDtoInsertToDB = $this->userDataPivotOrganization->organizations_id;
+        // $this->latestOrganizationIDtoInsertToDB = $this->userDataPivotOrganization->organizations_id;
         /* Asset Status is set to true */
         $this->asset_status = 1;
         /* Asset Type is set to Logo (Logo is 1 in Asset types table) */
@@ -463,18 +465,27 @@ class Organizations extends Component
         ]);
         
         $this->selectedOrganizationAssetDataIsLatestLogo = SystemAsset::latest()->where('organization_id','=',$this->modelId)->where('status','=','1')->first();
-        dd($this->selectedOrganizationAssetDataIsLatestLogo);
+        // dd($this->selectedOrganizationAssetDataIsLatestLogo);
         if ($this->selectedOrganizationAssetDataIsLatestLogo != null) {
+            $this->selectedOrganizationAssetDataID = $this->selectedOrganizationAssetDataIsLatestLogo->system_assets_id;
+            // dd($this->selectedOrganizationAssetDataID);
+            // dd(SystemAsset::find('organization_id','=',$this->modelId)->where('is_latest_logo','=','1'));
             SystemAsset::where('organization_id','=',$this->modelId)->where('is_latest_logo','=','1')->update([
                 'is_latest_logo' => '0',
             ]);
             DB::table('system_assets')->where('system_assets_id','=',$this->selectedOrganizationAssetDataID)->update(['is_latest_logo'=>"1"]);
             $this->updateImagemodalFormVisible = false;
-            $this->reset();
             $this->resetValidation();
+            $this->reset();
         }else{
-            dd("HEllo");
+            $this->updateImagemodalFormVisible = false;
+            $this->resetValidation();
+            $this->reset();
         }
+        $this->updateImagemodalFormVisible = false;
+        $this->resetValidation();
+        $this->reset();
+    
         
         // dd(DB::table('organizations_users')->where('user_id','=',Auth::id())->pluck('organization_id'));
        
@@ -514,7 +525,107 @@ class Organizations extends Component
     
 
 
+    /*========================================================================
+    =            Update Organization Banner Section comment block            =
+    ========================================================================*/
+    public function updateBannerShowModal($id)
+    {
+        $this->resetValidation();
+        $this->reset();
+        $this->clearInput();
+        $this->modelId = $id;
+        $this->updateBannermodalFormVisible = true;
+        // dd($this->modelId);
+    }
+    
+    public function updateAssetBanner()
+    {
+        // dd($this->organization_banner);
+        $this->validate([
+            'organization_banner' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:100048',
+        ]);
+        // dd($this->organization_banner);
 
+        $this->fileNameBanner = time().'.'.$this->organization_banner->extension();  
+       
+        $this->organization_banner->store('files', 'imgfolder',$this->fileNameBanner);
+
+        $this->organization_banner->storeAs('files',$this->fileNameBanner, 'imgfolder');
+        
+        $this->asset_name = $this->fileNameBanner;
+
+        $this->user_id = Auth::id();
+        // $this->latestOrganizationID = DB::table('organizations')->latest('organizations_id')->first();
+        // $this->latestOrganizationIDtoInsertToDB = $this->latestOrganizationID->organizations_id;
+        
+        /* Get User ID */
+        $this->userDataPivot = User::find(Auth::id());
+        /* Get Organization ID from pivot table using USER ID */
+        $this->userDataPivotOrganization = $this->userDataPivot->organizations->first();
+        // $this->latestOrganizationIDtoInsertToDB = $this->userDataPivotOrganization->organizations_id;
+        /* Asset Status is set to true */
+        $this->asset_status = 1;
+        /* Asset Type is set to Logo (Logo is 1 in Asset types table) */
+        $this->asset_type_id = 2;
+        /* Set image as latest organization asset logo */
+        $this->is_latest_logo = 0;
+        /* Unset image as image banenr */
+        $this->is_latest_banner = 1;
+        /* Page Type is set to Organization (Organization is id 4 in pagetypes table) */
+        $this->page_type_id = 4;
+
+        SystemAsset::create([
+            'asset_type_id' => $this->asset_type_id,
+            'asset_name' => $this->fileNameBanner,
+            'is_latest_logo' => $this->is_latest_logo,
+            'is_latest_banner' => $this->is_latest_banner,
+            'user_id' => $this->user_id,
+            'page_type_id' => $this->page_type_id,
+            'organization_id' => $this->modelId,
+            'status' => $this->asset_status,
+        ]);
+        
+        $this->selectedOrganizationAssetDataIsLatestLogo = SystemAsset::latest()->where('organization_id','=',$this->modelId)->where('status','=','1')->first();
+        // dd($this->selectedOrganizationAssetDataIsLatestLogo);
+        if ($this->selectedOrganizationAssetDataIsLatestLogo != null) {
+            $this->selectedOrganizationAssetDataID = $this->selectedOrganizationAssetDataIsLatestLogo->system_assets_id;
+            // dd($this->selectedOrganizationAssetDataID);
+            // dd(SystemAsset::find('organization_id','=',$this->modelId)->where('is_latest_logo','=','1'));
+            SystemAsset::where('organization_id','=',$this->modelId)->where('is_latest_banner','=','1')->update([
+                'is_latest_banner' => '0',
+            ]);
+            DB::table('system_assets')->where('system_assets_id','=',$this->selectedOrganizationAssetDataID)->update(['is_latest_banner'=>"1"]);
+            $this->updateBannermodalFormVisible = false;
+            $this->clearInput();
+            $this->reset();
+            $this->resetValidation();
+        }else{
+            $this->updateBannermodalFormVisible = false;
+            $this->clearInput();
+            $this->reset();
+            $this->resetValidation();
+        }
+        $this->updateBannermodalFormVisible = false;
+        $this->clearInput();
+        $this->reset();
+        $this->resetValidation();
+    }
+    public function clearInput()
+    {
+        $this->organization_banner = null;
+        $this->organization_name = null;
+        $this->organization_logo = null;
+        $this->organization_details = null;
+        $this->organization_primary_color = null;
+        $this->organization_secondary_color = null;
+        $this->organization_carousel_image_1 = null;
+        $this->organization_carousel_image_2 = null;
+        $this->organization_carousel_image_3 = null;
+        $this->organization_slug = null;
+        $this->organization_type = null;
+    }
+    /*=====  End of Update Organization Banner Section comment block  ======*/
+    
 
 
 

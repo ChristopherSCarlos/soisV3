@@ -57,15 +57,21 @@ class OfficerPositions extends Component
         $this->resetValidation();
         $this->reset();
         $this->CreatemodalFormVisible = true;
+        // dd("hello");
     }
 
     public function create()
     {
-        dd($this);
-        officer_positions::create($this->modelCreateOfficerPosition());
+        // dd($this);
+        OfficerPosition::create($this->modelCreateOfficerPosition());
         $this->CreatemodalFormVisible = false;
         $this->reset(); 
         $this->resetValidation(); 
+    }
+
+    public function createPosition()
+    {
+        dd("Hello");
     }
 
     public function modelCreateOfficerPosition()

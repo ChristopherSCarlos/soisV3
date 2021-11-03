@@ -1,9 +1,10 @@
 <div class="p-6">
+    <div>
     <x-jet-button wire:click="createOfficerPositionModal">
             {{ __('Add New Position Category') }}
     </x-jet-button>
-	</div>
-	<div class="flex flex-col items-center">
+    </div>
+    <div class="flex flex-col items-center">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -41,7 +42,7 @@
             </div>
         </div>
     </div>
-		 
+         
 <!--==========================================
 =            Create Officer Modal            =
 ===========================================-->
@@ -61,9 +62,9 @@
             <x-jet-secondary-button wire:click="$toggle('CreatemodalFormVisible')" wire:loading.attr="disabled">
                 {{ __('Cancel') }}
             </x-jet-secondary-button>
-                <x-jet-secondary-button class="ml-2" wire:click="create" wire:loading.attr="disabled">
-                    {{ __('Create Officer Position') }}
-                </x-jet-secondary-button>
+            <x-jet-secondary-button class="ml-2" wire:click="create" wire:loading.attr="disabled">
+                {{ __('Create Organization') }}
+            </x-jet-secondary-button>
         </x-slot>
     </x-jet-dialog-modal>
 
