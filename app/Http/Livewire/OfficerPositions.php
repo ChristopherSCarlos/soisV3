@@ -20,8 +20,11 @@ class OfficerPositions extends Component
     use WithPagination;
 
     public $CreatemodalFormVisible = false;
+    public $UpdatemodalFormVisible = false;
+    public $modelConfirmDeleteVisible = false;
 
     public $position_category;
+    public $officer_positions_id;
 
     private $role;
     private $userRole;
@@ -69,11 +72,6 @@ class OfficerPositions extends Component
         $this->resetValidation(); 
     }
 
-    public function createPosition()
-    {
-        dd("Hello");
-    }
-
     public function modelCreateOfficerPosition()
     {
         return [
@@ -84,65 +82,64 @@ class OfficerPositions extends Component
     
     /*=====  End of Create Officer Position Section  ======*/
     
-
-    /*====================================================
-    =            Organization Specific Filter            =
-    ====================================================*/
+    /*========================================================
+    =            Update Officer Position Category            =
+    ========================================================*/
     
-    // public function specificOrganization()
-    // {
-    //     $this->authUser = Auth::id();
-    //     $this->user = User::find($this->authUser);
-    //     $this->OrgDataFromUser = $this->user->organizations->first();
-    //     // dd($this->OrgDataFromUser->id);
-    //     if($this->OrgDataFromUser){
-    //         $this->orgUserId = $this->OrgDataFromUser->organizations_id;
-    //         $this->userOrganization = $this->OrgDataFromUser->organization_name;
-    //         // dd($this->orgUserId);
-    //         $this->orgCount = true;
-    //         // dd($this->orgCount);
-    //         // dd(DB::table('organizations')->where('organizations_id', '=', $this->orgUserId)->get());
-    //         return DB::table('organizations')
-    //        ->where('organizations_id', '=', $this->orgUserId)
-    //        ->get();
+    public function updateShowModal($id)
+    {
+        $this->resetValidation();
+        $this->reset();
+        $this->UpdatemodalFormVisible = true;
+        $this->officer_positions_id = $id;
+        $this->loadModel();
+    }
 
+    public function loadModel()
+    {
+        $data = OfficerPosition::find($this->officer_positions_id);
+        $this->position_category = $data->position_category;
+        
+    }
 
+    public function update()
+    {
+        // dd($this);
+        $this->validate([
+            'position_category' => 'required',
+        ]);
+        OfficerPosition::find($this->officer_positions_id)->update($this->modelData());
+        $this->UpdatemodalFormVisible = false;
+    }
 
-    //     }else{
-    //         $this->orgCount = false;
-    //         return DB::table('organizations')
-    //        ->where('status', '=', '1')
-    //        ->get();            
-    //         // dd("2");
-    //     }
-    //     // dd($this->orgUserId);
-    //     // $this->organizationUserData = Organization::find($this->orgUserId);        
-    //     // return $this->organizationUserData;
-    //     // dd(gettype(Organization::where($this->orgUserId)));
-    //     // return Organization::where($this->orgUserId);
-                
-    //     // dd($this->organizationUserData);
-    //     // dd(gettype($this->OrgDataFromUser));        
+    public function modelData()
+    {
+        return [
+            'position_category' => $this->position_category,
+        ];
+    }
+    
+    /*=====  End of Update Officer Position Category  ======*/
+    
+    /*================================================
+    =            Delete Position Category            =
+    ================================================*/
+    
+    public function deleteShowModal($id)
+    {
+        $this->officer_positions_id = $id;
+        $this->modelConfirmDeleteVisible = true;
+    }
 
-    //     // $this->user = User::find($this->userId);
-    //     // dd($this->OrgDataFromUser->organization_name);
-    // }
-
-    // /**
-    //  *
-    //  * Get User Role
-    //  *
-    //  */
-    // public function getAuthUserRole()
-    // {
-    //     $this->authUserId = Auth::id();
-    //     $this->authUserData = User::find($this->authUserId);        
-    //     $this->authUserRole = $this->authUserData->roles->first();
-    //     $this->authUserRoleType = $this->authUserRole->role_name;         
-    //     // dd($this->authUserRoleType);
-    //     // dd($this->authUserRoleType);
-    //     return $this->authUserRoleType;
-    // }
+    public function delete()
+    {
+        OfficerPosition::find($this->officer_positions_id)->update(['status'=>'0']);
+        $this->modelConfirmDeleteVisible = false;
+        $this->resetPage();
+    }
+    
+    /*=====  End of Delete Position Category  ======*/
+    
 
     /**
      *

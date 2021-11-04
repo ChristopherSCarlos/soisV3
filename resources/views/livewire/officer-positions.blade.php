@@ -23,9 +23,6 @@
                                                 <td class="px-6 py-2">{{ $item->position_category }}</td>
 
                                                 <td>
-                                                    <x-jet-button wire:click="viewShowModal({{ $item->officer_positions_id }})">
-                                                        {{__('View')}}
-                                                    </x-jet-button>
                                                     <x-jet-button wire:click="updateShowModal({{ $item->officer_positions_id }})">
                                                         {{__('Update')}}
                                                     </x-jet-button>
@@ -63,15 +60,65 @@
                 {{ __('Cancel') }}
             </x-jet-secondary-button>
             <x-jet-secondary-button class="ml-2" wire:click="create" wire:loading.attr="disabled">
-                {{ __('Create Organization') }}
+                {{ __('Create Position Category') }}
             </x-jet-secondary-button>
         </x-slot>
     </x-jet-dialog-modal>
 
 <!--====  End of Create Officer Modal  ====-->
 
+<!--===================================================
+=            Update Officer Position Modal            =
+====================================================-->
+
+<x-jet-dialog-modal wire:model="UpdatemodalFormVisible">
+        <x-slot name="title">
+            Update Officer Position
+        </x-slot>
+        <x-slot name="content">
+            <div class="mt-4">
+                <x-jet-label for="position_category" value="{{ __('Position Category') }}" />
+                <x-jet-input wire:model="position_category" id="position_category" class="block mt-1 w-full" type="text" required/>
+                @error('position_category') <span class="error">{{ $message }}</span> @enderror
+            </div>
+        </x-slot>
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$toggle('UpdatemodalFormVisible')" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-secondary-button>
+            <x-jet-secondary-button class="ml-2" wire:click="update" wire:loading.attr="disabled">
+                {{ __('Update Position Category') }}
+            </x-jet-secondary-button>
+        </x-slot>
+    </x-jet-dialog-modal>
+
+<!--====  End of Update Officer Position Modal  ====-->
+
+<!--==================================================
+=            Delete Modal Section comment            =
+===================================================-->
+        <x-jet-dialog-modal wire:model="modelConfirmDeleteVisible">
+            <x-slot name="title">
+                {{ __('Delete Position Category') }}
+            </x-slot>
+
+            <x-slot name="content">
+                {{ __('Are you sure you want to delete this? Once this is deleted, all of its resources and data will be permanently deleted.') }}
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('modelConfirmDeleteVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+
+                <x-jet-danger-button class="ml-2" wire:click="delete" wire:loading.attr="disabled">
+                    {{ __('Delete Position Category') }}
+                </x-jet-danger-button>
+            </x-slot>
+        </x-jet-dialog-modal>
 
 
+<!--====  End of Delete Modal Section comment  ====-->
 
 
 
