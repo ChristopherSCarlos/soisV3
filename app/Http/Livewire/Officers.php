@@ -21,6 +21,8 @@ class Officers extends Component
     use WithPagination;
 
     public $CreatemodalFormVisible = false;
+    public $updatemodalFormVisible = false;
+    public $modelConfirmDeleteVisible = false;
 
     private $role;
     private $userRole;
@@ -40,6 +42,22 @@ class Officers extends Component
     public $userId;
     public $userData;
     public $userOrganizationData;
+
+    public function rules()
+    {
+        return [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'middle_name' => 'required',
+            'suffix' => 'nullable',
+            'organization_id' => 'required',
+            'school_year' => 'required',
+            'semester' => 'required',
+            'position' => 'required',
+            'exp_date' => 'required',
+            'position_category' => 'required',
+        ];
+    }
 
     public function mount()
     {
@@ -78,6 +96,7 @@ class Officers extends Component
     {
         // $this->validate();
         // dd($this);
+        $this->validate();
         Officer::create($this->modelCreateOfficer());
         $this->CreatemodalFormVisible = false;
         $this->reset(); 
@@ -102,6 +121,98 @@ class Officers extends Component
     }
     
     /*=====  End of Create Officer Section  ======*/
+    
+    /*==============================================
+    =            Update Officer Section            =
+    ==============================================*/
+    
+    public function updateShowModal($id)
+    {
+        $this->resetValidation();
+        $this->reset();
+        $this->updatemodalFormVisible = true;
+        $this->officers_id = $id;
+        $this->loadModel();
+    }
+
+    public function loadModel()
+    {
+        // dd($this);
+        $data = officer::find($this->officers_id);
+        $this->first_name = $data->first_name;
+        $this->last_name = $data->last_name;
+        $this->middle_name = $data->middle_name;
+        $this->suffix = $data->suffix;
+        $this->organization_id = $data->organization_id;
+        $this->school_year = $data->school_year;
+        $this->semester = $data->semester;
+        $this->position = $data->position;
+        $this->exp_date = $data->exp_date;
+        $this->position_category = $data->position_category;
+    }
+
+    public function update()
+    {
+        // dd($this);
+        $this->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'middle_name' => 'required',
+            'suffix' => 'nullable',
+            'organization_id' => 'required',
+            'school_year' => 'required',
+            'semester' => 'required',
+            'position' => 'required',
+            'exp_date' => 'required',
+            'position_category' => 'required',
+        ]);
+        officer::find($this->officers_id)->update($this->modelData());
+        $this->updatemodalFormVisible = false;
+    }
+    
+    /*=====  End of Update Officer Section  ======*/
+
+    /*==============================================
+    =            Delete Officer Section            =
+    ==============================================*/
+    
+    public function deleteShowModal($id)
+    {
+        $this->officers_id = $id;
+        $this->modelConfirmDeleteVisible = true;
+    }
+
+    public function delete()
+    {
+        officer::find($this->officers_id)->update(['status'=>'0']);
+        $this->modelConfirmDeleteVisible = false;
+        $this->resetPage();
+    }
+    
+    /*=====  End of Delete Officer Section  ======*/
+    
+    
+    /*==========================================
+    =            Model Data Section            =
+    ==========================================*/
+    
+    public function modelData()
+    {
+        return [
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'middle_name' => $this->middle_name,
+            'suffix' => $this->suffix,
+            'organization_id' => $this->organization_id,
+            'school_year' => $this->school_year,
+            'semester' => $this->semester,
+            'position' => $this->position,
+            'exp_date' => $this->exp_date,
+            'position_category' => $this->position_category,
+        ];
+    }
+    
+    /*=====  End of Model Data Section  ======*/
     
 
     /*====================================================
@@ -163,6 +274,29 @@ class Officers extends Component
     //     return $this->authUserRoleType;
     // }
 
+    /*================================================
+    =            Get Organization Section            =
+    ================================================*/
+    
+    public function getOrganizationsFromDatabase()
+    {
+        return DB::table('organizations')->where('status','=','1')->get();
+    }
+    
+    /*=====  End of Get Organization Section  ======*/
+
+    /*=====================================================
+    =            Get Position Category Section            =
+    =====================================================*/
+    
+    public function getOfficerPositionsFromDatabase()
+    {
+        return DB::table('officer_positions')->where('status','=','1')->get();
+    }
+    
+    /*=====  End of Get Position Category Section  ======*/
+    
+
     /**
      *
      * Get Organization Data from database
@@ -182,6 +316,8 @@ class Officers extends Component
     {
         return view('livewire.officers',[
             'OfficerData' => $this->getOfficerData(),
+            'getOrganization' => $this->getOrganizationsFromDatabase(),
+            'getOfficerPosition' => $this->getOfficerPositionsFromDatabase(),
             'getAuthUserRole' => $this->userRole,
             // 'userAuthRole' => $this->getAuthUserRole(),
             // 'posts' => $this->specificOrganization(),
