@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Frontpage;
 use App\Http\Contollers\AuthRolePermsController;
+use App\Http\Livewire\OrganizationPages;
 use App\Http\Livewire\PagesUpdateProcess;
 /*
 |--------------------------------------------------------------------------
@@ -115,6 +116,6 @@ Route::group(['middleware' => [
 
 
 
-
+Route::get('/organization/{urlslug}', OrganizationPages::class);
 Route::get('/{urlslug}', FrontPage::class);
 Route::get('/', FrontPage::class);

@@ -1,8 +1,8 @@
-<div class="divide-y divide-gray-800 " x-data="{ show: false }">
      <!--====================================================
      =            Homepage Views Section comment            =
      =====================================================-->
      @if($isCurrentSlugInSystemPage->contains($urlslug) or $urlslug == $isFrontPageSlugNull)
+<div class="divide-y divide-gray-800 " x-data="{ show: false }">
      
      <div class="bg-img">
           <div class="front-container">
@@ -565,14 +565,16 @@
 <!--====  End of Selected News Article Section comment  ====-->
 
 
-
 <!--==========================================================
 =            Organization WebPage Section comment            =
 ===========================================================-->
 @if($getDisplaySelectedOrganization->contains($urlslug))
-<div class="">
-  <div class="">
-    <nav id="" class="flex items-center px-3 py-2 shadow-lg" style="background: maroon;">
+@foreach($getDisplaySelectedOrganizationAssetBannerData as $organizationBannerData)
+<div id="org-bacground-image" style="background: linear-gradient(to bottom, transparent, #030202), url('{{ asset('files/' . $organizationBannerData->asset_name) }}');">
+@endforeach
+@foreach($getDisplaySelectedOrganizationInterfaceBannerData as $organizationUI)
+  <div class="container">
+    <nav id="" class="flex items-center px-3 py-2 shadow-lg" style="background: linear-gradient(to left,{{$organizationUI->organization_secondary_color}}66, {{$organizationUI->organization_primary_color}}66);">
                 <div>
                     <button @click="show =! show" class="block h-8 mr-3 text-gray-400 items-center hover:text-gray-200 focus:text-gray-200 focus:outline-none sm:hidden">
                         <svg class="w-8 fill-current" viewBox="0 0 24 24">                            
@@ -697,22 +699,36 @@
                     </ul>
                 </div>
             </aside>
-
+    
+    @foreach($getDisplaySelectedOrganizationAssetLogoData as $organizationLogo)
+         <div class="flex flex-col flex-wrap justify-center align-items" style="height:100vh;">
+            <div class="org-logo-placeholder" style="">
+                <img class="org-logo-image" style="" src="{{ asset('files/' . $organizationLogo->asset_name) }}">
+            </div>
+            <div class="" style="margin:0px auto auto auto;">
+                <p style="color: white">{{$organizationUI->organization_name}}</p>
+            </div>
+         </div>
+    @endforeach
+    
   </div>
 </div>
 
-@foreach($getDisplaySelectedOrganizationData as $organizationSelectedData)
-     {{$organizationSelectedData->organization_name}}
+<div style="background: #030202;">
+    <div data-aos="fade-right" >
+        <p style="color: white; font-size: 100px;">Announcements</p>
+    </div>
+    <div data-aos="fade-right">
+        <hr>
+    </div>
+</div>
+
 @endforeach
 
 
 
-
-
-
-
-
-@endif<!--====  End of Organization WebPage Section comment  ====-->
+@endif
+<!--====  End of Organization WebPage Section comment  ====-->
 
 
 

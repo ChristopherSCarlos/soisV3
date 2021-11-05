@@ -26,6 +26,14 @@ class Frontpage extends Component
     public $systemPagesDataForSlugSelection;
     public $urlslug;
     public $isFrontPageSlugNull = null;
+    public $organizationID;
+    public $organizationAssetLogo;
+    private $organizationAssetLogoDisplay;
+    public $organizationAssetBanner;
+    public $organizationInterfaceData;
+
+    public $pageData;
+    public $pageDataCount;
 
     public function mount($urlslug = null)
     {
@@ -35,21 +43,48 @@ class Frontpage extends Component
     public function retrieveContent($urlslug)
     {
         if (empty($urlslug)) {
-            $data = Page::where('is_default_home',true)->first();
-            $data = Page::select('title')->first();
+            $this->data = Page::where('is_default_home',true)->first();
+            $this->data = Page::select('title')->first();
         } else {
-            $data = Page::where('slug',$urlslug)->first();
-        
+            $this->data = Page::where('slug',$urlslug)->first();
+            $this->pagesData = Page::pluck('slug');
+            // dd(count($this->pagesData));
+            if (Page::where('slug', '=', $urlslug)->exists()) {
+                // dd($urlslug);
+            }
+            if (Organization::where('organization_slug', '=', $urlslug)->exists()) {
+                $this->organizationAssetLogo = DB::table('system_assets')->where('organization_id','=',$this->getOrganizationID())->where('is_latest_logo','=','1')->where('status','=','1')->get();
+                $this->organizationAssetBanner = DB::table('system_assets')->where('organization_id','=',$this->getOrganizationID())->where('is_latest_banner','=','1')->where('status','=','1')->get();
+                $this->organizationInterfaceData = DB::table('organizations')->where('organization_slug','=',$urlslug)->get();
+            }
+            if (Article::where('article_slug', '=', $urlslug)->exists()) {
+                // dd($urlslug);
+            }
+            // dd($urlslug);
+
             // if may error
-            if (!$data) {
-                $data = Page::where('is_default_not_found',true)->first();
+            if (!$this->data) {
+                $this->data = Page::where('is_default_not_found',true)->first();
             }
         }
 
-        $this->title = $data->title;
-        $this->content = $data->content;
+        $this->title = $this->data->title;
+        $this->content = $this->data->content;
     }
 
+
+    public function getOrganizationAssetLogoFromDatabase()
+    {
+        return $this->organizationAssetLogo;
+    }
+    public function getOrganizationAssetBannerFromDatabase()
+    {
+        return $this->organizationAssetBanner;
+    }
+    public function getOrganizationInterfaceDataFromDatabase()
+    {
+        return $this->organizationInterfaceData;
+    }
     /**
      *
      * Get The Homepage
@@ -173,6 +208,29 @@ class Frontpage extends Component
         return DB::table('organizations')
             ->where('organization_slug','=',$this->urlslug)
             ->get();
+        // dd(DB::table('organizations')
+        //     ->where('organization_slug','=',$this->urlslug)
+        //     ->get());
+    }
+
+    /**
+     *
+     * Get system Asset Data from database
+     *
+     */
+    public function getOrganizationAssetLogo()
+    {
+        // $this->organizationAssetLogo = DB::table('system_assets')->where('organization_id','=',$this->getOrganizationID())->where('is_latest_logo','=','1')->where('status','=','1')->get();
+        // dd($this->organizationAssetLogo);
+        // return $this->organizationAssetLogo;
+    }
+
+    public function getOrganizationID()
+    {
+        $this->organizationID = DB::table('organizations')
+            ->where('organization_slug','=',$this->urlslug)
+            ->pluck('organizations_id');
+        return $this->organizationID;
     }
 
     public function render()
@@ -190,6 +248,11 @@ class Frontpage extends Component
             'getDisplaySelectedNewsArticleData' => $this->getSelectedNewsArticleData(),
             'getDisplaySelectedOrganization' => $this->getSelectedOrganization(),
             'getDisplaySelectedOrganizationData' => $this->getSelectedOrganizationData(),
+            // 'getDisplaySelectedOrganizationAssetLogoData' => $this->getOrganizationAssetLogo(),
+            'getDisplaySelectedOrganizationAssetLogoData' => $this->getOrganizationAssetLogoFromDatabase(),
+            'getDisplaySelectedOrganizationAssetBannerData' => $this->getOrganizationAssetBannerFromDatabase(),
+            'getDisplaySelectedOrganizationInterfaceBannerData' => $this->getOrganizationInterfaceDataFromDatabase(),
+
         ])->layout('layouts.frontpage');
     }
 }

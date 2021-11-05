@@ -695,6 +695,7 @@ class Organizations extends Component
     {
         return Organization::paginate(10);
     }
+    
 
     public function render()
     {
