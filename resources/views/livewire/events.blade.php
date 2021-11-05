@@ -70,6 +70,7 @@
                                             <x-jet-danger-button wire:click="deleteEventsModal({{ $eventItem->event_id }})">
                                                 {{__('Delete')}}
                                             </x-jet-danger-button>
+                                            
                                         </td>
                                     </tr>
                                 @endforeach

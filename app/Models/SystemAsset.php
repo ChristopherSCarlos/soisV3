@@ -21,5 +21,9 @@ class SystemAsset extends Model
         'page_type_id',
         'organization_id',
         'status',
+        'is_latest_image',
+        'events_id',
+        'announcements_id',
+        'articles_id',
     ];
 }

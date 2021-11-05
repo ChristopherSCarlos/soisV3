@@ -8,8 +8,10 @@ use Auth;
 use Storage;
 
 use App\Models\User;
-// use App\Models\Organization;
+use App\Models\Organization;
 use App\Models\Article;
+use App\Models\AssetType;
+use App\Models\SystemAsset;
 
 use Livewire\withPagination;
 use Illuminate\Support\STR;
@@ -22,6 +24,7 @@ use Illuminate\Support\Facades\DB;
 class Articles extends Component
 {
     use WithPagination;
+    use WithFileUploads;  
     /* MODALS */
     public $modalCreateNewsFormVisible = false;
     public $modalUpdateNewsFormVisible = false;
@@ -33,6 +36,7 @@ class Articles extends Component
     public $modalUnSetTopNewsFormVisible = false;
     public $modalFeatureNewsInOrganizationPageFormVisible = false;
     public $modalUnFeatureNewsInOrganizationPageFormVisible = false;
+    public $modalEditNewsImageFormVisible = false;
     
     /* VARIABLES */
     public $userId;
@@ -79,6 +83,22 @@ class Articles extends Component
     public $isArticleTopNews;
     public $isArticleOrganizationTopNews;
 
+    public $article_featured_image;
+    public $article_featured_image_name;
+    public $asset_type_id;
+    public $is_latest_logo;
+    public $is_latest_banner;
+    public $page_type_id;
+    public $latestOrganizationIDtoInsertToDB;
+    public $latestNewsID;
+    public $va;
+    public $article_id;
+
+    public $article_image_view;
+    public $selectedNewsAssetDataIsLatestImage;
+    public $selectedNewsAssetDataID;
+    public $orgID;
+
 
     /*====================================================
     =            Create Section comment block            =
@@ -91,13 +111,53 @@ class Articles extends Component
     }
     public function create()
     {
+        $this->validate([
+            'article_featured_image' => 'required|file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
+        ]);
+        $this->article_featured_image_name = time().'.'.$this->article_featured_image->extension();
+        // dd($this->article_featured_image_name);
+
+
+        $this->article_featured_image->store('files', 'imgfolder',$this->article_featured_image_name);
+
+        $this->article_featured_image->storeAs('files',$this->article_featured_image_name, 'imgfolder');
+
+
         $this->userId = Auth::user()->users_id;
         $this->user = User::find($this->userId);
+        $this->va = $this->user->organizations->first();
+        // dd($this->va);
+        $this->latestOrganizationIDtoInsertToDB = $this->va->organizations_id;
+        // dd($this->latestOrganizationIDtoInsertToDB);
+
         // $this->OrgDataFromUser = $this->user->organization->first();
         // $this->OrgDataFromUserOrganizationNameString = $this->OrgDataFromUser->organization_name;
         Article::create($this->createModel());
         // $this->syncArticleOrganization();
+
+        $this->latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
+        // dd($this->latestNewsID);
+
+        SystemAsset::create([
+            'asset_type_id' => '4',
+            'asset_name' => $this->article_featured_image_name,
+            'is_latest_logo' => '0',
+            'is_latest_banner' => '0',
+            'is_latest_image' => '1',
+            'user_id' => $this->userId,
+            'page_type_id' => '2',
+            'organization_id' => $this->latestOrganizationIDtoInsertToDB,
+            'status' => '1',
+            'articles_id' => $this->latestNewsID,
+        ]);
+
+
+
+
+
+
         $this->modalCreateNewsFormVisible = false;
+        $this->article_featured_image = null;
         $this->reset();
         $this->resetValidation();
     }
@@ -341,7 +401,86 @@ class Articles extends Component
     
     /*=====  End of UnFeature News to Organization Page Section comment block  ======*/
     
+    /*=================================================================
+    =            Edit Featured Image Section comment block            =
+    =================================================================*/
+    public function editImageNewsModal($id)
+    {
+        $this->resetValidation();
+        $this->reset();
+        $this->newsId = $id;
+        $this->viewImage();
+        $this->modalEditNewsImageFormVisible = true;
+    }
+    public function editNewsImage()
+    {
+        $this->validate([
+            'article_featured_image' => 'required',
+        ]);
+        $this->article_featured_image_name = time().'.'.$this->article_featured_image->extension();
 
+        $this->article_featured_image->store('files', 'imgfolder',$this->article_featured_image_name);
+
+        $this->article_featured_image->storeAs('files',$this->article_featured_image_name, 'imgfolder');
+
+
+        $this->userId = Auth::user()->users_id;
+        $this->user = User::find($this->userId);
+        $this->va = $this->user->organizations->first();
+        // dd($this->va);
+        $this->latestOrganizationIDtoInsertToDB = $this->va->organizations_id;
+        // dd($this->latestOrganizationIDtoInsertToDB);
+
+        // $this->OrgDataFromUser = $this->user->organization->first();
+        // $this->OrgDataFromUserOrganizationNameString = $this->OrgDataFromUser->organization_name;
+        // $this->syncArticleOrganization();
+
+        // dd($this->latestNewsID);
+
+        SystemAsset::create([
+            'asset_type_id' => '4',
+            'asset_name' => $this->article_featured_image_name,
+            'is_latest_logo' => '0',
+            'is_latest_banner' => '0',
+            'is_latest_image' => '1',
+            'user_id' => $this->userId,
+            'page_type_id' => '2',
+            'organization_id' => $this->latestOrganizationIDtoInsertToDB,
+            'status' => '1',
+            'articles_id' => $this->newsId,
+        ]);
+
+        $this->selectedNewsAssetDataIsLatestImage = SystemAsset::latest()->where('articles_id','=',$this->newsId)->where('status','=','1')->first();
+        // dd($this->selectedNewsAssetDataIsLatestImage);
+        // dd($this->selectedNewsAssetDataIsLatestImage);
+        if ($this->selectedNewsAssetDataIsLatestImage != null) {
+            $this->selectedNewsAssetDataID = $this->selectedNewsAssetDataIsLatestImage->system_assets_id;
+            // dd($this->selectedNewsAssetDataID);
+            // dd(SystemAsset::find('organization_id','=',$this->newsId)->where('is_latest_logo','=','1'));
+            SystemAsset::where('articles_id','=',$this->newsId)->where('is_latest_image','=','1')->update([
+                'is_latest_image' => '0',
+            ]);
+            DB::table('system_assets')->where('system_assets_id','=',$this->selectedNewsAssetDataID)->update(['is_latest_image'=>'1']);
+            $this->modalEditNewsImageFormVisible = false;
+            $this->reset();
+            $this->resetValidation();
+        }else{
+            $this->modalEditNewsImageFormVisible = false;
+            $this->reset();
+            $this->resetValidation();
+        }
+        $this->modalEditNewsImageFormVisible = false;
+        $this->reset();
+        $this->resetValidation();
+    }
+    
+    /*=====  End of Edit Featured Image Section comment block  ======*/
+    
+    public function viewImage()
+    {
+        $this->article_image_view = DB::table('system_assets')->where('articles_id','=',$this->newsId)->where('is_latest_image','=','1')->get();
+        return $this->article_image_view;
+    }
 
     /**
      *
@@ -386,7 +525,6 @@ class Articles extends Component
         $this->userId = Auth::user()->users_id;
         // dd($this->userId);
         return DB::table('articles')
-           ->where('user_id', '=', $this->userId)
            ->paginate(5);
     }
 
@@ -396,6 +534,7 @@ class Articles extends Component
             'articleDatas' => $this->getArticleTableData(),
             'articleDataController' => $this->getUserRole(),
             'articleOrganization' => $this->getArticleOrganization(),
+            'displayArticleImage' => $this->viewImage(),
         ]);
     }
 }

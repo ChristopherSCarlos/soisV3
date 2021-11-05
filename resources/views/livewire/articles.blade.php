@@ -58,6 +58,9 @@
                                                 <x-jet-danger-button wire:click="deleteNewsShowModal({{ $item->articles_id }})">
                                                     {{__('Delete')}}
                                                 </x-jet-danger-button>
+                                                <x-jet-button wire:click="editImageNewsModal({{ $item->articles_id }})">
+                                                    {{__('Edit Image')}}
+                                                </x-jet-button>
                                             </td>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap" style="@if($item->is_featured_in_newspage == 1)  
                                                                                                 background: rgba(25, 98, 181, 1);
@@ -162,6 +165,11 @@
                 {{ __('News') }}
             </x-slot>
             <x-slot name="content">
+                <div class="mt-4">
+                    <x-jet-label for="article_featured_image" value="{{ __('organization logo') }}" />
+                    <x-jet-input wire:model="article_featured_image" id="article_featured_image" class="block mt-1 w-full" type="file" />
+                    @error('article_featured_image') <span class="error">{{ $message }}</span> @enderror
+                </div>
                 <div class="mt-4">
                     <x-jet-label for="article_title" value="{{ __('Article Title') }}" />
                     <x-jet-input wire:model="article_title" id="article_title" class="block mt-1 w-full" type="text" />
@@ -449,6 +457,37 @@
 </x-jet-dialog-modal>
 <!--====  End of Unset News as Featured in Organization Page Section comment  ====-->
 
+<!--=====================================================
+=            Edit News Image Section comment            =
+======================================================-->
+<x-jet-dialog-modal wire:model="modalEditNewsImageFormVisible">
+    <x-slot name="title">
+        {{ __('News') }} {{$newsId}}
+    </x-slot>
+    <x-slot name="content">
+        <div class="mt-4">
+                @foreach($displayArticleImage as $image)
+                    <img src="{{asset('files/'.$image->asset_name)}}">
+                @endforeach
+        </div>
+        <div class="mt-4">
+            <x-jet-label for="article_featured_image" value="{{ __('Article Image') }}" />
+            <x-jet-input wire:model="article_featured_image" id="article_featured_image" class="block mt-1 w-full" type="file" />
+            @error('article_featured_image') <span class="error">{{ $message }}</span> @enderror
+        </div>
+    </x-slot>
+    <x-slot name="footer">
+        <x-jet-secondary-button wire:click="$toggle('modalEditNewsImageFormVisible')" wire:loading.attr="disabled">
+            {{ __('Cancel') }}
+        </x-jet-secondary-button>
+        <x-jet-secondary-button class="ml-2" wire:click="editNewsImage" wire:loading.attr="disabled">
+            {{ __('Edit Image') }}
+        </x-jet-secondary-button>
+    </x-slot>
+</x-jet-dialog-modal>
+
+
+<!--====  End of Edit News Image Section comment  ====-->
 
 
 
