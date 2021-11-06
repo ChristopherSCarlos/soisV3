@@ -1231,14 +1231,14 @@ select {
 .mr-5 {
 	margin-right: 1.25rem;
 }
+.mb-0 {
+	margin-bottom: 0px;
+}
 .-mt-px {
 	margin-top: -1px;
 }
 .mb-8 {
 	margin-bottom: 2rem;
-}
-.mb-0 {
-	margin-bottom: 0px;
 }
 .block {
 	display: block;
@@ -1484,6 +1484,10 @@ select {
 .divide-dashed > :not([hidden]) ~ :not([hidden]) {
 	border-style: dashed;
 }
+.divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
+	--tw-divide-opacity: 1;
+	border-color: rgba(229, 231, 235, var(--tw-divide-opacity));
+}
 .divide-gray-800 > :not([hidden]) ~ :not([hidden]) {
 	--tw-divide-opacity: 1;
 	border-color: rgba(31, 41, 55, var(--tw-divide-opacity));
@@ -1491,10 +1495,6 @@ select {
 .divide-gray-700 > :not([hidden]) ~ :not([hidden]) {
 	--tw-divide-opacity: 1;
 	border-color: rgba(55, 65, 81, var(--tw-divide-opacity));
-}
-.divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
-	--tw-divide-opacity: 1;
-	border-color: rgba(229, 231, 235, var(--tw-divide-opacity));
 }
 .overflow-hidden {
 	overflow: hidden;
@@ -2363,6 +2363,33 @@ hr{
 .login-input{
     color: rgba(0, 0, 0, 1.0);
 }
+.news-title-text{
+    font-family: 'Exo 2',sans-serif;
+    font-size: 55px;
+}
+.news-container{
+    background: white; 
+    /*border: 2px solid black;*/
+  /*border-radius: 12px;*/
+  padding: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.latest-latest-news-container-nine{
+    background: white; 
+    /*border: 2px solid black;*/
+  /*border-radius: 12px;*/
+  padding: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);    
+  transition: all 1s ease;
+}
+.latest-latest-news-container-nine:hover{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.50);    
+  transition: all 1s ease;
+}
+.text-center{
+    font-family: 'Exo 2',sans-serif;
+    font-size: 20px;
+}
 /*  ANIMATION  */
 @-webkit-keyframes fade-in {
 	from {opacity: 0;}
@@ -2480,6 +2507,10 @@ hr{
 	--tw-border-opacity: 1;
 	border-color: rgba(209, 213, 219, var(--tw-border-opacity));
 }
+.focus\:border-gray-500:focus {
+	--tw-border-opacity: 1;
+	border-color: rgba(107, 114, 128, var(--tw-border-opacity));
+}
 .focus\:border-yellow-700:focus {
 	--tw-border-opacity: 1;
 	border-color: rgba(180, 83, 9, var(--tw-border-opacity));
@@ -2487,10 +2518,6 @@ hr{
 .focus\:border-yellow-300:focus {
 	--tw-border-opacity: 1;
 	border-color: rgba(252, 211, 77, var(--tw-border-opacity));
-}
-.focus\:border-gray-500:focus {
-	--tw-border-opacity: 1;
-	border-color: rgba(107, 114, 128, var(--tw-border-opacity));
 }
 .focus\:bg-indigo-600:focus {
 	--tw-bg-opacity: 1;

@@ -35,6 +35,10 @@ class Frontpage extends Component
     public $pageData;
     public $pageDataCount;
 
+    public $articlesImageID;
+    public $articlesImageArray;
+    public $articlesImageIDCount;
+
     public function mount($urlslug = null)
     {
         $this->retrieveContent($urlslug);
@@ -233,6 +237,24 @@ class Frontpage extends Component
         return $this->organizationID;
     }
 
+    public function getNewsImage()
+    {
+        // dd(DB::table('articles')->orderBy('created_at','asc')->skip(1)->take(8)->pluck('articles_id'));
+        $this->articlesImageID = DB::table('articles')->orderBy('created_at','asc')->skip(1)->take(8)->pluck('articles_id');
+        // dd(count($this->articlesImageID));
+        // dd(gettype($this->articlesImageID));
+        // dd($this->articlesImageID);
+        // foreach($this->articlesImageID as $object){
+        //     // $this->articlesImageArray[] = $object->toArray();
+        // }
+        $this->articlesImageArray = DB::table('system_assets')->where('status','=','1')->where('is_latest_image','=','1')->get();
+        // dd($articlesImageArray);
+        // $s       // dd(DB::table('system_assets')->where('articles_id','=',$i)->where('status','=','1')->where('is_latest_image','=','1')->get());
+        // dd($this->articlesImageIDCount);
+        // dd('hello');
+        return $this->articlesImageArray;
+    }
+
     public function render()
     {
         return view('livewire.frontpage',[
@@ -252,6 +274,7 @@ class Frontpage extends Component
             'getDisplaySelectedOrganizationAssetLogoData' => $this->getOrganizationAssetLogoFromDatabase(),
             'getDisplaySelectedOrganizationAssetBannerData' => $this->getOrganizationAssetBannerFromDatabase(),
             'getDisplaySelectedOrganizationInterfaceBannerData' => $this->getOrganizationInterfaceDataFromDatabase(),
+            'getDisplaySelectedNewsImageData' => $this->getNewsImage(),
 
         ])->layout('layouts.frontpage');
     }
