@@ -17,11 +17,11 @@ class Footers extends Component
 {
     public function getPages()
     {
-        return DB::table('navigation_menus')->where('type','=','1')->get();
+        return DB::table('navigation_menus')->where('is_footer','=','1')->get();
     }
     public function getSOISPages()
     {
-        return DB::table('navigation_menus')->where('type','=','TopNav')->get();
+        return DB::table('sois_links')->where('status','=','1')->get();
     }
     public function getNonAcademicOrganization()
     {

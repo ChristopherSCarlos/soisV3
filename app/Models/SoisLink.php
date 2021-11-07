@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
-class NavigationMenuType extends Model
+class SoisLink extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'navigation_menu_types_id';
+    protected $primaryKey = 'sois_links_id';
 
     protected $fillable = [
-        'navigation_menu_type',
-        'navigation_menu_description',
+        'link_name',
+        'link_description',
+        'external_link',
         'status',
     ];
-
-
 }

@@ -29,8 +29,6 @@ class PagesNavigation extends Component
     public $inputLabelError = 0;
     public $inputTypeError = 0;
     public $navType = [];
-    public $is_topnav;
-    public $is_footer;
     public $seletedNavigationMenu;
     /*===================================================================
     =            Create Navigation MenuSection comment block            =
@@ -113,8 +111,6 @@ class PagesNavigation extends Component
         $this->slug = $data->slug;
         $this->type = $data->type;
         $this->sequence = $data->sequence;
-        $this->is_topnav = $data->is_topnav;
-        $this->is_footer = $data->is_footer;
     }
 
     public function updateShowModal($id)
@@ -152,11 +148,8 @@ class PagesNavigation extends Component
 
     public function deleteShowModal($id)
     {
-        $this->resetValidation();
-        $this->reset();
         $this->modelId = $id;
         $this->modelConfirmDeleteVisible = true;
-        $this->loadModel();
     }
 
     public function delete()
@@ -180,7 +173,8 @@ class PagesNavigation extends Component
     }
     public function syncNavtypes()
     {
-        NavigationMenu::find($this->modelId)->update(['is_topnav'=>$this->is_topnav,'is_footer'=>$this->is_footer,]);
+        $this->seletedNavigationMenu = NavigationMenu::find($this->modelId);
+        $this->seletedNavigationMenu->navigationType()->sync($this->navType);
         $this->modelSyncNavigationTypesVisible = false;
         $this->reset();
         $this->resetValidation();

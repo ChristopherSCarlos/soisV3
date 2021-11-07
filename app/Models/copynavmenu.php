@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\NavigationMenuType;
 
 class NavigationMenu extends Model
 {
@@ -17,8 +18,10 @@ class NavigationMenu extends Model
         'type',
         'label',
         'slug',
-        'is_topnav',
-        'is_footer',
     ];
 
+    public function navigationType()
+    {
+        return $this->belongsToMany(NavigationMenuType::class,'navigation_menus_navigation_types','navigation_menu_id','navigation_type_id');
+    }
 }

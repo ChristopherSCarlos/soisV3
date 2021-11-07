@@ -306,20 +306,22 @@
 ====================================================-->
 @foreach($getTopNewsArticleOnCreatedPage as $topNews)
 <div class="newspage-container grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1" style="background: #1a1b1b; color: white; height">
-    <div class="newspage-featured-top flex flex-wrap justify-center align-items p-6" style="margin:auto;">
-        <p class="news-title-text">{{$topNews->article_title}}</p>
-    </div>
-    <div class="newspage-featured-top flex flex-wrap justify-center align-items" style="margin:auto;">
-        <div class="flex flex-wrap justify-center align-items p-6" style="margin:auto; padding: 4em;">
-            <div>
-                @foreach($getDisplaySelectedNewsImageData as $newsImage)
-                    @if($newsImage->articles_id == $topNews->articles_id)
-                        <img style="object-fit:cover; height:80%;" src="{{ asset('files/'.$newsImage->asset_name) }}">
-                @endif
-            @endforeach
-            </div>
-        </div>
-    </div>
+         <div class="newspage-featured-top flex flex-wrap justify-center align-items p-6" style="margin:auto;">
+    <a href="{{$topNews->article_slug}}">
+              <p class="news-title-text">{{$topNews->article_title}}</p>
+    </a>
+          </div>
+          <div class="newspage-featured-top flex flex-wrap justify-center align-items" style="margin:auto;">
+              <div class="flex flex-wrap justify-center align-items p-6" style="margin:auto; padding: 4em;">
+                  <div>
+                      @foreach($getDisplaySelectedNewsImageData as $newsImage)
+                          @if($newsImage->articles_id == $topNews->articles_id)
+                              <img style="object-fit:cover; height:80%;" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                      @endif
+                  @endforeach
+                  </div>
+              </div>
+          </div>
 </div>
 @endforeach
 <!--====  End of Featured News Section comment  ====-->
@@ -444,7 +446,7 @@
                                     {{ $item->label }}
                                 </a>
                             @endforeach
-                            <a href="{{ url('newspage') }}" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                            <a href="{{ url('news') }}" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
                                 News
                             </a>
 
@@ -554,9 +556,17 @@
 
 
 @foreach($getDisplaySelectedNewsArticleData as $articleSelectedData)
-     <div class="bg-red-900" style="height: 100vh;">
-          <p>hello</p>
-     </div>
+     @if($articleSelectedData->article_slug == $urlslug)
+          <div class="grid lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-2" style="">
+               <div><p></p></div>
+               <div class="col-span-2">
+                    <div>
+                    </div>
+                    <p>{{$articleSelectedData->article_title}}</p>
+               </div>
+               <div><p></p></div>
+          </div>
+     @endif
 @endforeach
 
 
@@ -602,7 +612,7 @@
                                     {{ $item->label }}
                                 </a>
                             @endforeach
-                            <a href="{{ url('newspage') }}" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                            <a href="{{ url('news') }}" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
                                 News
                             </a>
 

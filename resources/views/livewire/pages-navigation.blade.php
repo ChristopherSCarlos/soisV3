@@ -18,6 +18,7 @@
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Label</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Url</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Sync Type</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -41,6 +42,10 @@
                                                 {{__('Delete')}}
                                             </x-jet-danger-button>
                                         </td>
+                                        <td>
+                                            <x-jet-button wire:click="syncNavigationType({{ $item->navigation_menus_id }})">
+                                                {{__('Sync')}}
+                                            </x-jet-button>
                                         </td>
                                     </tr>
                                  @endforeach
@@ -75,6 +80,8 @@
                         <option value="{{$dataPages->pages_id}}">{{$dataPages->title}}</option>
                     @endforeach
                 </select>
+                    
+                
                 @if($inputLabelError == 1)
                     <p>Label needs some input from you</p>
                 @endif
@@ -176,6 +183,39 @@
 
 
 
+<!--==========================================================
+=            Sync Navigation type Section comment            =
+===========================================================-->
+<x-jet-dialog-modal wire:model="modelSyncNavigationTypesVisible">
+            <x-slot name="title">
+                {{ __('Add Navigation To:') }}
+            </x-slot>
+
+            <x-slot name="content">
+                <div class="mt-4">
+                    <input type="checkbox" id="is_topnav" name="1" value="1" wire:model="is_topnav">
+                    <label for="is_topnav">Top Navigation</label><br>
+                </div>
+                <div class="mt-4">
+                    <input type="checkbox" id="is_footer" name="1" value="1" wire:model="is_footer">
+                    <label for="is_footer">Fotoer</label><br>
+                </div>
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('modelSyncNavigationTypesVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+                <x-jet-danger-button class="ml-2" wire:click="syncNavtypes" wire:loading.attr="disabled">
+                    {{ __('Sync Navigation type') }}
+                </x-jet-danger-button>
+            </x-slot>
+        </x-jet-dialog-modal>
+
+
+
+
+<!--====  End of Sync Navigation type Section comment  ====-->
 
 
 

@@ -39,6 +39,10 @@ class Frontpage extends Component
     public $articlesImageArray;
     public $articlesImageIDCount;
 
+    private $selectedArticlesImageID;
+    public $selectedArticlesImageArray;
+    public $selectedArticlesImageIDCount;
+
     public function mount($urlslug = null)
     {
         $this->retrieveContent($urlslug);
@@ -254,6 +258,14 @@ class Frontpage extends Component
         // dd('hello');
         return $this->articlesImageArray;
     }
+    public function getSelectedNewsImage()
+    {
+        // dd($this->urlslug);
+        $this->selectedArticlesImageID = DB::table('articles')->where('article_slug','=',$this->urlslug)->get();
+        // $this->selectedArticlesImageIDCount = $this->selectedArticlesImageID;
+        // $this->selectedArticlesImageArray = DB::table('system_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedArticlesImageIDCount)->get();
+        // return $this->selectedArticlesImageArray;
+    }
 
     public function render()
     {
@@ -275,6 +287,7 @@ class Frontpage extends Component
             'getDisplaySelectedOrganizationAssetBannerData' => $this->getOrganizationAssetBannerFromDatabase(),
             'getDisplaySelectedOrganizationInterfaceBannerData' => $this->getOrganizationInterfaceDataFromDatabase(),
             'getDisplaySelectedNewsImageData' => $this->getNewsImage(),
+            'getDisplaySelectedNewsImageDataOnSelectedNews' => $this->getSelectedNewsImage(),
 
         ])->layout('layouts.frontpage');
     }
