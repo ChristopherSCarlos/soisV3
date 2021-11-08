@@ -6,7 +6,8 @@ use App\Models\NavigationMenuType;
 use App\Models\Page;
 use Livewire\withPagination;
 use Illuminate\Support\Facades\DB;
-class PagesNavigation extends Component
+
+class PagesNavigations extends Component
 {
     /* Traits */
     use withPagination;

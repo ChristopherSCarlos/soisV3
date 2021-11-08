@@ -30,7 +30,7 @@
                                     @if($posts->count())
                                         @foreach($posts as $item)
                                             <tr>
-                                                d
+                                                
                                                 <!-- <td class="px-6 py-2">
                                                     @if (!empty($item->organization_logo))
                                                         <img width="100px" src="{{ asset('/files/' . $item->organization_logo) }}"/>
@@ -82,7 +82,7 @@
                                     @if($userAffliatedOrganization->count())
                                         @foreach($userAffliatedOrganization as $item)
                                             <tr>
-                                                s
+                                                
                                                 <!-- <td class="px-6 py-2">
                                                     @if (!empty($item->organization_logo))
                                                         <img width="100px" src="{{ asset('/files/' . $item->organization_logo) }}"/>

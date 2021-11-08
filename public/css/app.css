@@ -5,6 +5,10 @@ Document
 ========
 */
 
+[x-cloak] {
+    display: none;
+}
+
 /**
 Use a better box model (opinionated).
 */

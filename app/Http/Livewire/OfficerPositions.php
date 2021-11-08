@@ -9,6 +9,11 @@ use App\Http\Livewire\Announcements;
 use App\Models\User;
 use App\Models\OfficerPosition;
 
+use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
+use Mediconesystems\LivewireDatatables\Column;
+use Mediconesystems\LivewireDatatables\NumberColumn;
+use Mediconesystems\LivewireDatatables\DateColumn;
+
 use Livewire\withPagination;
 use Illuminate\Validation\Rule;
 
@@ -16,6 +21,7 @@ use Illuminate\Support\Facades\DB;
 
 use Auth;
 
+// class OfficerPositions extends LivewireDatatable
 class OfficerPositions extends Component
 {
     use WithPagination;
@@ -33,6 +39,8 @@ class OfficerPositions extends Component
     public $userId;
     public $userData;
     public $userOrganizationData;
+
+    // public $model = OfficerPosition::class;
 
     public function mount()
     {
@@ -53,8 +61,6 @@ class OfficerPositions extends Component
     /*================================================
     =            Officer Position Section            =
     ================================================*/
-    
-    
     
     public function createOfficerPositionModal()
     {
@@ -155,6 +161,23 @@ class OfficerPositions extends Component
     }
     
     /*=====  End of Organization Specific Filter  ======*/
+    
+    /*==============================================
+    =            calling tables section            =
+    ==============================================*/
+    
+    // public function columns()
+    // {
+    //     return[
+    //         Column::name('position_category')
+    //             ->label('Position Category')
+    //             ->searchable(),
+
+
+    //     ];
+    // }
+    
+    /*=====  End of calling tables section  ======*/
     
 
     public function render()

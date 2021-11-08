@@ -47,10 +47,10 @@
                                                 {{ $item->slug }}
                                             </a>
                                         </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                        <!-- <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                             {!! \Illuminate\Support\Str::limit($item->content, 50, '...') !!}
                                             {!! $item->content !!}
-                                        </td>
+                                        </td> -->
                                         <td class="px-6 py-4 text-sm text-right">
                                                 <x-jet-button wire:click="updateShowModal({{ $item->pages_id }})">
                                                     {{__('Update')}}

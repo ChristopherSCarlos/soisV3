@@ -12,6 +12,7 @@ class OfficerPosition extends Model
     protected $primaryKey = 'officer_positions_id';
 
     protected $fillable = [
+        'officer_positions_id',
         'position_category',
         'status',
     ];
