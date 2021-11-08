@@ -166,7 +166,7 @@
             </x-slot>
             <x-slot name="content">
                 <div class="mt-4">
-                    <x-jet-label for="article_featured_image" value="{{ __('organization logo') }}" />
+                    <x-jet-label for="article_featured_image" value="{{ __('Article logo') }}" />
                     <x-jet-input wire:model="article_featured_image" id="article_featured_image" class="block mt-1 w-full" type="file" />
                     @error('article_featured_image') <span class="error">{{ $message }}</span> @enderror
                 </div>
@@ -185,16 +185,11 @@
                     <textarea wire:model="article_content" id="article_content" class="block mt-1 w-full"></textarea>
                     @error('article_content') <span class="error">{{ $message }}</span> @enderror
                 </div>
-                <!--  -->
                 <div class="mt-4">
-                    <x-jet-label for="article_slug" value="{{ __('organization slug') }}" />
-                    <div class="mt-1 flex rounded-md shadow-sm">
-                        <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
-                            http://localhost:8000/{{$userOrgSlug}}/
-                        </span>
-                        <input wire:model="article_slug" class="form-input flex-1 block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5" placeholder="url-slug">
-                    </div>
-                    @error('article_slug') <span class="error">{{ $message }}</span> @enderror
+                    <x-jet-label for="article_content" value="{{ __('Add Tags') }}" />
+                    <x-jet-button wire:click="addTags">
+                        {{__('Add Tags')}}
+                    </x-jet-button>
                 </div>
             </x-slot>
             <x-slot name="footer">
@@ -491,9 +486,34 @@
 
 
 
+    
+<!--==============================================
+=            Add Tags Section comment            =
+===============================================-->
+<x-jet-dialog-modal wire:model="modalAddTagsFormVisible">
+            <x-slot name="title">
+                {{ __('Available Tags') }}
+            </x-slot>
+            <x-slot name="content">
+                <div class="mt-4">
+                    @foreach($displayTagsData as $tagsData)
+                    <input class="form-checkbox" type="checkbox" value="{{$tagsData->tags_id}}" wire:model="articleTags"/>
+                    <span class="ml-2 text-sm text-gray-600">{{$tagsData->tags_name}}</span>
+                    @endforeach
+                </div>
+            </x-slot>
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('modalAddTagsFormVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+                <x-jet-secondary-button class="ml-2" wire:click="AddTagsToArticles" wire:loading.attr="disabled">
+                    {{ __('Add Tags') }}
+                </x-jet-secondary-button>
+            </x-slot>
+        </x-jet-dialog-modal>
 
 
-
+<!--====  End of Add Tags Section comment  ====-->
 
 
 

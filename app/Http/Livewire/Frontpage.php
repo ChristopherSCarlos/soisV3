@@ -8,6 +8,7 @@ use App\Models\Organization;
 use App\Models\Event;
 use App\Models\User;
 use App\Models\Article;
+use App\Models\Announcement;
 // use App\Models\DefaultInterface;
 use Illuminate\Support\Facades\DB;
 
@@ -42,6 +43,13 @@ class Frontpage extends Component
     private $selectedArticlesImageID;
     public $selectedArticlesImageArray;
     public $selectedArticlesImageIDCount;
+    public $selectedArticlesImageIDint;
+
+    public $displayedOrganizationOnWebpage;
+    public $selectedOrganizationDataIDint;
+    public $selectedOrganizationArticleArray;
+    public $selectedOrganizationArray;
+    public $selectedOrganizationEventsArray;
 
     public function mount($urlslug = null)
     {
@@ -100,25 +108,29 @@ class Frontpage extends Component
      */
     public function selectSystemHomepage()
     {
-        $this->getPagesDataFromDB = DB::table('pages')->get();
-        foreach ($this->getPagesDataFromDB as $this->data) {
-            // echo $this->data->title . " || ";
-            if($this->data->is_default_home == '1'){
-                // echo $this->data->title . " || ";
-                $this->isDefaultHomeID = $this->data->pages_id;
-                // echo $this->isDefaultHomeID;
-                $this->getDataOfDefaultHomepage = Page::find($this->isDefaultHomeID);
-                // dd($this->getDataOfDefaultHomepage);
-                // $this->getDataOfDefaultHomepage;
-                return $this->getDataOfDefaultHomepage;
-            }
+        // $this->getPagesDataFromDB = DB::table('pages')->first();
+        $this->getPagesDataFromDB = DB::table('pages')->where('is_default_home','=','1')->get();
+        // dd($this->getPagesDataFromDB);
+        return $this->getPagesDataFromDB;
+        // foreach ($this->getPagesDataFromDB as $this->data) {
+        //     echo $this->data->title . " || ";
+        //     if($this->data->is_default_home == '1'){
+        //         // echo $this->data->title . " || ";
+        //         $this->isDefaultHomeID = $this->data->pages_id;
+        //         // echo $this->isDefaultHomeID;
+        //         $this->getDataOfDefaultHomepage = Page::find($this->isDefaultHomeID)->get();
+        //         dd($this->getDataOfDefaultHomepage);
+        //         // dd($this->getDataOfDefaultHomepage);
+        //         // $this->getDataOfDefaultHomepage;
+        //         return $this->getDataOfDefaultHomepage;
+        //     }
             // else{
             //     $this->dateIDExpired = $this->data->announcements_id;
             //     if ($this->data->exp_time < $this->checkCurrentTime) {
             //         Announcement::where('announcements_id', '=', $this->dateIDExpired)->update(['status' => '1']);
             //     }
             // }
-        }
+        // }
         // echo '<br><br><br>This is the data: '.count($this->getPagesDataFromDB);
         // dd(count(array($this->getPagesDataFromDB)));
     }
@@ -174,6 +186,18 @@ class Frontpage extends Component
         return DB::table('articles')->orderBy('created_at','asc')->skip(1)->take(8)->get();
         // return DB::table('articles')->orderBy('created_at','asc')->paginate(10);
     }
+    public function getHomepageFeaturedArticleTime()
+    {
+        // dd(DB::table('articles')->orderBy('created_at','asc')->skip(1)->take(10)->get());
+        return DB::table('articles')->where('is_article_featured_landing_page','=','1')->orderBy('created_at','asc')->get();
+        // return DB::table('articles')->orderBy('created_at','asc')->paginate(10);
+    }
+    public function getHomepageEvents()
+    {
+        // dd(DB::table('articles')->orderBy('created_at','asc')->skip(1)->take(10)->get());
+        return DB::table('events')->where('isEventFeat','=','1')->orderBy('created_at','asc')->get();
+        // return DB::table('articles')->orderBy('created_at','asc')->paginate(10);
+    }
 
     public function getLatestArticle()
     {
@@ -183,6 +207,10 @@ class Frontpage extends Component
     public function getAllFeaturedArticle()
     {
         return DB::table('articles')->where('is_featured_in_newspage','=','1')->get();
+    }
+    public function getAllFeaturedArticleInHomepage()
+    {
+        return DB::table('articles')->where('is_article_featured_landing_page','=','1')->get();
     }
 
     public function getSelectedNewsArticle()
@@ -261,10 +289,123 @@ class Frontpage extends Component
     public function getSelectedNewsImage()
     {
         // dd($this->urlslug);
-        $this->selectedArticlesImageID = DB::table('articles')->where('article_slug','=',$this->urlslug)->get();
-        // $this->selectedArticlesImageIDCount = $this->selectedArticlesImageID;
-        // $this->selectedArticlesImageArray = DB::table('system_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedArticlesImageIDCount)->get();
-        // return $this->selectedArticlesImageArray;
+        $this->selectedArticlesImageID = DB::table('articles')->where('article_slug','=',$this->urlslug)->pluck('articles_id');
+        // $this->selectedArticlesImageID = DB::table('articles')->where('article_slug','=',$this->urlslug)->first();
+        // dd($this->selectedArticlesImageID->articles_id);
+        // echo var_dump($this->selectedArticlesImageID);
+        // echo $this->urlslug;
+        
+        if (Article::where('article_slug', '=', $this->urlslug)->exists()) {
+            // echo 'Data found';
+            // echo var_dump(json_decode($this->selectedArticlesImageID[0],true));
+            $this->selectedArticlesImageIDint = json_decode($this->selectedArticlesImageID[0]);
+            $this->selectedArticlesImageArray = DB::table('system_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedArticlesImageIDint)->get();
+            // echo $this->selectedArticlesImageArray;
+            // dd($this->selectedArticlesImageArray);
+            return $this->selectedArticlesImageArray;
+        }
+
+
+
+        // echo gettype(var_dump(json_decode($this->selectedArticlesImageID,true)));
+
+        // echo json_decode($this->selectedArticlesImageID);
+
+        // foreach ($this->selectedArticlesImageID as $data) {
+        //     echo "Helllo";
+        // }
+
+
+        // dd(gettype((array)$this->selectedArticlesImageID));
+        // $this->selectedArticlesImageIDint = (array)$this->selectedArticlesImageID[0];
+        
+        // echo gettype($this->selectedArticlesImageIDint);
+        // echo gettype($this->selectedArticlesImageIDint);
+        // // echo number_format($this->selectedArticlesImageIDint);
+        // echo intval($this->selectedArticlesImageIDint);
+        // echo (double)$this->selectedArticlesImageIDint;
+        // $this->selectedArticlesImageIDCount = $this->selectedArticlesImageID->;
+        // dd((array)$this->selectedArticlesImageID[0]);
+        // dd((array)$this->selectedArticlesImageID[0]);
+        // dd("Hello");
+    }
+
+
+    public function getAnnouncements()
+    {
+        return Announcement::where('status','=','1')->orderBy('created_at','asc')->get();
+    }
+
+    public function getIsAnnouncementActivated()
+    {
+        if ($this->urlslug != null) {
+            dd(Page::where('is_announcements_activated','=','1')->get());
+        }else{
+            dd(Page::where('is_announcements_activated','=','1')->where('slug','=',$this->urlslug)->get());
+        }
+        // return Pages::where('is_announcements_activated','=','1')->get();
+    }
+
+    public function getFeaturedEvent()
+    {
+        return DB::table('system_assets')->where('status','=','1')->where('is_latest_image','=','1')->get();
+    }
+
+    public function getOrganizationAnnouncement()
+    {
+        // dd($this->urlslug);
+        $this->displayedOrganizationOnWebpage = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organizations_id');
+        // return DB::table('announcements')->where('organization','=',)
+        if (Organization::where('organization_slug', '=', $this->urlslug)->exists()) {
+            // echo var_dump(json_decode($this->selectedArticlesImageID[0],true));
+            $this->selectedOrganizationDataIDint = json_decode($this->displayedOrganizationOnWebpage[0]);
+            $this->selectedOrganizationArray = DB::table('announcements')->where('organization_id','=',$this->selectedOrganizationDataIDint)->get();
+            return $this->selectedOrganizationArray;
+            // dd($this->selectedOrganizationArray);
+            // $this->selectedOrganizationArray = DB::table('system_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedOrganizationDataIDint)->get();
+            // echo $this->selectedOrganizationArray;
+            // dd($this->selectedOrganizationArray);
+            // return $this->selectedOrganizationArray;
+        }
+        // dd("hello");
+    }
+
+    public function getOrganizationArticle()
+    {
+        // dd($this->urlslug);
+        $this->displayedOrganizationOnWebpage = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organizations_id');
+        // return DB::table('announcements')->where('organization','=',)
+        if (Organization::where('organization_slug', '=', $this->urlslug)->exists()) {
+            // echo var_dump(json_decode($this->selectedArticlesImageID[0],true));
+            $this->selectedOrganizationDataIDint = json_decode($this->displayedOrganizationOnWebpage[0]);
+            $this->selectedOrganizationArticleArray = DB::table('articles')->where('organization_id','=',$this->selectedOrganizationDataIDint)->get();
+            return $this->selectedOrganizationArticleArray;
+            // dd($this->selectedOrganizationArray);
+            // $this->selectedOrganizationArray = DB::table('system_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedOrganizationDataIDint)->get();
+            // echo $this->selectedOrganizationArray;
+            // dd($this->selectedOrganizationArray);
+            // return $this->selectedOrganizationArray;
+        }
+        // dd("hello");
+    }
+
+    public function getOrganizationEvents()
+    {
+        // dd($this->urlslug);
+        $this->displayedOrganizationOnWebpage = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organizations_id');
+        // return DB::table('announcements')->where('organization','=',)
+        if (Organization::where('organization_slug', '=', $this->urlslug)->exists()) {
+            // echo var_dump(json_decode($this->selectedArticlesImageID[0],true));
+            $this->selectedOrganizationDataIDint = json_decode($this->displayedOrganizationOnWebpage[0]);
+            $this->selectedOrganizationEventsArray = DB::table('events')->where('organization_id','=',$this->selectedOrganizationDataIDint)->get();
+            return $this->selectedOrganizationEventsArray;
+            // dd($this->selectedOrganizationArray);
+            // $this->selectedOrganizationArray = DB::table('system_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedOrganizationDataIDint)->get();
+            // echo $this->selectedOrganizationArray;
+            // dd($this->selectedOrganizationArray);
+            // return $this->selectedOrganizationArray;
+        }
+        // dd("hello");
     }
 
     public function render()
@@ -288,6 +429,16 @@ class Frontpage extends Component
             'getDisplaySelectedOrganizationInterfaceBannerData' => $this->getOrganizationInterfaceDataFromDatabase(),
             'getDisplaySelectedNewsImageData' => $this->getNewsImage(),
             'getDisplaySelectedNewsImageDataOnSelectedNews' => $this->getSelectedNewsImage(),
+            'getAnnouncementsOnHomepage' => $this->getAnnouncements(),
+            'getDisplayFeaturedArticlesOnHomepage' => $this->getAllFeaturedArticleInHomepage(),
+            'getDisplayLandingPageHomepage' => $this->getHomepageFeaturedArticleTime(),
+            'getDisplayEventsHomepage' => $this->getHomepageEvents(),
+            'getDisplayEventsAssetData' => $this->getFeaturedEvent(),
+            'getDisplayAnnouncementData' => $this->getOrganizationAnnouncement(),
+            'getDisplayArticleData' => $this->getOrganizationArticle(),
+            'getDisplayEventsData' => $this->getOrganizationEvents(),
+         
+            // 'IfAnnouncementActivated' => $this->getIsAnnouncementActivated(),
 
         ])->layout('layouts.frontpage');
     }

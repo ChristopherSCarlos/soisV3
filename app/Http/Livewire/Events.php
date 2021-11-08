@@ -5,9 +5,14 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Event;
 use App\Models\Organization;
+use App\Models\SystemAsset;
+use App\Models\User;
 
 use Livewire\withPagination;
 use Illuminate\Support\Facades\DB;
+use Livewire\WithFileUploads;
+
+use Intervention\Image\ImageManager;
 
 
 use Auth;
@@ -15,11 +20,14 @@ class Events extends Component
 {
     // traits
     use withPagination;
+    use WithFileUploads;    
+
 
     // modals
     public $createEventsShowModalFormVisible = false;
     public $updateEventsShowModalFormVisible = false;
     public $deleteEventsShowModalFormVisible = false;
+    public $updateEventImageShowModalFormVisible = false;
     
     // variables
     public $userId;
@@ -42,6 +50,20 @@ class Events extends Component
     public $projected_budget;
     public $isEventFeat;
 
+    public $event_image;
+
+    public $asset_type_id;
+    public $asset_name;
+    public $is_latest_logo;
+    public $is_latest_banner;
+    public $user_id;
+    public $page_type_id;
+    public $organization_id;
+    public $asset_status;
+    public $fileNameEventImage;
+
+    public $selectedEventsAssetDataIsLatestImage;
+    public $selectedDataAssetDataID;
 
     /*=============================================
     =            crete Events comment block            =
@@ -189,8 +211,84 @@ class Events extends Component
     /*=====  End of Event Model Section comment block  ======*/
 
 
+    public function addImageToEvent($id)
+    {
+        $this->resetValidation();
+        $this->reset();
+        $this->eventId = $id;
+        $this->updateEventImageShowModalFormVisible = true;
+    }
+    public function updateEventImage()
+    {
+         $this->validate([
+            'event_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:100048',
+        ]);
+        // dd($this->event_image);
 
+        $this->fileNameEventImage = time().'.'.$this->event_image->extension();  
+       
+        $this->event_image->store('files', 'imgfolder',$this->fileNameEventImage);
 
+        $this->event_image->storeAs('files',$this->fileNameEventImage, 'imgfolder');
+        
+        $this->asset_name = $this->fileNameEventImage;
+
+        $this->user_id = Auth::id();
+        // $this->latestOrganizationID = DB::table('organizations')->latest('organizations_id')->first();
+        // $this->latestOrganizationIDtoInsertToDB = $this->latestOrganizationID->organizations_id;
+        
+        /* Get User ID */
+        // $this->userDataPivot = User::find(Auth::id());
+        /* Get Organization ID from pivot table using USER ID */
+        // $this->userDataPivotOrganization = $this->userDataPivot->organizations->first();
+        // $this->latestOrganizationIDtoInsertToDB = $this->userDataPivotOrganization->organizations_id;
+        /* Asset Status is set to true */
+        $this->asset_status = 1;
+        /* Asset Type is set to Logo (Logo is 1 in Asset types table) */
+        $this->asset_type_id = 2;
+        /* Set image as latest organization asset logo */
+        $this->is_latest_logo = 0;
+        /* Unset image as image banenr */
+        $this->is_latest_banner = 0;
+        /* Page Type is set to Organization (Organization is id 4 in pagetypes table) */
+        $this->page_type_id = 2;
+        // $this->events_id = 1;
+
+        // SystemAsset::create([
+        //     'asset_type_id' => $this->asset_type_id,
+        //     'asset_name' => $this->fileNameEventImage,
+        //     'is_latest_logo' => false,
+        //     'is_latest_banner' => false,
+        //     'user_id' => $this->user_id,
+        //     'page_type_id' => $this->page_type_id,
+        //     'status' => $this->asset_status,
+        //     'is_latest_image' => '1',
+        //     'events_id' => $this->eventId,
+        // ]);
+        
+        $this->selectedEventsAssetDataIsLatestImage = SystemAsset::latest()->where('events_id','=',$this->eventId)->where('status','=','1')->first();
+        // dd($this->selectedEventsAssetDataIsLatestImage);
+        // dd($this->selectedEventsAssetDataIsLatestImage);
+        if ($this->selectedEventsAssetDataIsLatestImage != null) {
+            $this->selectedDataAssetDataID = $this->selectedEventsAssetDataIsLatestImage->system_assets_id;
+            // dd($this->selectedDataAssetDataID);
+            // dd(SystemAsset::find('organization_id','=',$this->modelId)->where('is_latest_logo','=','1'));
+            SystemAsset::where('events_id','=',$this->eventId)->where('is_latest_image','=','1')->update([
+                'is_latest_image' => '0',
+            ]);
+            DB::table('system_assets')->where('system_assets_id','=',$this->selectedDataAssetDataID)->update(['is_latest_image'=>"1"]);
+            $this->updateEventImageShowModalFormVisible = false;
+            $this->reset();
+            $this->resetValidation();
+        }else{
+            $this->updateEventImageShowModalFormVisible = false;
+            $this->reset();
+            $this->resetValidation();
+        }
+        $this->updateEventImageShowModalFormVisible = false;
+        $this->reset();
+        $this->resetValidation();
+    }
 
 
 

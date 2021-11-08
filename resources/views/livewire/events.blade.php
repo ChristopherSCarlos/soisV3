@@ -24,6 +24,7 @@
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Activity Type</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Budget</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Add Image</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -70,7 +71,11 @@
                                             <x-jet-danger-button wire:click="deleteEventsModal({{ $eventItem->event_id }})">
                                                 {{__('Delete')}}
                                             </x-jet-danger-button>
-                                            
+                                        </td>
+                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                            <x-jet-danger-button wire:click="addImageToEvent({{ $eventItem->event_id }})">
+                                                {{__('Add Image')}}
+                                            </x-jet-danger-button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -261,6 +266,35 @@
 
 
 
+<!--=========================================================
+=            Update Events Image Section comment            =
+==========================================================-->
+<x-jet-dialog-modal wire:model="updateEventImageShowModalFormVisible">
+            <x-slot name="title">
+                {{ __('Delete Event') }}
+            </x-slot>
+
+            <x-slot name="content">
+                <div class="mt-4">
+                    <x-jet-label for="event_image" value="{{ __('Event Image') }}" />
+                    <x-jet-input wire:model="event_image" id="event_image" class="block mt-1 w-full" type="file" />
+                    @error('event_image') <span class="error">{{ $message }}</span> @enderror
+                </div>
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('updateEventImageShowModalFormVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+
+                <x-jet-danger-button class="ml-2" wire:click="updateEventImage" wire:loading.attr="disabled">
+                    {{ __('Delete Event') }}
+                </x-jet-danger-button>
+            </x-slot>
+        </x-jet-dialog-modal>
+
+
+<!--====  End of Update Events Image Section comment  ====-->
 
 
 

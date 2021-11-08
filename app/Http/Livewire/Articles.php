@@ -37,6 +37,7 @@ class Articles extends Component
     public $modalFeatureNewsInOrganizationPageFormVisible = false;
     public $modalUnFeatureNewsInOrganizationPageFormVisible = false;
     public $modalEditNewsImageFormVisible = false;
+    public $modalAddTagsFormVisible = false;
     
     /* VARIABLES */
     public $userId;
@@ -99,6 +100,25 @@ class Articles extends Component
     public $selectedNewsAssetDataID;
     public $orgID;
 
+    public $convertedArticleSlug;
+    public $articleTags = [];
+
+
+    /*======================================================
+    =            Add Tags Section comment block            =
+    ======================================================*/
+    public function addTags()
+    {
+        $this->modalAddTagsFormVisible = true;
+    }
+    public function AddTagsToArticles()
+    {
+        dd($this->articleTags);
+        // $this->modalAddTagsFormVisible = false;
+    }
+    
+    /*=====  End of Add Tags Section comment block  ======*/
+    
 
     /*====================================================
     =            Create Section comment block            =
@@ -132,6 +152,8 @@ class Articles extends Component
 
         // $this->OrgDataFromUser = $this->user->organization->first();
         // $this->OrgDataFromUserOrganizationNameString = $this->OrgDataFromUser->organization_name;
+        $this->convertedArticleSlug = str_replace(' ', '-', $this->article_title);
+
         Article::create($this->createModel());
         // $this->syncArticleOrganization();
 
@@ -151,11 +173,6 @@ class Articles extends Component
             'articles_id' => $this->latestNewsID,
         ]);
 
-
-
-
-
-
         $this->modalCreateNewsFormVisible = false;
         $this->article_featured_image = null;
         $this->reset();
@@ -170,7 +187,7 @@ class Articles extends Component
             'type' => $this->type,
             'status' => $this->status,
             'user_id' => $this->userId,
-            'article_slug' => $this->article_slug,
+            'article_slug' => $this->convertedArticleSlug,
         ];
     }
     public function syncArticleOrganization()
@@ -528,6 +545,11 @@ class Articles extends Component
            ->paginate(5);
     }
 
+    public function getTagsDataFromDatabase()
+    {
+        return DB::table('tags')->where('status','=','1')->get();
+    }
+
     public function render()
     {
         return view('livewire.articles',[
@@ -535,6 +557,7 @@ class Articles extends Component
             'articleDataController' => $this->getUserRole(),
             'articleOrganization' => $this->getArticleOrganization(),
             'displayArticleImage' => $this->viewImage(),
+            'displayTagsData' => $this->getTagsDataFromDatabase(),
         ]);
     }
 }

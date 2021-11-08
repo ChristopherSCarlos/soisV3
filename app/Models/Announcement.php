@@ -22,5 +22,6 @@ class Announcement extends Model
         'status',
         'exp_date',
         'exp_time',
+        'organization_id',
     ];
 }
