@@ -1,4 +1,6 @@
 <div class="p-6">
+    <h2 class="table-title">SOIS System Links</h2>
+
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
         <x-jet-button wire:click="createSOISLinksModel">
             {{ __('Add SOIS Links') }}

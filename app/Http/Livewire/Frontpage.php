@@ -408,6 +408,11 @@ class Frontpage extends Component
         // dd("hello");
     }
 
+    public function getSelectedCurrentWebPage()
+    {
+        return Page::where('slug','=',$this->urlslug)->get();
+    }
+
     public function render()
     {
         return view('livewire.frontpage',[
@@ -437,6 +442,7 @@ class Frontpage extends Component
             'getDisplayAnnouncementData' => $this->getOrganizationAnnouncement(),
             'getDisplayArticleData' => $this->getOrganizationArticle(),
             'getDisplayEventsData' => $this->getOrganizationEvents(),
+            'getDisplayCurrentWebPageOnHomepage' => $this->getSelectedCurrentWebPage(),
          
             // 'IfAnnouncementActivated' => $this->getIsAnnouncementActivated(),
 

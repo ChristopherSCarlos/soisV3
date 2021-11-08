@@ -175,7 +175,6 @@ class PagesNavigation extends Component
     {
         $this->modelId = $id;
         $this->modelSyncNavigationTypesVisible = true;
-        // dd(NavigationMenu::find($this->modelId));
 
     }
     public function syncNavtypes()

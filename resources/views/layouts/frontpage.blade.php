@@ -8,7 +8,7 @@
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
         <title>SOIS</title>
-        
+        <script src="https://kit.fontawesome.com/17005ae465.js" crossorigin="anonymous"></script>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">

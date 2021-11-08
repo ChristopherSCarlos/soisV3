@@ -1,5 +1,7 @@
 <div class="p-6">
     <div>
+    <h2 class="table-title">Officer Position Category</h2>
+
     <x-jet-button wire:click="createOfficerPositionModal">
             {{ __('Add New Position Category') }}
     </x-jet-button>

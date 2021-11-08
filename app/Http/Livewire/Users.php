@@ -35,6 +35,7 @@ class Users extends Component
     public $modalAddOrganizationFormVisible = false;
     public $modalCreateTeamsFormVisible = false;
     public $modalDeleteTeamsFormVisible = false;
+    public $modalUpdateUserPasswordFormVisible = false;
 
 
     // variables
@@ -262,8 +263,21 @@ class Users extends Component
     
     /*=====  End of Add Organization to UserSection comment block  ======*/
     
-
-
+    public function updateUserPasswordModel($id)
+    {
+        $this->resetValidation();
+        $this->reset();
+        $this->userId = $id;
+        $this->modalUpdateUserPasswordFormVisible = true;
+    }
+    public function updateUserPassword()
+    {
+        User::find($this->userId)->update(['password'=>Hash::make($this->password)]);
+        $this->modalUpdateUserPasswordFormVisible = false;
+        $this->resetValidation();
+        $this->reset();
+        $this->password = null;
+    }
 
 
 

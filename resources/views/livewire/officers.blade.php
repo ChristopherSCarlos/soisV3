@@ -1,4 +1,6 @@
 <div class="p-6">
+    <h2 class="table-title">Organization Officers</h2>
+
 @livewireStyles
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 	<div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">

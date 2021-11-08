@@ -1,4 +1,6 @@
 <div class="p-6">
+    <h2 class="table-title">PUP Organizations</h2>
+
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
         @if($userAuthRole == 'Super Admin')
             <x-jet-button wire:click="createOrganization">

@@ -1,4 +1,5 @@
 <div class="p-6">
+    <h2 class="table-title">Users Information</h2>
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
         <x-jet-button wire:click="createShowModel">
             {{ __('Create New User') }}
@@ -12,10 +13,8 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead>
                             <tr>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Id</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Name</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Creation Date</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Action</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Roles</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Permission Action</th>
@@ -27,16 +26,10 @@
                                 @foreach($displayData as $item)
                                      <tr>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $item->users_id }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                             {{ $item->name }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                             {{ $item->email }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $item->created_at }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                             <x-jet-button wire:click="updateUserModel({{ $item->users_id }})">
@@ -58,7 +51,7 @@
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap"  style="
                                                                                             ">
                                             <x-jet-button wire:click="addShowRoleModel({{ $item->users_id }})">
-                                                {{__('Add Role')}}
+                                                {{__('Add Permission')}}
                                             </x-jet-button>
                                         </td>
 
@@ -244,6 +237,36 @@
 
 
 
+<!--=====================================================
+=            Update Password Section comment            =
+======================================================-->
+<x-jet-dialog-modal wire:model="modalUpdateUserPasswordFormVisible">
+            <x-slot name="title">
+                {{ __('Update password of User:') }} {{$userId}}
+            </x-slot>
+
+            <x-slot name="content">
+               <div class="mb-4">
+                    <x-jet-label for="password" value="{{ __('password') }}" />
+                    <x-jet-input id="password" class="block mt-1 w-full" type="password" wire:model.debounce.800ms="password" required autofocus />
+                </div>
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('modalUpdateUserPasswordFormVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+
+                @if($userId)
+                    <x-jet-secondary-button class="ml-2" wire:click="updateUserPassword" wire:loading.attr="disabled">
+                        {{ __('Update Password') }}
+                    </x-jet-secondary-button>                    
+                @endif
+            </x-slot>
+        </x-jet-dialog-modal>
+
+
+<!--====  End of Update Passwoprd Section comment  ====-->
 
 
 

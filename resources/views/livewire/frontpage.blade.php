@@ -128,6 +128,32 @@
                </aside>
           </div>
 
+
+          @if($urlslug != null)
+          <p>hello</p>
+          @foreach($getDisplayCurrentWebPageOnHomepage as $selectedCurrentHomepageData)
+          <div class="frontpage-title-container">
+               <div class="frontpage-title-logo-container">
+                    <img class="frontpage-title-image opacity-70 hover:opacity-100 transition duration-500 ease-in-out" src="{{ asset('image/svg/pup.svg') }}">
+               </div>
+               <div class="frontpage-title-title-container">
+                    <p class="frontpage-title-title">{{ $selectedCurrentHomepageData->title }}</p>
+               </div>
+          </div>
+          <!--====  End of Homepage Landing Page Title Section comment  ====-->
+
+
+          <!--===================================================================
+          =            Homepage Landing Page Content Section comment            =
+          ====================================================================-->
+          @if($selectedCurrentHomepageData->content)
+          <div class="" style="">
+               <?php echo htmlspecialchars_decode(stripslashes($selectedCurrentHomepageData->content));  ?>
+          </div>
+          @endif
+          
+          @endforeach
+          @else
           <!--================================================================
           =            Homepage Landing Page Title Section comment            =
           =================================================================-->
@@ -153,9 +179,7 @@
           @endif
           
           @endforeach
-          <!--====  End of Homepage Landing Page Content Section comment  ====-->
-          
-          <p>hello</p>
+          @endif
           <!--=========================================================================
           =            Homepage Announcements Page Content Section comment            =
           ==========================================================================-->
@@ -826,7 +850,7 @@
                 <img class="org-logo-image" style="" src="{{ asset('files/' . $organizationLogo->asset_name) }}">
             </div>
             <div class="" style="margin:0px auto auto auto;">
-                <p style="color: white">{{$organizationUI->organization_name}}</p>
+                <p class="organization-title" style="color: white">{{$organizationUI->organization_name}}</p>
             </div>
          </div>
     @endforeach
@@ -835,7 +859,7 @@
 </div>
     
 
-<div style="background: #030202;">
+<div class="pt-5" style="background: #030202;">
     <div data-aos="fade-right" >
         <p style="color: white; font-size: 100px;">Announcements</p>
     </div>
@@ -862,6 +886,7 @@
         <div class=" grid lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-2" >
                 @foreach($getDisplayArticleData as $orgArticle)
                 <div class="latest-latest-news-container-nine lg:m-5 md:m-5 sm:m-0" data-aos="flip-up">
+                    <a href="/{{$orgArticle->article_slug}}">
                         <div class="latest-latest-news-image-nine">
                             @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                 @if($newsImage->articles_id == $orgArticle->articles_id)
@@ -872,6 +897,7 @@
                         <div class="latest-latest-news-text-nine">
                             <h5 class="text-center">{{$orgArticle->article_title}}</h5>
                         </div>
+                    </a>
                 </div>
                 @endforeach
             </div>
