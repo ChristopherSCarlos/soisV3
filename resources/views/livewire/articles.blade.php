@@ -1,4 +1,17 @@
 <div class="p-6">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    <style>
+        .modal-backdrop {
+          z-index: -1;
+        }
+    </style>
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
         <x-jet-button wire:click="createNews">
             {{ __('Create News') }}
@@ -17,7 +30,7 @@
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Id</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Article Title</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Article Sub-Title</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Article Content</th>
+                                <!-- <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Article Content</th> -->
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Date Creation</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">News Link</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Action</th>
@@ -40,9 +53,9 @@
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                 {{ $item->article_subtitle }}
                                             </td>
-                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
+<!--                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                 {{ $item->article_content }}
-                                            </td>
+                                            </td> -->
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                 {{ $item->created_at }}
                                             </td>
@@ -101,9 +114,9 @@
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                 {{ $item->article_subtitle }}
                                             </td>
-                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                            <!-- <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                 {{ $item->article_content }}
-                                            </td>
+                                            </td> -->
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                 {{ $item->created_at }}
                                             </td>
@@ -181,12 +194,13 @@
                     @error('article_subtitle') <span class="error">{{ $message }}</span> @enderror
                 </div>
                 <div class="mt-4">
-                    <x-jet-label for="article_content" value="{{ __('Article Content') }}" />
-                    <textarea wire:model="article_content" id="article_content" class="block mt-1 w-full"></textarea>
-                    @error('article_content') <span class="error">{{ $message }}</span> @enderror
+                    <div class="body-content" wire:ignore>
+                        <textarea type="text" input="article_content" id="summernote" class="form-control summernote"></textarea>
+                        @error('article_content') <span class="error">{{ $message }}</span> @enderror
+                    </div>
                 </div>
                 <div class="mt-4">
-                    <x-jet-label for="article_content" value="{{ __('Add Tags') }}" />
+                    <x-jet-label for="tags" value="{{ __('Add Tags') }}" />
                     <x-jet-button wire:click="addTags">
                         {{__('Add Tags')}}
                     </x-jet-button>
@@ -225,9 +239,9 @@
                     @error('article_subtitle') <span class="error">{{ $message }}</span> @enderror
                 </div>
                 <div class="mt-4">
-                    <x-jet-label for="article_content" value="{{ __('Article Content') }}" />
-                    <textarea wire:model="article_content" id="article_content" class="block mt-1 w-full"></textarea>
-                    @error('article_content') <span class="error">{{ $message }}</span> @enderror
+                    <div class="body-content" wire:ignore>
+                        <textarea type="text" input="article_content" id="summernote" class="form-control summernote"></textarea>
+                    </div>
                 </div>
                 <div class="mt-4">
                     <x-jet-label for="type" value="{{ __('Type') }}" />
@@ -517,13 +531,36 @@
 
 
 
+<!--========================================
+=            Summernote Section            =
+=========================================-->
 
+<script>
+    $(document).ready(function() {
+        $('.summernote').summernote(
+        {
+        focus: true,
+        tabsize: 2,
+        height: 200,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link', 'picture', 'video']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ],
+        callbacks: {
+          onChange: function(contents, $editable) {
+          @this.set('article_content', contents);
+        }
+        }
+        });
+    });
+</script>
 
-
-
-
-
-
+<!--====  End of Summernote Section  ====-->
 
 <!-- FINAL DIV -->
 </div>

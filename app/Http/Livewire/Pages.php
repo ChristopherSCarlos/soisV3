@@ -69,8 +69,8 @@ class Pages extends Component
 
     public function create()
     {
-        $this->resetValidation();
         // dd($this);
+        $this->resetValidation();
         $this->validate(); 
         $this->unassignedDefaultHomePage(); 
         $this->unassignedDefaultNotFoundPage();
@@ -129,6 +129,7 @@ class Pages extends Component
 
     public function update()
     {
+        // dd($this);
         // $this->validate(); 
         // $this->unassignedDefaultHomePage(); 
         // $this->unassignedDefaultNotFoundPage(); 

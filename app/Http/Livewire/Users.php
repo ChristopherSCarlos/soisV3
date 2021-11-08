@@ -159,11 +159,6 @@ class Users extends Component
     }
     public function update()
     {
-        $this->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'student_number' => 'required',
-        ]);
         User::find($this->userId)->update($this->modelUpdateUser());
         $this->modalFormVisible = false;
         $this->resetValidation();

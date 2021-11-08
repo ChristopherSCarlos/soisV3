@@ -14,6 +14,7 @@ use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\DateColumn;
+use Mediconesystems\LivewireDatatables\BooleanColumn;
 
 use Livewire\withPagination;
 
@@ -29,6 +30,7 @@ class Officers extends LivewireDatatable
 
     public $model = Officer::class;
     public $exportable = true;
+    public $hideable = 'select';
 
     public $CreatemodalFormVisible = false;
     public $updatemodalFormVisible = false;
@@ -300,62 +302,70 @@ class Officers extends LivewireDatatable
             Column::name('first_name')
                 ->label('First Name')
                 ->filterable()
-                ->editable()
-                ->searchable(),
+                ->editable(),
+                // ->searchable(),
 
             Column::name('last_name')
                 ->label('Last Name')
                 ->filterable()
-                ->editable()
-                ->searchable(),
+                ->editable(),
+                // ->searchable(),
 
             Column::name('middle_name')
                 ->label('Middle Name')
                 ->filterable()
-                ->editable()
-                ->searchable(),
+                ->editable(),
+                // ->searchable(),
 
             Column::name('suffix')
                 ->label('suffix')
                 ->filterable()
-                ->editable()
-                ->searchable(),
+                ->editable(),
+                // ->searchable(),
 
             Column::name('organization_id')
                 ->label('Organization')
                 ->filterable()
-                ->editable()
-                ->searchable(),
+                ->editable(),
+                // ->searchable(),
 
             Column::name('school_year')
                 ->label('School Year')
                 ->filterable()
-                ->editable()
-                ->searchable(),
+                ->editable(),
+                // ->searchable(),
 
             Column::name('semester')
                 ->label('Semester')
                 ->filterable()
-                ->editable()
-                ->searchable(),
+                ->editable(),
+                // ->searchable(),
 
             Column::name('position')
                 ->label('Position')
                 ->filterable()
-                ->editable()
-                ->searchable(),
+                ->editable(),
+                // ->searchable(),
 
             DateColumn::name('exp_date')
                 ->label('Retirement')
                 ->filterable()
-                ->editable()
-                ->searchable(),
+                ->editable(),
+                // ->searchable(),
 
             Column::name('position_category')
                 ->label('Position Category')
                 ->filterable()
-                ->editable()
-                ->searchable(),
+                ->editable(),
+                // ->searchable(),
+
+             BooleanColumn::name('status')
+                ->label('status')
+                ->filterable(),
+                // ->editable(),
+
+            // Column::delete()
+            //     ->label('delete'),
 
             // Column::delete(),
         ];

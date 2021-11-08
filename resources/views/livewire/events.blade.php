@@ -9,85 +9,10 @@
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead>
-                            <tr>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Id</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Course</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Organization</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Time</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Activity Name</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Objectives</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Participants</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Sponsor</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Activity Type</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Budget</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Add Image</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            @if($getEventDataFromDB->count())
-                                @foreach($getEventDataFromDB as $eventItem)
-                                     <tr>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $eventItem->event_id }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $eventItem->course }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $eventItem->organization }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $eventItem->date }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $eventItem->time }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $eventItem->name_of_activity }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $eventItem->objectives }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $eventItem->participants }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $eventItem->sponsor }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $eventItem->type_of_activity }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $eventItem->projected_budget }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            <x-jet-button wire:click="updateEventsModel({{ $eventItem->event_id }})">
-                                                {{__('Update Event')}}
-                                            </x-jet-button>
-                                            <x-jet-danger-button wire:click="deleteEventsModal({{ $eventItem->event_id }})">
-                                                {{__('Delete')}}
-                                            </x-jet-danger-button>
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            <x-jet-danger-button wire:click="addImageToEvent({{ $eventItem->event_id }})">
-                                                {{__('Add Image')}}
-                                            </x-jet-danger-button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                    <tr>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap" colspan="4">
-                                            No Results Found
-                                        </td>
-                                    </tr>
-                            @endif
-                        </tbody>
-                    </table>
+                    <livewire:event 
+                    exportable
+                    hideable
+                    />
                 </div>
             </div>
         </div>

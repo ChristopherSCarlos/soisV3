@@ -14,9 +14,16 @@ use Livewire\WithFileUploads;
 
 use Intervention\Image\ImageManager;
 
+use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
+use Mediconesystems\LivewireDatatables\Column;
+use Mediconesystems\LivewireDatatables\NumberColumn;
+use Mediconesystems\LivewireDatatables\DateColumn;
+use Mediconesystems\LivewireDatatables\BooleanColumn;
+use Mediconesystems\LivewireDatatables\TimeColumn;
 
 use Auth;
-class Events extends Component
+// class Events extends Component
+class Events extends LivewireDatatable
 {
     // traits
     use withPagination;
@@ -65,6 +72,114 @@ class Events extends Component
     public $selectedEventsAssetDataIsLatestImage;
     public $selectedDataAssetDataID;
 
+    public $model = Event::class;
+    public $exportable = true;
+    public $hideable = 'select';
+
+    /*======================================
+    =            Events Section            =
+    ======================================*/
+    
+    public function columns()
+    {
+        return [
+            NumberColumn::name('event_id')
+                ->label('ID')
+                ->defaultSort('asc')
+                ->filterable()
+                ->sortBy('event_id'),
+
+            Column::name('semester')
+                ->label('Semester')
+                ->filterable()
+                ->searchable(),
+
+            Column::name('school_year')
+                ->label('School Year')
+                ->filterable()
+                ->searchable(),
+
+            Column::name('course')
+                ->label('Course')
+                ->filterable()
+                ->searchable(),
+
+            Column::name('organization')
+                ->label('Organization')
+                ->filterable()
+                ->searchable(),
+
+            DateColumn::name('date')
+                ->label('Date')
+                ->filterable(),
+
+            DateColumn::name('end_date')
+                ->label('End Date')
+                ->filterable(),
+
+            TimeColumn::name('time')
+                ->label('Time')
+                ->filterable(),
+
+            Column::name('name_of_activity')
+                ->label('Activity Name')
+                ->filterable()
+                ->searchable(),
+
+            Column::name('objectives')
+                ->label('Objectives')
+                ->filterable()
+                ->searchable(),
+
+            NumberColumn::name('participants')
+                ->label('No. of Participants')
+                ->filterable()
+                ->searchable(),
+
+            Column::name('sponsor')
+                ->label('Sponsor')
+                ->filterable()
+                ->searchable(),
+
+            Column::name('venue')
+                ->label('Venue')
+                ->filterable()
+                ->searchable(),
+
+            Column::name('type_of_activity')
+                ->label('Type of Activity')
+                ->filterable()
+                ->searchable(),
+
+            Column::name('projected_budget')
+                ->label('Projected Budget')
+                ->filterable()
+                ->searchable(),
+
+            Column::name('user_id')
+                ->label('User Id')
+                ->filterable()
+                ->searchable(),
+
+            Column::name('organization_id')
+                ->label('Organization Id')
+                ->filterable()
+                ->searchable(),
+
+            BooleanColumn::name('isEventFeat')
+                ->label('Featured')
+                ->filterable(),
+
+            BooleanColumn::name('status')
+                ->label('Status')
+                ->filterable(),
+
+        ];
+    }
+    
+    /*=====  End of Events Section  ======*/
+    
+
     /*=============================================
     =            crete Events comment block            =
     =============================================*/
@@ -107,18 +222,18 @@ class Events extends Component
     /*=========================================================
     =            Delete EventSection comment block            =
     =========================================================*/
-    public function deleteEventsModal($id)
-    {
-        $this->eventId = $id;
-        $this->deleteEventsShowModalFormVisible = true;
-    }
-    public function delete()
-    {
-        Event::find($this->eventId)->update($this->deleteEventModel());
-        $this->updateEventsShowModalFormVisible = false;
-        $this->reset();
-        $this->resetValidation();
-    }
+    // public function deleteEventsModal($id)
+    // {
+    //     $this->eventId = $id;
+    //     $this->deleteEventsShowModalFormVisible = true;
+    // }
+    // public function delete()
+    // {
+    //     Event::find($this->eventId)->update($this->deleteEventModel());
+    //     $this->updateEventsShowModalFormVisible = false;
+    //     $this->reset();
+    //     $this->resetValidation();
+    // }
     /*=====  End of Delete EventSection comment block  ======*/
 
 
@@ -313,11 +428,11 @@ class Events extends Component
     {
         return Event::where(['status' => 1, 'user_id' => Auth::user()->users_id,])->paginate(10);
     }
-    public function render()
-    {
-        return view('livewire.events',[
-            'getEventDataFromDB' => $this->eventDataDatabase(),
-            'getOrganizationtDataFromDB' => $this->organizationDataDatabase(),
-        ]);
-    }
+//     public function render()
+//     {
+//         return view('livewire.events',[
+//             'getEventDataFromDB' => $this->eventDataDatabase(),
+//             'getOrganizationtDataFromDB' => $this->organizationDataDatabase(),
+//         ]);
+//     }
 }

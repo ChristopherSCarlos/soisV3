@@ -40,8 +40,8 @@ class PagesCreateProcess extends Component
     }
     public function create()
     {
+        dd($this);
         $this->resetValidation();
-        // dd($this);
         $this->validate(); 
         $this->unassignedDefaultHomePage(); 
         $this->unassignedDefaultNotFoundPage();

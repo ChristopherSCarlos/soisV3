@@ -131,9 +131,31 @@ class Articles extends Component
     }
     public function create()
     {
+        // dd($this);
         $this->validate([
             'article_featured_image' => 'required|file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
+            'article_content' => 'required',
         ]);
+
+        $article_content = $this->article_content;
+        $dom = new \DomDocument();
+        $dom->loadHtml($article_content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $imageFile = $dom->getElementsByTagName('imageFile');
+        foreach($imageFile as $item => $image){
+            $data = $img->getAttribute('src');
+
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+
+            $imgeData = base64_decode($data);
+            $image_name= "/upload/" . time().$item.'.png';
+            $path = public_path() . $image_name;
+            file_put_contents($path, $imgeData);
+            $image->removeAttribute('src');
+            $image->setAttribute('src', $image_name);
+        }
+        $article_content = $dom->saveHTML();
+
         $this->article_featured_image_name = time().'.'.$this->article_featured_image->extension();
         // dd($this->article_featured_image_name);
 
@@ -146,6 +168,8 @@ class Articles extends Component
         $this->userId = Auth::user()->users_id;
         $this->user = User::find($this->userId);
         $this->va = $this->user->organizations->first();
+
+
         // dd($this->va);
         $this->latestOrganizationIDtoInsertToDB = $this->va->organizations_id;
         // dd($this->latestOrganizationIDtoInsertToDB);
@@ -210,10 +234,12 @@ class Articles extends Component
     ====================================================*/
     public function updateNewsShowModal($id)
     {
+        $this->resetValidation();
+        $this->reset();
         $this->articleId = $id;
         // dd($this->articleId);
-        $this->modalUpdateNewsFormVisible = true;
         $this->loadModel();
+        $this->modalUpdateNewsFormVisible = true;
     }
     public function loadModel()
     {
@@ -234,6 +260,7 @@ class Articles extends Component
     }
     public function update()
     {
+        // dd($this);
         $this->validate([
             'article_title' => 'required',
             'article_subtitle' => 'required',
