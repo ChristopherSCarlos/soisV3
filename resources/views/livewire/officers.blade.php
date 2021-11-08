@@ -1,66 +1,19 @@
 <div class="p-6">
+@livewireStyles
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 	<div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
-		<x-jet-button wire:click="createOfficerModal">
+		<!-- <x-jet-button wire:click="createOfficerModal">
 				{{ __('Add New Officer') }}
-		</x-jet-button>
+		</x-jet-button> -->
 	</div>
 	<div class="flex flex-col items-center">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead>
-                            <tr>
-                                <!-- <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Id</th> -->
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">First Name</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Last Name</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Organization</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Position</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">School Year</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Semester</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">End of term</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Position Category</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                                        @foreach($OfficerData as $item)
-                                            <tr>
-                                                <td class="px-6 py-2">{{ $item->first_name }}</td>
-                                                <td class="px-6 py-2">{{ $item->last_name }}</td>
-                                                @foreach($getOrganization as $orgs)
-                                                    @if($item->organization_id == $orgs->organizations_id)
-                                                        <td class="px-6 py-2">{{ $orgs->organization_name }}</td>
-                                                    @endif
-                                                @endforeach
-                                                <!-- <td class="px-6 py-2">{{ $item->organization_id }}</td> -->
-                                                <td class="px-6 py-2">{{ $item->position }}</td>
-                                                <td class="px-6 py-2">{{ $item->school_year }}</td>
-                                                <td class="px-6 py-2">{{ $item->semester }}</td>
-                                                <td class="px-6 py-2">{{ $item->exp_date }}</td>
-                                                @foreach($getOfficerPosition as $op)
-                                                    @if($item->position_category == $op->officer_positions_id)
-                                                        <td class="px-6 py-2">{{ $op->position_category }}</td>
-                                                    @endif
-                                                @endforeach
-                                                <!-- <td class="px-6 py-2">{{ $item->position_category }}</td> -->
+                    <livewire:Officer 
+                    exportable
 
-                                                <td>
-                                                    <x-jet-button wire:click="viewShowModal({{ $item->officers_id }})">
-                                                        {{__('View')}}
-                                                    </x-jet-button>
-                                                    <x-jet-button wire:click="updateShowModal({{ $item->officers_id }})">
-                                                        {{__('Update')}}
-                                                    </x-jet-button>
-                                                    <x-jet-danger-button wire:click="deleteShowModal({{ $item->officers_id }})">
-                                                        {{__('Delete')}}
-                                                    </x-jet-danger-button>
-                                                </td>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                        </tbody>
-                    </table>
+                    />
                 </div>
             </div>
         </div>
@@ -260,6 +213,6 @@
 
 
 
-
+@livewireScripts
 <!-- final div -->
 </div>

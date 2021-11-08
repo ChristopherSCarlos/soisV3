@@ -85,7 +85,7 @@
                 <x-jet-secondary-button wire:click="$toggle('modalCreateUpdateSOISLinksFormVisible')" wire:loading.attr="disabled">
                     {{ __('Cancel') }}
                 </x-jet-secondary-button>
-                @if(@soisLinkID)
+                @if($soisLinkID)
                     <x-jet-secondary-button class="ml-2" wire:click="update" wire:loading.attr="disabled">
                         {{ __('Update Page') }}
                     </x-jet-secondary-button>
