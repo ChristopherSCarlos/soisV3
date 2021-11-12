@@ -15,6 +15,7 @@ class InterfaceTypes extends Component
     /* Modals */
     public $modalCreateInterfaceTypesFormVisible = false;
     public $modalDeleteInterfaceTypesFormVisible = false;
+    public $InformationBox = false;
     /* Models */
     public $interface_type;
     public $description;
@@ -88,8 +89,12 @@ class InterfaceTypes extends Component
     
     
     /*=====  End of Delete Interface Type Section comment block  ======*/
-    
 
+
+    public function infoShowModel()
+    {
+        $this->InformationBox = true;
+    }
 
     /**
      *

@@ -20,6 +20,7 @@ class DefaultInterfaces extends Component
     /* Modals */
     public $createDefaultInterfaceShowModalFormVisible = false;
     public $deleteDefaultInterfaceShowModalFormVisible = false;
+    public $defaultInterfaceInformationBox = false;
 
     /* Variables */
     public $interfaceID;    
@@ -123,7 +124,10 @@ class DefaultInterfaces extends Component
     
     /*=====  End of Delete Default Interface Section comment block  ======*/
     
-
+    public function infoShowModel()
+    {
+        $this->defaultInterfaceInformationBox = true;
+    }
 
     public function rules()
     {

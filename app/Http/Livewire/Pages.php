@@ -20,6 +20,7 @@ class Pages extends Component
     public $modelConfirmDeleteVisible = false;
     public $modalSetHomepageFormVisible = false;
     public $modalSetErrorPageFormVisible = false;
+    public $InformationBox = false;
 
 
 
@@ -99,7 +100,7 @@ class Pages extends Component
            $image->setAttribute('src', $image_name);
         }
         $content = $dom->saveHTML();
-        $this->status = '1';
+        $this->status = 1;
         Page::create($this->modelData());
         $this->modalFormVisible = false;
         $this->reset(); 
@@ -163,7 +164,6 @@ class Pages extends Component
     public function getSelectedorganization()
     {
         $this->selectedPageID = $this->modelId;
-        dd($this->selectedPageID);
         $this->selectedPageDate = DB::table('pages')->where('pages_id','=',$this->selectedPageID)->first();
         // dd($this->selectedPageDate);
         // $this->selectedPageDate = Page::find($this->selectedPageID)->first();
@@ -291,16 +291,20 @@ class Pages extends Component
         $this->resetValidation();
     }
     
+    public function infoShowModel()
+    {
+        $this->InformationBox = true;
+    }
     
     /*=====  End of Set as Error PageSection comment block  ======*/
     
     public function read()
     {
-        return Page::paginate(5);
+        return Page::where('status','!=','1')->paginate(5);
     }
     public function ggetDBData()
     {
-        return DB::table('pages')->paginate(5);
+        return DB::table('pages')->where('status','!=','0')->paginate(5);
     }
 
     // liveware data rendering

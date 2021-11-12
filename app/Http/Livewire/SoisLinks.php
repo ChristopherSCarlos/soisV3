@@ -16,6 +16,8 @@ class SoisLinks extends Component
     /* Modals */
     public $modalCreateUpdateSOISLinksFormVisible = false;
     public $modalDeleteSOISLinksFormVisible = false;
+    public $soisLinksInformationBox = false;
+
     /* Variables */
     public $link_name;
     public $link_description;
@@ -87,6 +89,10 @@ class SoisLinks extends Component
     /*=====  End of Delete SOIS Links Section comment block  ======*/
     
 
+    public function infoShowModel()
+    {
+        $this->soisLinksInformationBox = true;
+    }
 
     public function loadSoisLinksModel()
     {

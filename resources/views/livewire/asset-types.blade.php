@@ -4,6 +4,11 @@
         <x-jet-button wire:click="createAssetTypeShowModel">
             {{ __('Create Asset Type') }}
         </x-jet-button>
+        <x-jet-button wire:click="infoShowModel" class="ml-5 bg-green-900" style="background: green;">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+            </svg>
+        </x-jet-button>
     </div> 
     <div class="flex flex-col items-center">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -122,7 +127,21 @@
 
 
 
-
+<x-jet-dialog-modal wire:model="InformationBox">
+        <x-slot name="title">
+            {{ __('Asset Type') }}
+        </x-slot>
+        <x-slot name="content">
+            <div class="mt-4">
+                <p>'Asset type' table is used by the SOIS: Homepage Maintenance Module to determine the type of the assets (images) the user is uploading. <span class="text-black font-bold">e.g. Logo, Carousel</span></p>
+            </div>
+        </x-slot>
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$toggle('InformationBox')" wire:loading.attr="disabled">
+                {{ __('Close') }}
+            </x-jet-secondary-button>
+        </x-slot>
+    </x-jet-dialog-modal>
 
 
 

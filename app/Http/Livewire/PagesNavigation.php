@@ -15,6 +15,7 @@ class PagesNavigation extends Component
     public $modalFormVisible = false;
     public $updatemodalFormVisible = false;
     public $modelSyncNavigationTypesVisible = false;
+    public $InformationBox = false;
 
     public $modelConfirmDeleteVisible;
 
@@ -187,6 +188,13 @@ class PagesNavigation extends Component
     
     
     /*=====  End of Sync Naviigation Type Section comment block  ======*/
+    
+
+    public function infoShowModel()
+    {
+        $this->InformationBox = true;
+    }
+
     
     /**
      *

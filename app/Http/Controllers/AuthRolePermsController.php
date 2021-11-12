@@ -23,7 +23,7 @@ class AuthRolePermsController extends Controller
             $this->object = new Objects();
             $this->userRole = $this->object->roles();
             if($this->userRole == 'Super Admin'){
-                return redirect('/dashboard');
+                return redirect('/default-interfaces');
             }elseif ($this->userRole == 'Organization Admin') {
                 return redirect('/Organization/dashboard');
             }else{

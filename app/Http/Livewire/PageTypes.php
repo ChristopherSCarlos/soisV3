@@ -16,6 +16,8 @@ class PageTypes extends Component
     /* Modals */
     public $modalCreateUpdatePageTypesFormVisible = false;
     public $modalDeletePageTypesFormVisible = false;
+    public $InformationBox = false;
+
     
     /* Variables */
     public $page_type;
@@ -93,6 +95,10 @@ class PageTypes extends Component
     
     /*=====  End of Delete PAge Type Section comment block  ======*/
     
+    public function infoShowModel()
+    {
+        $this->InformationBox = true;
+    }
 
     /**
      *

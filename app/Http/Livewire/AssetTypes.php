@@ -24,6 +24,7 @@ class AssetTypes extends Component
     public $status;
 
     public $assetTypeData;
+    public $InformationBox;
     
     /*===============================================================
     =            Create Asset Type Section comment block            =
@@ -93,6 +94,10 @@ class AssetTypes extends Component
     
     /*=====  End of Delete Asset Type Section comment block  ======*/
     
+    public function infoShowModel()
+    {
+        $this->InformationBox = true;
+    }
     
 
     /**

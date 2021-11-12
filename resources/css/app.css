@@ -292,8 +292,8 @@ hr{
 }
 .frontpage-title-title{
   font-family: 'Roboto',sans-serif;
-  color: white;
-  font-size: 300%;
+  color: maroon;
+  font-size: 200%;
 }
 
 
@@ -446,7 +446,108 @@ hr{
     font-size: 500%;
 }
 
+.sliding-annonuncement-image-container{
+    height: 80vh;
+    width: 100%;
+}
 
+.sliding-annonuncement-image{
+    object-fit: fill;
+    width: 100vw;
+    height: 100%;
+}
+
+.button-slider {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.slide-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.prev-arrow {
+    left: 10px;
+}
+
+.next-arrow {
+    right: 10px;
+}
+
+.slide-arrow::after {
+    content: '';
+    background: red;
+    width: 0;
+    height: 100%;
+}
+
+.prev-arrow::after {
+    border-left: 0 solid transparent;
+    border-right: 15px solid #113463;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+
+.next-arrow::after {
+    border-right: 0 solid transparent;
+    border-left: 15px solid #113463;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+
+.sliding-announcement-wrap {
+    position: relative;
+}
+
+
+.homepage-affliated-org-logos-container{
+    background: rgba(143, 143, 143, .8); 
+    height: 20vh;
+}
+.homepage-affliated-org-logos-image-container{
+    height:10%;
+    background: red;
+}
+.homepage-affliated-org-logos-image{
+    object-fit:cover; 
+    height:10%;
+    width: 100%; 
+    /*filter: grayscale(100%); */
+    /*margin-left: 30%;*/
+    /*margin-right: 30%;*/
+}
+
+.homepage-apearing-divs{
+    background: #810100;
+/*    margin-right: 5%;
+    margin-left: 5%;
+    margin-top: 0;
+    margin-bottom: 5%;
+*/
+}
+
+
+#logo-wrapper{
+    background: rgba(143, 143, 143, .8);
+}
+.logo-container{
+    height: 50px;
+}
+.logo-image{
+    object-fit:fill; 
+    height:100%;  
+    filter: grayscale(100%); 
+    margin: auto;
+}
 
 
 /*  ANIMATION  */

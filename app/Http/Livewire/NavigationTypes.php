@@ -18,6 +18,7 @@ class NavigationTypes extends Component
     /* Modals */
     public $modalCreateNavigationTypeFormVisible = false;
     public $modalDeleteNavigationTypeFormVisible = false;
+    public $InformationBox = false;
     /* Variables */
     public $navigation_menu_type;
     public $navigation_menu_description;
@@ -103,6 +104,12 @@ class NavigationTypes extends Component
             'navigation_menu_description' => $this->navigation_menu_description,
             'status' => $this->status,
         ];
+    }
+
+
+    public function infoShowModel()
+    {
+        $this->InformationBox = true;
     }
 
     public function rules()

@@ -136,7 +136,21 @@
 
 <!--====  End of Delete Default Interface Section comment  ====-->
 
-
+<x-jet-dialog-modal wire:model="defaultInterfaceInformationBox">
+        <x-slot name="title">
+            {{ __('Default Interface Tables') }}
+        </x-slot>
+        <x-slot name="content">
+            <div class="mt-4">
+                <p>'Default Interface' is used by the organization page to change the interface of their organization web page.</p>
+            </div>
+        </x-slot>
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$toggle('defaultInterfaceInformationBox')" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-secondary-button>
+        </x-slot>
+    </x-jet-dialog-modal>
 
 
 

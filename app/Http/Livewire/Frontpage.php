@@ -9,6 +9,7 @@ use App\Models\Event;
 use App\Models\User;
 use App\Models\Article;
 use App\Models\Announcement;
+use App\Models\SystemAsset;
 // use App\Models\DefaultInterface;
 use Illuminate\Support\Facades\DB;
 
@@ -374,13 +375,16 @@ class Frontpage extends Component
     {
         // dd($this->urlslug);
         $this->displayedOrganizationOnWebpage = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organizations_id');
+        // dd($this->displayedOrganizationOnWebpage);
         // return DB::table('announcements')->where('organization','=',)
         if (Organization::where('organization_slug', '=', $this->urlslug)->exists()) {
             // echo var_dump(json_decode($this->selectedArticlesImageID[0],true));
+            // dd($this->displayedOrganizationOnWebpage[0]);
             $this->selectedOrganizationDataIDint = json_decode($this->displayedOrganizationOnWebpage[0]);
+            // dd($this->selectedOrganizationDataIDint);
             $this->selectedOrganizationArticleArray = DB::table('articles')->where('organization_id','=',$this->selectedOrganizationDataIDint)->get();
+            // dd($this->selectedOrganizationArticleArray);
             return $this->selectedOrganizationArticleArray;
-            // dd($this->selectedOrganizationArray);
             // $this->selectedOrganizationArray = DB::table('system_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedOrganizationDataIDint)->get();
             // echo $this->selectedOrganizationArray;
             // dd($this->selectedOrganizationArray);
@@ -413,6 +417,18 @@ class Frontpage extends Component
         return Page::where('slug','=',$this->urlslug)->get();
     }
 
+    public function getAllOrganizationLogo()
+    {
+        // dd(SystemAsset::where('is_latest_logo','=','1')->get());
+        return SystemAsset::where('is_latest_logo','=','1')->get();
+    }
+
+    public function getAnnouncementsInDatabaseFeaturedHomepage()
+    {
+        // dd(Announcement::where('isAnnouncementInHomepage','=','1')->get());
+        return Announcement::where('isAnnouncementInHomepage','=','1')->get();
+    }
+
     public function render()
     {
         return view('livewire.frontpage',[
@@ -443,6 +459,8 @@ class Frontpage extends Component
             'getDisplayArticleData' => $this->getOrganizationArticle(),
             'getDisplayEventsData' => $this->getOrganizationEvents(),
             'getDisplayCurrentWebPageOnHomepage' => $this->getSelectedCurrentWebPage(),
+            'getDisplayOrganizationsLogoOnHomepage' => $this->getAllOrganizationLogo(),
+            'getDisplayAnnouncementFeaturedHomepage' => $this->getAnnouncementsInDatabaseFeaturedHomepage(),
          
             // 'IfAnnouncementActivated' => $this->getIsAnnouncementActivated(),
 

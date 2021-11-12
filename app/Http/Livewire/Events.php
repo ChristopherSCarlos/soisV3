@@ -92,68 +92,82 @@ class Events extends LivewireDatatable
             Column::name('semester')
                 ->label('Semester')
                 ->filterable()
+                ->editable()
                 ->searchable(),
 
             Column::name('school_year')
                 ->label('School Year')
                 ->filterable()
+                ->editable()
                 ->searchable(),
 
             Column::name('course')
                 ->label('Course')
                 ->filterable()
+                ->editable()
                 ->searchable(),
 
             Column::name('organization')
                 ->label('Organization')
                 ->filterable()
+                ->editable()
                 ->searchable(),
 
             DateColumn::name('date')
                 ->label('Date')
+                ->editable()
                 ->filterable(),
 
             DateColumn::name('end_date')
                 ->label('End Date')
+                ->editable()
                 ->filterable(),
 
             TimeColumn::name('time')
                 ->label('Time')
+                ->editable()
                 ->filterable(),
 
             Column::name('name_of_activity')
                 ->label('Activity Name')
                 ->filterable()
+                ->editable()
                 ->searchable(),
 
             Column::name('objectives')
                 ->label('Objectives')
                 ->filterable()
+                ->editable()
                 ->searchable(),
 
             NumberColumn::name('participants')
                 ->label('No. of Participants')
                 ->filterable()
+                ->editable()
                 ->searchable(),
 
             Column::name('sponsor')
                 ->label('Sponsor')
                 ->filterable()
+                ->editable()
                 ->searchable(),
 
             Column::name('venue')
                 ->label('Venue')
                 ->filterable()
+                ->editable()
                 ->searchable(),
 
             Column::name('type_of_activity')
                 ->label('Type of Activity')
                 ->filterable()
+                ->editable()
                 ->searchable(),
 
             Column::name('projected_budget')
                 ->label('Projected Budget')
                 ->filterable()
+                ->editable()
                 ->searchable(),
 
             Column::name('user_id')
@@ -168,10 +182,12 @@ class Events extends LivewireDatatable
 
             BooleanColumn::name('isEventFeat')
                 ->label('Featured')
+                ->editable()
                 ->filterable(),
 
             BooleanColumn::name('status')
                 ->label('Status')
+                ->editable()
                 ->filterable(),
 
         ];

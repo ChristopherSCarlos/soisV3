@@ -693,7 +693,7 @@ class Organizations extends Component
      */
     public function getOrganizationData()
     {
-        return Organization::paginate(10);
+        return Organization::where('status','=','1')->paginate(10);
     }
     
 
