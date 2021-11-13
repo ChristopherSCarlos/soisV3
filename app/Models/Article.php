@@ -23,6 +23,8 @@ class Article extends Model
         'is_featured_in_newspage',
         'is_article_featured_landing_page',
         'is_article_featured_organization_page',
+        'is_carousel_homepage',
+        'is_carousel_org_page',
     ];
     
 }

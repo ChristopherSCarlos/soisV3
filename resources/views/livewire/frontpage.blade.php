@@ -59,33 +59,21 @@
 
 <div class="sliding-announcement-wrap">
     <div class="sliding-announcement">
-          <div class="sliding-annonuncement-image-container">
-               <img class="sliding-annonuncement-image" src="https://c4.wallpaperflare.com/wallpaper/500/442/354/outrun-vaporwave-hd-wallpaper-preview.jpg">
-          </div>
-          <div class="sliding-annonuncement-image-container">
-               <img class="sliding-annonuncement-image" src="https://wallpaperaccess.com/full/4215101.jpg">
-          </div>
-          <div class="sliding-annonuncement-image-container">
-               <img class="sliding-annonuncement-image" src="https://c4.wallpaperflare.com/wallpaper/302/932/972/vaporwave-statue-wallpaper-preview.jpg">
-          </div>
-          <div class="sliding-annonuncement-image-container">
-               <img class="sliding-annonuncement-image" src="https://images7.alphacoders.com/671/thumbbig-671281.webp">
-          </div>
-          <div class="sliding-annonuncement-image-container">
-               <img class="sliding-annonuncement-image" src="https://c4.wallpaperflare.com/wallpaper/108/140/869/digital-digital-art-artwork-fantasy-art-drawing-hd-wallpaper-preview.jpg">
-          </div>
-          <div class="sliding-annonuncement-image-container">
-               <img class="sliding-annonuncement-image" src="https://cdn57.androidauthority.net/wp-content/uploads/2021/06/windows-11-wallpaper-4.jpg">
-          </div>
-          <div class="sliding-annonuncement-image-container">
-               <img class="sliding-annonuncement-image" src="https://wallpaperaccess.com/full/345330.jpg">
-          </div>
-          <div class="sliding-annonuncement-image-container">
-               <img class="sliding-annonuncement-image" src="https://images7.alphacoders.com/671/thumbbig-671281.webp">
-          </div>
-          <div class="sliding-annonuncement-image-container">
-               <img class="sliding-annonuncement-image" src="https://c4.wallpaperflare.com/wallpaper/108/140/869/digital-digital-art-artwork-fantasy-art-drawing-hd-wallpaper-preview.jpg">
-          </div>
+
+          @foreach($getDisplayArticlesOnHomepageCarousel as $HomepageNews)
+          <a href="{{$HomepageNews->article_slug}}">
+              <div class="sliding-annonuncement-image-container">
+                    @foreach($getDisplaySelectedNewsImageData as $newsImage)
+                        @if($newsImage->articles_id == $HomepageNews->articles_id)
+                            <img class="sliding-annonuncement-image" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                        @endif
+                    @endforeach
+                  <h5 class="text-center"></h5>
+               <div style="position: absolute; top: 90%; bottom: 0%; background: rgba(33, 38, 38, .8); width: 100%;"><p style="color: rgba(255, 255, 255, 1.0);">{{$HomepageNews->article_title}}</p></div>
+              </div>
+          </a>
+     @endforeach
+
     </div>
 
     <button class="button-slider slide-arrow prev-arrow"></button>
@@ -93,52 +81,12 @@
 </div>
 
 
-<div id="logo-wrapper" class="logo-slider" style="background: rgba(143, 143, 143, .8);">
-     <div class="logo-container" style="height: 50px;">
-          <img class="logo-image" style="object-fit:fill; height:100%;  filter: grayscale(100%); margin: auto;" src="https://cdn.freebiesupply.com/logos/large/2x/facebook-3-logo-png-transparent.png">
-     </div>
-     <div class="logo-container" style="height: 50px;">
-          <img class="logo-image" style="object-fit:fill; height:100%;  filter: grayscale(100%); margin: auto;" src="https://cdn.freebiesupply.com/images/large/2x/instagram-icon-white-on-black-circle.png">
-     </div>
-     <div class="logo-container" style="height: 50px;">
-          <img class="logo-image" style="object-fit:fill; height:100%;  filter: grayscale(100%); margin: auto;" src="https://cdn.freebiesupply.com/logos/large/2x/twitter-3-logo-png-transparent.png">
-     </div>
-     <div class="logo-container" style="height: 50px;">
-          <img class="logo-image" style="object-fit:fill; height:100%;  filter: grayscale(100%); margin: auto;" src="https://logos-world.net/wp-content/uploads/2020/12/Discord-Logo-700x394.png">
-     </div>
-     <div class="logo-container" style="height: 50px;">
-          <img class="logo-image" style="object-fit:fill; height:100%;  filter: grayscale(100%); margin: auto;" src="https://cdn.freebiesupply.com/images/large/2x/instagram-icon-white-on-black-circle.png">
-     </div>
-     <div class="logo-container" style="height: 50px;">
-          <img class="logo-image" style="object-fit:fill; height:100%;  filter: grayscale(100%); margin: auto;" src="https://cdn.freebiesupply.com/logos/large/2x/facebook-3-logo-png-transparent.png">
-     </div>
-     <div class="logo-container" style="height: 50px;">
-          <img class="logo-image" style="object-fit:fill; height:100%;  filter: grayscale(100%); margin: auto;" src="https://cdn.freebiesupply.com/images/large/2x/instagram-icon-white-on-black-circle.png">
-     </div>
-     <div class="logo-container" style="height: 50px;">
-          <img class="logo-image" style="object-fit:fill; height:100%;  filter: grayscale(100%); margin: auto;" src="https://cdn.freebiesupply.com/logos/large/2x/twitter-3-logo-png-transparent.png">
-     </div>
-     <div class="logo-container" style="height: 50px;">
-          <img class="logo-image" style="object-fit:fill; height:100%;  filter: grayscale(100%); margin: auto;" src="https://logos-world.net/wp-content/uploads/2020/12/Discord-Logo-700x394.png">
-     </div>
-     <div class="logo-container" style="height: 50px;">
-          <img class="logo-image" style="object-fit:fill; height:100%;  filter: grayscale(100%); margin: auto;" src="https://cdn.freebiesupply.com/images/large/2x/instagram-icon-white-on-black-circle.png">
-     </div>
-     <div class="logo-container" style="height: 50px;">
-          <img class="logo-image" style="object-fit:fill; height:100%;  filter: grayscale(100%); margin: auto;" src="https://cdn.freebiesupply.com/logos/large/2x/facebook-3-logo-png-transparent.png">
-     </div>
-     <div class="logo-container" style="height: 50px;">
-          <img class="logo-image" style="object-fit:fill; height:100%;  filter: grayscale(100%); margin: auto;" src="https://cdn.freebiesupply.com/images/large/2x/instagram-icon-white-on-black-circle.png">
-     </div>
-     <div class="logo-container" style="height: 50px;">
-          <img class="logo-image" style="object-fit:fill; height:100%;  filter: grayscale(100%); margin: auto;" src="https://cdn.freebiesupply.com/logos/large/2x/twitter-3-logo-png-transparent.png">
-     </div>
-     <div class="logo-container" style="height: 50px;">
-          <img class="logo-image" style="object-fit:fill; height:100%;  filter: grayscale(100%); margin: auto;" src="https://logos-world.net/wp-content/uploads/2020/12/Discord-Logo-700x394.png">
-     </div>
-     <div class="logo-container" style="height: 50px;">
-          <img class="logo-image" style="object-fit:fill; height:100%;  filter: grayscale(100%); margin: auto;" src="https://cdn.freebiesupply.com/images/large/2x/instagram-icon-white-on-black-circle.png">
-     </div>
+<div id="logo-wrapper" class="logo-slider" style="padding-top: 5px; padding-bottom: 5px; background: rgba(143, 143, 143, .8);">
+     @foreach($getDisplayOrganizationsLogoOnHomepage as $orgsliderLogos)
+          <div class="logo-container" style="margin: 10%;">
+          <img class="logo-image" style="object-fit:fill; height:100%;  filter: grayscale(100%); margin: auto;" src="{{ asset('files/'.$orgsliderLogos->asset_name) }}">
+     </div>     
+     @endforeach
 </div>
 
 

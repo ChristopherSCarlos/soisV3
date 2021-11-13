@@ -429,6 +429,11 @@ class Frontpage extends Component
         return Announcement::where('isAnnouncementInHomepage','=','1')->get();
     }
 
+    public function getHomepageCarouselDataFromDatabase()
+    {
+        return DB::table('articles')->where('is_carousel_homepage','=','1')->get();
+    }
+
     public function render()
     {
         return view('livewire.frontpage',[
@@ -461,6 +466,7 @@ class Frontpage extends Component
             'getDisplayCurrentWebPageOnHomepage' => $this->getSelectedCurrentWebPage(),
             'getDisplayOrganizationsLogoOnHomepage' => $this->getAllOrganizationLogo(),
             'getDisplayAnnouncementFeaturedHomepage' => $this->getAnnouncementsInDatabaseFeaturedHomepage(),
+            'getDisplayArticlesOnHomepageCarousel' => $this->getHomepageCarouselDataFromDatabase(),
          
             // 'IfAnnouncementActivated' => $this->getIsAnnouncementActivated(),
 
