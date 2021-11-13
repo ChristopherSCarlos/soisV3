@@ -23,12 +23,12 @@ use Illuminate\Support\Facades\DB;
 
 use Auth;
 
-// class Officers extends Component
-class Officers extends LivewireDatatable
+// class Officers extends LivewireDatatable
+class createofficers extends Component
 {
     use WithPagination;
 
-    public $model = Officer::class;
+    // public $model = Officer::class;
     // public $afterTableSlot = 'create-officers';
 
     public $exportable = true;
@@ -57,37 +57,37 @@ class Officers extends LivewireDatatable
     public $userData;
     public $userOrganizationData;
 
-    // public function rules()
-    // {
-    //     return [
-    //         'first_name' => 'required',
-    //         'last_name' => 'required',
-    //         'middle_name' => 'required',
-    //         'suffix' => 'nullable',
-    //         'organization_id' => 'required',
-    //         'school_year' => 'required',
-    //         'semester' => 'required',
-    //         'position' => 'required',
-    //         'exp_date' => 'required',
-    //         'position_category' => 'required',
-    //     ];
-    // }
+    public function rules()
+    {
+        return [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'middle_name' => 'required',
+            'suffix' => 'nullable',
+            'organization_id' => 'required',
+            'school_year' => 'required',
+            'semester' => 'required',
+            'position' => 'required',
+            'exp_date' => 'required',
+            'position_category' => 'required',
+        ];
+    }
 
-    // public function mount()
-    // {
-    //     $this->role  = new Announcements();
-    //     $this->userRole = $this->role->getAuthRoleUser();
-    // }
+    public function mount()
+    {
+        $this->role  = new Announcements();
+        $this->userRole = $this->role->getAuthRoleUser();
+    }
 
-    // public function org()
-    // {
-    //     $this->userId = Auth::id();
-    //     $this->userData = User::find($this->userId);
-    //     // dd($this->userData->name);
-    //     // dd($this->userData->organizations);
-    //     // $this->userOrganizationData = $this->userData->organizations->get();
-    //     // dd($this->userOrganizationData->organization_name);
-    // }
+    public function org()
+    {
+        $this->userId = Auth::id();
+        $this->userData = User::find($this->userId);
+        // dd($this->userData->name);
+        // dd($this->userData->organizations);
+        // $this->userOrganizationData = $this->userData->organizations->get();
+        // dd($this->userOrganizationData->organization_name);
+    }
 
 
     // public function FunctionName($value='')
@@ -140,49 +140,49 @@ class Officers extends LivewireDatatable
     =            Update Officer Section            =
     ==============================================*/
     
-    // public function updateShowModal($id)
-    // {
-    //     $this->resetValidation();
-    //     $this->reset();
-    //     $this->updatemodalFormVisible = true;
-    //     $this->officers_id = $id;
-    //     $this->loadModel();
-    // }
+    public function updateShowModal($id)
+    {
+        $this->resetValidation();
+        $this->reset();
+        $this->updatemodalFormVisible = true;
+        $this->officers_id = $id;
+        $this->loadModel();
+    }
 
-    // public function loadModel()
-    // {
-    //     // dd($this);
-    //     $data = officer::find($this->officers_id);
-    //     $this->first_name = $data->first_name;
-    //     $this->last_name = $data->last_name;
-    //     $this->middle_name = $data->middle_name;
-    //     $this->suffix = $data->suffix;
-    //     $this->organization_id = $data->organization_id;
-    //     $this->school_year = $data->school_year;
-    //     $this->semester = $data->semester;
-    //     $this->position = $data->position;
-    //     $this->exp_date = $data->exp_date;
-    //     $this->position_category = $data->position_category;
-    // }
+    public function loadModel()
+    {
+        // dd($this);
+        $data = officer::find($this->officers_id);
+        $this->first_name = $data->first_name;
+        $this->last_name = $data->last_name;
+        $this->middle_name = $data->middle_name;
+        $this->suffix = $data->suffix;
+        $this->organization_id = $data->organization_id;
+        $this->school_year = $data->school_year;
+        $this->semester = $data->semester;
+        $this->position = $data->position;
+        $this->exp_date = $data->exp_date;
+        $this->position_category = $data->position_category;
+    }
 
-    // public function update()
-    // {
-    //     // dd($this);
-    //     $this->validate([
-    //         'first_name' => 'required',
-    //         'last_name' => 'required',
-    //         'middle_name' => 'required',
-    //         'suffix' => 'nullable',
-    //         'organization_id' => 'required',
-    //         'school_year' => 'required',
-    //         'semester' => 'required',
-    //         'position' => 'required',
-    //         'exp_date' => 'required',
-    //         'position_category' => 'required',
-    //     ]);
-    //     officer::find($this->officers_id)->update($this->modelData());
-    //     $this->updatemodalFormVisible = false;
-    // }
+    public function update()
+    {
+        // dd($this);
+        $this->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'middle_name' => 'required',
+            'suffix' => 'nullable',
+            'organization_id' => 'required',
+            'school_year' => 'required',
+            'semester' => 'required',
+            'position' => 'required',
+            'exp_date' => 'required',
+            'position_category' => 'required',
+        ]);
+        officer::find($this->officers_id)->update($this->modelData());
+        $this->updatemodalFormVisible = false;
+    }
     
     /*=====  End of Update Officer Section  ======*/
 
@@ -190,18 +190,18 @@ class Officers extends LivewireDatatable
     =            Delete Officer Section            =
     ==============================================*/
     
-    // public function deleteShowModal($id)
-    // {
-    //     $this->officers_id = $id;
-    //     $this->modelConfirmDeleteVisible = true;
-    // }
+    public function deleteShowModal($id)
+    {
+        $this->officers_id = $id;
+        $this->modelConfirmDeleteVisible = true;
+    }
 
-    // public function delete()
-    // {
-    //     officer::find($this->officers_id)->update(['status'=>'0']);
-    //     $this->modelConfirmDeleteVisible = false;
-    //     $this->resetPage();
-    // }
+    public function delete()
+    {
+        officer::find($this->officers_id)->update(['status'=>'0']);
+        $this->modelConfirmDeleteVisible = false;
+        $this->resetPage();
+    }
     
     /*=====  End of Delete Officer Section  ======*/
     
@@ -210,21 +210,21 @@ class Officers extends LivewireDatatable
     =            Model Data Section            =
     ==========================================*/
     
-    // public function modelData()
-    // {
-    //     return [
-    //         'first_name' => $this->first_name,
-    //         'last_name' => $this->last_name,
-    //         'middle_name' => $this->middle_name,
-    //         'suffix' => $this->suffix,
-    //         'organization_id' => $this->organization_id,
-    //         'school_year' => $this->school_year,
-    //         'semester' => $this->semester,
-    //         'position' => $this->position,
-    //         'exp_date' => $this->exp_date,
-    //         'position_category' => $this->position_category,
-    //     ];
-    // }
+    public function modelData()
+    {
+        return [
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'middle_name' => $this->middle_name,
+            'suffix' => $this->suffix,
+            'organization_id' => $this->organization_id,
+            'school_year' => $this->school_year,
+            'semester' => $this->semester,
+            'position' => $this->position,
+            'exp_date' => $this->exp_date,
+            'position_category' => $this->position_category,
+        ];
+    }
     
     /*=====  End of Model Data Section  ======*/
     
@@ -292,87 +292,6 @@ class Officers extends LivewireDatatable
     =            calling tables section            =
     ==============================================*/
     
-    public function columns()
-    {
-        // dd(co);
-        return[
-            NumberColumn::name('officers_id')
-                ->label('ID')
-                ->defaultSort('asc')
-                ->sortBy('officers_id'),
-
-            Column::name('first_name')
-                ->label('First Name')
-                ->filterable()
-                ->editable(),
-                // ->searchable(),
-
-            Column::name('last_name')
-                ->label('Last Name')
-                ->filterable()
-                ->editable(),
-                // ->searchable(),
-
-            Column::name('middle_name')
-                ->label('Middle Name')
-                ->filterable()
-                ->editable(),
-                // ->searchable(),
-
-            Column::name('suffix')
-                ->label('suffix')
-                ->filterable()
-                ->editable(),
-                // ->searchable(),
-
-            Column::name('organization_id')
-                ->label('Organization')
-                ->filterable()
-                ->editable(),
-                // ->searchable(),
-
-            Column::name('school_year')
-                ->label('School Year')
-                ->filterable()
-                ->editable(),
-                // ->searchable(),
-
-            Column::name('semester')
-                ->label('Semester')
-                ->filterable()
-                ->editable(),
-                // ->searchable(),
-
-            Column::name('position')
-                ->label('Position')
-                ->filterable()
-                ->editable(),
-                // ->searchable(),
-
-            DateColumn::name('exp_date')
-                ->label('Retirement')
-                ->filterable()
-                ->editable(),
-                // ->searchable(),
-
-            Column::name('position_category')
-                ->label('Position Category')
-                ->filterable()
-                ->editable(),
-                // ->searchable(),
-
-            BooleanColumn::name('status')
-                ->label('status')
-                ->filterable(),
-                // ->editable(),
-
-            Column::delete('officers_id')
-                ->label('delete'),
-
-            
-
-        ];
-    }
     
     /*=====  End of calling tables section  ======*/
 
@@ -414,16 +333,16 @@ class Officers extends LivewireDatatable
     /*=====  End of Organization Specific Filter  ======*/
     
 
-    // public function render()
-    // {
-    //     return view('livewire.officers',[
-    //         'OfficerData' => $this->getOfficerData(),
-    //         'getOrganization' => $this->getOrganizationsFromDatabase(),
-    //         'getOfficerPosition' => $this->getOfficerPositionsFromDatabase(),
-    //         'getAuthUserRole' => $this->userRole,
-    //         // 'userAuthRole' => $this->getAuthUserRole(),
-    //         // 'posts' => $this->specificOrganization(),
-    //         // 'userAffliatedOrganization' => $this->specificOrganization(),
-    //     ]);
-    // }
+    public function render()
+    {
+        return view('livewire.createofficers',[
+            'OfficerData' => $this->getOfficerData(),
+            'getOrganization' => $this->getOrganizationsFromDatabase(),
+            'getOfficerPosition' => $this->getOfficerPositionsFromDatabase(),
+            'getAuthUserRole' => $this->userRole,
+            // 'userAuthRole' => $this->getAuthUserRole(),
+            // 'posts' => $this->specificOrganization(),
+            // 'userAffliatedOrganization' => $this->specificOrganization(),
+        ]);
+    }
 }
