@@ -16,6 +16,18 @@
                     exportable
                     hideable
                     />
+                    <div x-data="{
+                        interval: null,
+                        initRefresh: () => {
+                            window.onfocus = ()=>{
+                                Livewire.emit('refreshLivewireDatatable');
+                                this.interval = setInterval(()=>{
+                                    Livewire.emit('refreshLivewireDatatable');
+                                }, 30000);
+                            };
+                            window.onblur = () => { clearInterval(this.interval); }
+                        },
+                    }" x-init="initRefresh"></div>
                 </div>
             </div>
         </div>
