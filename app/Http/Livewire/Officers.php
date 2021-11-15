@@ -288,6 +288,20 @@ class Officers extends LivewireDatatable
     //     return $this->authUserRoleType;
     // }
 
+    /*===========================================
+    =            Join tables Section            =
+    ===========================================*/
+    
+    public function builder()
+    {
+        return Officer::query()
+            ->leftJoin('organizations', 'organizations.organizations_id', 'officers.organization_id')
+            ->leftJoin('officer_positions', 'officer_positions.officer_positions_id', 'officers.position_category');
+    }
+    
+    /*=====  End of Join tables Section  ======*/
+    
+
     /*==============================================
     =            calling tables section            =
     ==============================================*/
@@ -325,7 +339,7 @@ class Officers extends LivewireDatatable
                 ->editable(),
                 // ->searchable(),
 
-            Column::name('organization_id')
+            Column::name('organizations.organization_name')
                 ->label('Organization')
                 ->filterable()
                 ->editable(),
@@ -355,7 +369,7 @@ class Officers extends LivewireDatatable
                 ->editable(),
                 // ->searchable(),
 
-            Column::name('position_category')
+            Column::name('officer_positions.position_category')
                 ->label('Position Category')
                 ->filterable()
                 ->editable(),
