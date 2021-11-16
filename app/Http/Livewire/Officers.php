@@ -9,6 +9,10 @@ use App\Http\Livewire\Announcements;
 use App\Models\User;
 use App\Models\Officer;
 use App\Models\Organization;
+use App\Models\OfficerPosition;
+
+use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\Column;
@@ -341,7 +345,7 @@ class Officers extends LivewireDatatable
 
             Column::name('organizations.organization_name')
                 ->label('Organization')
-                ->filterable()
+                ->filterable($this->organizations)
                 ->editable(),
                 // ->searchable(),
 
@@ -371,7 +375,7 @@ class Officers extends LivewireDatatable
 
             Column::name('officer_positions.position_category')
                 ->label('Position Category')
-                ->filterable()
+                ->filterable($this->PositionCategory)
                 ->editable(),
                 // ->searchable(),
 
@@ -389,6 +393,23 @@ class Officers extends LivewireDatatable
     }
     
     /*=====  End of calling tables section  ======*/
+
+    /*===================================================
+    =            Retrieve Data from database            =
+    ===================================================*/
+    
+    public function getOrganizationsProperty()
+    {
+        return Organization::pluck('organization_name');
+    }
+
+    public function getPositionCategoryProperty()
+    {
+        return OfficerPosition::pluck('position_category');
+    }
+    
+    /*=====  End of Retrieve Data from database  ======*/
+    
 
     /*================================================
     =            Get Organization Section            =
