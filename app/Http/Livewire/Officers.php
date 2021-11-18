@@ -314,6 +314,8 @@ class Officers extends LivewireDatatable
     {
         // dd(co);
         return[
+            // Column::checkbox('officers_id'),
+
             NumberColumn::name('officers_id')
                 ->label('ID')
                 ->defaultSort('asc')

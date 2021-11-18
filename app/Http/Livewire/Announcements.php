@@ -31,6 +31,7 @@ use DateInterval;
 class Announcements extends Component
 {
     use WithPagination;
+    use WithFileUploads;
     // modals
         public $modalCreateAnnouncementFormVisible = false;
         public $modalUpdateAnnouncementFormVisible = false;
@@ -90,6 +91,34 @@ class Announcements extends Component
     public function createAnnouncementProcess()
     {
         $this->user_id = Auth::user()->users_id;
+        $this->validate([
+            'announcements_title' => 'required',
+            'announcements_content' => 'required',
+            'signature' => 'required',
+            'signer_position' => 'required',
+            'exp_date' => 'required',
+            'exp_time' => 'required',
+        ]);
+
+        $announcements_content = $this->announcements_content;
+        $dom = new \DomDocument();
+        $dom->loadHtml($announcements_content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $imageFile = $dom->getElementsByTagName('imageFile');
+        foreach($imageFile as $item => $image){
+            $data = $img->getAttribute('src');
+
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+
+            $imgeData = base64_decode($data);
+            $image_name= "/upload/" . time().$item.'.png';
+            $path = public_path() . $image_name;
+            file_put_contents($path, $imgeData);
+            $image->removeAttribute('src');
+            $image->setAttribute('src', $image_name);
+        }
+        $announcements_content = $dom->saveHTML();
+
         Announcement::create($this->createAnnouncementModel());
         $this->modalCreateAnnouncementFormVisible = false;
         $this->reset();
