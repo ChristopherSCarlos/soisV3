@@ -32,6 +32,8 @@ class Officers extends LivewireDatatable
 {
     use WithPagination;
 
+    // public $complex = true;
+
     public $model = Officer::class;
     // public $afterTableSlot = 'create-officers';
 
@@ -323,6 +325,7 @@ class Officers extends LivewireDatatable
 
             Column::name('first_name')
                 ->label('First Name')
+                ->filterOn('officers.first_name')
                 ->filterable()
                 ->editable(),
                 // ->searchable(),
@@ -345,10 +348,15 @@ class Officers extends LivewireDatatable
                 ->editable(),
                 // ->searchable(),
 
+            Column::name('organization_id')
+                ->label('Organization ID')
+                ->editable(),
+
             Column::name('organizations.organization_name')
                 ->label('Organization')
-                ->filterable($this->organizations)
-                ->editable(),
+                ->filterable($this->organizations),
+                // ->filterable(cs)
+                // ->editable(),
                 // ->searchable(),
 
             Column::name('school_year')
@@ -371,9 +379,13 @@ class Officers extends LivewireDatatable
 
             DateColumn::name('exp_date')
                 ->label('Retirement')
-                ->filterable()
-                ->editable(),
+                ->filterable(),
+                // ->editable(),
                 // ->searchable(),
+
+            Column::name('position_category')
+                ->label('Position Category ID')
+                ->editable(),
 
             Column::name('officer_positions.position_category')
                 ->label('Position Category')
@@ -463,4 +475,40 @@ class Officers extends LivewireDatatable
     //         // 'userAffliatedOrganization' => $this->specificOrganization(),
     //     ]);
     // }
+}
+
+class OrgTable extends LivewireDatatable
+{
+    public function builder()
+    {
+        $this->specificOrganization();
+        return Officers::query()
+            ->where('organization_id', '=', $this->orgUserId);
+    }
+
+    public function filterTable($customerId)
+    {
+        $this->customerId = $customerId;
+        $this->refreshLivewireDatatable();
+    }
+
+    public function specificOrganization()
+    {
+        $this->authUser = Auth::id();
+        $this->user = User::find($this->authUser);
+        $this->OrgDataFromUser = $this->user->organizations->first();
+        // dd($this->OrgDataFromUser->id);
+        if($this->OrgDataFromUser){
+            $this->orgUserId = $this->OrgDataFromUser->organizations_id;
+            $this->userOrganization = $this->OrgDataFromUser->organization_name;
+            // dd($this->orgUserId);
+            $this->orgCount = true;
+            // dd($this->orgCount);
+            // dd(DB::table('organizations')->where('organizations_id', '=', $this->orgUserId)->get());
+           //  return DB::table('organizations')
+           // ->where('organizations_id', '=', $this->orgUserId)
+           // ->get();
+        }
+    }
+
 }

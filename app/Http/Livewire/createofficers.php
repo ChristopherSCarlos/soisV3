@@ -112,6 +112,7 @@ class createofficers extends Component
         // dd($this);
         $this->validate();
         Officer::create($this->modelCreateOfficer());
+        // $this->refreshLivewireDatatable();
         $this->CreatemodalFormVisible = false;
         $this->reset(); 
         $this->resetValidation(); 
