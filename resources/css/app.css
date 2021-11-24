@@ -320,21 +320,17 @@ hr{
 
 .org-logo-placeholder{
     margin: 5% auto 0px auto;
-    width: 35%; 
+    width: 100%; 
     text-align: center; 
     position: relative; 
     padding-bottom: 35%; 
-    border-radius: 50%; 
+    border-radius: 20%; 
     overflow: hidden; 
     background-color: #ff0082;
 }
 .org-logo-image{
-    width: auto;
-    position: absolute; 
     width: 100%; 
     height: 100%; 
-    top: 0; 
-    left: 0; 
     object-fit: cover;
 }
 
@@ -443,12 +439,19 @@ hr{
 
 .organization-title{
     font-family: 'Exo 2',sans-serif;
-    font-size: 500%;
+    font-size: 400%;
+    margin: auto auto auto 10%;
 }
 
 .sliding-annonuncement-image-container{
     height: 80vh;
     width: 100%;
+}
+@media(max-width: 900px){
+.sliding-annonuncement-image-container{
+    height: 50vh;
+    width: 100%;
+}    
 }
 
 .sliding-annonuncement-image{
@@ -485,8 +488,8 @@ hr{
 
 .slide-arrow::after {
     content: '';
-    background: red;
-    width: 0;
+    background: rgba(33, 38, 38, .5);;
+    width: 100vw;
     height: 100%;
 }
 
@@ -504,6 +507,10 @@ hr{
     border-bottom: 10px solid transparent;
 }
 
+.sliding-announcement-wrap-homepage {
+    position: relative;
+    width: 100%;
+}
 .sliding-announcement-wrap {
     position: relative;
 }
@@ -548,6 +555,78 @@ hr{
     filter: grayscale(100%); 
     margin: auto;
 }
+
+
+
+
+
+
+
+
+
+.organization-latest-news-slider-container{
+    /*height: 10vh;*/
+    height: 100%;
+}
+.organization-latest-news-slider{
+    object-fit: fill;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+
+
+
+
+
+
+
+
+
+.js .slider-single > div:nth-child(1n+2) { display: none }
+
+.js .slider-single.slick-initialized > div:nth-child(1n+2) { display: block }
+
+h3 {
+    background: #f0f0f0;
+    color: #3498db;
+    font-size: 2.25rem;
+    margin: .5rem;
+    padding: 2%;
+    position: relative;
+    text-align: center;
+}
+
+.slider-single h3 {
+    line-height: 10rem;
+}
+
+.slider-nav h3::before {
+    content: "";
+    display: block;
+    padding-top: 75%;
+}
+
+.slider-nav h3 span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.slider-nav .slick-slide { cursor: pointer; }
+
+.slick-slide.is-active h3 {
+    color: #c00;
+    background-color: #fff
+}
+
+
+.homepage-titles{
+    font-family: 'Nunito',sans-serif;
+    font-size: 20px;
+}
+
 
 
 /*  ANIMATION  */

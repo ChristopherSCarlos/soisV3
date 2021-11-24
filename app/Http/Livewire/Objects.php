@@ -14,6 +14,8 @@ class Objects extends Component
     private $user_data;
     private $user_pivot_role;
     private $user_role;
+    private $user;
+    private $va;
 
     public function roles()
     {
@@ -34,7 +36,9 @@ class Objects extends Component
     public function userOrganization()
     {
         $this->user_id = Auth::id();
-        dd($this->user_id);
+        $this->user = User::find($this->user_id);
+        $this->va = $this->user->organizations->first();
+        dd($this->va);
     }
 
 

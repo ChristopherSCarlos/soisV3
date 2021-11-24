@@ -23,5 +23,8 @@ class Announcement extends Model
         'exp_date',
         'exp_time',
         'organization_id',
+        'isAnnouncementInHomepage',
+        'isAnnouncementInOrgpage',
+        'announcement_slug',
     ];
 }

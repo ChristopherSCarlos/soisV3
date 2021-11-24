@@ -102,6 +102,7 @@ class Articles extends Component
 
     public $convertedArticleSlug;
     public $articleTags = [];
+    public $article_type_id;
 
 
     /*======================================================
@@ -212,6 +213,7 @@ class Articles extends Component
             'status' => $this->status,
             'user_id' => $this->userId,
             'article_slug' => $this->convertedArticleSlug,
+            'organization_id' => $this->latestOrganizationIDtoInsertToDB,
         ];
     }
     public function syncArticleOrganization()
@@ -577,6 +579,12 @@ class Articles extends Component
         return DB::table('tags')->where('status','=','1')->get();
     }
 
+    public function getArticleType()
+    {
+        // dd(DB::table('article_types')->where('status','=','1')->get());
+        return DB::table('article_types')->where('status','=','1')->get();
+    }
+
     public function render()
     {
         return view('livewire.articles',[
@@ -585,6 +593,7 @@ class Articles extends Component
             'articleOrganization' => $this->getArticleOrganization(),
             'displayArticleImage' => $this->viewImage(),
             'displayTagsData' => $this->getTagsDataFromDatabase(),
+            'displayArticleTypeData' => $this->getArticleType(),
         ]);
     }
 }

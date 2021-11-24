@@ -190,7 +190,7 @@
                     @error('article_title') <span class="error">{{ $message }}</span> @enderror
                 </div>
                 <div class="mt-4">
-                    <x-jet-label for="article_subtitle" value="{{ __('Article Sub-Title') }}" />
+                    <x-jet-label for="article_subtitle" value="{{ __('Article Topic') }}" />
                     <x-jet-input wire:model="article_subtitle" id="article_subtitle" class="block mt-1 w-full" type="text" />
                     @error('article_subtitle') <span class="error">{{ $message }}</span> @enderror
                 </div>
@@ -201,10 +201,14 @@
                     </div>
                 </div>
                 <div class="mt-4">
-                    <x-jet-label for="tags" value="{{ __('Add Tags') }}" />
-                    <x-jet-button wire:click="addTags">
-                        {{__('Add Tags')}}
-                    </x-jet-button>
+                    <x-jet-label for="article_type_id" value="{{ __('Organization') }}" />
+                    <select wire:model="article_type_id" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <option default hidden>Choose News Type</option>
+                        @foreach($displayArticleTypeData as $articleType)
+                            <option value="{{$articleType->article_types_id}}">{{$articleType->article_type}}</option>
+                        @endforeach
+                    </select>
+                    @error('article_type_id') <span class="error">{{ $message }}</span> @enderror
                 </div>
             </x-slot>
             <x-slot name="footer">

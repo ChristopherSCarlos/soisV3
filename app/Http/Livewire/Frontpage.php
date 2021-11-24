@@ -51,6 +51,10 @@ class Frontpage extends Component
     public $selectedOrganizationArticleArray;
     public $selectedOrganizationArray;
     public $selectedOrganizationEventsArray;
+    
+    public $displayedOrganizationData;
+    public $displayedOrganizationDataID;
+    public $displayedOrganizationDataPassOnView;
 
     public function mount($urlslug = null)
     {
@@ -196,7 +200,7 @@ class Frontpage extends Component
     public function getHomepageEvents()
     {
         // dd(DB::table('articles')->orderBy('created_at','asc')->skip(1)->take(10)->get());
-        return DB::table('events')->where('isEventFeat','=','1')->orderBy('created_at','asc')->get();
+        return DB::table('articles')->where('article_type_id','=','2')->orderBy('created_at','asc')->get();
         // return DB::table('articles')->orderBy('created_at','asc')->paginate(10);
     }
 
@@ -205,7 +209,7 @@ class Frontpage extends Component
         // dd(DB::table('articles')->orderBy('created_at','asc')->first());
         return DB::table('articles')->orderBy('created_at','asc')->first();
     }
-    public function getAllFeaturedArticle()
+    public function getAllFeaturedArticle() 
     {
         return DB::table('articles')->where('is_featured_in_newspage','=','1')->get();
     }
@@ -361,6 +365,7 @@ class Frontpage extends Component
             // echo var_dump(json_decode($this->selectedArticlesImageID[0],true));
             $this->selectedOrganizationDataIDint = json_decode($this->displayedOrganizationOnWebpage[0]);
             $this->selectedOrganizationArray = DB::table('announcements')->where('organization_id','=',$this->selectedOrganizationDataIDint)->get();
+            // dd($this->selectedOrganizationArray);
             return $this->selectedOrganizationArray;
             // dd($this->selectedOrganizationArray);
             // $this->selectedOrganizationArray = DB::table('system_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedOrganizationDataIDint)->get();
@@ -382,7 +387,7 @@ class Frontpage extends Component
             // dd($this->displayedOrganizationOnWebpage[0]);
             $this->selectedOrganizationDataIDint = json_decode($this->displayedOrganizationOnWebpage[0]);
             // dd($this->selectedOrganizationDataIDint);
-            $this->selectedOrganizationArticleArray = DB::table('articles')->where('organization_id','=',$this->selectedOrganizationDataIDint)->get();
+            $this->selectedOrganizationArticleArray = DB::table('articles')->where('organization_id','=',$this->selectedOrganizationDataIDint)->orderBy('created_at','desc')->get();
             // dd($this->selectedOrganizationArticleArray);
             return $this->selectedOrganizationArticleArray;
             // $this->selectedOrganizationArray = DB::table('system_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedOrganizationDataIDint)->get();
@@ -401,7 +406,7 @@ class Frontpage extends Component
         if (Organization::where('organization_slug', '=', $this->urlslug)->exists()) {
             // echo var_dump(json_decode($this->selectedArticlesImageID[0],true));
             $this->selectedOrganizationDataIDint = json_decode($this->displayedOrganizationOnWebpage[0]);
-            $this->selectedOrganizationEventsArray = DB::table('events')->where('organization_id','=',$this->selectedOrganizationDataIDint)->get();
+            $this->selectedOrganizationEventsArray = DB::table('articles')->where('organization_id','=',$this->selectedOrganizationDataIDint)->where('article_type_id','=','1')->get();
             return $this->selectedOrganizationEventsArray;
             // dd($this->selectedOrganizationArray);
             // $this->selectedOrganizationArray = DB::table('system_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedOrganizationDataIDint)->get();
@@ -432,6 +437,19 @@ class Frontpage extends Component
     public function getHomepageCarouselDataFromDatabase()
     {
         return DB::table('articles')->where('is_carousel_homepage','=','1')->get();
+    }
+
+    public function getOrganizationCarouselDataFromDatabase()
+    {
+        // dd($this->urlslug);
+        if (Organization::where('organization_slug', '=', $this->urlslug)->exists()) {
+            $this->displayedOrganizationData = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organizations_id');
+            $this->displayedOrganizationDataID = json_decode($this->displayedOrganizationData[0]);
+            $this->displayedOrganizationDataPassOnView =  DB::table('articles')->where('is_carousel_org_page','=','1')->where('organization_id','=',$this->displayedOrganizationDataID)->get();
+            return $this->displayedOrganizationDataPassOnView;
+        // dd($this->displayedOrganizationDataPassOnView);
+
+        }
     }
 
     public function render()
@@ -467,6 +485,7 @@ class Frontpage extends Component
             'getDisplayOrganizationsLogoOnHomepage' => $this->getAllOrganizationLogo(),
             'getDisplayAnnouncementFeaturedHomepage' => $this->getAnnouncementsInDatabaseFeaturedHomepage(),
             'getDisplayArticlesOnHomepageCarousel' => $this->getHomepageCarouselDataFromDatabase(),
+            'getDisplayArticlesOnOrganizationCarousel' => $this->getOrganizationCarouselDataFromDatabase(),
          
             // 'IfAnnouncementActivated' => $this->getIsAnnouncementActivated(),
 

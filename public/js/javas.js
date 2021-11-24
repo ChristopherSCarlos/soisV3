@@ -83,6 +83,12 @@ function onloadFunctions() {
     z.style.display = "none";
     document.getElementById("openDivHolder1").style.backgroundColor = colorMaroon;
     document.getElementById("openDivTitle1").style.color = "white";
+
+
+}
+
+function onloadOrgFunctions() {
+	console.log('2');
 }
 
 

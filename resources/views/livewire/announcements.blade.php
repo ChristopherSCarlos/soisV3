@@ -37,53 +37,106 @@
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">User Id</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Date Creation</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">feature in slider</th>
                             </tr>
                         </thead>
 
                         <tbody class="bg-white divide-y divide-gray-200">
-                                @if($displayAnnouncements->count())
-                                    @foreach($displayAnnouncements as $item)
-                                         <tr>
-                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->announcements_id }}
-                                            </td>
-                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->announcement_title }}
-                                            </td>
-                                            <!-- <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->announcement_content }}
-                                            </td> -->
-                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->signature }}
-                                            </td>
-                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->signer_position }}
-                                            </td>
-                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->exp_date }}
-                                            </td>
-                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->user_id }}
-                                            </td>
-                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->created_at }}
-                                            </td>
-                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                <x-jet-button wire:click="updateAnnouncementShowModal({{ $item->announcements_id }})">
-                                                    {{__('Update')}}
-                                                </x-jet-button>
-                                                <x-jet-danger-button wire:click="deleteAnnouncementShowModal({{ $item->announcements_id }})">
-                                                    {{__('Delete')}}
-                                                </x-jet-danger-button>
+                                @if($roleUser == 'Super Admin')
+                                    @if($displayAnnouncements->count())
+                                        @foreach($displayAnnouncements as $item)
+                                             <tr>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->announcements_id }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->announcement_title }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->announcement_content }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->signature }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->signer_position }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->exp_date }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->user_id }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->created_at }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    <x-jet-button wire:click="updateAnnouncementShowModal({{ $item->announcements_id }})">
+                                                        {{__('Update')}}
+                                                    </x-jet-button>
+                                                    <x-jet-danger-button wire:click="deleteAnnouncementShowModal({{ $item->announcements_id }})">
+                                                        {{__('Delete')}}
+                                                    </x-jet-danger-button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td class="px-6 py-4 text-sm whitespace-no-wrap" colspan="4">
+                                                No Results Found
                                             </td>
                                         </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap" colspan="4">
-                                            No Results Found
-                                        </td>
-                                    </tr>
+                                    @endif
+                                @elseif($roleUser == 'Organization Admin')
+                                    @if($displayOrgAnnouncements->count())
+                                        @foreach($displayOrgAnnouncements as $item)
+                                             <tr>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->announcements_id }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->announcement_title }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->announcement_content }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->signature }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->signer_position }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->exp_date }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->user_id }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->created_at }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    <x-jet-button wire:click="updateAnnouncementShowModal({{ $item->announcements_id }})">
+                                                        {{__('Update')}}
+                                                    </x-jet-button>
+                                                    <x-jet-danger-button wire:click="deleteAnnouncementShowModal({{ $item->announcements_id }})">
+                                                        {{__('Delete')}}
+                                                    </x-jet-danger-button>
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    <x-jet-button wire:click="addOrgAnnouncementSlider({{ $item->announcements_id }})">
+                                                        {{__('Add Slider')}}
+                                                    </x-jet-button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td class="px-6 py-4 text-sm whitespace-no-wrap" colspan="4">
+                                                No Results Found
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endif
                         </tbody>
 
@@ -93,7 +146,11 @@
         </div>
     </div>
 
-    {{$displayAnnouncements->links()}}
+    @if($roleUser == 'Super Admin')
+        {{$displayAnnouncements->links()}}
+    @else
+        {{$displayOrgAnnouncements->links()}}
+    @endif
 
 
 <!--==================================================
@@ -220,6 +277,28 @@
 
 
 <!--====  End of Delete Modal Section comment  ====-->
+
+
+<x-jet-dialog-modal wire:model="modalAddAnnouncementSliderFormVisible">
+            <x-slot name="title">
+                {{ __('Announcement #:') }}{{$announcement_id}}
+            </x-slot>
+            <x-slot name="content">
+                <div class="mt-4">
+                    <x-jet-label for="article_title" value="{{ __('Are you sure you want to add this announcement to slider? Once your announcenemnt is deleted, all of its resources and data will be permanently deleted. Do you wish to proceed?') }}" />
+                </div>
+            </x-slot>
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('modalAddAnnouncementSliderFormVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+                <x-jet-secondary-button class="ml-2" wire:click="addAnnouncementSliderProcess" wire:loading.attr="disabled">
+                    {{ __('Add Announcement To Slider') }}
+                </x-jet-secondary-button>
+            </x-slot>
+        </x-jet-dialog-modal>
+
+
 
 
 <!--===============================================

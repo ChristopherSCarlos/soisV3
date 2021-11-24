@@ -25,6 +25,8 @@ class Article extends Model
         'is_article_featured_organization_page',
         'is_carousel_homepage',
         'is_carousel_org_page',
+        'organization_id',
+        'article_type_id',
     ];
     
 }

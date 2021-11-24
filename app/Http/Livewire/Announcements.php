@@ -36,6 +36,7 @@ class Announcements extends Component
         public $modalCreateAnnouncementFormVisible = false;
         public $modalUpdateAnnouncementFormVisible = false;
         public $modalDeleteAnnouncementFormVisible = false;
+        public $modalAddAnnouncementSliderFormVisible = false;
 
     // variables
         public $announcement_id;
@@ -78,6 +79,11 @@ class Announcements extends Component
         private $userRole;
 
         private $object;
+        private $user;
+        private $va;
+        private $v;
+        private $roles;
+        private $orgID;
 
     /*==================================================================
     =            Create Announcements Section comment block            =
@@ -91,6 +97,9 @@ class Announcements extends Component
     public function createAnnouncementProcess()
     {
         $this->user_id = Auth::user()->users_id;
+        $this->user = User::find($this->user_id);
+        $this->v = $this->user->organizations->first();
+        $this->orgID = $this->v->organizations_id;
         $this->validate([
             'announcements_title' => 'required',
             'announcements_content' => 'required',
@@ -135,6 +144,7 @@ class Announcements extends Component
             'exp_date' => $this->exp_date,
             'exp_time' => $this->exp_time,
             'user_id' => $this->user_id,
+            'organization_id' => $this->orgID,
         ];
     }
     
@@ -248,8 +258,21 @@ class Announcements extends Component
     }
     /*=====  End of Change Status on Expired Date Section comment block  ======*/
     
+    public function addOrgAnnouncementSlider($id)
+    {
+        $this->resetValidation();
+        $this->reset();
+        $this->announcement_id = $id;
+        $this->modalAddAnnouncementSliderFormVisible = true;
+    }
 
-
+    public function addAnnouncementSliderProcess()
+    {
+        Announcement::where('announcements_id','=',$this->announcement_id)->update(['isAnnouncementInOrgpage'=>'1']);
+        $this->modalAddAnnouncementSliderFormVisible = true;
+        $this->reset();
+        $this->resetValidation();
+    }
 
     /**
      *
@@ -273,16 +296,25 @@ class Announcements extends Component
     public function getAnnouncements()
     {
         $this->user_id = Auth::id();
-        if ($this->getAuthRoleUser() == 'Super Admin') {
+        // if ($this->getAuthRoleUser() == 'Super Admin') {
             return DB::table('announcements')->where('status','=','1')->orderBy('created_at','desc')->paginate(5);
-        }elseif ($this->getAuthRoleUser() == 'Organization Admin') {
+        // dd(DB::table('announcements')->where('status','=','1')->orderBy('created_at','desc')->paginate(5));
+        // }elseif ($this->getAuthRoleUser() == 'Organization Admin') {
             // return DB::table('announcements')->where('status','=','1')->orWhere('user_id','=',Auth::id())->orderBy('created_at','desc')->paginate(5);
-            return DB::table('announcements')->where('status','=','1')->where('user_id','=',$this->user_id)->orderBy('created_at','desc')->paginate(5);
-        }else{
-            echo "User";
-        }
+            // return DB::table('announcements')->where('status','=','1')->where('user_id','=',$this->user_id)->orderBy('created_at','desc')->paginate(5);
+        // }else{
+            // echo "User";
+        // }
         // dd("Hello");
         // return DB::table('announcements')->where('status','=','1')->orderBy('created_at','desc')->paginate(5);
+    }
+    public function getOrganizationAnnouncement()
+    {
+        $this->user = User::find(Auth::id());
+        $this->v = $this->user->organizations->first();
+        // dd($this->v->organizations_id);
+        // dd(DB::table('announcements')->where('status','=','1')->where('organization_id','=',$this->v->organizations_id)->orderBy('created_at','desc')->paginate(5));
+        return DB::table('announcements')->where('status','=','1')->where('organization_id','=',$this->v->organizations_id)->orderBy('created_at','desc')->paginate(5);
     }
 
     public function render()
@@ -290,6 +322,7 @@ class Announcements extends Component
         return view('livewire.announcements',[
             'displayAnnouncements' => $this->getAnnouncements(),
             'roleUser' => $this->getAuthRoleUser(),
+            'displayOrgAnnouncements' => $this->getOrganizationAnnouncement(),
         ]);
     }
 }

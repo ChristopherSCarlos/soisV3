@@ -7,7 +7,7 @@
         <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-        <title>SOIS</title>
+        <title>SOIS: @yield('title')</title>
         <script src="https://kit.fontawesome.com/17005ae465.js" crossorigin="anonymous"></script>
 
         <!-- Fonts -->
@@ -62,6 +62,8 @@
         
     </head>
     <body id="FrontaPageContent" class="font-sans antialiased" onload="onloadFunctions()">
+        <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0&appId=210115755725416&autoLogAppEvents=1" nonce="D0oZHgy9"></script>
         <x-jet-banner />
 
         <div class="min-h-screen bg-gray-100">
