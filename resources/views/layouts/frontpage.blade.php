@@ -19,6 +19,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Pacifico&family=Rock+Salt&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Ephesis&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Genos:wght@400;500;600;700&display=swap" rel="stylesheet">
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">

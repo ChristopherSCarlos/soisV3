@@ -634,6 +634,11 @@ h3 {
 }
 
 
+.newspage-title{
+    font-family: 'Roboto',sans-serif;
+    font-size: 200%;
+    font-weight: 400;
+}
 
 /*  ANIMATION  */
 @keyframes fade-in {

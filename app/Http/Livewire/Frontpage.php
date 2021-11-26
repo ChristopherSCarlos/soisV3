@@ -59,7 +59,6 @@ class Frontpage extends Component
     public function mount($urlslug = null)
     {
         $this->retrieveContent($urlslug);
-        ini_set('max_execution_time', 180);
     }
 
     public function retrieveContent($urlslug)
@@ -197,7 +196,7 @@ class Frontpage extends Component
     public function getArticleLatestSix()
     {
         // dd(DB::table('articles')->orderBy('created_at','asc')->skip(1)->take(10)->get());
-        return DB::table('articles')->orderBy('created_at','asc')->take(6)->get();
+        return DB::table('articles')->orderBy('created_at','asc')->take(8)->get();
         // return DB::table('articles')->orderBy('created_at','asc')->paginate(10);
         // dd(DB::table('articles')->orderBy('created_at','asc')->take(6)->get());
     }
@@ -234,6 +233,27 @@ class Frontpage extends Component
             ->orderBy('articles_id','asc')
             ->get()
             ->pluck('article_slug');
+    }
+
+    public function getSelectedAnnouncements()
+    {
+        return DB::table('announcements')
+            ->orderBy('announcements_id','asc')
+            ->get()
+            ->pluck('announcement_slug');
+        // dd(DB::table('announcements')
+        //     ->orderBy('announcements_id','asc')
+        //     ->get()
+        //     ->pluck('announcement_slug'));
+    }
+    public function getSelectedAnnouncementsData()
+    {
+        return DB::table('announcements')
+            ->where('announcement_slug','=',$this->urlslug)
+            ->get();
+        // dd(DB::table('announcements')
+        //     ->where('announcement_slug','=',$this->urlslug)
+        //     ->get());
     }
 
     public function getSelectedNewsArticleData()
@@ -462,6 +482,23 @@ class Frontpage extends Component
         }
     }
 
+    public function getAnnouncementsInNewsPage()
+    {
+        return DB::table('announcements')->where('status','=','1')->orderBy('created_at','asc')->get();
+        // dd(DB::table('announcements')->where('status','=','1')->orderBy('created_at','asc')->get());
+    }
+
+    public function getEventArticlesNewsPage()
+    {
+        return DB::table('articles')->where('article_type_id','=','2')->take(6)->orderBy('created_at','asc')->get();
+        // dd(DB::table('articles')->where('article_type_id','=','2')->orderBy('created_at','asc')->get());
+    }
+    public function getEventArticlesNewsPageAll()
+    {
+        return DB::table('articles')->where('article_type_id','=','2')->skip(8)->take(50)->orderBy('created_at','asc')->get();
+    }
+
+
     public function render()
     {
         return view('livewire.frontpage',[
@@ -497,6 +534,11 @@ class Frontpage extends Component
             'getDisplayArticlesOnHomepageCarousel' => $this->getHomepageCarouselDataFromDatabase(),
             'getDisplayArticlesOnOrganizationCarousel' => $this->getOrganizationCarouselDataFromDatabase(),
             'getDiplayLatestSixArticleOnNewsPage' => $this->getArticleLatestSix(),
+            'getDiplayLatestAnnouncementsOnNewsPage' => $this->getAnnouncementsInNewsPage(),
+            'getDiplayEventsOnNewsPage' => $this->getEventArticlesNewsPage(),
+            'getDiplayEventsAllOnNewsPage' => $this->getEventArticlesNewsPageAll(),
+            'getDisplaySelectedAnnouncements' => $this->getSelectedAnnouncements(),
+            'getDisplaySelectedAnnouncementsData' => $this->getSelectedAnnouncementsData(),
          
             // 'IfAnnouncementActivated' => $this->getIsAnnouncementActivated(),
 
