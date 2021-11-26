@@ -515,6 +515,12 @@ hr{
     position: relative;
 }
 
+.sliding-announcement-wrap-newspage{
+    position: relative;
+    width: 100%;
+    
+}
+
 
 .homepage-affliated-org-logos-container{
     background: rgba(143, 143, 143, .8); 

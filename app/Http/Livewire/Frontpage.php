@@ -59,6 +59,7 @@ class Frontpage extends Component
     public function mount($urlslug = null)
     {
         $this->retrieveContent($urlslug);
+        ini_set('max_execution_time', 180);
     }
 
     public function retrieveContent($urlslug)
@@ -175,21 +176,30 @@ class Frontpage extends Component
         return DB::table('organizations')
             ->orderBy('created_at','asc')
             ->get();
+        // return DB::table('organizations')->get();
     }
 
 
 
     public function getTopNews()
     {
+
         return DB::table('articles')->where('is_article_featured_landing_page','=','1')->get();
         // dd(DB::table('articles')->where('is_article_featured_landing_page','=','1')->first());
     }
 
     public function getArticleTime()
     {
-        // dd(DB::table('articles')->orderBy('created_at','asc')->skip(1)->take(10)->get());
-        return DB::table('articles')->orderBy('created_at','asc')->skip(1)->take(8)->get();
+        // dd(DB::table('articles')->orderBy('created_at','asc')->skip(8)->take(20)->get());
+        return DB::table('articles')->orderBy('created_at','asc')->skip(8)->take(20)->get();
         // return DB::table('articles')->orderBy('created_at','asc')->paginate(10);
+    }
+    public function getArticleLatestSix()
+    {
+        // dd(DB::table('articles')->orderBy('created_at','asc')->skip(1)->take(10)->get());
+        return DB::table('articles')->orderBy('created_at','asc')->take(6)->get();
+        // return DB::table('articles')->orderBy('created_at','asc')->paginate(10);
+        // dd(DB::table('articles')->orderBy('created_at','asc')->take(6)->get());
     }
     public function getHomepageFeaturedArticleTime()
     {
@@ -486,6 +496,7 @@ class Frontpage extends Component
             'getDisplayAnnouncementFeaturedHomepage' => $this->getAnnouncementsInDatabaseFeaturedHomepage(),
             'getDisplayArticlesOnHomepageCarousel' => $this->getHomepageCarouselDataFromDatabase(),
             'getDisplayArticlesOnOrganizationCarousel' => $this->getOrganizationCarouselDataFromDatabase(),
+            'getDiplayLatestSixArticleOnNewsPage' => $this->getArticleLatestSix(),
          
             // 'IfAnnouncementActivated' => $this->getIsAnnouncementActivated(),
 

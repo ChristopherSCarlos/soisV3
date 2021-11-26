@@ -216,36 +216,26 @@
 =            Newspage Homepage Section comment            =
 ========================================================-->
 @if($urlslug == 'news')
-<div class="divide-y divide-gray-800 " x-data="{ show: false }">
-     
-     <div class="">
-          <div class="">
-               <nav id="orgNav" class="flex items-center px-3 py-2 shadow-lg bg-red-800">
-                    <div>
-                         <button @click="show =! show" class="block h-8 mr-3 text-gray-400 items-center hover:text-gray-200 focus:text-gray-200 focus:outline-none sm:hidden">
-                              <svg class="w-8 fill-current" viewBox="0 0 24 24">                            
-                                   <path x-show="!show" fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
-                                   <path x-show="show" fill-rule="evenodd" d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"/>
-                              </svg>
-                         </button>
-                    </div>
-                    <div class="h-12 w-full flex items-center mr-3">
-                         <a href="{{ url('/')}}" class="w-full">
-                              <img class="h-8" src="{{ asset('image/svg/pup.svg') }}">
-                         </a>
-                    </div>
-                    <div class="flex justify-end sm:w-8/12">
-                         {{-- Top Navigation --}}
-                         <ul class="hidden sm:flex sm:text-left text-gray-200 text-xs">
-                              @foreach($getTopBarNav as $item)
-                                   <a href="{{ url('/'.$item->slug) }}" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
-                                        {{ $item->label }}
-                                   </a>
-                              @endforeach
-                              <a href="{{ url('news') }}" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
-                                   News
-                              </a>
-                              <div class="ml-3 relative">
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+<div class="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800">
+     <div x-data="{ open: false }" class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
+          <div class="p-4 flex flex-row items-center justify-between">
+               <a href="{{ url('/')}}" class="flex text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">
+                    <img class="h-8" src="{{ asset('image/svg/pup.svg') }}">
+                    <p class="ml-2">Student Organization Information System</p>
+               </a>
+               <button class="md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">
+                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+                         <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                         <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+               </button>
+          </div>
+          <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
+               <a class="px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Home</a>
+               <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/news">News</a>
+               <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Contact</a>
                                   <x-jet-dropdown align="right" width="60">
                                       <x-slot name="trigger">
                                           <span class="inline-flex rounded-md">
@@ -273,76 +263,11 @@
                                           </div>
                                       </x-slot>
                                   </x-jet-dropdown>
-                              </div>
-                              <a href="{{ url('/login') }}" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-red-900 transition text-yellow-100">
-                                Login
-                              </a>
-                         </ul>
-                    </div>
-               </nav>
-               <aside class="sm:hidden bg-gray-900 text-gray-700 divide-y divide-gray-700 divide-dashed sm:w-4/12 md:w-3/12 lg:w-2/12">
-                    {{-- Desktop Web View --}}
-                    <ul class="hidden text-gray-200 text-xs sm:block sm:text-left">
-                         @foreach($getTopBarNav as $item)
-                              <a href="{{ url('/'.$item->slug) }}">
-                                   {{ $item->label }}
-                              </a>
-                         @endforeach
-                     </ul>
-                     {{-- Mobile Web View --}}
-                     <div :class="show ? 'block' : 'hidden'" class="pb-3 divide-y divide-gray-800 block sm:hidden">
-                         <ul class="text-gray-200 text-xs">
-                              @foreach($getTopBarNav as $item)
-                                   <a href="{{ url('/'.$item->slug) }}" class="cursor-pointer px-4 py-2 hover:bg-gray-800">
-                                        <li class="cursor-pointer px-4 py-2 hover:bg-gray-800">
-                                             {{ $item->label }}
-                                        </li>
-                                   </a>
-                              @endforeach
-                         </ul>
-                         <ul>
-                              <div class="ml-3 relative">
-                                   <x-jet-dropdown align="right" width="60">
-                                        <x-slot name="trigger">
-                                             <span class="inline-flex rounded-md">
-                                                  <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
-                                                       Organization
-                                                       <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                                       </svg>
-                                                  </button>
-                                             </span>
-                                        </x-slot>
-                                        <x-slot name="content">
-                                             <div class="w-60">
-                                                  <!-- Team Management -->
-                                                  <div class="block px-4 py-2 text-xs text-gray-400">
-                                                      {{ __('PUP ORGANIZATIONS') }}
-                                                  </div>
-                                                  <!-- Team Settings -->
-                                                  @foreach($orgLinks as $orgWebLinks)
-                                                      <x-jet-dropdown-link href="{{ url($orgWebLinks->organization_slug) }}" class="frontpage-nav-bar-design">
-                                                          {{ $orgWebLinks->organization_name }}
-                                                      </x-jet-dropdown-link>
-                                                  @endforeach
-                                                  <div class="border-t border-gray-100"></div>
-                                             </div>
-                                        </x-slot>
-                                   </x-jet-dropdown>
-                              </div>
-                         </ul>
-                         {{-- Top Navigation Mobile Web View --}}
-                         <ul class="text-gray-200 text-xs">
-                             <a href="{{ url('/login') }}">
-                                 <li class="cursor-pointer px-4 py-2 hover:bg-gray-800">Login</li>
-                             </a>
-                         </ul>
-                    </div>
-               </aside>
-          </div>
+
+               <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="{{ url('/login') }}">Login</a>    
+          </nav>
      </div>
 </div>
-
 
 <!--===================================================
 =            Featured News Section comment            =
@@ -373,29 +298,55 @@
 =            Latest News Section comment            =
 ==================================================-->
 <div style="">
-    <div class="frontpage-newspage-title mt-5 mb-5" style="border-style: none;">
+<div class="frontpage-newspage-title mt-5 mb-5" style="border-style: none;">
         <p class="text-center">LATEST NEWS</p>
     </div>
-    
-    <div class="latest-news-container ml-5 mr-5 p-6" style="border-color: red; border-style: none;" data-aos="fade-right">
-        <!-- component -->
-        <div class="news-container grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1" >
-            <div class="latest-latest-news-image-first">
-                @foreach($getDisplaySelectedNewsImageData as $newsImage)
-                    @if($newsImage->articles_id == $getDsiplayArticleLatestOnCreatedPage->articles_id)
-                        <img style="object-fit:cover" src="{{ asset('files/'.$newsImage->asset_name) }}">
-                    @endif
-                @endforeach
-            </div>
-            <a href="{{$getDsiplayArticleLatestOnCreatedPage->article_slug}}">
-                <div class="latest-latest-news-text-first">
-                    <h2 class="text-center">{{$getDsiplayArticleLatestOnCreatedPage->article_title}}</h2>
-                </div>
-            </a>
-        </div>
+    <div class="grid grid-cols-3">
+          @foreach($getDiplayLatestSixArticleOnNewsPage as $latestSixNews)
+          <div class="latest-latest-news-container-nine lg:m-5 md:m-5 sm:m-0" data-aos="flip-up">
+              <a href="{{$latestSixNews->article_slug}}">
+                  <div class="latest-latest-news-image-nine">
+                      @foreach($getDisplaySelectedNewsImageData as $newsImage)
+                          @if($newsImage->articles_id == $latestSixNews->articles_id)
+                              <img style="object-fit:cover" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                          @endif
+                      @endforeach
+                  </div>
+                  <div class="latest-latest-news-text-nine">
+                      <h5 class="text-center">{{$latestSixNews->article_title}}</h5>
+                  </div>
+              </a>
+          </div>
+          @endforeach
     </div>
+<div class=" p-6 flex justify-center items-center" style="background: #0d0c0d;width: 100%; color:white;" data-aos="fade-right">
+     <div class=" mb-6"  style="width:95% ;">
+          <div class="homepage-events-slick">
+               @foreach($getDsiplayArticleDataOnCreatedPage as $NewsPageLatestNews)
+                    <div>
+                    <a href="{{$NewsPageLatestNews->article_slug}}">
+                        <div class="mr-5 ml-5 pl-5 pr-5 flex flex-col">
+                              <div class="flex align-items justify-center items-center">
+                              @foreach($getDisplaySelectedNewsImageData as $newsImage)
+                                   @if($newsImage->articles_id == $NewsPageLatestNews->articles_id)
+                                        <div class="ml-2 mr-2">
+                                             <img class=" transition hover:opacity-25 transition-opacity duration-1000 ease-out" style="object-fit:fill; height:20vh; width: 15vw;" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                        </div>
+                                   @endif
+                              @endforeach
+                              </div>
+                              <div class="" style="">
+                                   <h5 class="text-center text-sm" style="width: 15vw;">{{$NewsPageLatestNews->article_title}}</h5>
+                              </div>
+                        </div>
+                    </a>
+                    </div>
+               @endforeach
+          </div>
+     </div>
+</div>
 
-    <div class=" grid lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-2" >
+    <div class=" grid lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-2" data-aos="fade-right">
                 @foreach($getDsiplayArticleDataOnCreatedPage as $latestNews)
                 <div class="latest-latest-news-container-nine lg:m-5 md:m-5 sm:m-0" data-aos="flip-up">
                     <a href="{{$latestNews->article_slug}}">

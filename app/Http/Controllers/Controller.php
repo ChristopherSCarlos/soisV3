@@ -9,5 +9,6 @@ use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
+    ini_set('max_execution_time', 1200);
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
