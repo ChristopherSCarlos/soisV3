@@ -40,6 +40,7 @@ class Announcements extends Component
 
     // variables
         public $announcement_id;
+        public $announcementId;
 
         public $announcements_title;
         public $announcements_content;
@@ -198,25 +199,37 @@ class Announcements extends Component
     // TRASH ANNOUNCEMENT
     public function deleteAnnouncementShowModal($id)
     {
-        $this->announcement_id = $id;
+        $this->announcementId = $id;
         $this->modalDeleteAnnouncementFormVisible = true;
     }
     public function deleteAnnouncementProcess()
     {
-        Announcement::find($this->announcement_id)->update($this->deleteAnnouncementModel());
+        // Announcement::find($this->announcement_id)->update($this->deleteAnnouncementModel());
+        // $this->announcementId = Announcement::find($this->announcementId);
+        Announcement::where('announcements_id',$this->announcementId)->update([
+            'status' => '0',
+            'isAnnouncementInHomepage' => '0',
+            'isAnnouncementInOrgpage' => '0',
+        ]);
         $this->modalDeleteAnnouncementFormVisible = false;
         $this->reset();
         $this->resetValidation();
     }
-    public function deleteAnnouncementModel()
-    {
-        return [
-            'status' => '0',
-        ];
-    }
     
     
     /*=====  End of Delete Announcement Section comment block  ======*/
+
+    /*=====================================================
+    =            Deleted Announcement Redirect            =
+    =====================================================*/
+    
+    public function deletedannouncements()
+    {
+        return redirect('/announcements/deleted-announcements');
+    }
+    
+    /*=====  End of Deleted Announcement Redirect  ======*/
+    
     
     /*===========================================================================
     =            Change Status on Expired Date Section comment block            =
@@ -235,7 +248,7 @@ class Announcements extends Component
         $this->currentDate = date('d-m-y');
         $this->currentTime = date('h:i:s');
         $this->newDate=date('d-m-Y', strtotime("+2 months"));
-        $this->changeAnnouncementStatusOnRefresh();
+        // $this->changeAnnouncementStatusOnRefresh();
     }
 
     public function changeAnnouncementStatusOnRefresh()

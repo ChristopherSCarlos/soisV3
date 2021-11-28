@@ -80,6 +80,7 @@
                         </tbody>
                     </table>
                 </div>
+                {{$deletedarticleDatas->links()}}
             </div>
         </div>
     </div>

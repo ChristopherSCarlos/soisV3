@@ -19,6 +19,9 @@
         <x-jet-button wire:click="createAnnouncement">
             {{ __('Create Announcement') }}
         </x-jet-button>
+        <x-jet-danger-button wire:click="deletedannouncements">
+            {{ __('Deleted Announcements') }}
+        </x-jet-danger-button>
     </div>
     <div class="flex flex-col items-center">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -145,7 +148,6 @@
             </div>
         </div>
     </div>
-
     @if($roleUser == 'Super Admin')
         {{$displayAnnouncements->links()}}
     @else

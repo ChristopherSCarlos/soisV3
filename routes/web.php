@@ -80,6 +80,10 @@ Route::group(['middleware' => [
         Route::get('/articles/deleted-articles', function(){
             return view('admin.deleted-articles');
         })->name('articles/deleted-articles');
+
+        Route::get('/announcements/deleted-announcements', function(){
+            return view('admin.deleted-announcements');
+        })->name('articles/deleted-announcements');
         
         // Route::get('/system-pages/update-system-page/{$pages_id}', [App\Http\Livewire\PagesUpdateProcess::class, 'render'])->name('system-pages/update-system-page');
 
