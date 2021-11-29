@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrgSocialsTable extends Migration
+class AddEmbedDataToOrgSocials extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,13 @@ class CreateOrgSocialsTable extends Migration
      */
     public function up()
     {
-        Schema::create('org_socials', function (Blueprint $table) {
-            $table->id('org_socials_id');
-
-
-            $table->unsignedBigInteger('organization_id')->nullable();
-            $table->foreign('organization_id')->references('organizations_id')->on('organizations');
+        Schema::table('org_socials', function (Blueprint $table) {
+            $table->string('embed_data')->nullable();
 
             $table->unsignedBigInteger('social_id')->nullable();
             $table->foreign('social_id')->references('social_media_id')->on('social_media');
-
-            $table->string('org_social_link');
-
-            $table->boolean('status');
-
-            $table->timestamps();
+            
+        
         });
     }
 
@@ -38,6 +30,8 @@ class CreateOrgSocialsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('org_socials');
+        Schema::table('org_socials', function (Blueprint $table) {
+            //
+        });
     }
 }

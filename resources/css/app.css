@@ -639,6 +639,11 @@ h3 {
     font-size: 200%;
     font-weight: 400;
 }
+.homepage-news-bar-items{
+    width: 100vw;
+    margin-left: 100%;
+    margin-right: 100%;
+}
 
 /*  ANIMATION  */
 @keyframes fade-in {

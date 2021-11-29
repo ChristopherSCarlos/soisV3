@@ -17,6 +17,12 @@ class Objects extends Component
     private $user;
     private $va;
 
+
+    public $userData;
+    public $userID;
+    public $userPivot;
+    public $userOrganizationID;
+
     public function roles()
     {
         $this->user_id = Auth::id();
@@ -35,10 +41,16 @@ class Objects extends Component
 
     public function userOrganization()
     {
-        $this->user_id = Auth::id();
-        $this->user = User::find($this->user_id);
-        $this->va = $this->user->organizations->first();
-        dd($this->va);
+        // $this->user_id = Auth::id();
+        // $this->user = User::find($this->user_id);
+        // $this->va = $this->user->organizations->first();
+        // dd($this->va);
+        $this->userID = Auth::id();
+        // dd($this->userID);
+        $this->userData = User::find($this->userID);
+        $this->userPivot = $this->userData->organizations->first();
+        $this->userOrganizationID = $this->userPivot->organizations_id;
+        return $this->userOrganizationID;
     }
 
 

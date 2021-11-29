@@ -222,9 +222,9 @@ class Frontpage extends Component
     {
         return DB::table('articles')->where('is_featured_in_newspage','=','1')->get();
     }
-    public function getAllFeaturedArticleInHomepage()
+    public function getTopNewsArticleOnCreatedPage()
     {
-        return DB::table('articles')->where('is_article_featured_landing_page','=','1')->get();
+        return DB::table('articles')->where('is_featured_in_newspage','=','1')->get();
     }
 
     public function getSelectedNewsArticle()
@@ -495,7 +495,8 @@ class Frontpage extends Component
     }
     public function getEventArticlesNewsPageAll()
     {
-        return DB::table('articles')->where('article_type_id','=','2')->skip(8)->take(50)->orderBy('created_at','asc')->get();
+        // return DB::table('articles')->where('article_type_id','=','2')->skip(6)->take(50)->orderBy('created_at','asc')->get();
+        return DB::table('articles')->where('article_type_id','=','2')->orderBy('created_at','asc')->get();
     }
 
 
@@ -521,7 +522,7 @@ class Frontpage extends Component
             'getDisplaySelectedNewsImageData' => $this->getNewsImage(),
             'getDisplaySelectedNewsImageDataOnSelectedNews' => $this->getSelectedNewsImage(),
             'getAnnouncementsOnHomepage' => $this->getAnnouncements(),
-            'getDisplayFeaturedArticlesOnHomepage' => $this->getAllFeaturedArticleInHomepage(),
+            'getDisplayFeaturedArticlesOnHomepage' => $this->getTopNewsArticleOnCreatedPage(),
             'getDisplayLandingPageHomepage' => $this->getHomepageFeaturedArticleTime(),
             'getDisplayEventsHomepage' => $this->getHomepageEvents(),
             'getDisplayEventsAssetData' => $this->getFeaturedEvent(),

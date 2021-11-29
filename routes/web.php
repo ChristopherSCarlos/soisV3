@@ -112,6 +112,10 @@ Route::group(['middleware' => [
             return view('orgAdmin.officers');
         })->name('Organization/officers');
 
+        Route::get('/Organization/socials', function(){
+            return view('orgAdmin.socials');
+        })->name('Organization/socials');
+
 });
 
 

@@ -65,6 +65,9 @@
                     <x-jet-nav-link href="{{ route('Organization/officers') }}" :active="request()->routeIs('Organization/officers')">
                         {{ __('Officers') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('Organization/socials') }}" :active="request()->routeIs('Organization/socials')">
+                        {{ __('Social Media') }}
+                    </x-jet-nav-link>
                     @endif
                 </div>
             </div>
