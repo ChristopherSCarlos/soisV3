@@ -248,7 +248,7 @@ class Announcements extends Component
         $this->currentDate = date('d-m-y');
         $this->currentTime = date('h:i:s');
         $this->newDate=date('d-m-Y', strtotime("+2 months"));
-        // $this->changeAnnouncementStatusOnRefresh();
+        $this->changeAnnouncementStatusOnRefresh();
     }
 
     public function changeAnnouncementStatusOnRefresh()
