@@ -300,7 +300,17 @@ class Articles extends Component
         $this->artId = Article::find($this->articleId);
         // $this->seed = Article::find($this->articleId)->organizations;
         // $this->artId->organizations()->detach($this->seed);
-        Article::destroy($this->articleId);
+
+        Article::where('articles_id',$this->articleId)->update([
+            'status' => '0',
+            'is_featured_in_newspage' => '0',
+            'is_article_featured_landing_page' => '0',
+            'is_article_featured_organization_page' => '0',
+            'is_article_top_news_organization_page' => '0',
+            'is_carousel_homepage' => '0',
+            'is_carousel_org_page' => '0',
+        ]);
+        // Article::destroy($this->articleId);
         $this->modalDeleteNewsFormVisible = false;
         $this->reset();
         $this->resetValidation();
@@ -571,8 +581,21 @@ class Articles extends Component
         $this->userId = Auth::user()->users_id;
         // dd($this->userId);
         return DB::table('articles')
+           ->where('status','=','1')
            ->paginate(5);
     }
+
+    /*=============================================
+    =            Deleted News Redirect            =
+    =============================================*/
+    
+    public function deletednews()
+    {
+        return redirect('/articles/deleted-articles');
+    }
+    
+    /*=====  End of Deleted News Redirect  ======*/
+    
 
     public function getTagsDataFromDatabase()
     {
@@ -585,6 +608,17 @@ class Articles extends Component
         return DB::table('article_types')->where('status','=','1')->get();
     }
 
+    /*================================================
+    =            Get Organization Section            =
+    ================================================*/
+    
+    public function getOrganizationsFromDatabase()
+    {
+        return DB::table('organizations')->where('status','=','1')->get();
+    }
+    
+    /*=====  End of Get Organization Section  ======*/
+
     public function render()
     {
         return view('livewire.articles',[
@@ -594,6 +628,7 @@ class Articles extends Component
             'displayArticleImage' => $this->viewImage(),
             'displayTagsData' => $this->getTagsDataFromDatabase(),
             'displayArticleTypeData' => $this->getArticleType(),
+            'getOrganization' => $this->getOrganizationsFromDatabase(),
         ]);
     }
 }
