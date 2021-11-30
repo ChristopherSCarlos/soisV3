@@ -199,7 +199,17 @@ class Users extends Component
     /*=====  End of Delete User Section comment block  ======*/
     
 
-
+    /*==============================================
+    =            Deleted Table Redirect            =
+    ==============================================*/
+    
+    public function deletedusers()
+    {
+        return redirect('/users/deleted-users');
+    }
+    
+    /*=====  End of Deleted Table Redirect  ======*/
+    
 
     /*==============================================================
     =            Sync Role To UserSection comment block            =

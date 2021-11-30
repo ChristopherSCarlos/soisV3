@@ -4,6 +4,9 @@
         <x-jet-button wire:click="createShowModel">
             {{ __('Create New User') }}
         </x-jet-button>
+        <x-jet-danger-button wire:click="deletedusers">
+            {{ __('Deleted Users') }}
+        </x-jet-danger-button>
     </div>
         <div class="flex flex-col items-center">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
