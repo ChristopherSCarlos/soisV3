@@ -14,6 +14,12 @@ use App\Http\Livewire\Objects;
 use Livewire\withPagination;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\STR;
+use Illuminate\Validation\Rule;
+use Livewire\WithFileUploads;
+use Intervention\Image\ImageManager;
+use Illuminate\Http\Request;
+
 use Auth;
 
 class OrgSocials extends Component
@@ -62,12 +68,36 @@ class OrgSocials extends Component
     }
     public function create()
     {
+        // dd($this);
+        $this->validate([
+            'embed_data' => 'required',
+        ]);
         // echo $this->org_social_link;
         // echo $this->embed_data;
         // echo $this->org_socials_id;
         $this->organizationData = new Objects();
         $this->organizationID = $this->organizationData->userOrganization(); 
         // dd($this->organizationID);
+
+        $embed_data = $this->embed_data;
+        $dom = new \DomDocument();
+        $dom->loadHtml($embed_data, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $imageFile = $dom->getElementsByTagName('imageFile');
+        foreach($imageFile as $item => $image){
+            $data = $img->getAttribute('src');
+
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+
+            $imgeData = base64_decode($data);
+            $image_name= "/upload/" . time().$item.'.png';
+            $path = public_path() . $image_name;
+            file_put_contents($path, $imgeData);
+            $image->removeAttribute('src');
+            $image->setAttribute('src', $image_name);
+        }
+        $embed_data = $dom->saveHTML();
+
         $this->status = 1;
         OrgSocial::create($this->createModel());
         // dd($this->social_id);

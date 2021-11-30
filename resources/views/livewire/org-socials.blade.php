@@ -1,4 +1,19 @@
 <div class="p-6">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    <style>
+        .modal-backdrop {
+          z-index: -1;
+        }
+    </style>
+
     <h2 class="table-title">SOIS System Links</h2>
 
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
@@ -35,8 +50,10 @@
                 </div>
                 <div class="mt-4">
                     <x-jet-label for="embed_data" value="{{ __('Social Media Embed Data') }}" />
-                    <x-jet-input wire:model="embed_data" id="embed_data" class="block mt-1 w-full" type="text" />
-                    @error('embed_data') <span class="error">{{ $message }}</span> @enderror
+                    <div class="body-content" wire:ignore>
+                        <textarea type="text" input="embed_data" id="summernote" class="form-control summernote"></textarea>
+                        @error('embed_data') <span class="error">{{ $message }}</span> @enderror
+                    </div>
                 </div>
                 <div class="mt-4">
                     <x-jet-label for="org_socials_id" value="{{ __('Available Social Medias') }}" />
@@ -63,10 +80,36 @@
 <!--====  End of Create SNS Section comment  ====-->
 
 
+<!--================================
+=            Summernote            =
+=================================-->
 
+<script>
+    $(document).ready(function() {
+        $('.summernote').summernote(
+        {
+        focus: true,
+        tabsize: 2,
+        height: 200,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link', 'picture', 'video']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ],
+        callbacks: {
+          onChange: function(contents, $editable) {
+          @this.set('embed_data', contents);
+        }
+        }
+        });
+    });
+</script>
 
-
-
+<!--====  End of Summernote  ====-->
 
 
 
