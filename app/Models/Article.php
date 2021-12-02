@@ -22,6 +22,8 @@ class Article extends Model
         'article_slug',
         'is_featured_in_newspage',
         'is_article_featured_landing_page',
+        'is_article_featured_home_page',
+        'is_article_top_news_organization_page',
         'is_article_featured_organization_page',
         'is_carousel_homepage',
         'is_carousel_org_page',

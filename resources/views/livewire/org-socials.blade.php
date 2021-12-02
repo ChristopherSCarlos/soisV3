@@ -31,6 +31,45 @@
 
 
 
+<div class="flex flex-col items-center">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Id</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Social Media Name</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Social Media Link</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Embed Data</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @foreach($getOrganizationSocialData as $orgSoc)
+                            <tr>
+                                <th class="px-6 py-2">{{$orgSoc->org_socials_id}}</th>
+                                <th class="px-6 py-2">{{$orgSoc->social_name}}</th>
+                                <th class="px-6 py-2">{{$orgSoc->org_social_link}}</th>
+                                <th class="px-6 py-2">{{$orgSoc->embed_data}}</th>
+                                <td>
+                                    <x-jet-button wire:click="updateSocialMediaShowModal({{ $orgSoc->org_socials_id }})">
+                                        {{__('Update')}}
+                                    </x-jet-button>
+                                    <x-jet-danger-button wire:click="deleteSocialMediaShowModal({{ $orgSoc->org_socials_id }})">
+                                        {{__('Delete')}}
+                                    </x-jet-danger-button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -43,6 +82,11 @@
                 {{ __('Social Media') }}
             </x-slot>
             <x-slot name="content">
+                <div class="mt-4">
+                    <x-jet-label for="org_social_name" value="{{ __('Social Media Link') }}" />
+                    <x-jet-input wire:model="org_social_name" id="org_social_name" class="block mt-1 w-full" type="text" />
+                    @error('org_social_name') <span class="error">{{ $message }}</span> @enderror
+                </div>
                 <div class="mt-4">
                     <x-jet-label for="org_social_link" value="{{ __('Social Media Link') }}" />
                     <x-jet-input wire:model="org_social_link" id="org_social_link" class="block mt-1 w-full" type="text" />
@@ -70,9 +114,15 @@
                 <x-jet-secondary-button wire:click="$toggle('modalCreateSNSFormVisible')" wire:loading.attr="disabled">
                     {{ __('Cancel') }}
                 </x-jet-secondary-button>
-                <x-jet-secondary-button class="ml-2" wire:click="create" wire:loading.attr="disabled">
-                    {{ __('Social Media') }}
+                @if($org_socials_id)
+                <x-jet-secondary-button class="ml-2" wire:click="update" wire:loading.attr="disabled">
+                    {{ __('Update Embed Social Media') }}
                 </x-jet-secondary-button>
+                @else
+                <x-jet-secondary-button class="ml-2" wire:click="create" wire:loading.attr="disabled">
+                    {{ __('Create Embed Social Media') }}
+                </x-jet-secondary-button>
+                @endif
             </x-slot>
         </x-jet-dialog-modal>
 

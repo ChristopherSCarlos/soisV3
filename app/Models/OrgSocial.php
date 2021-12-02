@@ -21,6 +21,7 @@ class OrgSocial extends Model
         'status',
         'embed_data',
         'social_id',
+        'social_name',
     ];
 
     public function organizations()

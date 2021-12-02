@@ -56,6 +56,11 @@ class Frontpage extends Component
     public $displayedOrganizationDataID;
     public $displayedOrganizationDataPassOnView;
 
+    public $orgSocialSelectedOrganizationData;
+    public $orgSocialSelectedOrganizationID;
+
+    public $embedGrid;
+
     public function mount($urlslug = null)
     {
         $this->retrieveContent($urlslug);
@@ -183,7 +188,7 @@ class Frontpage extends Component
     public function getTopNews()
     {
 
-        return DB::table('articles')->where('is_article_featured_landing_page','=','1')->get();
+        return DB::table('articles')->where('is_article_featured_home_page','=','1')->get();
         // dd(DB::table('articles')->where('is_article_featured_landing_page','=','1')->first());
     }
 
@@ -499,6 +504,43 @@ class Frontpage extends Component
         return DB::table('articles')->where('article_type_id','=','2')->orderBy('created_at','asc')->get();
     }
 
+    public function getEmbedSocialOrgFromDB()
+    {
+        // dd($this->urlslug);
+        if (Organization::where('organization_slug', '=', $this->urlslug)->exists()) {
+        $this->orgSocialSelectedOrganizationData = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organizations_id'); 
+        // dd($this->orgSocialSelectedOrganizationData);
+        // dd(DB::table('org_socials')->where('organization_id','=',$this->orgSocialSelectedOrganizationData)->get());
+        return DB::table('org_socials')->where('organization_id','=',$this->orgSocialSelectedOrganizationData)->where('status','=','1')->get();
+        }
+    }
+    public function getCountOfEmbedSocialOrgFromDB()
+    {
+        if (Organization::where('organization_slug', '=', $this->urlslug)->exists()) {
+        $this->orgSocialSelectedOrganizationData = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organizations_id'); 
+        // $this->orgSocialSelectedOrganizationID = count($this->orgSocialSelectedOrganizationData);
+        // dd($this->orgSocialSelectedOrganizationData);
+        $this->orgSocialSelectedOrganizationID = DB::table('org_socials')->where('organization_id','=',$this->orgSocialSelectedOrganizationData)->where('status','=','1')->get();
+        if(count($this->orgSocialSelectedOrganizationID) == '1'){
+            $this->embedGrid = "grid-cols-1";
+            // echo $this->embedGrid;
+            return $this->embedGrid;
+        }
+        if(count($this->orgSocialSelectedOrganizationID) == '2'){
+            $this->embedGrid = "grid-cols-2";
+            // echo $this->embedGrid;
+            return $this->embedGrid;
+        }
+        if(count($this->orgSocialSelectedOrganizationID) == '3'){
+            $this->embedGrid = "grid-cols-3";
+            // echo $this->embedGrid;
+            return $this->embedGrid;
+        }
+        }
+        // dd($this->orgSocialSelectedOrganizationID);
+        // return DB::table('org_socials')->where('organization_id','=',$this->orgSocialSelectedOrganizationData)->get();
+        // dd($this->orgSocialSelectedOrganizationData);
+    }
 
     public function render()
     {
@@ -540,6 +582,8 @@ class Frontpage extends Component
             'getDiplayEventsAllOnNewsPage' => $this->getEventArticlesNewsPageAll(),
             'getDisplaySelectedAnnouncements' => $this->getSelectedAnnouncements(),
             'getDisplaySelectedAnnouncementsData' => $this->getSelectedAnnouncementsData(),
+            'getDisplaySelectedOrganizationEmbedSocialData' => $this->getEmbedSocialOrgFromDB(),
+            'getCountSelectedOrganizationEmbedSocialData' => $this->getCountOfEmbedSocialOrgFromDB(),
          
             // 'IfAnnouncementActivated' => $this->getIsAnnouncementActivated(),
 

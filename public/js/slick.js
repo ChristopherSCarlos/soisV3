@@ -88,13 +88,13 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $('.homepage-news-bar').slick({
-      dots: true,
+      dots: false,
       infinite: true,
       speed: 8000,
       slidesToShow: 1,
       slidesToScroll: 1,
       autoplay: true,
-      autoplaySpeed: 500,
+      autoplaySpeed: 5000,
       arrows: false,
       variableWidth: true,
       responsive: [
@@ -268,6 +268,7 @@ $(document).ready(function(){
       ]
     });    
 });
+
 
 
 

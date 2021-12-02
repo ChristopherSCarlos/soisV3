@@ -74,17 +74,12 @@ var unselectedTextTitle = "#810100";
 
 
 function onloadFunctions() {
-	var x = document.getElementById("appearingHomepageAnnouncementDIV");
-	var y = document.getElementById("appearingHomepageNewsArticleDIV");
-	var z = document.getElementById("appearingHomepageEventsDIV");
-	var colorMaroon = "#800107";
-    x.style.display = "block";
-    y.style.display = "none";
-    z.style.display = "none";
-    document.getElementById("openDivHolder1").style.backgroundColor = colorMaroon;
-    document.getElementById("openDivTitle1").style.color = "white";
+
+}
 
 
+function openAllNewsNewsPage() {
+	var newspagePaginate = document.getElementById("appearingAllNewsDIV");
 }
 
 function onloadOrgFunctions() {

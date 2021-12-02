@@ -47,7 +47,9 @@ class OrgSocials extends Component
     public $status;
     public $embed_data;
     public $social_id;
+    public $org_social_name;
 
+    private $data;
 
 
     public function mount()
@@ -114,11 +116,56 @@ class OrgSocials extends Component
             'status' => $this->status,
             'embed_data' => $this->embed_data,
             'social_id' => $this->org_socials_id,
+            'social_name' => $this->org_social_name,
         ];
     }
     
     /*=====  End of Create Social Media Section comment block  ======*/
     
+
+    public function updateSocialMediaShowModal($id)
+    {
+        $this->resetValidation();
+        $this->reset();
+        $this->org_socials_id = $id;
+        $this->loadModel();
+        $this->modalCreateSNSFormVisible = true;
+    }
+
+    public function loadModel()
+    {
+        $this->data = OrgSocial::find($this->org_socials_id);
+        $this->org_social_link = $this->data->org_social_link;
+        $this->organizationID = $this->data->organizationID;
+        $this->status = $this->data->status;
+        $this->embed_data = $this->data->embed_data;
+        $this->org_socials_id = $this->data->org_socials_id;
+        $this->org_social_name = $this->data->social_name;
+    }
+    public function updateModelData()
+    {
+        return [
+            'org_social_link' => $this->org_social_link,
+            'organization_id' => $this->organizationID,
+            'status' => $this->status,
+            'embed_data' => $this->embed_data,
+            'social_id' => $this->org_socials_id,
+            'social_name' => $this->org_social_name,
+        ];
+    }
+
+    public function update()
+    {
+        // dd($this);
+        $this->organizationData = new Objects();
+        $this->organizationID = $this->organizationData->userOrganization(); 
+        $this->status = 1;
+        OrgSocial::find($this->org_socials_id)->update($this->createModel());
+        // $this->syncUpdateArticleOrganization();
+        $this->modalCreateSNSFormVisible = false;
+        $this->reset();
+        $this->resetValidation();
+    }
 
     /**
      *
@@ -140,11 +187,23 @@ class OrgSocials extends Component
         return SocialMedia::get();
     }
 
+    /**
+     *
+     * Get Organiaion Socials
+     *
+     */
+    public function getOrganizationSocialsDataFromDB()
+    {
+        // dd(OrgSocial::where('organization_id','=',$this->organizationID)->get());
+        return OrgSocial::where('organization_id','=',$this->organizationID)->where('status','=','1')->get();
+    }
+
     public function render()
     {
         return view('livewire.org-socials',[
             'getOrganization' => $this->getOrganizationDataFromDB(),
             'getSocial' => $this->getSocialMediaDataFromDB(),
+            'getOrganizationSocialData' => $this->getOrganizationSocialsDataFromDB(),
         ]);
     }
 }

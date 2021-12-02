@@ -8,6 +8,7 @@
 
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
+
 <div class="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800">
      <div x-data="{ open: false }" class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
           <div class="p-4 flex flex-row items-center justify-between">
@@ -23,14 +24,28 @@
                </button>
           </div>
           <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
-               <a class="px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Home</a>
-               <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/news">News</a>
-               <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Contact</a>
+               <a href="/">
+               <span class="inline-flex rounded-md">
+                   <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                    <i class="fas fa-home"></i>
+                       <span class="ml-1">Home</span>
+                   </button>
+               </span>
+               </a>
+               <a href="/news">
+               <span class="inline-flex rounded-md">
+                   <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                    <i class="far fa-newspaper"></i>
+                       <span class="ml-1">News</span>
+                   </button>
+               </span>
+               </a>
                                   <x-jet-dropdown align="right" width="60">
                                       <x-slot name="trigger">
                                           <span class="inline-flex rounded-md">
                                               <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
-                                                  Organization
+                                                  <i class="fas fa-users"></i>
+                                                  <span class="ml-1">Organization</span>
                                                   <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                       <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                                                   </svg>
@@ -54,7 +69,14 @@
                                       </x-slot>
                                   </x-jet-dropdown>
 
-               <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="{{ url('/login') }}">Login</a>    
+               <a href="{{ url('/login') }}">
+               <span class="inline-flex rounded-md">
+                   <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                    <i class="fas fa-sign-in-alt"></i>
+                       <span class="ml-1">Login</span>
+                   </button>
+               </span>
+               </a>
           </nav>
      </div>
 </div>
@@ -64,7 +86,8 @@
                @foreach($getDisplayAnnouncementFeaturedHomepage as $HomepageAnnouncement)
                <div class="" style="width: 100vw;">
                     <a href="{{$HomepageAnnouncement->announcement_slug}}">
-                         <div class="flex flex-row justify-center items-center" style="">
+                         <div class="flex flex-row justify-center items-center" style="width:100vw;">
+                              <img class="h-5 ml-5 mr-5" src="{{ asset('image/svg/pup.svg') }}">
                               <h5 class="text-center" style=" ">{{$HomepageAnnouncement->announcement_title}}</h5>
                               <img class="h-5 ml-5 mr-5" src="{{ asset('image/svg/pup.svg') }}">
                          </div>
@@ -97,16 +120,13 @@
     <button class="button-slider slide-arrow next-arrow"></button>
 </div>
 
-
-
-<div class="grid grid-cols-12 bg-gray-200">
-     <div class=""></div>
-     <div class="col-span-3  h-5/6 mt-4">
+<div class="grid grid-cols-12 lg:grid-rows-1 md:grid-rows-1 sm:grid-rows-2 bg-gray-200">
+     <div class="xl:col-span-4 lg:col-span-4 md:col-span-4 sm:col-span-4 col-span-12 mt-4">
           <div class="flex flex-row">
                <div><p class="homepage-titles"><strong>Latest Announcements</strong></p></div>
 
           </div>
-          <div class="" style="overflow:auto;">
+          <div class=" h-5/6" style="overflow:auto;">
           @foreach($getDisplayAnnouncementFeaturedHomepage as $HomepageAnnouncement)
                <div class="annonuncement-links-homepage mt-5 bg-gray-200 hover:bg-gray-600">
                     <a class="bg-gray-200 hover:bg-gray-600 hover:text-white" href="{{$HomepageAnnouncement->announcement_title}}">
@@ -117,13 +137,12 @@
           @endforeach
           </div>
      </div>
-     <div class="col-span-7  h-5/6 mt-4">
-          
+     <div class="xl:col-span-8 lg:col-span-8 md:col-span-8 sm:col-span-8 col-span-12 mt-4">
           <div class="flex flex-row">
                <div><p class="homepage-titles"><strong>Latest News</strong></p></div>
           </div>
           <div class="flex align-items justify-center" data-aos="fade-right">
-               <div class="row" style="width:80%;">
+               <div class="row" style="width:80%;;">
                     <div class="column small-11 small-centered" style="background: #9CA3AF;">
                          <div class="slider slider-single" >
                                    @foreach($getDisplayFeaturedArticlesOnHomepage as $orgNews)
@@ -132,7 +151,7 @@
                                        <div class="flex justify-center items-center bg-white-800" style="">
                                              @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                                  @if($newsImage->articles_id == $orgNews->articles_id)
-                                                     <img class="organization-latest-news-slider" style="object-fit:fill; height: 50vh;" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                                     <img class="organization-latest-news-slider" style="object-fit:fill; height: 20vw" src="{{ asset('files/'.$newsImage->asset_name) }}">
                                                  @endif
                                              @endforeach
                                        </div>
@@ -147,7 +166,7 @@
                                              @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                                  @if($newsImage->articles_id == $orgNews->articles_id)
                                                      <div class="ml-2 mr-2">
-                                                          <img class="organization-latest-news-slider transition hover:opacity-25 transition-opacity duration-1000 ease-out" style="object-fit:fill; height: 7vh;" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                                          <img class="organization-latest-news-slider transition hover:opacity-25 transition-opacity duration-1000 ease-out h-2/6" style="object-fit:fill;" src="{{ asset('files/'.$newsImage->asset_name) }}">
                                                      </div>
                                                  @endif
                                              @endforeach
@@ -160,9 +179,7 @@
                </div>
           </div>
      </div>
-     <div class=""></div>
 </div>
-
 <div class="grid grid-rows-2 " style="background: #0d0c0d; color:white;">
      <div class="text-center"><p class="homepage-titles"><strong>Featured Events</strong></p></div>
 </div>
@@ -196,18 +213,18 @@
 <div class="mt-3  mb-3" style="">
      <div class="text-center"><p class="homepage-titles">Quick Links</p></div>
      <div class="grid grid-cols-4">
-          <div>GPOA</div>
-          <div>MEMBERSHIP</div>
-          <div>Accomplishment Report</div>
-          <div>Financial Statement</div>
+          <div class="col-span-4 xl:col-span-1 lg:col-span-1 md:col-span-1 sm:col-span-1">GPOA</div>
+          <div class="col-span-4 xl:col-span-1 lg:col-span-1 md:col-span-1 sm:col-span-1">MEMBERSHIP</div>
+          <div class="col-span-4 xl:col-span-1 lg:col-span-1 md:col-span-1 sm:col-span-1">Accomplishment Report</div>
+          <div class="col-span-4 xl:col-span-1 lg:col-span-1 md:col-span-1 sm:col-span-1">Financial Statement</div>
      </div>
 
 </div>
-
+     
+<div style="border-style: none;">
+     
 @livewire('footers')
-
-
-
+</div>
           <!--====  End of Homepage Landing Page Content Section comment  ====-->
      @endif
      
@@ -239,7 +256,7 @@
                </button>
           </div>
           <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
-               <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Home</a>
+               <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/">Home</a>
                <a class="px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/news">News</a>
                <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Contact</a>
                                   <x-jet-dropdown align="right" width="60">
@@ -305,7 +322,7 @@
      <div class=" col-span-8 flex flex-col">
           <div class="newspage-title">Latest News</div>
           <div class="grid grid-cols-4">
-                    @foreach($getDiplayLatestSixArticleOnNewsPage as $latestSixNews)
+               @foreach($getDiplayLatestSixArticleOnNewsPage as $latestSixNews)
                <div class="p-3 flex flex-col">
                         <a href="{{$latestSixNews->article_slug}}">
                             <div class="" style="width: 100%;">
@@ -322,6 +339,11 @@
                         </a>
                </div>
                     @endforeach
+          </div>
+          <div class="flex flex-col justify-center items-center">
+               <div>
+                    <button>See All Active News</button>
+               </div>
           </div>
      </div>
      <div class="col-span-2 flex flex-col">
@@ -370,6 +392,10 @@
 <!--=================================================
 =            Latest News Section comment            =
 ==================================================-->
+<div class="">
+     
+</div>
+
 <div style="">
 <div class="frontpage-newspage-title mt-5 mb-5" style="border-style: none;">
         <p class="text-center">LATEST Events</p>
@@ -392,6 +418,7 @@
           </div>
           @endforeach
     </div>
+
 <div class=" p-6 flex justify-center items-center" style="background: #171517;width: 100%; color:white;" data-aos="fade-right">
      <div class=" mb-6"  style="width:95% ;">
           <div class="homepage-events-slick">
@@ -669,7 +696,7 @@
                </button>
           </div>
           <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
-               <a class="px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Home</a>
+               <a class="px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/">Home</a>
                <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/news">News</a>
                <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Contact</a>
                                   <x-jet-dropdown align="right" width="60">
@@ -706,7 +733,7 @@
 </div>
      @section('title', $organizationUI->organization_name)
 
-<div class="lg:ml-20 lg:mr-20 md:ml-0 md:mr-0 sm:mr-0 sm:ml-0 ">
+
 <div class="sliding-announcement-wrap">
     <div class="sliding-announcement">
 @foreach($getDisplayArticlesOnOrganizationCarousel as $orgPage)
@@ -728,6 +755,7 @@
     <button class="button-slider slide-arrow prev-arrow"></button>
     <button class="button-slider slide-arrow next-arrow"></button>
 </div>
+<div class="lg:ml-20 lg:mr-20 md:ml-0 md:mr-0 sm:mr-0 sm:ml-0 ">
 
 <div style="background: linear-gradient(200deg, {{$organizationUI->organization_primary_color}} 0%, {{$organizationUI->organization_secondary_color}} 100%);" id="organization-details" class="grid lg:grid-cols-10 md:grid-cols-10 sm:grid-row-4 mt-5" onclick="onloadOrgFunctions()">
      <div style=""></div>
@@ -744,73 +772,121 @@
                     <div class="org-logo-image flex flex-col flex-wrap justify-center items-center text-center" style="margin:0px auto auto auto;">
                         <p class="organization-title" style="color: white">{{$organizationUI->organization_name}}</p>
                     </div>
+                    <div>
+                         <p class="pl-5 text-white">{{$organizationUI->organization_details}}</p>
+                    </div>
                </div>
           @endforeach
      </div>
      <div style=""></div>
 </div>
 
-<div id="organization-details" class="grid lg:grid-cols-10 md:grid-cols-10 sm:grid-row-4 mt-5 bg-gray-900" onclick="onloadOrgFunctions()">
-     <div class="lg:col-span-3 md:col-span-3 sm:col-span-3" style="">
-          <div class="flex">
-               <div>Latest Announcements</div>
-          </div>
-          @foreach($getDsiplayFeaturedArticleOnCreatedPage as $featuredArticles)
-                <div class="latest-latest-news-container-nine lg:m-5 md:m-5 sm:m-0">
-                    <a href="{{$featuredArticles->article_slug}}">
-                        <div class="latest-latest-news-text-nine">
-                            <h5 class="text-center">{{$featuredArticles->article_title}}</h5>
-                        </div>
-                    </a>
-                </div>
-          @endforeach
-     </div>
-     <div class="lg:col-span-7 md:col-span-7 sm:col-span-7">
+<div class="grid grid-cols-12 lg:grid-rows-1 md:grid-rows-1 sm:grid-rows-2 bg-gray-200">
+     <div class="xl:col-span-4 lg:col-span-4 md:col-span-4 sm:col-span-4 col-span-12 mt-4">
           <div class="flex flex-row">
-               <div>Latest News</div>
+               <div><p class="homepage-titles"><strong>Latest Announcements</strong></p></div>
+
+          </div>
+          <div class=" h-5/6" style="overflow:auto;">
+          @foreach($getDisplayAnnouncementData as $HomepageAnnouncement)
+               <div class="annonuncement-links-homepage mt-5 bg-gray-200 hover:bg-gray-600">
+                    <a class="bg-gray-200 hover:bg-gray-600 hover:text-white" href="{{$HomepageAnnouncement->announcement_title}}">
+                         <h2 class="text-left text-4x1 font-medium">{{$HomepageAnnouncement->announcement_title}}</h2>
+                         <h5 class="text-left text-xs font-light">{{\Carbon\Carbon::parse($HomepageAnnouncement->created_at)->isoFormat('MMM Do YYYY')}}</h5>
+                    </a>
+               </div>
+          @endforeach
+          </div>
+     </div>
+     <div class="xl:col-span-8 lg:col-span-8 md:col-span-8 sm:col-span-8 col-span-12 mt-4">
+          <div class="flex flex-row">
+               <div><p class="homepage-titles"><strong>Latest News</strong></p></div>
           </div>
           <div class="flex align-items justify-center" data-aos="fade-right">
-               <div class="row" style="width:80%;">
+               <div class="row" style="width:80%;;">
                     <div class="column small-11 small-centered" style="background: #9CA3AF;">
                          <div class="slider slider-single" >
                                    @foreach($getDisplayArticleData as $orgNews)
                               <div class="grid grid-cols-2" style="background: #1F2937;">
+                                   <a href="{{$orgNews->article_slug}}">
                                        <div class="flex justify-center items-center bg-white-800" style="">
                                              @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                                  @if($newsImage->articles_id == $orgNews->articles_id)
-                                                     <img class="organization-latest-news-slider" style="object-fit:fill; height: 30vh" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                                     <img class="organization-latest-news-slider" style="object-fit:fill; height: 20vw" src="{{ asset('files/'.$newsImage->asset_name) }}">
                                                  @endif
                                              @endforeach
                                        </div>
                                        <div class="bg-white-800" style="color: white;">{{$orgNews->article_title}}</div>
+                                   </a>
                               </div>
                                    @endforeach
                          </div>
                          <div class="slider slider-nav" >
                                    @foreach($getDisplayArticleData as $orgNews)
-                                       <div class="organization-latest-news-slider-container flex justify-center items-center flex-row mt-1 ml-4 mr-4">
+                                       <div class="organization-latest-news-slider-container flex justify-center items-center flex-row mt-1 p-2">
                                              @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                                  @if($newsImage->articles_id == $orgNews->articles_id)
-                                                     <img class="organization-latest-news-slider m-auto" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                                     <div class="ml-2 mr-2">
+                                                          <img class="organization-latest-news-slider transition hover:opacity-25 transition-opacity duration-1000 ease-out h-2/6" style="object-fit:fill;" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                                     </div>
                                                  @endif
                                              @endforeach
                                        </div>
                                    @endforeach
                          </div>
+                         <button class="homepage-button-slider homepage-slide-arrow homepage-prev-arrow"></button>
+                         <button class="homepage-button-slider homepage-slide-arrow homepage-next-arrow"></button>
                     </div>
                </div>
           </div>
+     </div>
+</div>
 
+
+
+</div>
+<div class="flex flex-col bg-gray-800">
+     <div class="flex items-center justify-center">
+          <h2>Events</h2>
+     </div>
+     <div class=" p-6 flex justify-center items-center" style="background: #0d0c0d;width: 100%; color:white;">
+     <div class=" mb-6"  style="width:95% ;">
+          <div class="homepage-events-slick">
+               @foreach($getDisplayEventsHomepage as $HomepageEvents)
+                    <div>
+                    <a href="{{$HomepageEvents->article_slug}}">
+                        <div class="mr-5 ml-5 pl-5 pr-5 flex flex-col">
+                              <div class="flex align-items justify-center items-center">
+                              @foreach($getDisplaySelectedNewsImageData as $newsImage)
+                                   @if($newsImage->articles_id == $HomepageEvents->articles_id)
+                                        <div class="ml-2 mr-2">
+                                             <img class=" transition hover:opacity-25 transition-opacity duration-1000 ease-out" style="object-fit:fill; height:20vh; width: 15vw;" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                        </div>
+                                   @endif
+                              @endforeach
+                              </div>
+                              <div class="" style="">
+                                   <h5 class="text-center text-sm" style="width: 15vw;">{{$HomepageEvents->article_title}}</h5>
+                              </div>
+                        </div>
+                    </a>
+                    </div>
+               @endforeach
+          </div>
+     </div>
      </div>
 </div>
-<div class="grid grid-cols-2">
-     <div class="fb-page" data-href="https://www.facebook.com/PUPTCS/" data-tabs="timeline" data-width="500" data-height="500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/facebook">Meta</a></blockquote></div>
-     <div>
-          <a class="twitter-timeline" data-width="500" data-height="500" data-theme="dark" href="https://twitter.com/puptcs?ref_src=twsrc%5Etfw">Tweets by puptcs</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-          
-     </div>
+
+
+
+
+<div class="grid lg:{{$embedGrid}} md:grid-cols-2 sm:grid-cols-1">
+     
+     @foreach($getDisplaySelectedOrganizationEmbedSocialData as $orgEmbedSocial)
+               <div class=""><?php echo htmlspecialchars_decode(stripslashes($orgEmbedSocial->embed_data));  ?></div>
+     @endforeach
 </div>
-<iframe width="320" height="440" src="https://www.instagram.com/puptcs" frameborder="0"></iframe>
+</div>
 @livewire('footers')
 
 
