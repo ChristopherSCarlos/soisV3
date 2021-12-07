@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
+use Storage;
+
 use App\Http\Livewire\Announcements;
 
 use App\Models\User;
@@ -20,6 +22,9 @@ use Livewire\withPagination;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use Livewire\WithFileUploads;
+use Illuminate\Support\STR;
+use Intervention\Image\ImageManager;
 
 use Auth;
 
@@ -27,6 +32,7 @@ use Auth;
 class createofficers extends Component
 {
     use WithPagination;
+    use WithFileUploads; 
 
     // public $model = Officer::class;
     // public $afterTableSlot = 'create-officers';
@@ -52,6 +58,9 @@ class createofficers extends Component
     public $exp_date;
     public $position_category;
     public $status;
+    public $officer_signature;
+
+    public $fileName;
 
     public $userId;
     public $userData;
@@ -70,6 +79,7 @@ class createofficers extends Component
             'position' => 'required',
             'exp_date' => 'required',
             'position_category' => 'required',
+            'officer_signature' => 'nullable',
         ];
     }
 
@@ -110,9 +120,43 @@ class createofficers extends Component
     {
         // $this->validate();
         // dd($this);
-        $this->validate();
-        Officer::create($this->modelCreateOfficer());
-        // $this->refreshLivewireDatatable();
+        $this->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'middle_name' => 'required',
+            'suffix' => 'nullable',
+            'organization_id' => 'required',
+            'school_year' => 'required',
+            'semester' => 'required',
+            'position' => 'required',
+            'exp_date' => 'required',
+            'position_category' => 'required',
+            'officer_signature' => 'file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
+        ]);
+
+        $this->fileName = time().'.'.$this->officer_signature->extension();  
+
+       
+        $this->officer_signature->store('files', 'imgfolder',$this->fileName);
+
+        $this->officer_signature->storeAs('files',$this->fileName, 'imgfolder');
+
+        Officer::create([
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'middle_name' => $this->middle_name,
+            'suffix' => $this->suffix,
+            'organization_id' => $this->organization_id,
+            'school_year' => $this->school_year,
+            'semester' => $this->semester,
+            'position' => $this->position,
+            'exp_date' => $this->exp_date,
+            'position_category' => $this->position_category,
+            'officer_signature' => $this->officer_signature,
+            'status' => '1',
+        ]);
+
+        // Officer::create($this->modelCreateOfficer());
         $this->CreatemodalFormVisible = false;
         $this->reset(); 
         $this->resetValidation(); 
@@ -131,6 +175,7 @@ class createofficers extends Component
             'position' => $this->position,
             'exp_date' => $this->exp_date,
             'position_category' => $this->position_category,
+            'officer_signature' => $this->officer_signature,
             'status' => '1',
         ];
     }

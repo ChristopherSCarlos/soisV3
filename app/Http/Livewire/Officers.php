@@ -58,6 +58,7 @@ class Officers extends LivewireDatatable
     public $exp_date;
     public $position_category;
     public $status;
+    public $officer_signature;
 
     public $userId;
     public $userData;

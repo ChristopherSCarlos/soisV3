@@ -25,5 +25,6 @@ class Officer extends Model
         'exp_date',
         'position_category',
         'status',
+        'officer_signature',
     ];
 }

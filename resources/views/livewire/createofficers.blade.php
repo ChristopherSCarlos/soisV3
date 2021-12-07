@@ -63,6 +63,11 @@
                 @error('exp_date') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
+                <x-jet-label for="officer_signature" value="{{ __('Officer Signature') }}" />
+                <x-jet-input wire:model="officer_signature" id="officer_signature" class="block mt-1 w-full" type="file" />
+                @error('officer_signature') <span class="error">{{ $message }}</span> @enderror
+            </div>
+            <div class="mt-4">
                 <x-jet-label for="position_category" value="{{ __('Position Category') }}" />
                 <select wire:model="position_category" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                         <option default hidden>Choose Position Category</option>
