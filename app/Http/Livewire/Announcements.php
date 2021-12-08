@@ -92,8 +92,8 @@ class Announcements extends Component
     ==================================================================*/
     public function createAnnouncement()
     {
-        $this->reset();
         $this->resetValidation();
+        $this->reset();
         $this->modalCreateAnnouncementFormVisible = true;
     }
     public function createAnnouncementProcess()
@@ -131,6 +131,7 @@ class Announcements extends Component
         }
         $announcements_content = $dom->saveHTML();
 
+        // dd($this->announcements_title);
 
         Announcement::create($this->createAnnouncementModel());
         $this->modalCreateAnnouncementFormVisible = false;
@@ -149,7 +150,7 @@ class Announcements extends Component
             'exp_time' => $this->exp_time,
             'user_id' => $this->user_id,
             'organization_id' => $this->orgID,
-            'announcements_slug' => $this->announcements_slug,
+            'announcement_slug' => $this->announcements_slug,
         ];
     }
     
@@ -313,15 +314,15 @@ class Announcements extends Component
     public function getAnnouncements()
     {
         $this->user_id = Auth::id();
-        if ($this->getAuthRoleUser() == 'Super Admin') {
+        // if ($this->getAuthRoleUser() == 'Super Admin') {
             return DB::table('announcements')->where('status','=','1')->orderBy('created_at','desc')->paginate(5);
         // dd(DB::table('announcements')->where('status','=','1')->orderBy('created_at','desc')->paginate(5));
         // }elseif ($this->getAuthRoleUser() == 'Organization Admin') {
             // return DB::table('announcements')->where('status','=','1')->orWhere('user_id','=',Auth::id())->orderBy('created_at','desc')->paginate(5);
             // return DB::table('announcements')->where('status','=','1')->where('user_id','=',$this->user_id)->orderBy('created_at','desc')->paginate(5);
-        }else{
-            echo "User";
-        }
+        // }else{
+            // echo "User";
+        // }
         // dd("Hello");
         // return DB::table('announcements')->where('status','=','1')->orderBy('created_at','desc')->paginate(5);
     }

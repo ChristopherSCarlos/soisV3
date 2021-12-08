@@ -19,6 +19,9 @@
         <x-jet-button wire:click="createAnnouncement">
             {{ __('Create Announcement') }}
         </x-jet-button>
+        <x-jet-button wire:click="createAn">
+            {{ __('s Announcement') }}
+        </x-jet-button>
         <x-jet-danger-button wire:click="deletedannouncements">
             {{ __('Deleted Announcements') }}
         </x-jet-danger-button>

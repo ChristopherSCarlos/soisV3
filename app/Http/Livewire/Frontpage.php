@@ -490,7 +490,6 @@ class Frontpage extends Component
     public function getAnnouncementsInNewsPage()
     {
         return DB::table('announcements')->where('status','=','1')->orderBy('created_at','asc')->get();
-        // dd(DB::table('announcements')->where('status','=','1')->orderBy('created_at','asc')->get());
     }
 
     public function getEventArticlesNewsPage()
@@ -541,6 +540,7 @@ class Frontpage extends Component
         // return DB::table('org_socials')->where('organization_id','=',$this->orgSocialSelectedOrganizationData)->get();
         // dd($this->orgSocialSelectedOrganizationData);
     }
+
 
     public function render()
     {
