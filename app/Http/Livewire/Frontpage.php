@@ -489,7 +489,7 @@ class Frontpage extends Component
 
     public function getAnnouncementsInNewsPage()
     {
-        return DB::table('announcements')->where('status','=','1')->orderBy('created_at','asc')->get();
+        return DB::table('announcements')->where('status','=','1')->orderBy('created_at','desc')->get();
     }
 
     public function getEventArticlesNewsPage()

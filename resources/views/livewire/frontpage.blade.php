@@ -121,7 +121,7 @@
 </div>
 
 <div class="grid grid-cols-12 lg:grid-rows-1 md:grid-rows-1 sm:grid-rows-2 bg-gray-200">
-     <div class="xl:col-span-4 lg:col-span-4 md:col-span-4 sm:col-span-4 col-span-12 mt-4 pl-6">
+     <div class="xl:col-span-4 lg:col-span-4 md:col-span-4 sm:col-span-4 col-span-12 mt-4 pl-16">
           <div class="flex flex-row">
                <div><p class="homepage-titles"><strong>Latest Announcements</strong></p></div>
 
@@ -663,25 +663,25 @@
                          </div>
                     </div>
                     <div class="flex flex-col flex-wrap items-center justify-center text-center" style="color:white;">
-                         <p>{{$articleSelectedData->article_title}}</p>
+                         <p class="">{{$articleSelectedData->article_title}}</p>
                     </div>
                </div>
 
 
 
 <div class="selected-news-data-announcement-wrapper">
-  <div class="selected-news-data-content-scroll">
-       <p><?php echo htmlspecialchars_decode(stripslashes($articleSelectedData->article_content));  ?></p>     
+  <div class="selected-news-announcement pt-6 pr-6 pb-6 pl-36">
+       <p class=""><?php echo htmlspecialchars_decode(stripslashes($articleSelectedData->article_content));  ?></p>
   </div>
-  <div class="selected-news-announcement">
+  <div class=" selected-news-data-content-scroll pt-6 pl-6 pb-6">
        <div class="flex flex-row">
-               <div><p class="homepage-titles"><strong>Latest Announcements</strong></p></div>
+               <div><p class="homepage-titles text-white"><strong>Latest Announcements</strong></p></div>
 
           </div>
-          <div class=" h-5/6" style="overflow:auto;">
+          <div class="h-5/6 overflow-y-scroll scroller" style="">
           @foreach($getDisplayAnnouncementFeaturedHomepage as $HomepageAnnouncement)
-               <div class="annonuncement-links-homepage mt-5 bg-gray-200 hover:bg-gray-600">
-                    <a class="bg-gray-200 hover:bg-gray-600 hover:text-white" href="{{$HomepageAnnouncement->announcement_title}}">
+               <div class="annonuncement-links-homepage mt-5 hover:bg-gray-200">
+                    <a class="bg-gray-200 text-white hover:bg-gray-200 hover:text-black" href="{{$HomepageAnnouncement->announcement_title}}">
                          <h2 class="text-left text-4x1 font-medium">{{$HomepageAnnouncement->announcement_title}}</h2>
                          <h5 class="text-left text-xs font-light">{{\Carbon\Carbon::parse($HomepageAnnouncement->created_at)->isoFormat('MMM Do YYYY')}}</h5>
                     </a>

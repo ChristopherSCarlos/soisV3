@@ -86,6 +86,7 @@ class Announcements extends Component
         private $v;
         private $roles;
         private $orgID;
+        public $organizationDisplayID;
 
     /*==================================================================
     =            Create Announcements Section comment block            =
@@ -176,6 +177,7 @@ class Announcements extends Component
     }
     public function updateAnnouncementProcess()
     {
+        $this->announcements_slug = preg_replace('/\s+/', '_', $this->announcements_title);
         Announcement::find($this->announcement_id)->update($this->updateAnnouncementModel());
         $this->modalUpdateAnnouncementFormVisible = false;
         $this->reset();
@@ -188,6 +190,7 @@ class Announcements extends Component
             'announcement_content' => $this->announcements_content,
             'signature' => $this->signature,
             'signer_position' => $this->signer_position,
+            'announcement_slug' => $this->announcements_slug,
         ];
     }
     
@@ -331,8 +334,11 @@ class Announcements extends Component
         $this->user = User::find(Auth::id());
         $this->v = $this->user->organizations->first();
         // dd($this->v->organizations_id);
-        // dd(DB::table('announcements')->where('status','=','1')->where('organization_id','=',$this->v->organizations_id)->orderBy('created_at','desc')->paginate(5));
-        return DB::table('announcements')->where('status','=','1')->where('organization_id','=',$this->v->organizations_id)->orderBy('created_at','desc')->paginate(5);
+        $this->organizationDisplayID = $this->v->organizations_id;
+        // dd($this->organizationDisplayID);
+        // dd(DB::table('announcements')->where('status','=','1')->where('organization_id','=',$this->organizationDisplayID)->orderBy('created_at','desc')->paginate(5));
+        // dd(DB::table('announcements')->where('organization_id','=',$this->organizationDisplayID)->orderBy('created_at','desc')->paginate(5));
+        return DB::table('announcements')->where('status','=','1')->where('organization_id','=',$this->organizationDisplayID)->orderBy('created_at','desc')->paginate(5);
     }
 
     public function render()
