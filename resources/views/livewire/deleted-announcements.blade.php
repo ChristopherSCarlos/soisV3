@@ -37,7 +37,7 @@
                         </thead>
 
                         <tbody class="bg-white divide-y divide-gray-200">
-                                @if($announcementDataController == 'Super Admin')
+                                @if($getAuthUserRole == 'Super Admin')
                                     @if($deletedannouncementsDatas->count())
                                         @foreach($deletedannouncementsDatas as $item)
                                              <tr>
@@ -72,12 +72,58 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                    @endif                      
+                                    @endif
+                                @else
+                                    @if($Organization->count())
+                                        @foreach($Organization as $item)
+                                            <tr>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->announcements_id }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->announcement_title }}
+                                                </td>
+                                                <!-- <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->announcement_content }}
+                                                </td> -->
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->signature }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->signer_position }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->exp_date }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->user_id }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    {{ $item->created_at }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    <x-jet-button wire:click="restore({{ $item->announcements_id }})">
+                                                        {{__('Restore')}}
+                                                    </x-jet-button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        @else
+                                            <tr>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap" colspan="4">
+                                                    No Results Found
+                                                </td>
+                                            </tr>
+                                        @endif                 
                                 @endif
                         </tbody>
                     </table>
                 </div>
-                {{$deletedannouncementsDatas->links()}}
+                @if($getAuthUserRole == 'Super Admin')
+                    {{$deletedannouncementsDatas->links()}}
+                @else
+                    {{$Organization->links()}}
+                @endif
             </div>
         </div>
     </div>

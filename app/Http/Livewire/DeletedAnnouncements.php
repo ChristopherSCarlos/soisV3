@@ -26,6 +26,7 @@ class DeletedAnnouncements extends Component
         public $signer_position;
         public $exp_date;
         public $exp_time;
+        public $organization_id;
         public $user_id;
         public $userId;
         public $status;
@@ -86,6 +87,37 @@ class DeletedAnnouncements extends Component
     }
     
     /*=====  End of Get User Role  ======*/
+
+    /*================================================
+    =            Get Organization Section            =
+    ================================================*/
+    
+    public function getOrganizationsFromDatabase()
+    {
+        return DB::table('organizations')->where('status','=','1')->get();
+    }
+    
+    /*=====  End of Get Organization Section  ======*/
+
+    /*=============================================
+    =            Get User Organization            =
+    =============================================*/
+    
+    public function getUserOrganization()
+    {
+        return DB::table('announcements')->where('organization_id','=',$this->userOrg())->where('status','=','0')->paginate(10);
+    }
+
+    public function userOrg()
+    {
+        $this->userId = Auth::id();
+        $this->user = User::find($this->userId);
+        $this->va = $this->user->organizations->first();
+        $this->organization_id = $this->va->organizations_id;
+        return $this->organization_id;
+    }
+    
+    /*=====  End of Get User Organization  ======*/
     
 
     /*=================================================
@@ -109,7 +141,9 @@ class DeletedAnnouncements extends Component
     {
         return view('livewire.deleted-announcements',[
             'deletedannouncementsDatas' => $this->getAnnouncementTableData(),
-            'announcementDataController' => $this->getUserRole(),
+            'Organization' => $this->getUserOrganization(),
+            'getOrganization' => $this->getOrganizationsFromDatabase(),
+            'getAuthUserRole' => $this->getUserRole(),
         ]);
     }
 }

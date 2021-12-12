@@ -231,6 +231,10 @@ class Announcements extends Component
     {
         return redirect('/announcements/deleted-announcements');
     }
+    public function deletedorgannouncements()
+    {
+        return redirect('/announcements/org-deleted-announcements');
+    }
     
     /*=====  End of Deleted Announcement Redirect  ======*/
     

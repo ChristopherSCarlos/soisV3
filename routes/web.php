@@ -128,6 +128,10 @@ Route::group(['middleware' => [
             return view('orgAdmin.socials');
         })->name('Organization/socials');
 
+        Route::get('/announcements/org-deleted-announcements', function(){
+            return view('orgAdmin.deleted-announcements');
+        })->name('articles/org-deleted-announcements');
+
 });
 
 
