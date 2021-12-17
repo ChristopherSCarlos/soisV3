@@ -220,12 +220,12 @@ class Frontpage extends Component
 
     public function getLatestArticle()
     {
-        // dd(DB::table('articles')->orderBy('created_at','asc')->first());
-        return DB::table('articles')->orderBy('created_at','asc')->first();
+        // dd(DB::table('articles')->where('status','=','1')->orderBy('created_at','desc')->paginate(15));
+        return DB::table('articles')->where('status','=','1')->orderBy('created_at','desc')->paginate(15);
     }
     public function getAllFeaturedArticle() 
     {
-        return DB::table('articles')->where('is_featured_in_newspage','=','1')->get();
+        return DB::table('articles')->where('is_featured_in_newspage','=','1')->orderBy('created_at','desc')->get();
     }
     public function getTopNewsArticleOnCreatedPage()
     {
@@ -465,8 +465,8 @@ class Frontpage extends Component
 
     public function getAnnouncementsInDatabaseFeaturedHomepage()
     {
-        // dd(Announcement::where('isAnnouncementInHomepage','=','1')->get());
-        return Announcement::where('isAnnouncementInHomepage','=','1')->get();
+        // dd(Announcement::where('status','=','1')->orderBy('created_at','asc')->paginate(20));
+        return Announcement::where('status','=','1')->orderBy('created_at','asc')->paginate(20);
     }
 
     public function getHomepageCarouselDataFromDatabase()

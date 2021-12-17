@@ -611,7 +611,7 @@ hr{
 
 
 
-.js .slider-single > div:nth-child(1n+2) { display: none }
+/*.js .slider-single > div:nth-child(1n+2) { display: none }
 
 .js .slider-single.slick-initialized > div:nth-child(1n+2) { display: block }
 
@@ -647,7 +647,56 @@ h3 {
 .slick-slide.is-active h3 {
     color: #c00;
     background-color: #fff
+}*/
+
+
+
+.latest-news-slider-holder {
+  font-family:Arial;
+  width:500px;
+  display:block;
+  margin:0 auto;
 }
+h3 {
+    background: #fff;
+    color: #3498db;
+    font-size: 36px;
+    line-height: 100px;
+    margin: 10px;
+    padding: 2%;
+    position: relative;
+    text-align: center;
+}
+.action{
+  display:block;
+  margin:100px auto;
+  width:100%;
+  text-align:center;
+}
+.action a {
+  display:inline-block;
+  padding:5px 10px; 
+  background:#f30;
+  color:#fff;
+  text-decoration:none;
+}
+.action a:hover{
+  background:#000;
+}
+
+
+
+.system-title{
+    display: block;
+}
+@media(max-width: 425px){
+    .system-title{
+        display: none;
+    }    
+}
+
+
+
 
 
 .homepage-titles{

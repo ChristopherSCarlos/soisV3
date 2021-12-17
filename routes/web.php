@@ -5,6 +5,9 @@ use App\Http\Livewire\Frontpage;
 use App\Http\Contollers\AuthRolePermsController;
 use App\Http\Livewire\OrganizationPages;
 use App\Http\Livewire\PagesUpdateProcess;
+use App\Http\Livewire\ViewAnnouncement;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -89,7 +92,13 @@ Route::group(['middleware' => [
             return view('admin.deleted-users');
         })->name('users/deleted-users');
         
+        // Route::get('/announcements/view-selected-announcements/{$announcement_id}', function(){
+        //     return view('admin.view-selected-announcements');
+        // })->name('announcements/view-selected-announcements');
+
+        Route::post('/announcements/view-selected-announcements/{announcement_id}', [App\Http\Livewire\ViewAnnouncement::class, 'URLRedirector'])->name('announcements/view-selected-announcements');
         // Route::get('/system-pages/update-system-page/{$pages_id}', [App\Http\Livewire\PagesUpdateProcess::class, 'render'])->name('system-pages/update-system-page');
+
 
 
 });

@@ -1134,8 +1134,14 @@ select {
 .col-span-10 {
 	grid-column: span 10 / span 10;
 }
+.col-span-2 {
+	grid-column: span 2 / span 2;
+}
 .m-1 {
 	margin: 0.25rem;
+}
+.m-0 {
+	margin: 0px;
 }
 .m-2 {
 	margin: 0.5rem;
@@ -1282,6 +1288,9 @@ select {
 .-mb-0 {
 	margin-bottom: 0px;
 }
+.mb-0 {
+	margin-bottom: 0px;
+}
 .mb-2 {
 	margin-bottom: 0.5rem;
 }
@@ -1290,9 +1299,6 @@ select {
 }
 .mb-8 {
 	margin-bottom: 2rem;
-}
-.mb-0 {
-	margin-bottom: 0px;
 }
 .mr-8 {
 	margin-right: 2rem;
@@ -1372,6 +1378,9 @@ select {
 .h-3 {
 	height: 0.75rem;
 }
+.h-screen {
+	height: 100vh;
+}
 .h-full {
 	height: 100%;
 }
@@ -1434,6 +1443,12 @@ select {
 }
 .w-3 {
 	width: 0.75rem;
+}
+.w-screen {
+	width: 100vw;
+}
+.w-11\/12 {
+	width: 91.666667%;
 }
 .w-9 {
 	width: 2.25rem;
@@ -1501,6 +1516,11 @@ select {
 	--tw-scale-y: 1;
 	transform: var(--tw-transform);
 }
+.scale-90 {
+	--tw-scale-x: .9;
+	--tw-scale-y: .9;
+	transform: var(--tw-transform);
+}
 .transform {
 	transform: var(--tw-transform);
 }
@@ -1546,11 +1566,11 @@ select {
 .grid-cols-12 {
 	grid-template-columns: repeat(12, minmax(0, 1fr));
 }
-.grid-cols-2 {
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-}
 .grid-cols-4 {
 	grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.grid-cols-2 {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .grid-cols-8 {
 	grid-template-columns: repeat(8, minmax(0, 1fr));
@@ -1661,6 +1681,9 @@ select {
 .divide-blue-200 > :not([hidden]) ~ :not([hidden]) {
 	--tw-divide-opacity: 1;
 	border-color: rgba(191, 219, 254, var(--tw-divide-opacity));
+}
+.overflow-auto {
+	overflow: auto;
 }
 .overflow-hidden {
 	overflow: hidden;
@@ -1869,6 +1892,10 @@ select {
 .bg-transparent {
 	background-color: transparent;
 }
+.bg-gray-900 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(17, 24, 39, var(--tw-bg-opacity));
+}
 .bg-green-900 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(6, 78, 59, var(--tw-bg-opacity));
@@ -1943,6 +1970,9 @@ select {
 }
 .p-3 {
 	padding: 0.75rem;
+}
+.p-0 {
+	padding: 0px;
 }
 .p-1 {
 	padding: 0.25rem;
@@ -2047,8 +2077,17 @@ select {
 .pl-1 {
 	padding-left: 0.25rem;
 }
-.pl-6 {
-	padding-left: 1.5rem;
+.pl-16 {
+	padding-left: 4rem;
+}
+.pr-16 {
+	padding-right: 4rem;
+}
+.pl-9 {
+	padding-left: 2.25rem;
+}
+.pr-9 {
+	padding-right: 2.25rem;
 }
 .pl-5 {
 	padding-left: 1.25rem;
@@ -2064,6 +2103,9 @@ select {
 }
 .pl-36 {
 	padding-left: 9rem;
+}
+.pl-6 {
+	padding-left: 1.5rem;
 }
 .pr-2 {
 	padding-right: 0.5rem;
@@ -2879,8 +2921,10 @@ hr{
     margin-left: 5%;
     margin-right: 5%;
 }
-.js .slider-single > div:nth-child(1n+2) { display: none }
+/*.js .slider-single > div:nth-child(1n+2) { display: none }
+
 .js .slider-single.slick-initialized > div:nth-child(1n+2) { display: block }
+
 h3 {
     background: #f0f0f0;
     color: #3498db;
@@ -2890,24 +2934,69 @@ h3 {
     position: relative;
     text-align: center;
 }
+
 .slider-single h3 {
     line-height: 10rem;
 }
+
 .slider-nav h3::before {
     content: "";
     display: block;
     padding-top: 75%;
 }
+
 .slider-nav h3 span {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 .slider-nav .slick-slide { cursor: pointer; }
+
 .slick-slide.is-active h3 {
     color: #c00;
     background-color: #fff
+}*/
+.latest-news-slider-holder {
+  font-family:Arial;
+  width:500px;
+  display:block;
+  margin:0 auto;
+}
+h3 {
+    background: #fff;
+    color: #3498db;
+    font-size: 36px;
+    line-height: 100px;
+    margin: 10px;
+    padding: 2%;
+    position: relative;
+    text-align: center;
+}
+.action{
+  display:block;
+  margin:100px auto;
+  width:100%;
+  text-align:center;
+}
+.action a {
+  display:inline-block;
+  padding:5px 10px; 
+  background:#f30;
+  color:#fff;
+  text-decoration:none;
+}
+.action a:hover{
+  background:#000;
+}
+.system-title{
+    display: block;
+}
+@media(max-width: 425px){
+    .system-title{
+        display: none;
+    }    
 }
 .homepage-titles{
     font-family: 'Nunito',sans-serif;
@@ -3159,6 +3248,10 @@ h3 {
 .hover\:bg-blue-600:hover {
 	--tw-bg-opacity: 1;
 	background-color: rgba(37, 99, 235, var(--tw-bg-opacity));
+}
+.hover\:bg-indigo-400:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgba(129, 140, 248, var(--tw-bg-opacity));
 }
 .hover\:bg-red-200:hover {
 	--tw-bg-opacity: 1;
@@ -3808,6 +3901,10 @@ h3 {
 
 	.md\:w-1\/2 {
 		width: 50%;
+	}
+
+	.md\:max-w-md {
+		max-width: 28rem;
 	}
 
 	.md\:grid-cols-3 {

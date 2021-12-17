@@ -15,6 +15,8 @@
         @trixassets
         @livewireStyles
 
+        <script type="text/javascript" src="{{ URL::asset('js/javas.js') }}"></script>
+
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>

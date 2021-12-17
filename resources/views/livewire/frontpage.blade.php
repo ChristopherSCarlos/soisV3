@@ -8,13 +8,14 @@
 
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
+<img src="https://i.imgur.com/OSdQVvV.jpeg">
 
 <div class="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800">
      <div x-data="{ open: false }" class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
           <div class="p-4 flex flex-row items-center justify-between">
                <a href="{{ url('/')}}" class="flex text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">
                     <img class="h-8" src="{{ asset('image/svg/pup.svg') }}">
-                    <p class="ml-2">Student Organization Information System</p>
+                    <p class="system-title ml-2">Student Organization Information System</p>
                </a>
                <button class="md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">
                     <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
@@ -109,7 +110,10 @@
                         @endif
                     @endforeach
                   <h5 class="text-center"></h5>
-               <div style="position: absolute; top: 90%; bottom: 0%; background: rgba(33, 38, 38, .8); width: 100%;"><p style="color: rgba(255, 255, 255, 1.0);">{{$HomepageNews->article_title}}</p></div>
+               <div style="position: absolute; top: 90%; bottom: 0%; background: rgba(33, 38, 38, .8); width: 100vw;">
+                    <p style="color: rgba(255, 255, 255, 1.0);">{{$HomepageNews->article_title}}</p>
+
+               </div>
               </div>
           </a>
      @endforeach
@@ -137,34 +141,33 @@
           @endforeach
           </div>
      </div>
-     <div class="xl:col-span-8 lg:col-span-8 md:col-span-8 sm:col-span-8 col-span-12 mt-4">
+     <div class="xl:col-span-8 lg:col-span-8 md:col-span-8 sm:col-span-8 col-span-12 mt-4 pr-16">
           <div class="flex flex-row">
                <div><p class="homepage-titles"><strong>Latest News</strong></p></div>
           </div>
-          <div class="flex align-items justify-center" data-aos="fade-right">
-               <div class="row" style="width:80%;;">
-                    <div class="column small-11 small-centered" style="background: #9CA3AF;">
-                         <div class="slider slider-single" >
-                                   @foreach($getDisplayFeaturedArticlesOnHomepage as $orgNews)
-                              <div class="grid grid-cols-2" style="background: #1F2937;">
-                                   <a href="{{$orgNews->article_slug}}">
+          
+          <div class="latest-news-slider-holder bg-gray-900 pl-9 pr-9 w-full">
+               <div class="slider slider-for">
+                  @foreach($getDsiplayArticleLatestOnCreatedPage as $homepageLatestNews)
+                 <div>
+                      <a href="{{$homepageLatestNews->article_slug}}">
                                        <div class="flex justify-center items-center bg-white-800" style="">
                                              @foreach($getDisplaySelectedNewsImageData as $newsImage)
-                                                 @if($newsImage->articles_id == $orgNews->articles_id)
+                                                 @if($newsImage->articles_id == $homepageLatestNews->articles_id)
                                                      <img class="organization-latest-news-slider" style="object-fit:fill; height: 20vw" src="{{ asset('files/'.$newsImage->asset_name) }}">
                                                  @endif
                                              @endforeach
                                        </div>
-                                       <div class="bg-white-800" style="color: white;">{{$orgNews->article_title}}</div>
+                                       <div class="bg-white-800" style="color: white;">{{$homepageLatestNews->article_title}}</div>
                                    </a>
-                              </div>
-                                   @endforeach
-                         </div>
-                         <div class="slider slider-nav" >
-                                   @foreach($getDisplayFeaturedArticlesOnHomepage as $orgNews)
+                 </div>
+                  @endforeach
+               </div>
+               <div class="slider slider-nav">
+                 @foreach($getDsiplayArticleLatestOnCreatedPage as $homepageLatestNews)
                                        <div class="organization-latest-news-slider-container flex justify-center items-center flex-row mt-1 p-2">
                                              @foreach($getDisplaySelectedNewsImageData as $newsImage)
-                                                 @if($newsImage->articles_id == $orgNews->articles_id)
+                                                 @if($newsImage->articles_id == $homepageLatestNews->articles_id)
                                                      <div class="ml-2 mr-2">
                                                           <img class="organization-latest-news-slider transition hover:opacity-25 transition-opacity duration-1000 ease-out h-2/6" style="object-fit:fill;" src="{{ asset('files/'.$newsImage->asset_name) }}">
                                                      </div>
@@ -172,12 +175,12 @@
                                              @endforeach
                                        </div>
                                    @endforeach
-                         </div>
-                         <button class="homepage-button-slider homepage-slide-arrow homepage-prev-arrow"></button>
-                         <button class="homepage-button-slider homepage-slide-arrow homepage-next-arrow"></button>
-                    </div>
                </div>
           </div>
+
+
+
+
      </div>
 </div>
 <div class="grid grid-rows-2 " style="background: #0d0c0d; color:white;">
@@ -760,7 +763,7 @@
 
 
 <!--==========================================================
-=            Organization WebPage Section comment            =
+=            Selected Organization WebPage Section comment            =
 ===========================================================-->
 @if($getDisplaySelectedOrganization->contains($urlslug))
      
@@ -768,7 +771,6 @@
      <div id="fb-root"></div>
         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0&appId=210115755725416&autoLogAppEvents=1" nonce="D0oZHgy9"></script>
      
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 <div class="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800">
      <div x-data="{ open: false }" class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
           <div class="p-4 flex flex-row items-center justify-between">
@@ -784,14 +786,28 @@
                </button>
           </div>
           <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
-               <a class="px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/">Home</a>
-               <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/news">News</a>
-               <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Contact</a>
+               <a href="/">
+               <span class="inline-flex rounded-md">
+                   <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                    <i class="fas fa-home"></i>
+                       <span class="ml-1">Home</span>
+                   </button>
+               </span>
+               </a>
+               <a href="/news">
+               <span class="inline-flex rounded-md">
+                   <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                    <i class="far fa-newspaper"></i>
+                       <span class="ml-1">News</span>
+                   </button>
+               </span>
+               </a>
                                   <x-jet-dropdown align="right" width="60">
                                       <x-slot name="trigger">
                                           <span class="inline-flex rounded-md">
                                               <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
-                                                  Organization
+                                                  <i class="fas fa-users"></i>
+                                                  <span class="ml-1">Organization</span>
                                                   <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                       <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                                                   </svg>
@@ -815,7 +831,14 @@
                                       </x-slot>
                                   </x-jet-dropdown>
 
-               <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="{{ url('/login') }}">Login</a>    
+               <a href="{{ url('/login') }}">
+               <span class="inline-flex rounded-md">
+                   <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                    <i class="fas fa-sign-in-alt"></i>
+                       <span class="ml-1">Login</span>
+                   </button>
+               </span>
+               </a>
           </nav>
      </div>
 </div>
@@ -899,13 +922,11 @@
           <div class="flex flex-row">
                <div><p class="homepage-titles"><strong>Latest News</strong></p></div>
           </div>
-          <div class="flex align-items justify-center" data-aos="fade-right">
-               <div class="row" style="width:80%;;">
-                    <div class="column small-11 small-centered" style="background: #9CA3AF;">
-                         <div class="slider slider-single" >
-                                   @foreach($getDisplayArticleData as $orgNews)
-                              <div class="grid grid-cols-2" style="background: #1F2937;">
-                                   <a href="{{$orgNews->article_slug}}">
+          <div class="latest-news-slider-holder bg-gray-900 pl-9 pr-9 w-full">
+               <div class="slider slider-for">
+                  @foreach($getDisplayArticleData as $orgNews)
+                 <div>
+                      <a href="{{$orgNews->article_slug}}">
                                        <div class="flex justify-center items-center bg-white-800" style="">
                                              @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                                  @if($newsImage->articles_id == $orgNews->articles_id)
@@ -915,11 +936,11 @@
                                        </div>
                                        <div class="bg-white-800" style="color: white;">{{$orgNews->article_title}}</div>
                                    </a>
-                              </div>
-                                   @endforeach
-                         </div>
-                         <div class="slider slider-nav" >
-                                   @foreach($getDisplayArticleData as $orgNews)
+                 </div>
+                  @endforeach
+               </div>
+               <div class="slider slider-nav">
+                 @foreach($getDisplayArticleData as $orgNews)
                                        <div class="organization-latest-news-slider-container flex justify-center items-center flex-row mt-1 p-2">
                                              @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                                  @if($newsImage->articles_id == $orgNews->articles_id)
@@ -930,10 +951,6 @@
                                              @endforeach
                                        </div>
                                    @endforeach
-                         </div>
-                         <button class="homepage-button-slider homepage-slide-arrow homepage-prev-arrow"></button>
-                         <button class="homepage-button-slider homepage-slide-arrow homepage-next-arrow"></button>
-                    </div>
                </div>
           </div>
      </div>

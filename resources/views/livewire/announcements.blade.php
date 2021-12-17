@@ -80,6 +80,11 @@
                                                     {{ $item->created_at }}
                                                 </td>
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    <x-jet-button wire:click="viewAnnouncement({{ $item->announcements_id }})">
+                                                        {{__('View announcement')}}
+                                                    </x-jet-button>
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                     <x-jet-button wire:click="updateAnnouncementShowModal({{ $item->announcements_id }})">
                                                         {{__('Update')}}
                                                     </x-jet-button>
@@ -123,6 +128,11 @@
                                                 </td>
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                     {{ $item->created_at }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    <x-jet-button wire:click="viewAnnouncement({{ $item->announcements_id }})">
+                                                        {{__('View announcement')}}
+                                                    </x-jet-button>
                                                 </td>
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                     <x-jet-button wire:click="updateAnnouncementShowModal({{ $item->announcements_id }})">
@@ -305,6 +315,35 @@
                 </x-jet-secondary-button>
             </x-slot>
         </x-jet-dialog-modal>
+
+
+<!--=======================================================
+=            View announcemetn Section comment            =
+========================================================-->
+<x-jet-dialog-modal wire:model="modalViewAnnouncementsFormVisible">
+            <x-slot name="title">
+                    @foreach($displaySelectedOrgAnnouncement as $OrgAnnouncement)
+                {{$OrgAnnouncement->announcement_title}}
+                    @endforeach
+            </x-slot>
+            <x-slot name="content">
+                <div class="flex">
+                    @foreach($displaySelectedOrgAnnouncement as $OrgAnnouncement)
+                        <div class="h-60 w-full" style="overflow:auto;">
+                            <?php echo htmlspecialchars_decode(stripslashes($OrgAnnouncement->announcement_content));  ?>
+                        </div>
+                    @endforeach
+                </div>
+            </x-slot>
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('modalViewAnnouncementsFormVisible')" wire:loading.attr="disabled">
+                    {{ __('Close') }}
+                </x-jet-secondary-button>
+            </x-slot>
+        </x-jet-dialog-modal>
+
+
+<!--====  End of View announcemetn Section comment  ====-->
 
 
 

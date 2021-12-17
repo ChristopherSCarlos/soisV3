@@ -37,6 +37,7 @@ class Announcements extends Component
         public $modalUpdateAnnouncementFormVisible = false;
         public $modalDeleteAnnouncementFormVisible = false;
         public $modalAddAnnouncementSliderFormVisible = false;
+        public $modalViewAnnouncementsFormVisible = false;
 
     // variables
         public $announcement_id;
@@ -283,6 +284,36 @@ class Announcements extends Component
     }
     /*=====  End of Change Status on Expired Date Section comment block  ======*/
     
+
+    /*===============================================================
+    =            view Announcement Section comment block            =
+    ===============================================================*/
+    public function viewAnnouncement($id)
+    {
+        // return redirect('/announcements/view-selected-announcements');
+        $this->resetValidation();
+        $this->reset();
+        $this->announcement_id = $id;
+        $this->modalViewAnnouncementsFormVisible = true;
+        // dd($this->announcement_id);announcement_id
+        # return  redirect()->route('/announcements/view-selected-announcements/')->with( [ 'announcement_id' => $this->announcement_id ]);
+        // return view('admin.view-selected-announcements', ['announcement_id' -> $id]);
+        // return redirect()->route('/announcements/view-selected-announcements', ['announcement_id' => $this->announcement_id]);
+        // return redirect()->route('/announcements/view-selected-announcements/')->with('announcement_id',$this->announcement_id);
+        // return redirect()->route('/announcements/view-selected-announcements/');
+        // $this->viewDataAnnouncement();
+    }
+    public function viewDataAnnouncement()
+    {
+        // dd($this->announcement_id);
+        // dd(Announcement::where('announcements_id','=',$this->announcement_id)->get());
+        return Announcement::where('announcements_id','=',$this->announcement_id)->get();
+    }
+    
+    
+    /*=====  End of view Announcement Section comment block  ======*/
+    
+
     public function addOrgAnnouncementSlider($id)
     {
         $this->resetValidation();
@@ -351,6 +382,7 @@ class Announcements extends Component
             'displayAnnouncements' => $this->getAnnouncements(),
             'roleUser' => $this->getAuthRoleUser(),
             'displayOrgAnnouncements' => $this->getOrganizationAnnouncement(),
+            'displaySelectedOrgAnnouncement' => $this->viewDataAnnouncement(),
         ]);
     }
 }
