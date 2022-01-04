@@ -128,8 +128,8 @@ class Permissions extends Component
     
     public function getPermissionDataFromDatabase()
     {
-        // return DB::table('permissions')->where('status','=','1')->paginate(5);
         return DB::table('permissions')->paginate(5);
+        // return DB::table('permissions')->where('status','=','1')->paginate(5);
     }
 
     public function render()
