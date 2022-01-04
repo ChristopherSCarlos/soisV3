@@ -30,6 +30,8 @@ class Tags extends Component
     public $tagsId;
     public $tagData;
 
+    public $link = "https://getbootstrap.com/";
+
 
     /*=========================================================
     =            Create Tags Section comment block            =
@@ -143,6 +145,11 @@ class Tags extends Component
             'tags_type' => 'required',
             'status' => 'required',
         ];
+    }
+
+    public function opentab()
+    {
+        dd("hello");
     }
 
     public function render()

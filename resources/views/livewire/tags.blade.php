@@ -2,6 +2,11 @@
     <h2 class="table-title">Available Hashtags</h2>
 
      <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
+        <a href="{{$link}}" target="_blank">
+        <x-jet-button>
+            {{ __('Open New tab') }}
+        </x-jet-button>
+        </a>
         <x-jet-button wire:click="createTags">
             {{ __('Create Tags') }}
         </x-jet-button>
