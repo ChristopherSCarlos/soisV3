@@ -29,38 +29,38 @@
                                 @foreach($displayData as $item)
                                      <tr>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $item->name }}
+                                            {{ $item->first_name }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                             {{ $item->email }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            <x-jet-button wire:click="updateUserModel({{ $item->users_id }})">
+                                            <x-jet-button wire:click="updateUserModel({{ $item->user_id }})">
                                                 {{__('Update User')}}
                                             </x-jet-button>
-                                            <x-jet-button wire:click="updateUserPasswordModel({{ $item->users_id }})">
+                                            <x-jet-button wire:click="updateUserPasswordModel({{ $item->user_id }})">
                                                 {{__('Update Password User')}}
                                             </x-jet-button>
-                                            <x-jet-danger-button wire:click="deleteShowUserModal({{ $item->users_id }})">
+                                            <x-jet-danger-button wire:click="deleteShowUserModal({{ $item->user_id }})">
                                                 {{__('Delete')}}
                                             </x-jet-danger-button>
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap"  style="
                                                                                             ">
-                                            <x-jet-button wire:click="addShowRoleModel({{ $item->users_id }})">
+                                            <x-jet-button wire:click="addShowRoleModel({{ $item->user_id }})">
                                                 {{__('Add Role')}}
                                             </x-jet-button>
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap"  style="
                                                                                             ">
-                                            <x-jet-button wire:click="addShowRoleModel({{ $item->users_id }})">
+                                            <x-jet-button wire:click="addShowRoleModel({{ $item->user_id }})">
                                                 {{__('Add Permission')}}
                                             </x-jet-button>
                                         </td>
 
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap"  style="
                                                                                             ">
-                                            <x-jet-button wire:click="addShowOrganizationModel({{ $item->users_id }})">
+                                            <x-jet-button wire:click="addShowOrganizationModel({{ $item->user_id }})">
                                                 {{__('Add Organization')}}
                                             </x-jet-button>
                                         </td>
@@ -171,7 +171,7 @@
             <select wire:model="roleModel" class="form-control">
                 <option value="" selected>Choose role</option>
                 @foreach($rolesList as $role)
-                    <option value="{{ $role->roles_id }}">{{ $role->role_name }}</option>
+                    <option value="{{ $role->role_id }}">{{ $role->role }}</option>
                 @endforeach
             </select>
         </div>
@@ -214,7 +214,7 @@
                             <select wire:model="organizationModel" class="form-control">
                                 <option value="" selected>Choose Organization</option>
                                 @foreach($displayOrganizationData as $organization)
-                                    <option value="{{ $organization->organizations_id }}">{{ $organization->organization_name }}</option>
+                                    <option value="{{ $organization->organization_id }}">{{ $organization->organization_name }}</option>
                                 @endforeach
                             </select>
                         </div>

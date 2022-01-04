@@ -32,7 +32,7 @@
                                             {{ $item->asset_types_id }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $item->asset_type_name }}
+                                            {{ $item->type }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                             {{ $item->asset_type_description }}
@@ -73,9 +73,9 @@
             </x-slot>
             <x-slot name="content">
                 <div class="mt-4">
-                    <x-jet-label for="asset_type_name" value="{{ __('Asset Type Name') }}" />
-                    <x-jet-input wire:model="asset_type_name" id="asset_type_name" class="block mt-1 w-full" type="text" />
-                    @error('asset_type_name') <span class="error">{{ $message }}</span> @enderror
+                    <x-jet-label for="type" value="{{ __('Asset Type Name') }}" />
+                    <x-jet-input wire:model="type" id="type" class="block mt-1 w-full" type="text" />
+                    @error('type') <span class="error">{{ $message }}</span> @enderror
 
                     <x-jet-label for="asset_type_description" value="{{ __('Asset Type Description') }}" />
                     <x-jet-input wire:model="asset_type_description" id="asset_type_description" class="block mt-1 w-full" type="text" />
@@ -109,7 +109,7 @@
             </x-slot>
             <x-slot name="content">
                 <div class="mt-4">
-                    <x-jet-label for="asset_type_name" value="{{ __('Do you want to delete this/') }}" />
+                    <x-jet-label for="type" value="{{ __('Do you want to delete this/') }}" />
                 </div>
             </x-slot>
             <x-slot name="footer">

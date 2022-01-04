@@ -28,13 +28,13 @@
                                 @foreach($displayData as $item)
                                      <tr>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $item->roles_id }}
+                                            {{ $item->role_id }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $item->role_name }}
+                                            {{ $item->role }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $item->role_description }}
+                                            {{ $item->description }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                             {{ $item->created_at }}
@@ -43,12 +43,12 @@
                                             {{ $item->updated_at }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            <x-jet-danger-button wire:click="deleteRoleModal({{ $item->id }})">
+                                            <x-jet-danger-button wire:click="deleteRoleModal({{ $item->role_id }})">
                                                 {{__('Delete Role')}}
                                             </x-jet-danger-button>
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            <x-jet-button wire:click="syncPermissionModel({{ $item->id }})">
+                                            <x-jet-button wire:click="syncPermissionModel({{ $item->role_id }})">
                                                 {{__('Sync Permission')}}
                                             </x-jet-button>
                                         </td>

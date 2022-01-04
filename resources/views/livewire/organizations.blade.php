@@ -46,27 +46,27 @@
                                                        {{ $item->organization_slug }}
                                                     </a>
                                                 </td>
-                                                <!-- <td class="px-6 py-2">{{ $item->organization_type }}</td> -->
+                                                <!-- <td class="px-6 py-2">{{ $item->organization_type_id }}</td> -->
 
-                                                @if($item->organization_type == '1')
+                                                @if($item->organization_type_id == '1')
                                                     <td class="px-6 py-2">Academic</td>
                                                 @else
                                                     <td class="px-6 py-2">Non-Academic</td>
                                                 @endif
                                                 <td>
-                                                    <x-jet-button wire:click="viewShowModal({{ $item->organizations_id }})">
+                                                    <x-jet-button wire:click="viewShowModal({{ $item->organization_id }})">
                                                         {{__('View')}}
                                                     </x-jet-button>
-                                                    <x-jet-button wire:click="updateShowModal({{ $item->organizations_id }})">
+                                                    <x-jet-button wire:click="updateShowModal({{ $item->organization_id }})">
                                                         {{__('Update')}}
                                                     </x-jet-button>
-                                                    <x-jet-button wire:click="updateImageShowModal({{ $item->organizations_id }})">
+                                                    <x-jet-button wire:click="updateImageShowModal({{ $item->organization_id }})">
                                                         {{__('Update Logo')}}
                                                     </x-jet-button>
-                                                    <x-jet-button wire:click="updateBannerShowModal({{ $item->organizations_id }})">
+                                                    <x-jet-button wire:click="updateBannerShowModal({{ $item->organization_id }})">
                                                         {{__('Update Banner')}}
                                                     </x-jet-button>
-                                                    <x-jet-danger-button wire:click="deleteShowModal({{ $item->organizations_id }})">
+                                                    <x-jet-danger-button wire:click="deleteShowModal({{ $item->organization_id }})">
                                                         {{__('Delete')}}
                                                     </x-jet-danger-button>
                                                 </td>
@@ -101,20 +101,20 @@
                                                 </td>
                                                 <td class="px-6 py-2">{{ $item->organization_details }}</td>
                                                 <td>
-                                                    <x-jet-button wire:click="viewShowModal({{ $item->organizations_id }})">
+                                                    <x-jet-button wire:click="viewShowModal({{ $item->organization_id }})">
                                                         {{__('View')}}
                                                     </x-jet-button>
-                                                    <x-jet-button wire:click="updateShowModal({{ $item->organizations_id }})">
+                                                    <x-jet-button wire:click="updateShowModal({{ $item->organization_id }})">
                                                         {{__('Update')}}
                                                     </x-jet-button>
-                                                    <x-jet-button wire:click="updateImageShowModal({{ $item->organizations_id }})">
+                                                    <x-jet-button wire:click="updateImageShowModal({{ $item->organization_id }})">
                                                         {{__('Update Logo')}}
                                                     </x-jet-button>
-                                                    <x-jet-button wire:click="updateBannerShowModal({{ $item->organizations_id }})">
+                                                    <x-jet-button wire:click="updateBannerShowModal({{ $item->organization_id }})">
                                                         {{__('Update Banner')}}
                                                     </x-jet-button>
                                                     @if($userAuthRole == 'Super Admin')
-                                                        <x-jet-danger-button wire:click="deleteShowModal({{ $item->organizations_id }})">
+                                                        <x-jet-danger-button wire:click="deleteShowModal({{ $item->organization_id }})">
                                                             {{__('Delete')}}
                                                         </x-jet-danger-button>
                                                     @endif
@@ -130,7 +130,11 @@
         </div>
     </div>
 
-    {{$posts->links()}}
+    @if($userAuthRole == 'Super Admin')
+        {{$posts->links()}}
+    @else
+        {{$userAffliatedOrganization->links()}}
+    @endif
 
 
 
@@ -163,16 +167,16 @@
                 @error('organization_details') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
-                <!-- <x-jet-label for="organization_type" value="{{ __('Organization type') }}" />
-                <x-jet-input wire:model="organization_type" id="organization_type" class="block mt-1 w-full" type="text" />
-                @error('organization_type') <span class="error">{{ $message }}</span> @enderror -->
+                <!-- <x-jet-label for="organization_type_id" value="{{ __('Organization type') }}" />
+                <x-jet-input wire:model="organization_type_id" id="organization_type_id" class="block mt-1 w-full" type="text" />
+                @error('organization_type_id') <span class="error">{{ $message }}</span> @enderror -->
 
-                <select wire:model="organization_type" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                <select wire:model="organization_type_id" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                         <option default hidden>Choose Organization Type</option>
                         <option value="1">Academic Organization</option>
                         <option value="2">Non-Academic Organization</option>
                 </select>
-                @error('organization_type') <span class="error">{{ $message }}</span> @enderror
+                @error('organization_type_id') <span class="error">{{ $message }}</span> @enderror
             </div>
 
 
@@ -242,8 +246,8 @@
                 @error('organization_details') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
-                <x-jet-label for="organization_type" value="{{ __('Organization type') }}" />
-                <select wire:model="organization_type" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500" disabled>
+                <x-jet-label for="organization_type_id" value="{{ __('Organization type') }}" />
+                <select wire:model="organization_type_id" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500" disabled>
                         @if($orgtype == 1)
                             <option default hidden value="1">Academic Organization</option>
                         @elseif($orgtype == 2)
@@ -252,7 +256,7 @@
                         <option value="1">Academic Organization</option>
                         <option value="2">Non-Academic Organization</option>
                 </select>
-                @error('organization_type') <span class="error">{{ $message }}</span> @enderror
+                @error('organization_type_id') <span class="error">{{ $message }}</span> @enderror
             </div>
 
             <div class="mt-4">
@@ -315,8 +319,8 @@
                 @error('organization_details') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
-                <x-jet-label for="organization_type" value="{{ __('Organization type') }}" />
-                <select wire:model="organization_type" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                <x-jet-label for="organization_type_id" value="{{ __('Organization type') }}" />
+                <select wire:model="organization_type_id" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                         @if($orgtype == 1)
                             <option default hidden value="1">Academic Organization</option>
                         @elseif($orgtype == 2)
@@ -325,7 +329,7 @@
                         <option value="1">Academic Organization</option>
                         <option value="2">Non-Academic Organization</option>
                 </select>
-                @error('organization_type') <span class="error">{{ $message }}</span> @enderror
+                @error('organization_type_id') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
                 <x-jet-label for="organization_slug" value="{{ __('Organization slug') }}" />

@@ -101,7 +101,7 @@
                                             </td>
                                         </tr>
                                     @endif
-                                @elseif($roleUser == 'Organization Admin')
+                                @elseif($roleUser == 'Home Page Admin')
                                     @if($displayOrgAnnouncements->count())
                                         @foreach($displayOrgAnnouncements as $item)
                                              <tr>
@@ -112,7 +112,7 @@
                                                     {{ $item->announcement_title }}
                                                 </td>
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                    {{ $item->announcement_content }}
+                                                    <!-- {{ $item->announcement_content }} -->
                                                 </td>
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                     {{ $item->signature }}

@@ -26,10 +26,10 @@
                                 @foreach($displayData as $item)
                                      <tr>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $item->permissions_id }}
+                                            {{ $item->permission_id }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $item->permission_name }}
+                                            {{ $item->name }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                             {{ $item->created_at }}
@@ -38,10 +38,10 @@
                                             {{ $item->updated_at }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            <x-jet-button wire:click="createShowPermissionModel({{ $item->permissions_id }})">
+                                            <x-jet-button wire:click="createShowPermissionModel({{ $item->permission_id }})">
                                                 {{__('Update Permission')}}
                                             </x-jet-button>
-                                            <x-jet-danger-button wire:click="deleteShowPermissionModal({{ $item->permissions_id }})">
+                                            <x-jet-danger-button wire:click="deleteShowPermissionModal({{ $item->permission_id }})">
                                                 {{__('Delete Permission')}}
                                             </x-jet-danger-button>
                                         </td>
