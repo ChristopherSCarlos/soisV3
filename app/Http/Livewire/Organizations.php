@@ -680,7 +680,7 @@ class Organizations extends Component
         $this->authUserId = Auth::id();
         $this->authUserData = User::find($this->authUserId);        
         $this->authUserRole = $this->authUserData->roles->first();
-        $this->authUserRoleType = $this->authUserRole->role_name;         
+        $this->authUserRoleType = $this->authUserRole->role;         
         // dd($this->authUserRoleType);
         // dd($this->authUserRoleType);
         return $this->authUserRoleType;
