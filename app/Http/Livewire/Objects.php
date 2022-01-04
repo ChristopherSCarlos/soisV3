@@ -29,7 +29,7 @@ class Objects extends Component
         $this->user_data = User::find($this->user_id); 
         $this->userData();
         $this->userRole = $this->userData()->roles->first();
-        $this->user_role = $this->userRole->role_name;
+        $this->user_role = $this->userRole->role;
         return $this->user_role;
     }
     public function userData()

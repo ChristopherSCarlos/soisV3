@@ -8,6 +8,9 @@ use App\Models\AssetType;
 use Livewire\withPagination;
 use App\Http\Livewire\Objects;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 class AssetTypes extends Component
 {
     /* Traits */
@@ -18,8 +21,8 @@ class AssetTypes extends Component
     public $modalDeleteAssetTypesFormVisible = false;
     
     /* Variables */
-    public $asset_types_id;
-    public $asset_type_name;
+    public $asset_type_id;
+    public $type;
     public $asset_type_description;
     public $status;
 
@@ -53,20 +56,20 @@ class AssetTypes extends Component
     {
         $this->resetValidation();
         $this->reset();
-        $this->asset_types_id = $id;
+        $this->asset_type_id = $id;
         $this->modalCreateUpdateAssetTypesFormVisible = true;
         $this->loadAssetTypeModel();
     }
     public function loadAssetTypeModel()
     {
-        $this->assetTypeData = AssetType::find($this->asset_types_id);
-        $this->asset_type_name = $this->assetTypeData->asset_type_name;
+        $this->assetTypeData = AssetType::find($this->asset_type_id);
+        $this->type = $this->assetTypeData->type;
         $this->asset_type_description = $this->assetTypeData->asset_type_description;
     }
     public function updateAssetTypeProcess()
     {
         $this->status = 1;
-        AssetType::find($this->asset_types_id)->update($this->createUpdateModal());
+        AssetType::find($this->asset_type_id)->update($this->createUpdateModal());
         $this->modalCreateUpdateAssetTypesFormVisible = false;
         $this->reset();
         $this->resetValidation();
@@ -80,13 +83,13 @@ class AssetTypes extends Component
     {
         $this->resetValidation();
         $this->reset();
-        $this->asset_types_id = $id;
+        $this->asset_type_id = $id;
         $this->modalDeleteAssetTypesFormVisible = true;
     }
     public function deleteAssetTypeProcess()
     {
         $this->status = false;
-        AssetType::find($this->asset_types_id)->update(['status'=>$this->status]);
+        AssetType::find($this->asset_type_id)->update(['status'=>$this->status]);
         $this->modalDeleteAssetTypesFormVisible = false;
         $this->reset();
         $this->resetValidation();
@@ -108,7 +111,7 @@ class AssetTypes extends Component
     public function createUpdateModal()
     {
         return [
-            'asset_type_name' => $this->asset_type_name,
+            'type' => $this->type,
             'asset_type_description' => $this->asset_type_description,
             'status' => $this->status,
         ];
@@ -121,7 +124,7 @@ class AssetTypes extends Component
     public function rules()
     {
         return [
-            'asset_type_name' => 'required',
+            'type' => 'required',
             'asset_type_description' => 'required',
             'status' => 'required',
         ];
@@ -133,7 +136,8 @@ class AssetTypes extends Component
      */
     public function read()
     {
-        return AssetType::where('status','=','1')->paginate(5);
+        return AssetType::paginate(5);
+        // return AssetType::where('status','=','1')->paginate(5);
     }
 
     public function render()

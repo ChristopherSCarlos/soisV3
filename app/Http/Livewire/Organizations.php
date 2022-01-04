@@ -275,9 +275,9 @@ class Organizations extends Component
 
         $this->page_type_id = 4;
         $this->asset_type_id = 1;
-        $this->latestOrganizationID = DB::table('organizations')->latest('organizations_id')->first();
-        // dd($this->latestOrganizationID->organizations_id);
-        $this->latestOrganizationIDtoInsertToDB = $this->latestOrganizationID->organizations_id;
+        $this->latestOrganizationID = DB::table('organizations')->latest('organization_id')->first();
+        // dd($this->latestOrganizationID->organization_id);
+        $this->latestOrganizationIDtoInsertToDB = $this->latestOrganizationID->organization_id;
         // $this->latestOrganizationID = (int)$this->organization_id; 
         // dd(gettype($this->latestOrganizationID));
         
@@ -434,14 +434,14 @@ class Organizations extends Component
         $this->asset_name = $this->fileName;
 
         $this->user_id = Auth::id();
-        // $this->latestOrganizationID = DB::table('organizations')->latest('organizations_id')->first();
-        // $this->latestOrganizationIDtoInsertToDB = $this->latestOrganizationID->organizations_id;
+        // $this->latestOrganizationID = DB::table('organizations')->latest('organization_id')->first();
+        // $this->latestOrganizationIDtoInsertToDB = $this->latestOrganizationID->organization_id;
         
         /* Get User ID */
         $this->userDataPivot = User::find(Auth::id());
         /* Get Organization ID from pivot table using USER ID */
         $this->userDataPivotOrganization = $this->userDataPivot->organizations->first();
-        // $this->latestOrganizationIDtoInsertToDB = $this->userDataPivotOrganization->organizations_id;
+        // $this->latestOrganizationIDtoInsertToDB = $this->userDataPivotOrganization->organization_id;
         /* Asset Status is set to true */
         $this->asset_status = 1;
         /* Asset Type is set to Logo (Logo is 1 in Asset types table) */
@@ -555,14 +555,14 @@ class Organizations extends Component
         $this->asset_name = $this->fileNameBanner;
 
         $this->user_id = Auth::id();
-        // $this->latestOrganizationID = DB::table('organizations')->latest('organizations_id')->first();
-        // $this->latestOrganizationIDtoInsertToDB = $this->latestOrganizationID->organizations_id;
+        // $this->latestOrganizationID = DB::table('organizations')->latest('organization_id')->first();
+        // $this->latestOrganizationIDtoInsertToDB = $this->latestOrganizationID->organization_id;
         
         /* Get User ID */
         $this->userDataPivot = User::find(Auth::id());
         /* Get Organization ID from pivot table using USER ID */
         $this->userDataPivotOrganization = $this->userDataPivot->organizations->first();
-        // $this->latestOrganizationIDtoInsertToDB = $this->userDataPivotOrganization->organizations_id;
+        // $this->latestOrganizationIDtoInsertToDB = $this->userDataPivotOrganization->organization_id;
         /* Asset Status is set to true */
         $this->asset_status = 1;
         /* Asset Type is set to Logo (Logo is 1 in Asset types table) */
@@ -638,14 +638,14 @@ class Organizations extends Component
         $this->OrgDataFromUser = $this->user->organizations->first();
         // dd($this->OrgDataFromUser->id);
         if($this->OrgDataFromUser){
-            $this->orgUserId = $this->OrgDataFromUser->organizations_id;
+            $this->orgUserId = $this->OrgDataFromUser->organization_id;
             $this->userOrganization = $this->OrgDataFromUser->organization_name;
             // dd($this->orgUserId);
             $this->orgCount = true;
             // dd($this->orgCount);
-            // dd(DB::table('organizations')->where('organizations_id', '=', $this->orgUserId)->get());
+            // dd(DB::table('organizations')->where('organization_id', '=', $this->orgUserId)->get());
             return DB::table('organizations')
-           ->where('organizations_id', '=', $this->orgUserId)
+           ->where('organization_id', '=', $this->orgUserId)
            ->get();
 
 

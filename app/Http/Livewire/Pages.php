@@ -22,7 +22,7 @@ class Pages extends Component
     public $modalSetErrorPageFormVisible = false;
     public $InformationBox = false;
 
-
+s
 
     public $modelId;
     public $slug;

@@ -12,6 +12,8 @@ use App\Models\Organization;
 use App\Models\Article;
 use App\Models\AssetType;
 use App\Models\SystemAsset;
+use App\Models\OrganizationAsset;
+
 
 use Livewire\withPagination;
 use Illuminate\Support\STR;
@@ -167,13 +169,13 @@ class Articles extends Component
         $this->article_featured_image->storeAs('files',$this->article_featured_image_name, 'imgfolder');
 
 
-        $this->userId = Auth::user()->users_id;
+        $this->userId = Auth::user()->user_id;
         $this->user = User::find($this->userId);
         $this->va = $this->user->organizations->first();
 
 
         // dd($this->va);
-        $this->latestOrganizationIDtoInsertToDB = $this->va->organizations_id;
+        $this->latestOrganizationIDtoInsertToDB = $this->va->organization_id;
         // dd($this->latestOrganizationIDtoInsertToDB);
 
         // $this->OrgDataFromUser = $this->user->organization->first();
@@ -186,15 +188,16 @@ class Articles extends Component
         $this->latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
         // dd($this->latestNewsID);
 
-        SystemAsset::create([
+        OrganizationAsset::create([
+            'organization_id' => $this->latestOrganizationIDtoInsertToDB,
             'asset_type_id' => '4',
+            'file' => $this->article_featured_image_name,
             'asset_name' => $this->article_featured_image_name,
             'is_latest_logo' => '0',
             'is_latest_banner' => '0',
             'is_latest_image' => '1',
             'user_id' => $this->userId,
             'page_type_id' => '2',
-            'organization_id' => $this->latestOrganizationIDtoInsertToDB,
             'status' => '1',
             'articles_id' => $this->latestNewsID,
         ]);
@@ -471,11 +474,11 @@ class Articles extends Component
         $this->article_featured_image->storeAs('files',$this->article_featured_image_name, 'imgfolder');
 
 
-        $this->userId = Auth::user()->users_id;
+        $this->userId = Auth::user()->user_id;
         $this->user = User::find($this->userId);
         $this->va = $this->user->organizations->first();
         // dd($this->va);
-        $this->latestOrganizationIDtoInsertToDB = $this->va->organizations_id;
+        $this->latestOrganizationIDtoInsertToDB = $this->va->organization_id;
         // dd($this->latestOrganizationIDtoInsertToDB);
 
         // $this->OrgDataFromUser = $this->user->organization->first();
@@ -484,7 +487,7 @@ class Articles extends Component
 
         // dd($this->latestNewsID);
 
-        SystemAsset::create([
+        OrganizationAsset::create([
             'asset_type_id' => '4',
             'asset_name' => $this->article_featured_image_name,
             'is_latest_logo' => '0',
@@ -497,17 +500,17 @@ class Articles extends Component
             'articles_id' => $this->newsId,
         ]);
 
-        $this->selectedNewsAssetDataIsLatestImage = SystemAsset::latest()->where('articles_id','=',$this->newsId)->where('status','=','1')->first();
+        $this->selectedNewsAssetDataIsLatestImage = OrganizationAsset::latest()->where('articles_id','=',$this->newsId)->where('status','=','1')->first();
         // dd($this->selectedNewsAssetDataIsLatestImage);
         // dd($this->selectedNewsAssetDataIsLatestImage);
         if ($this->selectedNewsAssetDataIsLatestImage != null) {
             $this->selectedNewsAssetDataID = $this->selectedNewsAssetDataIsLatestImage->system_assets_id;
             // dd($this->selectedNewsAssetDataID);
-            // dd(SystemAsset::find('organization_id','=',$this->newsId)->where('is_latest_logo','=','1'));
-            SystemAsset::where('articles_id','=',$this->newsId)->where('is_latest_image','=','1')->update([
+            // dd(OrganizationAsset::find('organization_id','=',$this->newsId)->where('is_latest_logo','=','1'));
+            OrganizationAsset::where('articles_id','=',$this->newsId)->where('is_latest_image','=','1')->update([
                 'is_latest_image' => '0',
             ]);
-            DB::table('system_assets')->where('system_assets_id','=',$this->selectedNewsAssetDataID)->update(['is_latest_image'=>'1']);
+             DB::table('organization_assets')->where('system_assets_id','=',$this->selectedNewsAssetDataID)->update(['is_latest_image'=>'1']);
             $this->modalEditNewsImageFormVisible = false;
             $this->reset();
             $this->resetValidation();
@@ -525,7 +528,7 @@ class Articles extends Component
     
     public function viewImage()
     {
-        $this->article_image_view = DB::table('system_assets')->where('articles_id','=',$this->newsId)->where('is_latest_image','=','1')->get();
+        $this->article_image_view = DB::table('organization_assets')->where('articles_id','=',$this->newsId)->where('is_latest_image','=','1')->get();
         return $this->article_image_view;
     }
 
@@ -569,7 +572,7 @@ class Articles extends Component
      */
     public function getArticleTableData()
     {
-        $this->userId = Auth::user()->users_id;
+        $this->userId = Auth::user()->user_id;
         // dd($this->userId);
         return DB::table('articles')
            ->paginate(5);

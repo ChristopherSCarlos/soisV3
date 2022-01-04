@@ -71,7 +71,7 @@ class Roles extends Component
     public function roleData()
     {
         return [
-            'role_name' => $this->role_name,
+            'role' => $this->role_name,
             'role_description' => $this->role_description,
             'guard_name' => $this->guard_name,
         ];
@@ -85,7 +85,7 @@ class Roles extends Component
     public function rules()
     {
         return [
-            'role_name' => 'required',
+            'role' => 'required',
             'role_description' => 'required',
             'guard_name' => 'required',
         ];

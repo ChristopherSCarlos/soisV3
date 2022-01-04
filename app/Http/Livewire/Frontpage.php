@@ -79,8 +79,8 @@ class Frontpage extends Component
                 // dd($urlslug);
             }
             if (Organization::where('organization_slug', '=', $urlslug)->exists()) {
-                $this->organizationAssetLogo = DB::table('system_assets')->where('organization_id','=',$this->getOrganizationID())->where('is_latest_logo','=','1')->where('status','=','1')->get();
-                $this->organizationAssetBanner = DB::table('system_assets')->where('organization_id','=',$this->getOrganizationID())->where('is_latest_banner','=','1')->where('status','=','1')->get();
+                $this->organizationAssetLogo = DB::table('organization_assets')->where('organization_id','=',$this->getOrganizationID())->where('is_latest_logo','=','1')->where('status','=','1')->get();
+                $this->organizationAssetBanner = DB::table('organization_assets')->where('organization_id','=',$this->getOrganizationID())->where('is_latest_banner','=','1')->where('status','=','1')->get();
                 $this->organizationInterfaceData = DB::table('organizations')->where('organization_slug','=',$urlslug)->get();
             }
             if (Article::where('article_slug', '=', $urlslug)->exists()) {
@@ -94,8 +94,8 @@ class Frontpage extends Component
             }
         }
 
-        $this->title = $this->data->title;
-        $this->content = $this->data->content;
+        // $this->title = $this->data->title;
+        // $this->content = $this->data->content;
     }
 
 
@@ -271,7 +271,7 @@ class Frontpage extends Component
     public function getSelectedOrganization()
     {
         return DB::table('organizations')
-            ->orderBy('organizations_id','asc')
+            ->orderBy('organization_id','asc')
             ->get()
             ->pluck('organization_slug');
         // return DB::table('organizations')
@@ -296,7 +296,7 @@ class Frontpage extends Component
      */
     public function getOrganizationAssetLogo()
     {
-        // $this->organizationAssetLogo = DB::table('system_assets')->where('organization_id','=',$this->getOrganizationID())->where('is_latest_logo','=','1')->where('status','=','1')->get();
+        // $this->organizationAssetLogo = DB::table('organization_assets')->where('organization_id','=',$this->getOrganizationID())->where('is_latest_logo','=','1')->where('status','=','1')->get();
         // dd($this->organizationAssetLogo);
         // return $this->organizationAssetLogo;
     }
@@ -305,7 +305,7 @@ class Frontpage extends Component
     {
         $this->organizationID = DB::table('organizations')
             ->where('organization_slug','=',$this->urlslug)
-            ->pluck('organizations_id');
+            ->pluck('organization_id');
         return $this->organizationID;
     }
 
@@ -319,9 +319,9 @@ class Frontpage extends Component
         // foreach($this->articlesImageID as $object){
         //     // $this->articlesImageArray[] = $object->toArray();
         // }
-        $this->articlesImageArray = DB::table('system_assets')->where('status','=','1')->where('is_latest_image','=','1')->get();
+        $this->articlesImageArray = DB::table('organization_assets')->where('status','=','1')->where('is_latest_image','=','1')->get();
         // dd($articlesImageArray);
-        // $s       // dd(DB::table('system_assets')->where('articles_id','=',$i)->where('status','=','1')->where('is_latest_image','=','1')->get());
+        // $s       // dd(DB::table('organization_assets')->where('articles_id','=',$i)->where('status','=','1')->where('is_latest_image','=','1')->get());
         // dd($this->articlesImageIDCount);
         // dd('hello');
         return $this->articlesImageArray;
@@ -339,7 +339,7 @@ class Frontpage extends Component
             // echo 'Data found';
             // echo var_dump(json_decode($this->selectedArticlesImageID[0],true));
             $this->selectedArticlesImageIDint = json_decode($this->selectedArticlesImageID[0]);
-            $this->selectedArticlesImageArray = DB::table('system_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedArticlesImageIDint)->get();
+            $this->selectedArticlesImageArray = DB::table('organization_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedArticlesImageIDint)->get();
             // echo $this->selectedArticlesImageArray;
             // dd($this->selectedArticlesImageArray);
             return $this->selectedArticlesImageArray;
@@ -388,13 +388,13 @@ class Frontpage extends Component
 
     public function getFeaturedEvent()
     {
-        return DB::table('system_assets')->where('status','=','1')->where('is_latest_image','=','1')->get();
+        return DB::table('organization_assets')->where('status','=','1')->where('is_latest_image','=','1')->get();
     }
 
     public function getOrganizationAnnouncement()
     {
         // dd($this->urlslug);
-        $this->displayedOrganizationOnWebpage = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organizations_id');
+        $this->displayedOrganizationOnWebpage = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organization_id');
         // return DB::table('announcements')->where('organization','=',)
         if (Organization::where('organization_slug', '=', $this->urlslug)->exists()) {
             // echo var_dump(json_decode($this->selectedArticlesImageID[0],true));
@@ -403,7 +403,7 @@ class Frontpage extends Component
             // dd($this->selectedOrganizationArray);
             return $this->selectedOrganizationArray;
             // dd($this->selectedOrganizationArray);
-            // $this->selectedOrganizationArray = DB::table('system_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedOrganizationDataIDint)->get();
+            // $this->selectedOrganizationArray = DB::table('organization_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedOrganizationDataIDint)->get();
             // echo $this->selectedOrganizationArray;
             // dd($this->selectedOrganizationArray);
             // return $this->selectedOrganizationArray;
@@ -414,7 +414,7 @@ class Frontpage extends Component
     public function getOrganizationArticle()
     {
         // dd($this->urlslug);
-        $this->displayedOrganizationOnWebpage = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organizations_id');
+        $this->displayedOrganizationOnWebpage = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organization_id');
         // dd($this->displayedOrganizationOnWebpage);
         // return DB::table('announcements')->where('organization','=',)
         if (Organization::where('organization_slug', '=', $this->urlslug)->exists()) {
@@ -425,7 +425,7 @@ class Frontpage extends Component
             $this->selectedOrganizationArticleArray = DB::table('articles')->where('organization_id','=',$this->selectedOrganizationDataIDint)->orderBy('created_at','desc')->get();
             // dd($this->selectedOrganizationArticleArray);
             return $this->selectedOrganizationArticleArray;
-            // $this->selectedOrganizationArray = DB::table('system_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedOrganizationDataIDint)->get();
+            // $this->selectedOrganizationArray = DB::table('organization_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedOrganizationDataIDint)->get();
             // echo $this->selectedOrganizationArray;
             // dd($this->selectedOrganizationArray);
             // return $this->selectedOrganizationArray;
@@ -436,7 +436,7 @@ class Frontpage extends Component
     public function getOrganizationEvents()
     {
         // dd($this->urlslug);
-        $this->displayedOrganizationOnWebpage = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organizations_id');
+        $this->displayedOrganizationOnWebpage = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organization_id');
         // return DB::table('announcements')->where('organization','=',)
         if (Organization::where('organization_slug', '=', $this->urlslug)->exists()) {
             // echo var_dump(json_decode($this->selectedArticlesImageID[0],true));
@@ -444,7 +444,7 @@ class Frontpage extends Component
             $this->selectedOrganizationEventsArray = DB::table('articles')->where('organization_id','=',$this->selectedOrganizationDataIDint)->where('article_type_id','=','1')->get();
             return $this->selectedOrganizationEventsArray;
             // dd($this->selectedOrganizationArray);
-            // $this->selectedOrganizationArray = DB::table('system_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedOrganizationDataIDint)->get();
+            // $this->selectedOrganizationArray = DB::table('organization_assets')->where('is_latest_image','=','1')->where('status','=','1')->where('articles_id','=',$this->selectedOrganizationDataIDint)->get();
             // echo $this->selectedOrganizationArray;
             // dd($this->selectedOrganizationArray);
             // return $this->selectedOrganizationArray;
@@ -478,7 +478,7 @@ class Frontpage extends Component
     {
         // dd($this->urlslug);
         if (Organization::where('organization_slug', '=', $this->urlslug)->exists()) {
-            $this->displayedOrganizationData = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organizations_id');
+            $this->displayedOrganizationData = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organization_id');
             $this->displayedOrganizationDataID = json_decode($this->displayedOrganizationData[0]);
             $this->displayedOrganizationDataPassOnView =  DB::table('articles')->where('is_carousel_org_page','=','1')->where('organization_id','=',$this->displayedOrganizationDataID)->get();
             return $this->displayedOrganizationDataPassOnView;
@@ -507,7 +507,7 @@ class Frontpage extends Component
     {
         // dd($this->urlslug);
         if (Organization::where('organization_slug', '=', $this->urlslug)->exists()) {
-        $this->orgSocialSelectedOrganizationData = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organizations_id'); 
+        $this->orgSocialSelectedOrganizationData = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organization_id'); 
         // dd($this->orgSocialSelectedOrganizationData);
         // dd(DB::table('org_socials')->where('organization_id','=',$this->orgSocialSelectedOrganizationData)->get());
         return DB::table('org_socials')->where('organization_id','=',$this->orgSocialSelectedOrganizationData)->where('status','=','1')->get();
@@ -516,7 +516,7 @@ class Frontpage extends Component
     public function getCountOfEmbedSocialOrgFromDB()
     {
         if (Organization::where('organization_slug', '=', $this->urlslug)->exists()) {
-        $this->orgSocialSelectedOrganizationData = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organizations_id'); 
+        $this->orgSocialSelectedOrganizationData = DB::table('organizations')->where('organization_slug','=',$this->urlslug)->pluck('organization_id'); 
         // $this->orgSocialSelectedOrganizationID = count($this->orgSocialSelectedOrganizationData);
         // dd($this->orgSocialSelectedOrganizationData);
         $this->orgSocialSelectedOrganizationID = DB::table('org_socials')->where('organization_id','=',$this->orgSocialSelectedOrganizationData)->where('status','=','1')->get();

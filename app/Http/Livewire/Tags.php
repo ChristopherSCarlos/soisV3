@@ -44,7 +44,7 @@ class Tags extends Component
     }
     public function create()
     {
-        $this->userId = Auth::user()->users_id;
+        $this->userId = Auth::user()->user_id;
         Tag::create($this->uploadTagsModel());
         $this->modalCreateTagsFormVisible = false;
         $this->reset();

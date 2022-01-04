@@ -25,11 +25,11 @@ class Footers extends Component
     }
     public function getNonAcademicOrganization()
     {
-        return DB::table('organizations')->where('organization_type','=','2')->get();
+        return DB::table('organizations')->where('organization_type_id','=','2')->get();
     }
     public function getAcademicOrganization()
     {
-        return DB::table('organizations')->where('organization_type','=','1')->get();
+        return DB::table('organizations')->where('organization_type_id','=','1')->get();
     }
     public function render()
     {

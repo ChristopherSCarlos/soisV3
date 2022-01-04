@@ -150,7 +150,7 @@ class Sliders extends Component
         $this->userId = Auth::id();
         $this->user = User::find($this->userId);
         $this->va = $this->user->organizations->first();
-        $this->organization_id = $this->va->organizations_id;
+        $this->organization_id = $this->va->organization_id;
         return $this->organization_id;
     }
 

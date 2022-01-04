@@ -100,11 +100,11 @@ class Announcements extends Component
     }
     public function createAnnouncementProcess()
     {
-        $this->user_id = Auth::user()->users_id;
+        $this->user_id = Auth::user()->user_id;
         $this->user = User::find($this->user_id);
         $this->announcements_slug = preg_replace('/\s+/', '_', $this->announcements_title);
         $this->v = $this->user->organizations->first();
-        $this->orgID = $this->v->organizations_id;
+        $this->orgID = $this->v->organization_id;
         $this->validate([
             'announcements_title' => 'required',
             'announcements_content' => 'required',
@@ -368,8 +368,8 @@ class Announcements extends Component
     {
         $this->user = User::find(Auth::id());
         $this->v = $this->user->organizations->first();
-        // dd($this->v->organizations_id);
-        $this->organizationDisplayID = $this->v->organizations_id;
+        // dd($this->v->organization_id);
+        $this->organizationDisplayID = $this->v->organization_id;
         // dd($this->organizationDisplayID);
         // dd(DB::table('announcements')->where('status','=','1')->where('organization_id','=',$this->organizationDisplayID)->orderBy('created_at','desc')->paginate(5));
         // dd(DB::table('announcements')->where('organization_id','=',$this->organizationDisplayID)->orderBy('created_at','desc')->paginate(5));

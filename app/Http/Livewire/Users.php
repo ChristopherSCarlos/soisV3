@@ -123,7 +123,7 @@ class Users extends Component
     public function modelCreateUser()
     {
         return [
-            'name' => $this->name,
+            'first_name' => $this->name,
             'email' => $this->email,
             'status' => '1',
             'student_number' => $this->student_number,
@@ -146,14 +146,14 @@ class Users extends Component
     public function modelUpdateUserDatas()
     {
         $data = User::find($this->userId);
-        $this->name = $data->name;
+        $this->name = $data->first_name;
         $this->email = $data->email;
         $this->student_number = $data->student_number;
     }
     public function modelUpdateUser()
     {
         return [
-            'name' => $this->name,
+            'first_name' => $this->name,
             'email' => $this->email,
             'student_number' => $this->student_number,
         ];
@@ -223,7 +223,7 @@ class Users extends Component
     public function displayRole()
     {
         return DB::table('roles')
-            ->orderBy('roles_id','asc')
+            ->orderBy('role_id','asc')
             ->get();
     }
     public function addRoleToUser()
@@ -256,7 +256,7 @@ class Users extends Component
     public function displayOrganization()
     {
         return DB::table('organizations')
-            ->orderBy('organizations_id','asc')
+            ->orderBy('organization_id','asc')
             ->get();
     }
     public function addOrganizationToUser()
@@ -300,7 +300,7 @@ class Users extends Component
     public function rules()
     {
         return [
-            'name' => 'required',
+            'first_name' => 'required',
             'email' => 'required',
             'password' => 'required',
             'status' => 'required',
@@ -317,7 +317,7 @@ class Users extends Component
     public function listOfRoles()
     {
         return DB::table('roles')
-            ->orderBy('roles_id','asc')
+            ->orderBy('role_id','asc')
             ->get();
     }
     /**
@@ -330,7 +330,7 @@ class Users extends Component
         // return User::paginate(10);
         return DB::table('users')
                 ->where('status','=','1')
-                ->orderBy('users_id','asc')
+                ->orderBy('user_id','asc')
                 ->paginate(10);
                 // ->get();
     }

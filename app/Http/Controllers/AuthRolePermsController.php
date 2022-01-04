@@ -17,14 +17,26 @@ class AuthRolePermsController extends Controller
     public $userRole;
     private $object;
 
+    public $user_id;
+    private $user_role;
+
     public function index()
     {
-        if(Auth::check()){
             $this->object = new Objects();
             $this->userRole = $this->object->roles();
+            // echo $this->userRole;
+            $this->user_id = Auth::id();
+            $this->userData = User::find($this->user_id);
+            // echo $this->userData;
+            $this->userRole = $this->userData->roles->first();
+            $this->user_role = $this->userRole->role;
+            // echo $this->user_role;
+
+
+        if(Auth::check()){
             if($this->userRole == 'Super Admin'){
                 return redirect('/default-interfaces');
-            }elseif ($this->userRole == 'Organization Admin') {
+            }elseif ($this->userRole == 'Home Page Admin') {
                 return redirect('/Organization/dashboard');
             }else{
                 echo "User";
@@ -33,7 +45,7 @@ class AuthRolePermsController extends Controller
 
 
         }else{
-            echo 'world';
+            return redirect('/login');
         }
     }
 }
