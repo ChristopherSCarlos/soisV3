@@ -21,8 +21,8 @@ class AdminNavBars extends Component
     {
         $this->object = new Objects();
         $this->userRole = $this->object->roles();
-        // dd($this->userRole);
-        return $this->userRole; 
+        // dd($this->userRole->role);
+        return $this->userRole->role; 
     }
     public function render()
     {

@@ -33,7 +33,7 @@ class Objects extends Component
         // $this->user_role = $this->userRole->role;
 
 
-        // dd($this->userRole);
+        // dd($this->userRole->role);
         return $this->userRole;
     }
     public function userData()
