@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Article;
 use App\Models\Announcement;
 use App\Models\SystemAsset;
+use App\Models\OrganizationAsset;
 // use App\Models\DefaultInterface;
 use Illuminate\Support\Facades\DB;
 
@@ -460,7 +461,8 @@ class Frontpage extends Component
     public function getAllOrganizationLogo()
     {
         // dd(SystemAsset::where('is_latest_logo','=','1')->get());
-        return SystemAsset::where('is_latest_logo','=','1')->get();
+        // return OrganizationAsset::where('is_latest_logo','=','1')->get();
+        return DB::table('organization_assets')->where('is_latest_logo','=','1')->get();
     }
 
     public function getAnnouncementsInDatabaseFeaturedHomepage()
