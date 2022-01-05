@@ -29,7 +29,7 @@
                                 @foreach($getAssetTypes as $item)
                                      <tr>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            {{ $item->asset_types_id }}
+                                            {{ $item->asset_type_id }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                             {{ $item->type }}
@@ -38,10 +38,10 @@
                                             {{ $item->asset_type_description }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            <x-jet-button wire:click="updateAssetTypeShowModal({{ $item->asset_types_id }})">
+                                            <x-jet-button wire:click="updateAssetTypeShowModal({{ $item->asset_type_id }})">
                                                 {{__('Update')}}
                                             </x-jet-button>
-                                            <x-jet-danger-button wire:click="deleteAssetTypeShowModal({{ $item->asset_types_id }})">
+                                            <x-jet-danger-button wire:click="deleteAssetTypeShowModal({{ $item->asset_type_id }})">
                                                 {{__('Delete')}}
                                             </x-jet-danger-button>
                                         </td>
@@ -69,7 +69,7 @@
 ===================================================================-->
 <x-jet-dialog-modal wire:model="modalCreateUpdateAssetTypesFormVisible">
             <x-slot name="title">
-                {{ __('Asset Type') }} {{$asset_types_id}}
+                {{ __('Asset Type') }} {{$asset_type_id}}
             </x-slot>
             <x-slot name="content">
                 <div class="mt-4">
@@ -87,7 +87,7 @@
                 <x-jet-secondary-button wire:click="$toggle('modalCreateUpdateAssetTypesFormVisible')" wire:loading.attr="disabled">
                     {{ __('Cancel') }}
                 </x-jet-secondary-button>
-                @if($asset_types_id)
+                @if($asset_type_id)
                 <x-jet-secondary-button class="ml-2" wire:click="updateAssetTypeProcess" wire:loading.attr="disabled">
                     {{ __('Update Asset Type') }}
                 </x-jet-secondary-button>
@@ -105,7 +105,7 @@
 =========================================================-->
 <x-jet-dialog-modal wire:model="modalDeleteAssetTypesFormVisible">
             <x-slot name="title">
-                {{ __('Asset Type') }} {{$asset_types_id}}
+                {{ __('Asset Type') }} {{$asset_type_id}}
             </x-slot>
             <x-slot name="content">
                 <div class="mt-4">

@@ -46,7 +46,7 @@ class isSuperAdminMiddleware
         // dd($this->role->role_name);
 
 
-        if ($this->role->role_name !== "Super Admin") {
+        if ($this->role->role !== "Super Admin") {
             abort(403, 'Unauthorized action.');
         }
 

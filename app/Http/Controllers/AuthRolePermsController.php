@@ -28,11 +28,11 @@ class AuthRolePermsController extends Controller
             // echo $this->userData;
             $this->userRole = $this->userData->roles->first();
             $this->user_role = $this->userRole->role;
-
+            // dd($this->user_role);
             // echo $this->user_role;
         if(Auth::check()){
             if($this->user_role == 'Super Admin'){
-                return redirect('/dashboard');
+                return redirect('/default-interfaces');
             }elseif ($this->user_role == 'Home Page Admin') {
                 // dd($this->user_role);
                 return redirect('/Organization/dashboard');
