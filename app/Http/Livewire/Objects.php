@@ -25,9 +25,13 @@ class Objects extends Component
 
     public function roles()
     {
+        $this->user_id = Auth::id();
+        $this->user_data = User::find($this->user_id); 
         $this->userData();
         $this->userRole = $this->userData()->roles->first();
         $this->user_role = $this->userRole->role;
+
+        dd($this->user_role);
         return $this->user_role;
     }
     public function userData()

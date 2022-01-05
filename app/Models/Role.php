@@ -23,4 +23,9 @@ class Role extends Model
         'role_description',
         'guard_name',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class,'role_user','role_id','user_id','organization_id');
+    }
 }
