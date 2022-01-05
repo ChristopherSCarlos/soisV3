@@ -16,7 +16,7 @@ class Role extends Model
      * This is the primary key
      *
      */
-    protected $primaryKey = 'roles_id';
+    protected $primaryKey = 'role_id';
 
    protected $fillable = [
         'role_name',

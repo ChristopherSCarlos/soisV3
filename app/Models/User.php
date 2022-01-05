@@ -21,7 +21,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-    public $primaryKey = 'users_id';
+    public $primaryKey = 'user_id';
 
     /**
      * The attributes that are mass assignable.
@@ -29,7 +29,7 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'first_name',
         'email',
         'password',
         'student_number',
@@ -68,7 +68,7 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class,'roles_users','user_id','role_id');
+        return $this->belongsToMany(Role::class,'role_user','user_id','role_id');
     }
     public function organizations()
     {
