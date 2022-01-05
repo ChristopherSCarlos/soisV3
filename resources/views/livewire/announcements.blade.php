@@ -101,7 +101,7 @@
                                             </td>
                                         </tr>
                                     @endif
-                                @elseif($roleUser == 'Home Page Admin')
+                                @else
                                     @if($displayOrgAnnouncements->count())
                                         @foreach($displayOrgAnnouncements as $item)
                                              <tr>

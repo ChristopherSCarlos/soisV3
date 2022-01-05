@@ -89,6 +89,9 @@ class Announcements extends Component
         private $orgID;
         public $organizationDisplayID;
 
+
+
+
     /*==================================================================
     =            Create Announcements Section comment block            =
     ==================================================================*/
@@ -268,17 +271,18 @@ class Announcements extends Component
         $this->getAnnouncementDateFromDB = DB::table('announcements')->get();
         $this->countDBTable = DB::table('announcements')->count();
         foreach ($this->getAnnouncementDateFromDB as $this->data) {
+                    // echo $this->data;
                 if($this->data->exp_date < $this->checkCurrentDate){
                     $this->dateIDExpired = $this->data->announcements_id;
-                    if ($this->data->exp_time < $this->checkCurrentTime) {
+                    // if ($this->data->exp_time < $this->checkCurrentTime) {
                         Announcement::where('announcements_id', '=', $this->dateIDExpired)->update(['status' => '0']);
-                    }    
+                    // }    
                 }
                 else{
                     $this->dateIDExpired = $this->data->announcements_id;
-                    if ($this->data->exp_time < $this->checkCurrentTime) {
+                    // if ($this->data->exp_time < $this->checkCurrentTime) {
                         Announcement::where('announcements_id', '=', $this->dateIDExpired)->update(['status' => '1']);
-                    }
+                    // }
                 }
         }
     }
@@ -339,8 +343,8 @@ class Announcements extends Component
     {
         $this->object = new Objects();
         $this->userRole = $this->object->roles();
-        return $this->userRole;
         // dd($this->userRole);
+        return $this->userRole;
 
         // dd($this->role->role_name);
     }

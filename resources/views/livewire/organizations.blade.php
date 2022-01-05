@@ -132,8 +132,6 @@
 
     @if($userAuthRole == 'Super Admin')
         {{$posts->links()}}
-    @else
-        {{$userAffliatedOrganization->links()}}
     @endif
 
 

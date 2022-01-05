@@ -320,7 +320,7 @@ class Organizations extends Component
             'organization_primary_color' => $this->organization_primary_color,
             'organization_secondary_color' => $this->organization_secondary_color,
             'organization_slug' => $this->organization_slug,
-            'organization_type' => $this->organization_type,
+            'organization_type_id' => $this->organization_type,
             'status' => $this->status,
         ];
     }
@@ -350,7 +350,7 @@ class Organizations extends Component
         $this->organization_primary_color = $data->organization_primary_color;
         $this->organization_secondary_color = $data->organization_secondary_color;
         $this->organization_slug = $data->organization_slug;
-        $this->organization_type = $data->organization_type;
+        $this->organization_type = $data->organization_type_id;
         if($this->organization_type == '1'){
             $this->orgtype = 1;
         }else{
@@ -371,6 +371,7 @@ class Organizations extends Component
         ]);
         Organization::find($this->modelId)->update($this->modelData());
         $this->updatemodalFormVisible = false;
+        // dd($this->modelId);
     }
     
     
