@@ -104,7 +104,7 @@ Route::group(['middleware' => [
 });
 
 Route::group(['middleware' => [
-            // 'isOrganizationAdmin',
+            'isOrganizationAdmin',
             'auth:sanctum',
             'verified',
 ]], function(){

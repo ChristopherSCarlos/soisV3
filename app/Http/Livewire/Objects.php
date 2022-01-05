@@ -27,12 +27,14 @@ class Objects extends Component
     {
         $this->user_id = Auth::id();
         $this->user_data = User::find($this->user_id); 
-        $this->userData();
-        $this->userRole = $this->userData()->roles->first();
-        $this->user_role = $this->userRole->role;
+        // $this->userData();
+        // dd($this->user_data->roles);
+        $this->userRole = $this->user_data->roles->first();
+        // $this->user_role = $this->userRole->role;
 
-        dd($this->user_role);
-        return $this->user_role;
+
+        // dd($this->userRole);
+        return $this->userRole;
     }
     public function userData()
     {
