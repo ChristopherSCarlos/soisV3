@@ -34,7 +34,18 @@ class PositionTitles extends Component
     private $userRole;
     private $userRolesString;
 
+
     public $userId;
+    public $authUserId;
+    public $authUserData;
+    public $authUserRole;
+    public $authUserRoleType;
+    public $authUser;
+    public $OrgDataFromUser;
+    public $orgUserId;
+    public $userOrganization;
+    public $selectedOrganization;
+    public $orgCount;
     public $userData;
     public $userOrganizationData;
 
@@ -127,7 +138,7 @@ class PositionTitles extends Component
 
     public function loadModel()
     {
-        $data = positiontitles::find($this->position_title_id);
+        $data = PositionTitle::find($this->position_title_id);
         $this->organization_id = $data->organization_id;
         $this->position_title = $data->position_title;
     }
@@ -138,7 +149,7 @@ class PositionTitles extends Component
             'position_title' => 'required',
             'organization_id' => 'required',
         ]);
-        positiontitles::find($this->position_title_id)->update($this->modelData());
+        PositionTitle::find($this->position_title_id)->update($this->modelData());
         $this->UpdatemodalFormVisible = false;
     }
 
@@ -164,7 +175,7 @@ class PositionTitles extends Component
 
     public function delete()
     {
-        Positiontitles::find($this->position_title_id)->delete();
+        PositionTitle::find($this->position_title_id)->delete();
         $this->modelConfirmDeleteVisible = false;
         $this->resetPage();
     }
@@ -179,6 +190,33 @@ class PositionTitles extends Component
     {
         // dd(DB::table('position_titles')->paginate(10));
         return DB::table('position_titles')->paginate(10);
+    }
+
+    public function specificOrganization()
+    {
+        $this->authUser = Auth::id();
+        $this->user = User::find($this->authUser);
+        $this->OrgDataFromUser = $this->user->organizations->first();
+        // dd($this->OrgDataFromUser->id);
+        if($this->OrgDataFromUser){
+            $this->orgUserId = $this->OrgDataFromUser->organization_id;
+            $this->userOrganization = $this->OrgDataFromUser->organization_name;
+            // dd($this->orgUserId);
+            $this->orgCount = true;
+            // dd($this->orgCount);
+            // dd(DB::table('organizations')->where('organization_id', '=', $this->orgUserId)->get());
+            return DB::table('position_titles')
+           ->where('organization_id', '=', $this->orgUserId)
+           ->get();
+
+
+
+        }else{
+            $this->orgCount = false;
+            return DB::table('position_titles')
+           ->get();            
+            // dd("2");
+        }
     }
     
     /*=====  End of Call Tables  ======*/
@@ -214,17 +252,15 @@ class PositionTitles extends Component
     =            Get User Role            =
     =====================================*/
     
-    public function getUserRole()
+    public function getAuthUserRole()
     {
-        $this->userId = Auth::id();
-        // dd($this->userId);
-        // dd($this->articleCreatedDataId);
-        $this->userData = User::find($this->userId);
-        $this->userRoles = $this->userData->roles->first();
-        $this->userRolesString = $this->userRoles->role;
-        // dd($this->userRolesString);
-        // dd(gettype($this->userRolesString));
-        return $this->userRolesString;
+        $this->authUserId = Auth::id();
+        $this->authUserData = User::find($this->authUserId);        
+        $this->authUserRole = $this->authUserData->roles->first();
+        $this->authUserRoleType = $this->authUserRole->role;         
+        // dd($this->authUserRoleType);
+        // dd($this->authUserRoleType);
+        return $this->authUserRoleType;
     }
     
     /*=====  End of Get User Role  ======*/
@@ -248,7 +284,8 @@ class PositionTitles extends Component
             'PositionData' => $this->getPositionTitleData(),
             'Organization' => $this->getUserOrganization(),
             'getOrganization' => $this->getOrganizationsFromDatabase(),
-            'getAuthUserRole' => $this->getUserRole(),
+            'getUserOrgData' => $this->specificOrganization(),
+            'getUserRole' => $this->getAuthUserRole(),
         ]);
     }
 }

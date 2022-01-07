@@ -22,7 +22,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @if($getAuthUserRole == 'Super Admin')                                    
+                            @if($getUserRole == 'Super Admin')                                    
                             <!-- this is super admin -->
                                 @if($PositionData->count())
                                     @foreach($PositionData as $item)
@@ -50,8 +50,8 @@
                                 @endif
                             @else
                             <!-- this is organization admin -->
-                                @if($Organization->count())
-                                    @foreach($Organization as $item)
+                                @if($getUserRole == 'Home Page Admin')
+                                    @foreach($getUserOrgData as $item)
                                          <tr>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                 {{ $item->position_title }}
@@ -85,7 +85,7 @@
             </div>
         </div>
     </div>
-    @if($getAuthUserRole == 'Super Admin')
+    @if($getUserRole == 'Super Admin')
         {{$PositionData->links()}}
     @else
         {{$Organization->links()}}
@@ -111,12 +111,28 @@
                     <x-jet-label for="selectedOrganization" value="{{ __('Organization') }}" />
                         <select wire:model="selectedOrganization" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             <option default hidden>Choose organization</option>
+                    @if($getUserRole == 'Super Admin')
+                    <x-jet-label for="selectedOrganization" value="{{ __('Organization') }}" />
+                        <select wire:model="selectedOrganization" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <!-- <option default hidden>Choose organization</option> -->
+
                             @foreach($getOrganization as $orgs)
                                 <option value="{{$orgs->organization_id}}">{{$orgs->organization_name}}</option>
                             @endforeach
                         </select>
                         @error('selectedOrganization') <span class="error">{{ $message }}</span> @enderror
                     @else
+                        @if($getUserRole == 'Home Page Admin')
+                            <x-jet-label for="organization_id" value="{{ __('Organization') }}" />
+                            <select wire:model="organization_id" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                @foreach($getOrganization as $orgs)
+                                    @if($item->organization_id == $orgs->organization_id)
+                                        <option default value="{{$orgs->organization_id}}">{{$orgs->organization_name}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            @error('organization_id') <span class="error">{{ $message }}</span> @enderror
+                        @endif
                     @endif
                 </div>
                 
@@ -149,16 +165,27 @@
                     @error('position_title') <span class="error">{{ $message }}</span> @enderror
                 </div>
                 <div class="mt-4">
-                    @if($getAuthUserRole == 'Super Admin')
-                    <x-jet-label for="organization_id" value="{{ __('Organization') }}" />
-                        <select wire:model="organization_id" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                            <option default hidden>Choose organization</option>
+                    @if($getUserRole == 'Super Admin')
+                    <x-jet-label for="selectedOrganization" value="{{ __('Organization') }}" />
+                        <select wire:model="selectedOrganization" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <!-- <option default hidden>Choose organization</option> -->
                             @foreach($getOrganization as $orgs)
                                 <option value="{{$orgs->organization_id}}">{{$orgs->organization_name}}</option>
                             @endforeach
                         </select>
-                        @error('organization_id') <span class="error">{{ $message }}</span> @enderror
+                        @error('selectedOrganization') <span class="error">{{ $message }}</span> @enderror
                     @else
+                        @if($getUserRole == 'Home Page Admin')
+                            <x-jet-label for="organization_id" value="{{ __('Organization') }}" />
+                            <select wire:model="organization_id" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                @foreach($getOrganization as $orgs)
+                                    @if($item->organization_id == $orgs->organization_id)
+                                        <option default value="{{$orgs->organization_id}}">{{$orgs->organization_name}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            @error('organization_id') <span class="error">{{ $message }}</span> @enderror
+                        @endif
                     @endif
                 </div>
             </x-slot>
