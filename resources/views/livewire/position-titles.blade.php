@@ -1,8 +1,8 @@
 <div class="p-6">
 
-    <h2 class="table-title">Organization Positions</h2>
+    <h2 class="table-title">Position Titles</h2>
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
-        <x-jet-button wire:click="createOrgPositionModal">
+        <x-jet-button wire:click="createPositionTitleModal">
             {{ __('Create Position') }}
         </x-jet-button>
     </div>
@@ -24,11 +24,11 @@
                         <tbody class="bg-white divide-y divide-gray-200">
                             @if($getAuthUserRole == 'Super Admin')                                    
                             <!-- this is super admin -->
-                                @if($OrgPositionData->count())
-                                    @foreach($OrgPositionData as $item)
+                                @if($PositionData->count())
+                                    @foreach($PositionData as $item)
                                          <tr>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->officer_position_name }}
+                                                {{ $item->position_title }}
                                             </td>
                                              @foreach($getOrganization as $orgs)
                                                 @if($item->organization_id == $orgs->organizations_id)
@@ -37,10 +37,10 @@
                                             @endforeach
                                             
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                <x-jet-button wire:click="updateOrgPositionModal({{ $item->organization_officer_positions_id }})">
+                                                <x-jet-button wire:click="updatePositionTitleModal({{ $item->position_title_id }})">
                                                     {{__('Update')}}
                                                 </x-jet-button>
-                                                <x-jet-danger-button wire:click="deleteOrgPositionModal({{ $item->organization_officer_positions_id }})">
+                                                <x-jet-danger-button wire:click="deletePositionTitleModal({{ $item->position_title_id }})">
                                                     {{__('Delete')}}
                                                 </x-jet-danger-button>
                                                 
@@ -54,7 +54,7 @@
                                     @foreach($Organization as $item)
                                          <tr>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->officer_position_name }}
+                                                {{ $item->position_title }}
                                             </td>
                                             @foreach($getOrganization as $orgs)
                                                 @if($item->organization_id == $orgs->organizations_id)
@@ -62,10 +62,10 @@
                                                 @endif
                                             @endforeach
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                <x-jet-button wire:click="updateOrgPositionModal({{ $item->organization_officer_positions_id }})">
+                                                <x-jet-button wire:click="updatePositionTitleModal({{ $item->position_title_id }})">
                                                     {{__('Update')}}
                                                 </x-jet-button>
-                                                <x-jet-danger-button wire:click="deleteOrgPositionModal({{ $item->organization_officer_positions_id }})">
+                                                <x-jet-danger-button wire:click="deletePositionTitleModal({{ $item->position_title_id }})">
                                                     {{__('Delete')}}
                                                 </x-jet-danger-button>     
                                             </td>
@@ -102,9 +102,9 @@
             </x-slot>
             <x-slot name="content">
                 <div class="mt-4">
-                    <x-jet-label for="officer_position_name" value="{{ __('Position Name') }}" />
-                    <x-jet-input wire:model="officer_position_name" id="officer_position_name" class="block mt-1 w-full" type="text" />
-                    @error('officer_position_name') <span class="error">{{ $message }}</span> @enderror
+                    <x-jet-label for="position_title" value="{{ __('Position Title') }}" />
+                    <x-jet-input wire:model="position_title" id="position_title" class="block mt-1 w-full" type="text" />
+                    @error('position_title') <span class="error">{{ $message }}</span> @enderror
                 </div>
                 <div class="mt-4">
                     @if($getAuthUserRole == 'Super Admin')
@@ -126,7 +126,7 @@
                     {{ __('Cancel') }}
                 </x-jet-secondary-button>
                 <x-jet-secondary-button class="ml-2" wire:click="create" wire:loading.attr="disabled">
-                    {{ __('Create Organization Position') }}
+                    {{ __('Create Position') }}
                 </x-jet-secondary-button>
             </x-slot>
         </x-jet-dialog-modal>
@@ -144,9 +144,9 @@
             </x-slot>
             <x-slot name="content">
                 <div class="mt-4">
-                    <x-jet-label for="officer_position_name" value="{{ __('Position Name') }}" />
-                    <x-jet-input wire:model="officer_position_name" id="officer_position_name" class="block mt-1 w-full" type="text" />
-                    @error('officer_position_name') <span class="error">{{ $message }}</span> @enderror
+                    <x-jet-label for="position_title" value="{{ __('Position Title') }}" />
+                    <x-jet-input wire:model="position_title" id="position_title" class="block mt-1 w-full" type="text" />
+                    @error('position_title') <span class="error">{{ $message }}</span> @enderror
                 </div>
                 <div class="mt-4">
                     @if($getAuthUserRole == 'Super Admin')
@@ -185,7 +185,7 @@
             </x-slot>
             <x-slot name="content">
                 <div class="mt-4">
-                    <x-jet-label for="officer_position_name" value="{{ __('Are you sure you want to delete your news? Once your news is deleted, all of its resources and data will be permanently deleted. Do you wish to proceed?') }}" />
+                    <x-jet-label for="position_title" value="{{ __('Are you sure you want to delete this postion title? Do you wish to proceed?') }}" />
                 </div>
             </x-slot>
             <x-slot name="footer">

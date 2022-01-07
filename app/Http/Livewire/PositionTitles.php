@@ -5,7 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\Organization;
-use App\Models\OrganizationOfficerPosition;
+use App\Models\PositionTitle;
 
 use Livewire\withPagination;
 use Illuminate\Validation\Rule;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 use Auth;
 
-class OrganizationOfficerPositions extends Component
+class PositionTitles extends Component
 {
     use WithPagination;
 
@@ -22,8 +22,8 @@ class OrganizationOfficerPositions extends Component
     public $UpdatemodalFormVisible = false;
     public $modelConfirmDeleteVisible = false;
 
-    public $organization_officer_positions_id;
-    public $officer_position_name;
+    public $position_title_id;
+    public $position_title;
     public $organization_id;
 
     public $user;
@@ -63,7 +63,7 @@ class OrganizationOfficerPositions extends Component
     =            Create Org Position            =
     ===========================================*/
     
-    public function createOrgPositionModal()
+    public function createPositionTitleModal()
     {
         $this->resetValidation();
         $this->reset();
@@ -72,16 +72,16 @@ class OrganizationOfficerPositions extends Component
 
     public function create()
     {
-        OrganizationOfficerPosition::create($this->modelCreateOrgPosition());
+        positiontitles::create($this->modelCreatePositionTitle());
         $this->CreatemodalFormVisible = false;
         $this->reset(); 
         $this->resetValidation(); 
     }
 
-    public function modelCreateOrgPosition()
+    public function modelCreatePositionTitle()
     {
         return[
-            'officer_position_name' => $this->officer_position_name,
+            'position_title' => $this->position_title,
             'organization_id' => $this->organization_id,
         ];
     }
@@ -93,36 +93,36 @@ class OrganizationOfficerPositions extends Component
     =            Update Org Position            =
     ===========================================*/
     
-    public function updateOrgPositionModal($id)
+    public function updatePositionTitleModal($id)
     {
         $this->resetValidation();
         $this->reset();
         $this->UpdatemodalFormVisible = true;
-        $this->organization_officer_positions_id = $id;
+        $this->position_title_id = $id;
         $this->loadModel();
     }
 
     public function loadModel()
     {
-        $data = OrganizationOfficerPosition::find($this->organization_officer_positions_id);
-        $this->officer_position_name = $data->officer_position_name;
+        $data = positiontitles::find($this->position_title_id);
         $this->organization_id = $data->organization_id;
+        $this->position_title = $data->position_title;
     }
 
     public function update()
     {
         $this->validate([
-            'officer_position_name' => 'required',
+            'position_title' => 'required',
             'organization_id' => 'required',
         ]);
-        OrganizationOfficerPosition::find($this->organization_officer_positions_id)->update($this->modelData());
+        positiontitles::find($this->position_title_id)->update($this->modelData());
         $this->UpdatemodalFormVisible = false;
     }
 
     public function modelData()
     {
         return [
-            'officer_position_name' => $this->officer_position_name,
+            'position_title' => $this->position_title,
             'organization_id' => $this->organization_id,
         ];
     }
@@ -133,15 +133,15 @@ class OrganizationOfficerPositions extends Component
     =            Delete Org Position            =
     ===========================================*/
     
-    public function deleteOrgPositionModal($id)
+    public function deletePositionTitleModal($id)
     {
-        $this->organization_officer_positions_id = $id;
+        $this->position_title_id = $id;
         $this->modelConfirmDeleteVisible = true;
     }
 
     public function delete()
     {
-        OrganizationOfficerPosition::find($this->organization_officer_positions_id)->delete();
+        Positiontitles::find($this->position_title_id)->delete();
         $this->modelConfirmDeleteVisible = false;
         $this->resetPage();
     }
@@ -152,9 +152,9 @@ class OrganizationOfficerPositions extends Component
     =            Call Tables            =
     ===================================*/
     
-    public function getOrgPositionData()
+    public function getPositionTitleData()
     {
-        return DB::table('organization_officer_positions')
+        return DB::table('position_titles')
                     ->paginate(10);
     }
     
@@ -166,7 +166,7 @@ class OrganizationOfficerPositions extends Component
     
     public function getUserOrganization()
     {
-        return DB::table('organization_officer_positions')->where('organization_id','=',$this->userOrg())->paginate(10);
+        return DB::table('position_titles')->where('organization_id','=',$this->userOrg())->paginate(10);
     }
 
     public function userOrg()
@@ -215,8 +215,8 @@ class OrganizationOfficerPositions extends Component
 
     public function render()
     {
-        return view('livewire.organization-officer-positions',[
-            'OrgPositionData' => $this->getOrgPositionData(),
+        return view('livewire.position-titles',[
+            'PositionData' => $this->getPositionTitleData(),
             'Organization' => $this->getUserOrganization(),
             'getOrganization' => $this->getOrganizationsFromDatabase(),
             'getAuthUserRole' => $this->getUserRole(),
