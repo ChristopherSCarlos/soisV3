@@ -39,6 +39,11 @@ class PositionTitles extends Component
     public $authUserData;
     public $authUserRole;
     public $authUserRoleType;
+    public $authUser;
+    public $OrgDataFromUser;
+    public $orgUserId;
+    public $userOrganization;
+    public $orgCount;
     public $userData;
     public $userOrganizationData;
 

@@ -117,13 +117,17 @@
                         </select>
                         @error('organization_id') <span class="error">{{ $message }}</span> @enderror
                     @else
-                    <x-jet-label for="organization_id" value="{{ __('Organization') }}" />
-                        <select wire:model="organization_id" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                            @foreach($Organization as $uorgs)
-                                <option default value="{{$uorgs->organization_id}}">{{$uorgs->organization_name}}</option>
-                            @endforeach
-                        </select>
-                        @error('organization_id') <span class="error">{{ $message }}</span> @enderror
+                        @if($getUserRole == 'Home Page Admin')
+                            <x-jet-label for="organization_id" value="{{ __('Organization') }}" />
+                            <select wire:model="organization_id" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                @foreach($getOrganization as $orgs)
+                                    @if($item->organization_id == $orgs->organization_id)
+                                        <option default value="{{$orgs->organization_id}}">{{$orgs->organization_name}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            @error('organization_id') <span class="error">{{ $message }}</span> @enderror
+                        @endif
                     @endif
                 </div>
                 
