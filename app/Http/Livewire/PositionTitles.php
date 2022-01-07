@@ -72,11 +72,15 @@ class PositionTitles extends Component
 
     public function create()
     {
-        // dd("Hello");
+        $this->userId = Auth::id();
+        $this->user = User::find($this->userId);
+        $this->va = $this->user->organizations->first();
+        // dd($this->va->organization_id);
+        $this->organization_id = $this->va->organization_id;
         PositionTitle::create($this->modelCreatePositionTitle());
-        // $this->CreatemodalFormVisible = false;
-        // $this->reset(); 
-        // $this->resetValidation(); 
+        $this->CreatemodalFormVisible = false;
+        $this->reset(); 
+        $this->resetValidation(); 
     }
 
     public function modelCreatePositionTitle()
@@ -167,6 +171,7 @@ class PositionTitles extends Component
     
     public function getUserOrganization()
     {
+        // dd(DB::table('position_titles')->where('organization_id','=',$this->userOrg())->paginate(10));
         return DB::table('position_titles')->where('organization_id','=',$this->userOrg())->paginate(10);
     }
 
