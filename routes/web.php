@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Frontpage;
 use App\Http\Contollers\AuthRolePermsController;
+use App\Http\Contollers\CookieController;
 use App\Http\Livewire\OrganizationPages;
 use App\Http\Livewire\PagesUpdateProcess;
 use App\Http\Livewire\ViewAnnouncement;
@@ -22,6 +23,9 @@ use App\Http\Livewire\ViewAnnouncement;
 
 // Route::get('authredirects', function(){'AuthRolePermsController@index'});
 Route::get('/authredirects', 'App\Http\Controllers\AuthRolePermsController@index');
+
+Route::get('/cookie/set','App\Http\Controllers\CookieController@setCookie');
+Route::get('/cookie/get','App\Http\Controllers\CookieController@getCookie');
 
 Route::group(['middleware' => [
             'isSuperAdmin',

@@ -21,6 +21,7 @@
         "tailwindcss": "^2.2.2"
     },
     "dependencies": {
-        "browser-sync": "^2.27.6"
+        "browser-sync": "^2.27.6",
+        "js-cookie": "^3.0.1"
     }
 }
