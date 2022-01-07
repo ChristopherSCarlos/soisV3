@@ -168,6 +168,33 @@ class PositionTitles extends Component
         // dd(DB::table('position_titles')->paginate(10));
         return DB::table('position_titles')->paginate(10);
     }
+
+    public function specificOrganization()
+    {
+        $this->authUser = Auth::id();
+        $this->user = User::find($this->authUser);
+        $this->OrgDataFromUser = $this->user->organizations->first();
+        // dd($this->OrgDataFromUser->id);
+        if($this->OrgDataFromUser){
+            $this->orgUserId = $this->OrgDataFromUser->organization_id;
+            $this->userOrganization = $this->OrgDataFromUser->organization_name;
+            // dd($this->orgUserId);
+            $this->orgCount = true;
+            // dd($this->orgCount);
+            // dd(DB::table('organizations')->where('organization_id', '=', $this->orgUserId)->get());
+            return DB::table('position_titles')
+           ->where('organization_id', '=', $this->orgUserId)
+           ->get();
+
+
+
+        }else{
+            $this->orgCount = false;
+            return DB::table('position_titles')
+           ->get();            
+            // dd("2");
+        }
+    }
     
     /*=====  End of Call Tables  ======*/
 
@@ -234,6 +261,7 @@ class PositionTitles extends Component
             'PositionData' => $this->getPositionTitleData(),
             'Organization' => $this->getUserOrganization(),
             'getOrganization' => $this->getOrganizationsFromDatabase(),
+            'getUserOrgData' => $this->specificOrganization(),
             'getUserRole' => $this->getAuthUserRole(),
         ]);
     }

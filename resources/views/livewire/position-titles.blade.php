@@ -50,8 +50,8 @@
                                 @endif
                             @else
                             <!-- this is organization admin -->
-                                @if($Organization->count())
-                                    @foreach($Organization as $item)
+                                @if($getUserRole == 'Home Page Admin')
+                                    @foreach($getUserOrgData as $item)
                                          <tr>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                 {{ $item->position_title }}
