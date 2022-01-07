@@ -33,7 +33,12 @@ class PositionTitles extends Component
     private $userRole;
     private $userRolesString;
 
+
     public $userId;
+    public $authUserId;
+    public $authUserData;
+    public $authUserRole;
+    public $authUserRoleType;
     public $userData;
     public $userOrganizationData;
 
@@ -72,6 +77,7 @@ class PositionTitles extends Component
 
     public function create()
     {
+        // dd($this);
         $this->userId = Auth::id();
         $this->user = User::find($this->userId);
         $this->va = $this->user->organizations->first();
@@ -196,17 +202,15 @@ class PositionTitles extends Component
     =            Get User Role            =
     =====================================*/
     
-    public function getUserRole()
+    public function getAuthUserRole()
     {
-        $this->userId = Auth::id();
-        // dd($this->userId);
-        // dd($this->articleCreatedDataId);
-        $this->userData = User::find($this->userId);
-        $this->userRoles = $this->userData->roles->first();
-        $this->userRolesString = $this->userRoles->role;
-        // dd($this->userRolesString);
-        // dd(gettype($this->userRolesString));
-        return $this->userRolesString;
+        $this->authUserId = Auth::id();
+        $this->authUserData = User::find($this->authUserId);        
+        $this->authUserRole = $this->authUserData->roles->first();
+        $this->authUserRoleType = $this->authUserRole->role;         
+        // dd($this->authUserRoleType);
+        // dd($this->authUserRoleType);
+        return $this->authUserRoleType;
     }
     
     /*=====  End of Get User Role  ======*/
@@ -230,7 +234,7 @@ class PositionTitles extends Component
             'PositionData' => $this->getPositionTitleData(),
             'Organization' => $this->getUserOrganization(),
             'getOrganization' => $this->getOrganizationsFromDatabase(),
-            'getAuthUserRole' => $this->getUserRole(),
+            'getUserRole' => $this->getAuthUserRole(),
         ]);
     }
 }

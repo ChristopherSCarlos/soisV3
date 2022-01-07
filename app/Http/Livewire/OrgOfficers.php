@@ -72,8 +72,8 @@ class OrgOfficers extends LivewireDatatable
     public function builder()
     {
         return Officer::query()
-            ->leftJoin('organizations', 'organizations.organizations_id', 'officers.organization_id')
-            ->leftJoin('officer_positions', 'officer_positions.officer_positions_id', 'officers.position_category');
+            ->leftJoin('organizations', 'organizations.organization_id', 'officers.organization_id');
+            // ->leftJoin('officer_positions', 'officer_positions.officer_positions_id', 'officers.position_category');
     }
     
     /*=====  End of Join tables Section  ======*/
