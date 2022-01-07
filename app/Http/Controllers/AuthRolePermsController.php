@@ -7,6 +7,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Objects;
 
+// use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
 class AuthRolePermsController extends Controller
 {
@@ -17,6 +21,13 @@ class AuthRolePermsController extends Controller
     public $user_id;
     private $user_role;
     private $object;
+
+    public function __construct(Request $request){
+        $minutes = 1;
+        $response = new Response('Hello World');
+        // $cookie = Cookie::forever('name', 'virat');
+        // $response->withCookie($cookie);
+    }
 
     public function index()
     {
@@ -32,9 +43,19 @@ class AuthRolePermsController extends Controller
             // echo $this->user_role;
         if(Auth::check()){
             if($this->user_role == 'Super Admin'){
+
+                // $minutes = 1;
+                // $response = new Response('Hello World');
+                // $response->withCookie(cookie('name', 'virat', $minutes));
+
+                // return $response;
                 return redirect('/default-interfaces');
             }elseif ($this->user_role == 'Home Page Admin') {
                 // dd($this->user_role);
+                // $minutes = 1;
+                // $response = new Response('Hello World');
+                // $response->withCookie(cookie('name', 'virat', $minutes));
+                // return $response;
                 return redirect('/Organization/dashboard');
             }else{
                 echo "User";

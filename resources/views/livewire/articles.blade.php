@@ -7,6 +7,10 @@
 
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
+<script href="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"type="text/javascript"></script>
+<script href="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/index.min.js"type="text/javascript"></script>
+
     <style>
         .modal-backdrop {
           z-index: -1;
@@ -19,6 +23,7 @@
         </x-jet-button>
     </div>
 
+    <button onclick="hh()">click me </button>
 
     <div class="flex flex-col items-center">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -567,5 +572,11 @@
 
 <!--====  End of Summernote Section  ====-->
 
+
+<script type="module">
+    import Cookies from 'js-cookie'
+
+Cookies.set('foo', 'bar')
+</script>
 <!-- FINAL DIV -->
 </div>

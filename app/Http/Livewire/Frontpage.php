@@ -12,9 +12,18 @@ use App\Models\Announcement;
 use App\Models\SystemAsset;
 use App\Models\OrganizationAsset;
 // use App\Models\DefaultInterface;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
+use App\Http\Controllers\CookieController;
+
 use Illuminate\Support\Facades\DB;
 
 use Auth;
+
 
 class Frontpage extends Component
 {
@@ -62,9 +71,17 @@ class Frontpage extends Component
 
     public $embedGrid;
 
+    private $tst;
+    public $request;
+
     public function mount($urlslug = null)
     {
         $this->retrieveContent($urlslug);
+
+        // $this->tst = new CookieController();
+        
+        // $this->tst->setCookie($request);
+        // dd($this->tst->setCookie($request)); 
     }
 
     public function retrieveContent($urlslug)
