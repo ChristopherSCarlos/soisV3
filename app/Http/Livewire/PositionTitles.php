@@ -44,7 +44,7 @@ class PositionTitles extends Component
     public $OrgDataFromUser;
     public $orgUserId;
     public $userOrganization;
-    public $selectedOrganization;
+    // public $selectedOrganization;
     public $orgCount;
     public $userData;
     public $userOrganizationData;

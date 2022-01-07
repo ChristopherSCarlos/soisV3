@@ -55,7 +55,7 @@ class OfficerPositions extends Component
         // dd($this->userData->name);
         // dd($this->userData->organizations);
         // $this->userOrganizationData = $this->userData->organizations->get();
-        // dd($this->userOrganizationData->organization_name);
+        dd($this->userOrganizationData->organization_name);
     }
 
     /*================================================
