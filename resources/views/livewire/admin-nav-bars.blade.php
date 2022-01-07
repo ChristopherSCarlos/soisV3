@@ -15,36 +15,123 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     
                     @if($getUserRole == "Super Admin")
-                    <x-jet-nav-link href="{{ route('default-interfaces') }}" :active="request()->routeIs('default-interfaces')">
-                        {{ __('Dashboard') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('pages') }}" :active="request()->routeIs('pages')" >
-                        {{ __('System Pages') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('articles') }}" :active="request()->routeIs('articles')">
-                        {{ __('News') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('organizations') }}" :active="request()->routeIs('organizations')">
-                        {{ __('Organization') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')" >
-                        {{ __('Users') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('roles') }}" :active="request()->routeIs('roles')" >
-                        {{ __('Roles') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('events') }}" :active="request()->routeIs('events')">
-                        {{ __('Events') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('announcements') }}" :active="request()->routeIs('announcements')">
-                        {{ __('Announcements') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('tags') }}" :active="request()->routeIs('tags')">
-                        {{ __('Tags') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('officers') }}" :active="request()->routeIs('officers')">
-                        {{ __('Officers') }}
-                    </x-jet-nav-link>
+                    <!-- Settings Dropdown -->
+                        <div class="ml-3 relative">
+                            <x-jet-dropdown align="right" width="48">
+                                <x-slot name="trigger">
+                                        <span class="inline-flex rounded-md">
+                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                                                Homepage 
+                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </span>
+                                </x-slot>
+                                <x-slot name="content">
+                                    <!-- Account Management -->
+                                    <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                        {{ __('Profile') }}
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('default-interfaces') }}" :active="request()->routeIs('default-interfaces')">
+                                        {{ __('Dashboard') }}
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('pages') }}" :active="request()->routeIs('pages')" >
+                                        {{ __('System Pages') }}
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('articles') }}" :active="request()->routeIs('articles')">
+                                        {{ __('News') }}
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('organizations') }}" :active="request()->routeIs('organizations')">
+                                        {{ __('Organization') }}
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('users') }}" :active="request()->routeIs('users')" >
+                                        {{ __('Users') }}
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('roles') }}" :active="request()->routeIs('roles')" >
+                                        {{ __('Roles') }}
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('announcements') }}" :active="request()->routeIs('announcements')">
+                                        {{ __('Announcements') }}
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('tags') }}" :active="request()->routeIs('tags')">
+                                        {{ __('Tags') }}
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('officers') }}" :active="request()->routeIs('officers')">
+                                        {{ __('Officers') }}
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                    <div class="border-t border-gray-100"></div>
+                                </x-slot>
+                            </x-jet-dropdown>
+                        </div>
+                        <div class="ml-3 relative">
+                            <x-jet-dropdown align="right" width="48">
+                                <x-slot name="trigger">
+                                        <span class="inline-flex rounded-md">
+                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                                                Membership Reports
+                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </span>
+                                </x-slot>
+                                <x-slot name="content">
+                                    <!-- Account Management -->
+                                    <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                        {{ __('Profile') }}
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('events') }}" :active="request()->routeIs('events')">
+                                        {{ __('Events') }}
+                                    </x-jet-dropdown-link>
+
+                                </x-slot>
+                            </x-jet-dropdown>
+                        </div>
+                        <div class="ml-3 relative">
+                            <x-jet-dropdown align="right" width="48">
+                                <x-slot name="trigger">
+                                        <span class="inline-flex rounded-md">
+                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                                                Accomplishment Reports
+                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </span>
+                                </x-slot>
+                                <x-slot name="content">
+                                    <!-- Account Management -->
+                                    <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                        {{ __('Profile') }}
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                </x-slot>
+                            </x-jet-dropdown>
+                        </div>
+                        <div class="ml-3 relative">
+                            <x-jet-dropdown align="right" width="48">
+                                <x-slot name="trigger">
+                                        <span class="inline-flex rounded-md">
+                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                                                Financial Reports
+                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </span>
+                                </x-slot>
+                                <x-slot name="content">
+                                    <!-- Account Management -->
+                                    <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                        {{ __('Profile') }}
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                </x-slot>
+                            </x-jet-dropdown>
+                        </div>
+                    
                     @endif
                     @if($getUserRole == "Home Page Admin")
                     <x-jet-nav-link href="{{ route('Organization/dashboard') }}" :active="request()->routeIs('Organization/dashboard')">

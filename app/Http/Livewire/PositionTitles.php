@@ -25,6 +25,7 @@ class PositionTitles extends Component
     public $position_title_id;
     public $position_title;
     public $organization_id;
+    public $selectedOrganization;
 
     public $user;
     public $va;
@@ -72,12 +73,22 @@ class PositionTitles extends Component
 
     public function create()
     {
+
         $this->userId = Auth::id();
         $this->user = User::find($this->userId);
-        $this->va = $this->user->organizations->first();
+        $this->role = $this->user->roles->first();
         // dd($this->va->organization_id);
-        $this->organization_id = $this->va->organization_id;
-        PositionTitle::create($this->modelCreatePositionTitle());
+        // $this->organization_id = $this->va->organization_id;
+        if($this->role->role = 'Super Admin'){
+            PositionTitle::create($this->modelCreateOrgPositionTitle());
+            // dd($this->selectedOrganization);
+
+        }elseif($this->role->role = 'Home Page Admin'){
+            $this->va = $this->user->organizations->first();
+            PositionTitle::create($this->modelCreatePositionTitle());
+            // dd($this->va);
+        }
+        // dd("HEllo");
         $this->CreatemodalFormVisible = false;
         $this->reset(); 
         $this->resetValidation(); 
@@ -88,6 +99,13 @@ class PositionTitles extends Component
         return[
             'position_title' => $this->position_title,
             'organization_id' => $this->organization_id,
+        ];
+    }
+    public function modelCreateOrgPositionTitle()
+    {
+        return[
+            'position_title' => $this->position_title,
+            'organization_id' => $this->selectedOrganization,
         ];
     }
     
