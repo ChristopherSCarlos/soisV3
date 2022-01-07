@@ -145,9 +145,10 @@ class PositionTitles extends Component
 
     public function update()
     {
+        // dd($this);
         $this->validate([
             'position_title' => 'required',
-            'organization_id' => 'required',
+            // 'organization_id' => 'required',
         ]);
         PositionTitle::find($this->position_title_id)->update($this->modelData());
         $this->UpdatemodalFormVisible = false;
@@ -157,7 +158,7 @@ class PositionTitles extends Component
     {
         return [
             'position_title' => $this->position_title,
-            'organization_id' => $this->organization_id,
+            'organization_id' => $this->selectedOrganization,
         ];
     }
     
