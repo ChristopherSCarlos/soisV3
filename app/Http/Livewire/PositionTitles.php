@@ -109,7 +109,7 @@ class PositionTitles extends Component
 
     public function loadModel()
     {
-        $data = positiontitles::find($this->position_title_id);
+        $data = PositionTitle::find($this->position_title_id);
         $this->organization_id = $data->organization_id;
         $this->position_title = $data->position_title;
     }
@@ -120,7 +120,7 @@ class PositionTitles extends Component
             'position_title' => 'required',
             'organization_id' => 'required',
         ]);
-        positiontitles::find($this->position_title_id)->update($this->modelData());
+        PositionTitle::find($this->position_title_id)->update($this->modelData());
         $this->UpdatemodalFormVisible = false;
     }
 
@@ -146,7 +146,7 @@ class PositionTitles extends Component
 
     public function delete()
     {
-        Positiontitles::find($this->position_title_id)->delete();
+        PositionTitle::find($this->position_title_id)->delete();
         $this->modelConfirmDeleteVisible = false;
         $this->resetPage();
     }
