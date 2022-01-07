@@ -159,8 +159,8 @@ class PositionTitles extends Component
     
     public function getPositionTitleData()
     {
-        return DB::table('position_titles')
-                    ->paginate(10);
+        // dd(DB::table('position_titles')->paginate(10));
+        return DB::table('position_titles')->paginate(10);
     }
     
     /*=====  End of Call Tables  ======*/
@@ -168,13 +168,6 @@ class PositionTitles extends Component
     /*=============================================
     =            Get User Organization            =
     =============================================*/
-    
-    public function getUserOrganization()
-    {
-        // dd(DB::table('position_titles')->where('organization_id','=',$this->userOrg())->paginate(10));
-        return DB::table('position_titles')->where('organization_id','=',$this->userOrg())->paginate(10);
-    }
-
     public function userOrg()
     {
         $this->userId = Auth::id();
@@ -183,6 +176,18 @@ class PositionTitles extends Component
         $this->organization_id = $this->va->organizations_id;
         return $this->organization_id;
     }
+    
+    public function getUserOrganization()
+    {
+        $this->userId = Auth::id();
+        $this->user = User::find($this->userId);
+        $this->va = $this->user->organizations->first();
+        $this->organization_id = $this->va->organizations_id;
+        // dd("Hello");
+        // dd(DB::table('position_titles')->where('organization_id','=',$this->userOrg())->paginate(10));
+        return DB::table('position_titles')->where('organization_id','=',$this->organization_id)->paginate(10);
+    }
+
     
     /*=====  End of Get User Organization  ======*/
     
@@ -198,7 +203,7 @@ class PositionTitles extends Component
         // dd($this->articleCreatedDataId);
         $this->userData = User::find($this->userId);
         $this->userRoles = $this->userData->roles->first();
-        $this->userRolesString = $this->userRoles->role_name;
+        $this->userRolesString = $this->userRoles->role;
         // dd($this->userRolesString);
         // dd(gettype($this->userRolesString));
         return $this->userRolesString;
