@@ -37,7 +37,7 @@
                 <select wire:model="organization_id" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                         <option default hidden>Choose organization</option>
                     @foreach($getOrganization as $orgs)
-                        <option value="{{$orgs->organizations_id}}">{{$orgs->organization_name}}</option>
+                        <option value="{{$orgs->organization_id}}">{{$orgs->organization_name}}</option>
                     @endforeach
                 </select>
                 @error('organization_id') <span class="error">{{ $message }}</span> @enderror

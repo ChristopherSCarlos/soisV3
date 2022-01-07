@@ -302,8 +302,8 @@ class Officers extends LivewireDatatable
     public function builder()
     {
         return Officer::query()
-            ->leftJoin('organizations', 'organizations.organizations_id', 'officers.organization_id')
-            ->leftJoin('officer_positions', 'officer_positions.officer_positions_id', 'officers.position_category');
+            ->leftJoin('organizations', 'organizations.organization_id', 'officers.organization_id');
+            // ->leftJoin('officer_positions', 'officer_positions.officer_positions_id', 'officers.position_category');
     }
     
     /*=====  End of Join tables Section  ======*/
@@ -441,10 +441,10 @@ class Officers extends LivewireDatatable
     =            Get Position Category Section            =
     =====================================================*/
     
-    public function getOfficerPositionsFromDatabase()
-    {
-        return DB::table('officer_positions')->where('status','=','1')->get();
-    }
+    // public function getOfficerPositionsFromDatabase()
+    // {
+    //     return DB::table('officer_positions')->where('status','=','1')->get();
+    // }
     
     /*=====  End of Get Position Category Section  ======*/
     
