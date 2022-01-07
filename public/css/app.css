@@ -1134,6 +1134,12 @@ select {
 .col-span-10 {
 	grid-column: span 10 / span 10;
 }
+.m-1 {
+	margin: 0.25rem;
+}
+.m-2 {
+	margin: 0.5rem;
+}
 .m-8 {
 	margin: 2rem;
 }
