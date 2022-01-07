@@ -72,10 +72,11 @@ class PositionTitles extends Component
 
     public function create()
     {
-        positiontitles::create($this->modelCreatePositionTitle());
-        $this->CreatemodalFormVisible = false;
-        $this->reset(); 
-        $this->resetValidation(); 
+        // dd("Hello");
+        PositionTitle::create($this->modelCreatePositionTitle());
+        // $this->CreatemodalFormVisible = false;
+        // $this->reset(); 
+        // $this->resetValidation(); 
     }
 
     public function modelCreatePositionTitle()

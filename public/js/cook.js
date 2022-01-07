@@ -1,3 +1,2 @@
-import Cookies from 'js-cookie'
-
-Cookies.set('foo', 'bar')
+document.cookie = "user=John"; // update only cookie named 'user'
+alert(document.cookie)

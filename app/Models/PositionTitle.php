@@ -9,10 +9,11 @@ class PositionTitle extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $primaryKey = 'position_title_id';
 
     protected $fillable = [
-        'position_title_id',
         'position_title',
         'organization_id',
     ];
