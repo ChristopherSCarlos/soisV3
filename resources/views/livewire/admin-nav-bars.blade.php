@@ -82,8 +82,8 @@
                                     <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                         {{ __('Profile') }}
                                     </x-jet-dropdown-link>
-                                    <x-jet-dropdown-link href="{{ route('events') }}" :active="request()->routeIs('events')">
-                                        {{ __('Events') }}
+                                    <x-jet-dropdown-link href="{{ route('academic-memberships') }}" :active="request()->routeIs('academic-memberships')">
+                                        {{ __('Academic Membership') }}
                                     </x-jet-dropdown-link>
 
                                 </x-slot>
