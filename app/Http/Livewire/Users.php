@@ -35,6 +35,7 @@ class Users extends Component
     public $modalAddOrganizationFormVisible = false;
     public $modalCreateTeamsFormVisible = false;
     public $modalDeleteTeamsFormVisible = false;
+    public $modalUpdateUserPasswordFormVisible = false;
 
 
     // variables
@@ -122,7 +123,7 @@ class Users extends Component
     public function modelCreateUser()
     {
         return [
-            'name' => $this->name,
+            'first_name' => $this->name,
             'email' => $this->email,
             'status' => '1',
             'student_number' => $this->student_number,
@@ -145,25 +146,20 @@ class Users extends Component
     public function modelUpdateUserDatas()
     {
         $data = User::find($this->userId);
-        $this->name = $data->name;
+        $this->name = $data->first_name;
         $this->email = $data->email;
         $this->student_number = $data->student_number;
     }
     public function modelUpdateUser()
     {
         return [
-            'name' => $this->name,
+            'first_name' => $this->name,
             'email' => $this->email,
             'student_number' => $this->student_number,
         ];
     }
     public function update()
     {
-        $this->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'student_number' => 'required',
-        ]);
         User::find($this->userId)->update($this->modelUpdateUser());
         $this->modalFormVisible = false;
         $this->resetValidation();
@@ -203,7 +199,17 @@ class Users extends Component
     /*=====  End of Delete User Section comment block  ======*/
     
 
-
+    /*==============================================
+    =            Deleted Table Redirect            =
+    ==============================================*/
+    
+    public function deletedusers()
+    {
+        return redirect('/users/deleted-users');
+    }
+    
+    /*=====  End of Deleted Table Redirect  ======*/
+    
 
     /*==============================================================
     =            Sync Role To UserSection comment block            =
@@ -217,7 +223,7 @@ class Users extends Component
     public function displayRole()
     {
         return DB::table('roles')
-            ->orderBy('roles_id','asc')
+            ->orderBy('role_id','asc')
             ->get();
     }
     public function addRoleToUser()
@@ -250,13 +256,15 @@ class Users extends Component
     public function displayOrganization()
     {
         return DB::table('organizations')
-            ->orderBy('organizations_id','asc')
+            ->orderBy('organization_id','asc')
             ->get();
     }
     public function addOrganizationToUser()
     {
         $user = User::find($this->userId);
-        $user->organization()->sync($this->organizationModel);
+        // dd($this->user);
+        // dd($this->organizationModel);
+        $user->organizations()->sync($this->organizationModel);
         $this->modalAddOrganizationFormVisible = false;
         $this->reset();
         $this->resetAddRoleUserValidation();
@@ -265,10 +273,21 @@ class Users extends Component
     
     /*=====  End of Add Organization to UserSection comment block  ======*/
     
-
-
-
-
+    public function updateUserPasswordModel($id)
+    {
+        $this->resetValidation();
+        $this->reset();
+        $this->userId = $id;
+        $this->modalUpdateUserPasswordFormVisible = true;
+    }
+    public function updateUserPassword()
+    {
+        User::find($this->userId)->update(['password'=>Hash::make($this->password)]);
+        $this->modalUpdateUserPasswordFormVisible = false;
+        $this->resetValidation();
+        $this->reset();
+        $this->password = null;
+    }
 
 
 
@@ -281,7 +300,7 @@ class Users extends Component
     public function rules()
     {
         return [
-            'name' => 'required',
+            'first_name' => 'required',
             'email' => 'required',
             'password' => 'required',
             'status' => 'required',
@@ -298,7 +317,7 @@ class Users extends Component
     public function listOfRoles()
     {
         return DB::table('roles')
-            ->orderBy('roles_id','asc')
+            ->orderBy('role_id','asc')
             ->get();
     }
     /**
@@ -311,7 +330,7 @@ class Users extends Component
         // return User::paginate(10);
         return DB::table('users')
                 ->where('status','=','1')
-                ->orderBy('users_id','asc')
+                ->orderBy('user_id','asc')
                 ->paginate(10);
                 // ->get();
     }
@@ -321,7 +340,7 @@ class Users extends Component
         return view('livewire.users',[
             'displayData' => $this->read(),
             'rolesList' => $this->listOfRoles(),
-
+            'displayOrganizationData' => $this->displayOrganization(),
         ]);
     }
 }

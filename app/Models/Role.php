@@ -16,11 +16,16 @@ class Role extends Model
      * This is the primary key
      *
      */
-    protected $primaryKey = 'roles_id';
+    protected $primaryKey = 'role_id';
 
    protected $fillable = [
         'role_name',
         'role_description',
         'guard_name',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class,'role_user','role_id','user_id','organization_id');
+    }
 }

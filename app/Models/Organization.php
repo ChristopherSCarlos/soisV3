@@ -11,7 +11,7 @@ class Organization extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'organizations_id';
+    protected $primaryKey = 'organization_id';
 
     protected $fillable = [
 
@@ -22,6 +22,7 @@ class Organization extends Model
         'organization_secondary_color',
 
         'organization_slug',
+        'organization_type',
         'page_type',
         'status',
     ];

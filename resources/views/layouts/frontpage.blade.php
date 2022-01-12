@@ -7,8 +7,8 @@
         <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-        <title>SOIS</title>
-        
+        <title>SOIS: @yield('title')</title>
+        <script src="https://kit.fontawesome.com/17005ae465.js" crossorigin="anonymous"></script>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -19,6 +19,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Pacifico&family=Rock+Salt&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Ephesis&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Genos:wght@400;500;600;700&display=swap" rel="stylesheet">
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
@@ -34,7 +35,10 @@
 
         <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
         <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-        <script type="text/javascript" src="slick/slick.min.js"></script>
+        <!-- <script type="text/javascript" src="slick/slick.min.js"></script> -->
+        <script type="text/javascript" src="{{ URL::asset('slick/slick/slick.min.js') }}"></script>
+
+
 
             <!-- JAVACRIPT -->
 
@@ -43,10 +47,11 @@
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        <!-- <link rel="stylesheet" type="text/css" href="slick/slick/slick.css"/>
-        // Add the new slick-theme.css if you want the default styling
-        <link rel="stylesheet" type="text/css" href="slick/slick/slick-theme.css"/> -->
+        <link rel="stylesheet" type="text/css" href="slick/slick/slick.css"/>
+        <link rel="stylesheet" type="text/css" href="slick/slick/slick-theme.css"/>
 
+        <script type="text/javascript" src="{{ URL::asset('js/javas.js') }}"></script>
+        <script type="text/javascript" src="{{ URL::asset('js/slick.js') }}"></script>
 
 
         @trixassets
@@ -57,7 +62,8 @@
 
         
     </head>
-    <body id="FrontaPageContent" class="font-sans antialiased">
+    <body id="FrontaPageContent" class="font-sans antialiased" onload="onloadFunctions()">
+        
         <x-jet-banner />
 
         <div class="min-h-screen bg-gray-100">

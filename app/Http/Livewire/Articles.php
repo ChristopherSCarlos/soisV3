@@ -8,8 +8,11 @@ use Auth;
 use Storage;
 
 use App\Models\User;
-// use App\Models\Organization;
+use App\Models\Organization;
 use App\Models\Article;
+use App\Models\AssetType;
+use App\Models\OrganizationAsset;
+use App\Models\SystemAsset;
 
 use Livewire\withPagination;
 use Illuminate\Support\STR;
@@ -22,6 +25,7 @@ use Illuminate\Support\Facades\DB;
 class Articles extends Component
 {
     use WithPagination;
+    use WithFileUploads;  
     /* MODALS */
     public $modalCreateNewsFormVisible = false;
     public $modalUpdateNewsFormVisible = false;
@@ -29,7 +33,12 @@ class Articles extends Component
     public $modalFeatureNewsFormVisible = false;
     public $modalDeleteFeatureNewsFormVisible = false;
     public $modalSetTopNewsFormVisible = false;
+    public $modalSetOrganizationTopNewsFormVisible = false;
     public $modalUnSetTopNewsFormVisible = false;
+    public $modalFeatureNewsInOrganizationPageFormVisible = false;
+    public $modalUnFeatureNewsInOrganizationPageFormVisible = false;
+    public $modalEditNewsImageFormVisible = false;
+    public $modalAddTagsFormVisible = false;
     
     /* VARIABLES */
     public $userId;
@@ -48,6 +57,7 @@ class Articles extends Component
     public $articleId;
     public $artId;
     public $seed;
+    public $is_article_featured_home_page;
 
     public $selectedOrganizations = [];
     public $latestArticleCreated;
@@ -74,10 +84,44 @@ class Articles extends Component
     public $newsFeaturedNull = null;
     public $isArticleInFeaturedId;
     public $isArticleTopNews;
-    public $role;
+    public $isArticleOrganizationTopNews;
 
-    public $rolesss;
+    public $article_featured_image;
+    public $article_featured_image_name;
+    public $asset_type_id;
+    public $is_latest_logo;
+    public $is_latest_banner;
+    public $page_type_id;
+    public $latestOrganizationIDtoInsertToDB;
+    public $latestNewsID;
+    public $va;
+    public $article_id;
 
+    public $article_image_view;
+    public $selectedNewsAssetDataIsLatestImage;
+    public $selectedNewsAssetDataID;
+    public $orgID;
+
+    public $convertedArticleSlug;
+    public $articleTags = [];
+    public $article_type_id;
+
+
+    /*======================================================
+    =            Add Tags Section comment block            =
+    ======================================================*/
+    public function addTags()
+    {
+        $this->modalAddTagsFormVisible = true;
+    }
+    public function AddTagsToArticles()
+    {
+        dd($this->articleTags);
+        // $this->modalAddTagsFormVisible = false;
+    }
+    
+    /*=====  End of Add Tags Section comment block  ======*/
+    
 
     /*====================================================
     =            Create Section comment block            =
@@ -90,15 +134,75 @@ class Articles extends Component
     }
     public function create()
     {
-        $this->userId = Auth::user()->users_id;
+        // dd($this);
+        $this->validate([
+            'article_featured_image' => 'required|file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
+            'article_content' => 'required',
+        ]);
+
+        $article_content = $this->article_content;
+        $dom = new \DomDocument();
+        $dom->loadHtml($article_content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $imageFile = $dom->getElementsByTagName('imageFile');
+        foreach($imageFile as $item => $image){
+            $data = $img->getAttribute('src');
+
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+
+            $imgeData = base64_decode($data);
+            $image_name= "/upload/" . time().$item.'.png';
+            $path = public_path() . $image_name;
+            file_put_contents($path, $imgeData);
+            $image->removeAttribute('src');
+            $image->setAttribute('src', $image_name);
+        }
+        $article_content = $dom->saveHTML();
+
+        $this->article_featured_image_name = time().'.'.$this->article_featured_image->extension();
+        // dd($this->article_featured_image_name);
+
+
+        $this->article_featured_image->store('files', 'imgfolder',$this->article_featured_image_name);
+
+        $this->article_featured_image->storeAs('files',$this->article_featured_image_name, 'imgfolder');
+
+
+        $this->userId = Auth::user()->user_id;
         $this->user = User::find($this->userId);
-        $this->article_slug = strtolower($this->article_title);
-        $this->article_slug = str_replace(" ","-",$this->article_slug);
+        $this->va = $this->user->organizations->first();
+
+
+        // dd($this->va);
+        $this->latestOrganizationIDtoInsertToDB = $this->va->organization_id;
+        // dd($this->latestOrganizationIDtoInsertToDB);
+
         // $this->OrgDataFromUser = $this->user->organization->first();
         // $this->OrgDataFromUserOrganizationNameString = $this->OrgDataFromUser->organization_name;
+        $this->convertedArticleSlug = str_replace(' ', '-', $this->article_title);
+
         Article::create($this->createModel());
         // $this->syncArticleOrganization();
+
+        $this->latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
+        // dd($this->latestNewsID);
+
+        OrganizationAsset::create([
+            'organization_id' => $this->latestOrganizationIDtoInsertToDB,
+            'asset_type_id' => '4',
+            'file' => $this->article_featured_image_name,
+            'asset_name' => $this->article_featured_image_name,
+            'is_latest_logo' => '0',
+            'is_latest_banner' => '0',
+            'is_latest_image' => '1',
+            'user_id' => $this->userId,
+            'page_type_id' => '2',
+            'status' => '1',
+            'articles_id' => $this->latestNewsID,
+        ]);
+
         $this->modalCreateNewsFormVisible = false;
+        $this->article_featured_image = null;
         $this->reset();
         $this->resetValidation();
     }
@@ -111,9 +215,8 @@ class Articles extends Component
             'type' => $this->type,
             'status' => $this->status,
             'user_id' => $this->userId,
-            'article_slug' => $this->article_slug,
-            'is_featured_in_newspage' => '0',
-            'is_article_featured_landing_page' => '0',
+            'article_slug' => $this->convertedArticleSlug,
+            'organization_id' => $this->latestOrganizationIDtoInsertToDB,
         ];
     }
     public function syncArticleOrganization()
@@ -136,10 +239,12 @@ class Articles extends Component
     ====================================================*/
     public function updateNewsShowModal($id)
     {
+        $this->resetValidation();
+        $this->reset();
         $this->articleId = $id;
         // dd($this->articleId);
-        $this->modalUpdateNewsFormVisible = true;
         $this->loadModel();
+        $this->modalUpdateNewsFormVisible = true;
     }
     public function loadModel()
     {
@@ -160,6 +265,7 @@ class Articles extends Component
     }
     public function update()
     {
+        // dd($this);
         $this->validate([
             'article_title' => 'required',
             'article_subtitle' => 'required',
@@ -258,10 +364,10 @@ class Articles extends Component
         // Article::find($this->newsId)->update($this->modelData());
         $this->isArticleTopNews = Article::find($this->newsId);
         if ($this->isArticleTopNews != null) {
-            Article::where('is_article_featured_landing_page',true)->update([
-                'is_article_featured_landing_page' => false,
+            Article::where('is_article_featured_home_page',true)->update([
+                'is_article_featured_home_page' => false,
             ]);
-            DB::table('articles')->where('articles_id','=',$this->isArticleTopNews->articles_id)->update(['is_article_featured_landing_page'=>"1"]);
+            DB::table('articles')->where('articles_id','=',$this->isArticleTopNews->articles_id)->update(['is_article_featured_home_page'=>"1"]);
             $this->modalSetTopNewsFormVisible = false;
             $this->reset();
             $this->resetValidation();
@@ -270,29 +376,27 @@ class Articles extends Component
         }
         
     }
-    
     /*=====  End of Set Articles as Top News Section comment block  ======*/
     
-    /*========================================================================
-    =            Unset Articles as Top News Section comment block            =
-    ========================================================================*/
-    public function unSetTopNewsShowModal($id)
+    /*===========================================================================================
+    =            Set Articles as Top News in Organization Page Section comment block            =
+    ===========================================================================================*/
+    public function setOrganizationTopNewsShowModal($id)
     {
         $this->newsId = $id;
-        $this->modalUnSetTopNewsFormVisible = true;
+        $this->modalSetOrganizationTopNewsFormVisible = true;
     }
-    public function unSetTopNews()
+    public function setOrganizationTopNews()
     {
+        // dd($this->newsId);
         // Article::find($this->newsId)->update($this->modelData());
-        $this->isArticleTopNews = Article::find($this->newsId);
-        // dd($this->isArticleTopNews);
-
-        if ($this->isArticleTopNews != '1') {
-            Article::where('is_article_featured_landing_page',true)->update([
-                'is_article_featured_landing_page' => false,
+        $this->isArticleOrganizationTopNews = Article::find($this->newsId);
+        if ($this->isArticleOrganizationTopNews != null) {
+            Article::where('is_article_top_news_organization_page',true)->update([
+                'is_article_top_news_organization_page' => false,
             ]);
-            DB::table('articles')->where('articles_id','=',$this->isArticleTopNews->articles_id)->update(['is_article_featured_landing_page'=>"0"]);
-            $this->modalUnSetTopNewsFormVisible = false;
+            DB::table('articles')->where('articles_id','=',$this->isArticleOrganizationTopNews->articles_id)->update(['is_article_top_news_organization_page'=>"1"]);
+            $this->modalSetOrganizationTopNewsFormVisible = false;
             $this->reset();
             $this->resetValidation();
         }else{
@@ -302,9 +406,163 @@ class Articles extends Component
     }
     
     
-    /*=====  End of Unset Articles as Top News Section comment block  ======*/
+    /*=====  End of Set Articles as Top News in Organization Page Section comment block  ======*/
     
 
+
+    /*=======================================================================
+    =            Featured News to Newspage Section comment block            =
+    =======================================================================*/
+    public function featuredNewsToOrganizationPageShowModal($id)
+    {
+        $this->newsId = $id;
+        $this->articleData = Article::where('articles_id','=',$this->newsId)->first();
+        // dd($this->articleData->article_title);
+        $this->modalFeatureNewsInOrganizationPageFormVisible = true;
+        // dd($this->articleData);
+    }
+    public function featureInOrganizationPage()
+    {
+        DB::table('articles')->where('articles_id','=',$this->newsId)->update(['is_article_featured_organization_page'=>"1"]);
+        $this->modalFeatureNewsInOrganizationPageFormVisible = false;
+        $this->reset();
+        $this->resetValidation();
+    }
+    /*=====  End of Featured News to Newspage Section comment block  ======*/
+    
+    /*=================================================================================
+    =            UnFeature News to Organization Page Section comment block            =
+    =================================================================================*/
+    public function unFeaturedNewsToOrganizationPageShowModal($id)
+    {
+        $this->newsId = $id;
+        $this->articleData = Article::where('articles_id','=',$this->newsId)->first();
+        // dd($this->articleData);
+        $this->modalUnFeatureNewsInOrganizationPageFormVisible = true;
+    }
+    public function unFeatureInOrganizationPage()
+    {
+        DB::table('articles')->where('articles_id','=',$this->newsId)->update(['is_article_featured_organization_page'=>"0"]);
+        $this->modalUnFeatureNewsInOrganizationPageFormVisible = false;
+        $this->reset();
+        $this->resetValidation();
+    }
+    
+    /*=====  End of UnFeature News to Organization Page Section comment block  ======*/
+    
+    /*=================================================================
+    =            Edit Featured Image Section comment block            =
+    =================================================================*/
+    public function editImageNewsModal($id)
+    {
+        $this->resetValidation();
+        $this->reset();
+        $this->newsId = $id;
+        $this->viewImage();
+        $this->modalEditNewsImageFormVisible = true;
+    }
+    public function editNewsImage()
+    {
+        $this->validate([
+            'article_featured_image' => 'required',
+        ]);
+        $this->article_featured_image_name = time().'.'.$this->article_featured_image->extension();
+
+        $this->article_featured_image->store('files', 'imgfolder',$this->article_featured_image_name);
+
+        $this->article_featured_image->storeAs('files',$this->article_featured_image_name, 'imgfolder');
+
+
+        $this->userId = Auth::user()->user_id;
+        $this->user = User::find($this->userId);
+        $this->va = $this->user->organizations->first();
+        // dd($this->va);
+        $this->latestOrganizationIDtoInsertToDB = $this->va->organization_id;
+        // dd($this->latestOrganizationIDtoInsertToDB);
+
+        // $this->OrgDataFromUser = $this->user->organization->first();
+        // $this->OrgDataFromUserOrganizationNameString = $this->OrgDataFromUser->organization_name;
+        // $this->syncArticleOrganization();
+
+        // dd($this->latestNewsID);
+
+        OrganizationAsset::create([
+            'asset_type_id' => '4',
+            'asset_name' => $this->article_featured_image_name,
+            'is_latest_logo' => '0',
+            'is_latest_banner' => '0',
+            'is_latest_image' => '1',
+            'user_id' => $this->userId,
+            'page_type_id' => '2',
+            'organization_id' => $this->latestOrganizationIDtoInsertToDB,
+            'status' => '1',
+            'articles_id' => $this->newsId,
+        ]);
+
+        $this->selectedNewsAssetDataIsLatestImage = OrganizationAsset::latest()->where('articles_id','=',$this->newsId)->where('status','=','1')->first();
+        // dd($this->selectedNewsAssetDataIsLatestImage);
+        // dd($this->selectedNewsAssetDataIsLatestImage);
+        if ($this->selectedNewsAssetDataIsLatestImage != null) {
+            $this->selectedNewsAssetDataID = $this->selectedNewsAssetDataIsLatestImage->system_assets_id;
+            // dd($this->selectedNewsAssetDataID);
+            // dd(OrganizationAsset::find('organization_id','=',$this->newsId)->where('is_latest_logo','=','1'));
+            OrganizationAsset::where('articles_id','=',$this->newsId)->where('is_latest_image','=','1')->update([
+                'is_latest_image' => '0',
+            ]);
+            DB::table('organization_assets')->where('system_assets_id','=',$this->selectedNewsAssetDataID)->update(['is_latest_image'=>'1']);
+            $this->modalEditNewsImageFormVisible = false;
+            $this->reset();
+            $this->resetValidation();
+        }else{
+            $this->modalEditNewsImageFormVisible = false;
+            $this->reset();
+            $this->resetValidation();
+        }
+        $this->modalEditNewsImageFormVisible = false;
+        $this->reset();
+        $this->resetValidation();
+    }
+    
+    /*=====  End of Edit Featured Image Section comment block  ======*/
+    
+    public function viewImage()
+    {
+        $this->article_image_view = DB::table('organization_assets')->where('articles_id','=',$this->newsId)->where('is_latest_image','=','1')->get();
+        return $this->article_image_view;
+    }
+
+    /**
+     *
+     * Get User Role for Article
+     *
+     */
+    public function getArticleOrganization()
+    {
+        $this->userId = Auth::id();
+
+        // dd(DB::table('articles')->where('user_id', '=', $this->userId)->get());
+        return DB::table('articles')
+           ->where('user_id', '=', $this->userId)
+           ->paginate(3);
+    }
+
+    /**
+     *
+     * Get User Role
+     *
+     */
+    public function getUserRole()
+    {
+        $this->userId = Auth::id();
+        // dd($this->userId);
+        // dd($this->articleCreatedDataId);
+        $this->userData = User::find($this->userId);
+        $this->userRoles = $this->userData->roles->first();
+        $this->userRolesString = $this->userRoles->role_name;
+        // dd($this->userRolesString);
+        // dd(gettype($this->userRolesString));
+        return $this->userRolesString;
+    }
 
     /**
      *
@@ -313,41 +571,32 @@ class Articles extends Component
      */
     public function getArticleTableData()
     {
-        $this->userId = Auth::user()->users_id;
-        $this->userData = User::find($this->userId);
-        $this->role = $this->userData->roles->first();
-        $this->userRoles = $this->role->role_name;
-        $this->rolesss = Auth::user()->roles;
-        
-        // if (Auth::user()->roles == 'Super Admin') {
-        //     echo "hello";
-        // }elseif(Auth::user()->roles == 'Organization Admin'){
-        //     echo "rowld";
-        // }
-
-        // dd(Auth::user()->roles->role_id);
-
-
-
-
-
-
-
-
-
-
-
-
-
+        $this->userId = Auth::user()->user_id;
+        // dd($this->userId);
         return DB::table('articles')
-           ->where('user_id', '=', $this->userId)
            ->paginate(5);
+    }
+
+    public function getTagsDataFromDatabase()
+    {
+        return DB::table('tags')->where('status','=','1')->get();
+    }
+
+    public function getArticleType()
+    {
+        // dd(DB::table('article_types')->where('status','=','1')->get());
+        return DB::table('article_types')->where('status','=','1')->get();
     }
 
     public function render()
     {
         return view('livewire.articles',[
             'articleDatas' => $this->getArticleTableData(),
+            'articleDataController' => $this->getUserRole(),
+            'articleOrganization' => $this->getArticleOrganization(),
+            'displayArticleImage' => $this->viewImage(),
+            'displayTagsData' => $this->getTagsDataFromDatabase(),
+            'displayArticleTypeData' => $this->getArticleType(),
         ]);
     }
 }

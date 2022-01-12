@@ -30,6 +30,8 @@ class Tags extends Component
     public $tagsId;
     public $tagData;
 
+    public $link = "https://getbootstrap.com/";
+
 
     /*=========================================================
     =            Create Tags Section comment block            =
@@ -42,7 +44,7 @@ class Tags extends Component
     }
     public function create()
     {
-        $this->userId = Auth::user()->users_id;
+        $this->userId = Auth::user()->user_id;
         Tag::create($this->uploadTagsModel());
         $this->modalCreateTagsFormVisible = false;
         $this->reset();
@@ -143,6 +145,11 @@ class Tags extends Component
             'tags_type' => 'required',
             'status' => 'required',
         ];
+    }
+
+    public function opentab()
+    {
+        dd("hello");
     }
 
     public function render()
