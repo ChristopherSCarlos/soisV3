@@ -97,7 +97,7 @@
                 <x-jet-secondary-button wire:click="$toggle('modalViewMembersFormVisible')" wire:loading.attr="disabled">
                     {{ __('Cancel') }}
                 </x-jet-secondary-button>
-            </x-slot>
+                </x-slot>
         </x-jet-dialog-modal>
 
 
