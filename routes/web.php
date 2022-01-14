@@ -76,6 +76,10 @@ Route::group(['middleware' => [
             return view('admin.officers');
         })->name('officers');
 
+        Route::get('/academic-memberships', function(){
+            return view('admin.acadmic-membership');
+        })->name('academic-memberships');
+
         Route::get('/system-pages/create-system-page', function(){
             return view('admin.pages-create-process');
         })->name('system-pages/create-system-page');
