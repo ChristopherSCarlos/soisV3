@@ -31,7 +31,7 @@ class Roles extends Component
     public $modalDeleteRolesFormVisible = false;
 
     // variables
-    public $role_name;
+    public $role;
     public $role_description;
     public $guard_name = 'web';
     public $roleId;
@@ -71,7 +71,7 @@ class Roles extends Component
     public function roleData()
     {
         return [
-            'role' => $this->role_name,
+            'role' => $this->role,
             'role_description' => $this->role_description,
             'guard_name' => $this->guard_name,
         ];

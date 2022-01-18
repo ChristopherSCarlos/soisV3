@@ -597,6 +597,7 @@ hr{
     height: 100%;
 }
 .organization-latest-news-slider{
+    height: 20vw;
     object-fit: fill;
     margin-left: 5%;
     margin-right: 5%;
@@ -920,3 +921,56 @@ h3 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #D62929;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.frontpage-announcement{
+    background:#2A0001; 
+    color:#ffe004;
+}
+.frontpage-announcement-data-link-container{
+    width: 100vw;
+}
+.frontpage-announcement-data-container{
+    width:100vw;
+}
+
+
+.slider-title-container{
+    position: absolute; top: 90%; bottom: 0%; background: rgba(33, 38, 38, .8); width: 100vw;
+}
+
+.slider-title-data{
+    color: rgba(255, 255, 255, 1.0);
+}
+
+.frontpage-announcement-list-container{
+    overflow:auto;
+}
+
+.frontpage-latest-news-slider-data-image{
+    object-fit:fill; height: 20vw
+}
+
+
+
+
+
+
+

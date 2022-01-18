@@ -558,7 +558,7 @@ class Articles extends Component
         // dd($this->articleCreatedDataId);
         $this->userData = User::find($this->userId);
         $this->userRoles = $this->userData->roles->first();
-        $this->userRolesString = $this->userRoles->role_name;
+        $this->userRolesString = $this->userRoles->role;
         // dd($this->userRolesString);
         // dd(gettype($this->userRolesString));
         return $this->userRolesString;

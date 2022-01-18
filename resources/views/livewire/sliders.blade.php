@@ -1,11 +1,12 @@
 <div class="p-6">
     <h2 class="table-title">Slider</h2>
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
-        @if($userRole == 'Super Admin')
+        @if($userRoleString == 'Super Admin')
         <x-jet-button wire:click="createSlider">
             {{ __('Add Data in Slider') }}
         </x-jet-button>
         @else
+        <p>{{$userRoleString}}</p>
         <x-jet-button wire:click="createOrgSlider">
             {{ __('Add Data in Organization Slider') }}
         </x-jet-button>
@@ -29,7 +30,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                                @if($userRole == 'Super Admin')
+                                @if($userRoleString == 'Super Admin')
                                     @if($getCarouselHomepage->count())
                                         @foreach($getCarouselHomepage as $item)
                                              <tr>
@@ -100,7 +101,7 @@
             </div>
         </div>
     </div>
-    @if($userRole == 'Super Admin')
+    @if($userRoleString == 'Super Admin')
         {{$getCarouselHomepage->links()}}
     @else
         {{$getDisplayOrganizationArticleOnSelectModal->links()}}
