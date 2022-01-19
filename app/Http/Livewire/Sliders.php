@@ -31,6 +31,7 @@ class Sliders extends Component
     
     private $object;
     public $userRole;
+    public $userRoleString;
 
     /* Modals */
     public $modalAddNewsFormVisible = false;
@@ -52,6 +53,8 @@ class Sliders extends Component
     {
         $this->object = new Objects();
         $this->userRole = $this->object->roles();
+        $this->userRoleString = $this->userRole->role;
+        // dd($this->userRoleString);
     }
 
 
@@ -136,12 +139,16 @@ class Sliders extends Component
 
     public function getArticlesFromDatabase()
     {
+        // dd(DB::table('articles')->where('status','=','1')->get());
+        // dd(Article::where('status','=','1')->get()   );
         return Article::where('status','=','1')->get();
     }
 
     public function read()
     {
+
         // dd(DB::table('articles')->where('is_carousel_homepage','=','1')->get());
+        // dd(DB::table('articles')->where('is_carousel_homepage','=','1')->paginate(10));
         return DB::table('articles')->where('is_carousel_homepage','=','1')->paginate(10);
     }
 
@@ -152,6 +159,11 @@ class Sliders extends Component
         $this->va = $this->user->organizations->first();
         $this->organization_id = $this->va->organization_id;
         return $this->organization_id;
+    }
+
+    public function getRole()
+    {
+        // dd($this->userRole->role);
     }
 
     public function render()

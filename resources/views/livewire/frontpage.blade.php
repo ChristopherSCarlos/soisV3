@@ -81,12 +81,12 @@
      </div>
 </div>
 
-<div class=" mb-6" style="background:#2A0001; color:#ffe004;">
+<div class="frontpage-announcement mb-6" style="">
           <div class="homepage-news-bar">
                @foreach($getDisplayAnnouncementFeaturedHomepage as $HomepageAnnouncement)
-               <div class="" style="width: 100vw;">
+               <div class="frontpage-announcement-data-link-container" style="">
                     <a href="{{$HomepageAnnouncement->announcement_slug}}">
-                         <div class="flex flex-row justify-center items-center" style="width:100vw;">
+                         <div class="frontpage-announcement-data-container flex flex-row justify-center items-center" style="">
                               <img class="h-5 ml-5 mr-5" src="{{ asset('image/svg/pup.svg') }}">
                               <h5 class="text-center" style=" ">{{$HomepageAnnouncement->announcement_title}}</h5>
                               <img class="h-5 ml-5 mr-5" src="{{ asset('image/svg/pup.svg') }}">
@@ -109,8 +109,8 @@
                         @endif
                     @endforeach
                   <h5 class="text-center"></h5>
-               <div style="position: absolute; top: 90%; bottom: 0%; background: rgba(33, 38, 38, .8); width: 100vw;">
-                    <p style="color: rgba(255, 255, 255, 1.0);">{{$HomepageNews->article_title}}</p>
+               <div class="slider-title-container" style="">
+                    <p class="slider-title-data" style="">{{$HomepageNews->article_title}}</p>
 
                </div>
               </div>
@@ -129,7 +129,7 @@
                <div><p class="homepage-titles"><strong>Latest Announcements</strong></p></div>
 
           </div>
-          <div class=" h-5/6" style="overflow:auto;">
+          <div class="frontpage-announcement-list-container h-5/6" style="">
           @foreach($getDisplayAnnouncementFeaturedHomepage as $HomepageAnnouncement)
                <div class="annonuncement-links-homepage mt-5 bg-gray-200 hover:bg-gray-600">
                     <a class="bg-gray-200 hover:bg-gray-600 hover:text-white" href="{{$HomepageAnnouncement->announcement_title}}">
@@ -153,7 +153,7 @@
                                        <div class="flex justify-center items-center bg-white-800" style="">
                                              @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                                  @if($newsImage->articles_id == $homepageLatestNews->articles_id)
-                                                     <img class="organization-latest-news-slider" style="object-fit:fill; height: 20vw" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                                     <img class="organization-latest-news-slider" style="" src="{{ asset('files/'.$newsImage->asset_name) }}">
                                                  @endif
                                              @endforeach
                                        </div>
