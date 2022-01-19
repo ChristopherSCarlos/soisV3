@@ -30,5 +30,4 @@ class Article extends Model
         'organization_id',
         'article_type_id',
     ];
-    
 }
