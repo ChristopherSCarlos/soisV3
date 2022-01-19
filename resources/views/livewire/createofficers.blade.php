@@ -54,7 +54,12 @@
             </div>
             <div class="mt-4">
                 <x-jet-label for="position" value="{{ __('Position') }}" />
-                <x-jet-input wire:model="position" id="position" class="block mt-1 w-full" type="text" required/>
+                <select wire:model="position" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <option default hidden>Choose Position</option>
+                    @foreach($PositionTitlesData as $pos)
+                        <option value="{{$pos->position_title_id}}">{{$pos->position_title}}</option>
+                    @endforeach
+                </select>
                 @error('position') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">

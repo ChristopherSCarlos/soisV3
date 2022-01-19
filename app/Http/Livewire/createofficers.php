@@ -59,6 +59,12 @@ class createofficers extends Component
     public $position_category;
     public $status;
     public $officer_signature;
+    public $authUser;
+    public $user;
+    public $OrgDataFromUser;
+    public $orgUserId;
+    public $userOrganization;
+    public $orgCount;
 
     public $fileName;
 
@@ -130,8 +136,8 @@ class createofficers extends Component
             'semester' => 'required',
             'position' => 'required',
             'exp_date' => 'required',
-            'position_category' => 'required',
-            'officer_signature' => 'file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
+            // 'position_category' => 'required',
+            // 'officer_signature' => 'file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
         ]);
 
         $this->fileName = time().'.'.$this->officer_signature->extension();  
@@ -338,7 +344,46 @@ class createofficers extends Component
     =            calling tables section            =
     ==============================================*/
     
+    /*=====================================
+    =            Get Positions            =
+    =====================================*/
     
+    public function getPositionsFromDatabase()
+    {
+        return DB::table('position_titles')->paginate(10);
+    }
+
+    public function specificOrganization()
+    {
+        $this->authUser = Auth::id();
+        $this->user = User::find($this->authUser);
+        $this->OrgDataFromUser = $this->user->organizations->first();
+        // dd($this->OrgDataFromUser->id);
+        if($this->OrgDataFromUser){
+            $this->orgUserId = $this->OrgDataFromUser->organization_id;
+            $this->userOrganization = $this->OrgDataFromUser->organization_name;
+            // dd($this->orgUserId);
+            $this->orgCount = true;
+            // dd($this->orgCount);
+            // dd(DB::table('organizations')->where('organization_id', '=', $this->orgUserId)->get());
+            return DB::table('position_titles')
+           ->where('organization_id', '=', $this->orgUserId)
+           ->get();
+
+
+
+        }else{
+            $this->orgCount = false;
+            return DB::table('position_titles')
+           ->get();            
+            // dd("2");
+        }
+    }
+    
+    /*=====  End of Get Positions  ======*/
+    
+
+
     /*=====  End of calling tables section  ======*/
 
     /*================================================
@@ -385,6 +430,8 @@ class createofficers extends Component
             'OfficerData' => $this->getOfficerData(),
             'getOrganization' => $this->getOrganizationsFromDatabase(),
             'getOfficerPosition' => $this->getOfficerPositionsFromDatabase(),
+            'PositionTitlesData' => $this->getPositionsFromDatabase(),
+            'OrganizationPositions' => $this->specificOrganization(),
             'getAuthUserRole' => $this->userRole,
             // 'userAuthRole' => $this->getAuthUserRole(),
             // 'posts' => $this->specificOrganization(),
