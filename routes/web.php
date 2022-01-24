@@ -27,6 +27,11 @@ Route::get('/authredirects', 'App\Http\Controllers\AuthRolePermsController@index
 Route::get('/cookie/set','App\Http\Controllers\CookieController@setCookie');
 Route::get('/cookie/get','App\Http\Controllers\CookieController@getCookie');
 
+// Route::get('create-symlink', function (){
+//     Artisan::call('storage:link');
+//     return response('Done...');
+// });
+
 Route::group(['middleware' => [
             'isSuperAdmin',
             'auth:sanctum',
