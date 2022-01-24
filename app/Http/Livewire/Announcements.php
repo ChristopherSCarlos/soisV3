@@ -11,7 +11,7 @@ use App\Models\Organization;
 use App\Models\Article;
 use App\Models\Announcement;
 
-use Livewire\withPagination;
+use Livewire\WithPagination;
 use App\Http\Livewire\Objects;
 use Illuminate\Support\STR;
 use Illuminate\Validation\Rule;

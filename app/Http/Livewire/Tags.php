@@ -6,7 +6,7 @@ use Livewire\Component;
 
 use App\Models\Tag;
 
-use Livewire\withPagination;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 
 use Auth;
@@ -14,7 +14,7 @@ use Auth;
 class Tags extends Component
 {
     /* Traits */
-    use withPagination;
+    use WithPagination;
 
     /* Modals */
     public $modalCreateTagsFormVisible = false;

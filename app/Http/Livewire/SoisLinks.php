@@ -6,13 +6,13 @@ use Livewire\Component;
 
 use App\Models\SoisLink;
 
-use Livewire\withPagination;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 
 class SoisLinks extends Component
 {
     /* Traits */
-    use withPagination;
+    use WithPagination;
     /* Modals */
     public $modalCreateUpdateSOISLinksFormVisible = false;
     public $modalDeleteSOISLinksFormVisible = false;

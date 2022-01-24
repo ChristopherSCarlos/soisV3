@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\Organization;
 
 use Illuminate\Validation\Rule;
-use Livewire\withPagination;
+use Livewire\WithPagination;
 
 use Illuminate\Support\STR;
 

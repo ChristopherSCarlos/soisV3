@@ -4,12 +4,12 @@ use Livewire\Component;
 use App\Models\NavigationMenu;
 use App\Models\NavigationMenuType;
 use App\Models\Page;
-use Livewire\withPagination;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 class PagesNavigation extends Component
 {
     /* Traits */
-    use withPagination;
+    use WithPagination;
 
     /* Modals */
     public $modalFormVisible = false;

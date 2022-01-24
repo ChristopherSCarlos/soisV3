@@ -14,7 +14,7 @@ use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\DateColumn;
 
-use Livewire\withPagination;
+use Livewire\WithPagination;
 use Illuminate\Validation\Rule;
 
 use Illuminate\Support\Facades\DB;
