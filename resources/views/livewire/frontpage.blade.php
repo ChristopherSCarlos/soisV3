@@ -168,7 +168,7 @@
                                              @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                                  @if($newsImage->articles_id == $homepageLatestNews->articles_id)
                                                      <div class="ml-2 mr-2">
-                                                          <img class="organization-latest-news-slider transition hover:opacity-25 transition-opacity duration-1000 ease-out h-2/6" style="object-fit:fill;" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                                          <img class="organization-latest-news-slider transition hover:opacity-25 transition-opacity duration-1000 ease-out h-2/6" style="" src="{{ asset('files/'.$newsImage->asset_name) }}">
                                                      </div>
                                                  @endif
                                              @endforeach

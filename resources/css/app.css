@@ -597,10 +597,10 @@ hr{
     height: 100%;
 }
 .organization-latest-news-slider{
-    height: 20vw;
     object-fit: fill;
     margin-left: 5%;
     margin-right: 5%;
+    height: 10vw;
 }
 
 
