@@ -14,7 +14,7 @@
           <div class="p-4 flex flex-row items-center justify-between">
                <a href="{{ url('/')}}" class="flex text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">
                     <img class="h-8" src="{{ asset('image/svg/pup.svg') }}">
-                    <p class="system-title ml-2">
+                    <p class="system-title ml-2">Hello</p>
                </a>
                <button class="md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">
                     <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
@@ -110,7 +110,7 @@
                     @endforeach
                   <h5 class="text-center"></h5>
                <div class="slider-title-container" style="">
-                    <p class="slider-title-data" style="">{{$HomepageNews->article_title}}</p>
+                    <p class="slider-title-data ml-5 sm:pt-5" style="">{{$HomepageNews->article_title}}</p>
 
                </div>
               </div>
@@ -212,19 +212,6 @@
      </div>
 </div>
 
-<div class="mt-3  mb-3" style="">
-     <div class="text-center"><p class="homepage-titles">Quick Links</p></div>
-     <div class="grid grid-cols-4">
-          <div class="col-span-4 xl:col-span-1 lg:col-span-1 md:col-span-1 sm:col-span-1">GPOA</div>
-          <div class="col-span-4 xl:col-span-1 lg:col-span-1 md:col-span-1 sm:col-span-1">
-               <i class="fas fa-users"></i>
-          </div>
-          <div class="col-span-4 xl:col-span-1 lg:col-span-1 md:col-span-1 sm:col-span-1">Accomplishment Report</div>
-          <div class="col-span-4 xl:col-span-1 lg:col-span-1 md:col-span-1 sm:col-span-1">Financial Statement</div>
-     </div>
-
-</div>
-     
 <div style="border-style: none;">
      
 @livewire('footers')
