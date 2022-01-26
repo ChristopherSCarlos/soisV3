@@ -24,7 +24,7 @@ use App\Http\Livewire\ViewAnnouncement;
 // Route::get('authredirects', function(){'AuthRolePermsController@index'});
 Route::get('/authredirects', 'App\Http\Controllers\AuthRolePermsController@index');
 
-Route::get('/cookie/set','App\Http\Controllers\CookieController@setCookie');
+Route::get('/cookie/set','App\Http\Controllers\CookieController@setCookie')->middleware(['AddHeaders']);
 Route::get('/cookie/get','App\Http\Controllers\CookieController@getCookie');
 
 // Route::get('create-symlink', function (){
