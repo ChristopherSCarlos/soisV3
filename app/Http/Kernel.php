@@ -66,6 +66,5 @@ class Kernel extends HttpKernel
         
         'isSuperAdmin' => \App\Http\Middleware\isSuperAdminMiddleware::class,
         'isOrganizationAdmin' => \App\Http\Middleware\isOrganizationAdminMiddleware::class,
-        'AddHeaders' => \App\Http\Middleware\AddHeaders::class,
     ];
 }
