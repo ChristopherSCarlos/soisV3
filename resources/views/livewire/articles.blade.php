@@ -8,9 +8,6 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
-<script href="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"type="text/javascript"></script>
-<script href="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/index.min.js"type="text/javascript"></script>
-
     <style>
         .modal-backdrop {
           z-index: -1;
@@ -31,7 +28,6 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead>
                             <tr>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Id</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Article Title</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Article Sub-Title</th>
                                 <!-- <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Article Content</th> -->
@@ -48,9 +44,6 @@
                                 @if($articleDatas->count())
                                     @foreach($articleDatas as $item)
                                          <tr>
-                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->articles_id }}
-                                            </td>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                 {{ $item->article_title }}
                                             </td>
@@ -109,9 +102,6 @@
                                 @if($articleOrganization->count())
                                     @foreach($articleOrganization as $item)
                                          <tr>
-                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->articles_id }}
-                                            </td>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                 {{ $item->article_title }}
                                             </td>
@@ -571,10 +561,5 @@
 <!--====  End of Summernote Section  ====-->
 
 
-<script type="module">
-    import Cookies from 'js-cookie'
-
-Cookies.set('foo', 'bar')
-</script>
 <!-- FINAL DIV -->
 </div>

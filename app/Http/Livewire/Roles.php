@@ -6,8 +6,8 @@ use Livewire\Component;
 use App\Models\User;
 use App\Models\Organization;
 use App\Models\Role;
-// use App\Models\UserPermission;
-
+// use App\Models\UserPermission
+use App\Models\Permission;
 use Illuminate\Validation\Rule;
 use Livewire\WithPagination;
 
@@ -32,11 +32,13 @@ class Roles extends Component
 
     // variables
     public $role;
-    public $role_description;
+    public $description;
     public $guard_name = 'web';
     public $roleId;
     public $selectedPermsOnRoles = [];
     public $selectedRole;
+    public $roleData;
+    public $rolePivot;
 
     /*==========================================================
     =            Craete Roles Section comment block            =
@@ -59,9 +61,62 @@ class Roles extends Component
     
     
     /*=====  End of Craete Roles Section comment block  ======*/
+
+
+    /*=====================================================================
+    =            Sync Permission to Role Section comment block            =
+    =====================================================================*/
+    public function syncPermissionModel($id)
+    {
+        $this->role_id = $id;
+        $this->roleData = Permission::find($this->role_id);
+        // dd($this->roleData);
+        // $user->roles()->sync($this->roleModel);
+        // dd($id);
+        $this->modalSyncRolePermissionVisible = true;
+    }
+    public function syncPermission()
+    {
+        $this->roleData = Role::find($this->role_id);
+        // dd($this->roleData->permissions());
+        $this->roleData->permissions()->sync($this->selectedPermsOnRoles);
+        // dd($this->selectedPermsOnRoles);
+        // dd($this->roleData);
+        $this->modalSyncRolePermissionVisible = false;
+    }
     
+    /*=====  End of Sync Permission to Role Section comment block  ======*/
+    
+    public function deleteRoleModal($id)
+    {
+        $this->role_id = $id;
+
+        $this->roleData = Role::find($this->role_id);
+        $this->rolePivot = Role::find($this->role_id)->permissions;
+        $this->roleData->permissions()->detach($this->rolePivot);
+        dd($this->roleData);
+        // $this->artId = Article::find($this->articleId);
+        // $this->seed = Article::find($this->articleId)->organizations;
+        // $this->artId->organizations()->detach($this->seed);
+        
+
+        // $this->roleId = $this->roleData->permissions()->find($this->role_id);
+        
+        // $this->roleId = $this->roleData->permissions()->get();
+        // $this->roleData->roles()->detach($this->role_id);
+        // dd($this->role_id);
+    }
 
 
+    /**
+     *
+     * Get all permission
+     *
+     */
+    public function getPermission()
+    {
+        return DB::table('permissions')->get();
+    }
 
     /**
      *
@@ -72,8 +127,7 @@ class Roles extends Component
     {
         return [
             'role' => $this->role,
-            'role_description' => $this->role_description,
-            'guard_name' => $this->guard_name,
+            'description' => $this->description,
         ];
     }
 
@@ -86,8 +140,7 @@ class Roles extends Component
     {
         return [
             'role' => 'required',
-            'role_description' => 'required',
-            'guard_name' => 'required',
+            'description' => 'required',
         ];
     }
 
@@ -104,6 +157,7 @@ class Roles extends Component
     {
         return view('livewire.roles',[
             'displayData' => $this->getRolesDataFromDatabase(),
+            'displayPermission' => $this->getPermission(),
         ]);
     }
 }

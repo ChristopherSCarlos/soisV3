@@ -489,6 +489,7 @@ class Articles extends Component
         OrganizationAsset::create([
             'asset_type_id' => '4',
             'asset_name' => $this->article_featured_image_name,
+            'file' => $this->article_featured_image_name,
             'is_latest_logo' => '0',
             'is_latest_banner' => '0',
             'is_latest_image' => '1',
@@ -503,13 +504,15 @@ class Articles extends Component
         // dd($this->selectedNewsAssetDataIsLatestImage);
         // dd($this->selectedNewsAssetDataIsLatestImage);
         if ($this->selectedNewsAssetDataIsLatestImage != null) {
-            $this->selectedNewsAssetDataID = $this->selectedNewsAssetDataIsLatestImage->system_assets_id;
+            // $this->selectedNewsAssetDataID = $this->selectedNewsAssetDataIsLatestImage->system_assets_id;
+            $this->selectedNewsAssetDataID = $this->selectedNewsAssetDataIsLatestImage->organization_asset_id;
             // dd($this->selectedNewsAssetDataID);
             // dd(OrganizationAsset::find('organization_id','=',$this->newsId)->where('is_latest_logo','=','1'));
             OrganizationAsset::where('articles_id','=',$this->newsId)->where('is_latest_image','=','1')->update([
                 'is_latest_image' => '0',
             ]);
-            DB::table('organization_assets')->where('system_assets_id','=',$this->selectedNewsAssetDataID)->update(['is_latest_image'=>'1']);
+            DB::table('organization_assets')->where('organization_asset_id','=',$this->selectedNewsAssetDataID)->update(['is_latest_image'=>'1']);
+            // DB::table('organization_assets')->where('system_assets_id','=',$this->selectedNewsAssetDataID)->update(['is_latest_image'=>'1']);
             $this->modalEditNewsImageFormVisible = false;
             $this->reset();
             $this->resetValidation();

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
-
+use App\Models\Permission;
 class Role extends Model
 {
     use HasFactory;
@@ -22,10 +22,22 @@ class Role extends Model
         'role_name',
         'role_description',
         'guard_name',
+        'role',
+        'description',
+        'created_at',
+        'updated_at',
     ];
 
     public function users()
     {
         return $this->belongsToMany(User::class,'role_user','role_id','user_id','organization_id');
+    }
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class,'permission_role','role_id','permission_id');
+    }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class,'permission_role','permission_id','role_id');
     }
 }

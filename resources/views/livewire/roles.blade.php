@@ -84,12 +84,12 @@
         </x-slot>
         <x-slot name="content">
             <div class="mt-4">
-                <x-jet-label for="role_name" value="role_name" />
-                <x-jet-input id="role_name" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="role_name" required autofocus />
+                <x-jet-label for="role" value="role" />
+                <x-jet-input id="role" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="role" required autofocus />
             </div>
             <div class="mt-4">
-                <x-jet-label for="role_description" value="role_description" />
-                <x-jet-input id="role_description" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="role_description" required autofocus />
+                <x-jet-label for="description" value="description" />
+                <x-jet-input id="description" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="description" required autofocus />
             </div>
         </x-slot>
         <x-slot name="footer">
@@ -107,7 +107,35 @@
 
 
 
+<!--=====================================================
+=            Sync permission Section comment            =
+======================================================-->
+    <x-jet-dialog-modal wire:model="modalSyncRolePermissionVisible">
+        <x-slot name="title">
+            {{ __('Create Role') }}
+        </x-slot>
+        <x-slot name="content">
+            <div class="mt-4" style="overflow:auto; height: 50vh;">
+            <x-jet-label for="role" value="{{ __('Select Article to add in Homepage Slider') }}" />
+                        
+                            @foreach($displayPermission as $permissions)
+                        <input type="checkbox" wire:model.lazy="selectedPermsOnRoles" id="{{$permissions->permission_id}}" name="{{$permissions->name}}" value="{{$permissions->permission_id}}">
+                        <label for="{{$permissions->name}}">{{$permissions->name}}</label><br>
+                            @endforeach
+            </div>
+        </x-slot>
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$toggle('modalSyncRolePermissionVisible')" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-secondary-button>
+            <x-jet-secondary-button class="ml-2" wire:click="syncPermission" wire:loading.attr="disabled">
+                {{ __('Add Role') }}
+            </x-jet-secondary-button>                    
+        </x-slot>
+    </x-jet-dialog-modal>
 
+
+<!--====  End of Sync permission Section comment  ====-->
 
 
 
