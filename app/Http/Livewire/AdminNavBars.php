@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Http\Livewire\Objects;
 
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminNavBars extends Component
 {
