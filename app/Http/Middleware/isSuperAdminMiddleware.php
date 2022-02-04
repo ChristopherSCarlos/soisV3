@@ -6,6 +6,9 @@ use Closure;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+
 class isSuperAdminMiddleware
 {
     /**
