@@ -29,17 +29,17 @@ class SoisGates extends Component
     }
     public function gpoaFunction()
     {
-        $this->gpoa = 'sois-gpoa.puptaguigcs.net'; 
+        $this->gpoa = 'https://sois-gpoa.puptaguigcs.net/'; 
         return $this->gpoa;
     }
     public function membershipFunction()
     {
-        $this->membership = 'sois-membership.puptaguigcs.net'; 
+        $this->membership = 'https://sois-membership.puptaguigcs.net/'; 
         return $this->membership;
     }
     public function soisarFunction()
     {
-        $this->soisar = 'sois-ar.puptaguigcs.net'; 
+        $this->soisar = 'https://sois-ar.puptaguigcs.net/'; 
         return $this->soisar;
     }
 
