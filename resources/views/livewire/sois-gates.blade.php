@@ -1,16 +1,14 @@
 <div>
-    hello
-        <a href="{{$hello}}" target="_blank">Click Me!</a>
     <x-jet-button wire:click="">
-        <a href="{{$test}}" target="_blank">PAra sa google!</a>
+        <a href="{{$sois2}}" target="_blank">SOIS TEST</a>
     </x-jet-button>
     <x-jet-button wire:click="">
-        <a href="http://google.com" target="_blank">Click Me!</a>
+        <a href="{{$gpoa}}" target="_blank">GPOA</a>
     </x-jet-button>
     <x-jet-button wire:click="">
-        <a href="http://google.com" target="_blank">Click Me!</a>
+        <a href="{{$member}}" target="_blank">Membership</a>
     </x-jet-button>
     <x-jet-button wire:click="">
-        <a href="http://google.com" target="_blank">Click Me!</a>
+        <a href="{{$soisar}}" target="_blank">Accomplishment Reports</a>
     </x-jet-button>
 </div>
