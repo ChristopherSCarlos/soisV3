@@ -52,6 +52,8 @@ class Announcements extends Component
         public $exp_time;
         public $user_id;
         public $status = true;
+        public $announcement_image;
+        public $fileName;
 
         public $date;
         private $data;
@@ -115,6 +117,7 @@ class Announcements extends Component
             'signer_position' => 'required',
             'exp_date' => 'required',
             'exp_time' => 'required',
+            'announcement_image' => 'file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
         ]);
 
         $announcements_content = $this->announcements_content;
@@ -136,6 +139,11 @@ class Announcements extends Component
         }
         $announcements_content = $dom->saveHTML();
 
+        $this->fileName = time().'.'.$this->announcement_image->extension();
+        $this->announcement_image->store('files', 'imgfolder',$this->fileName);
+
+        $this->announcement_image->storeAs('files',$this->fileName, 'imgfolder');
+
         // dd($this->announcements_title);
 
         Announcement::create($this->createAnnouncementModel());
@@ -148,6 +156,7 @@ class Announcements extends Component
         return [
             'announcement_title' => $this->announcements_title,
             'announcement_content' => $this->announcements_content,
+            'announcement_image' => $this->fileName,
             'signature' => $this->signature,
             'signer_position' => $this->signer_position,
             'status' => $this->status,

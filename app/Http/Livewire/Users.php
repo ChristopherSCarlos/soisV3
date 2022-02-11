@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
+use App\Models\Role;
 use App\Models\Organization;
 
 use Illuminate\Validation\Rule;
@@ -41,6 +42,12 @@ class Users extends Component
     // variables
     public $name;
     public $email;
+    public $first_name;
+    public $middle_name;
+    public $last_name;
+    public $date_of_birth;
+    public $address;
+    public $mobile_number;
     public $password;
     public $student_number;
 
@@ -123,8 +130,13 @@ class Users extends Component
     public function modelCreateUser()
     {
         return [
-            'first_name' => $this->name,
+            'first_name' => $this->first_name,
+            'middle_name' => $this->middle_name,
+            'last_name' => $this->last_name,
+            'date_of_birth' => $this->date_of_birth,
+            'address' => $this->address,
             'email' => $this->email,
+            'mobile_number' => $this->mobile_number,
             'status' => '1',
             'student_number' => $this->student_number,
             'password' => Hash::make($this->password),
@@ -146,15 +158,25 @@ class Users extends Component
     public function modelUpdateUserDatas()
     {
         $data = User::find($this->userId);
-        $this->name = $data->first_name;
+        $this->first_name = $data->first_name;
+        $this->middle_name = $data->middle_name;
+        $this->last_name = $data->last_name;
+        $this->date_of_birth = $data->date_of_birth;
+        $this->address = $data->address;
         $this->email = $data->email;
+        $this->mobile_number = $data->mobile_number;
         $this->student_number = $data->student_number;
     }
     public function modelUpdateUser()
     {
         return [
-            'first_name' => $this->name,
+            'first_name' => $this->first_name,
+            'middle_name' => $this->middle_name,
+            'last_name' => $this->last_name,
+            'date_of_birth' => $this->date_of_birth,
+            'address' => $this->address,
             'email' => $this->email,
+            'mobile_number' => $this->mobile_number,
             'student_number' => $this->student_number,
         ];
     }
@@ -169,6 +191,9 @@ class Users extends Component
     public function cleanUserDataVars()
     {
         $this->name = null;
+        $this->first_name = null;
+        $this->middle_name = null;
+        $this->last_name = null;
         $this->email = null;
     }
     /*=====  End of Update User Section comment block  ======*/
@@ -290,6 +315,39 @@ class Users extends Component
     }
 
 
+    /*=======================================
+    =            Role Separation            =
+    =======================================*/
+    
+    public function AdminSpecificUsers()
+    {
+        return DB::table('users')
+            ->join('role_user', 'users.user_id', '=', 'role_user.user_id')
+            ->where('role_id','=','1')
+            ->orderBy('users.user_id','asc')
+            ->paginate(10);
+    }
+
+    public function HomepageAdminSpecificUsers()
+    {
+        return DB::table('users')
+            ->join('role_user', 'users.user_id', '=', 'role_user.user_id')
+            ->where('role_id','=','2')
+            ->orderBy('users.user_id','asc')
+            ->paginate(10);
+    }
+
+    public function UserSpecificUsers()
+    {
+        return DB::table('users')
+            ->join('role_user', 'users.user_id', '=', 'role_user.user_id')
+            ->where('role_id','!=','2')
+            ->where('role_id','!=','1')
+            ->orderBy('users.user_id','asc')
+            ->paginate(10);
+    }
+    
+    /*=====  End of Role Separation  ======*/
 
 
     /**
@@ -301,7 +359,9 @@ class Users extends Component
     {
         return [
             'first_name' => 'required',
+            'last_name' => 'required',
             'email' => 'required',
+            'mobile_number' => 'required',
             'password' => 'required',
             'status' => 'required',
             'student_number' => 'required',
@@ -341,6 +401,9 @@ class Users extends Component
             'displayData' => $this->read(),
             'rolesList' => $this->listOfRoles(),
             'displayOrganizationData' => $this->displayOrganization(),
+            'HomepageAdminTable' => $this->HomepageAdminSpecificUsers(),
+            'AdminTable' => $this->AdminSpecificUsers(),
+            'UsersTable' => $this->UserSpecificUsers(),
         ]);
     }
 }

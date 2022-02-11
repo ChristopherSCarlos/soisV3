@@ -136,16 +136,17 @@ class createofficers extends Component
             'semester' => 'required',
             'position' => 'required',
             'exp_date' => 'required',
+            'position_category' => 'required',
             // 'position_category' => 'required',
             // 'officer_signature' => 'file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
         ]);
 
-        $this->fileName = time().'.'.$this->officer_signature->extension();  
+        // $this->fileName = time().'.'.$this->officer_signature->extension();  
 
        
-        $this->officer_signature->store('files', 'imgfolder',$this->fileName);
+        // $this->officer_signature->store('files', 'imgfolder',$this->fileName);
 
-        $this->officer_signature->storeAs('files',$this->fileName, 'imgfolder');
+        // $this->officer_signature->storeAs('files',$this->fileName, 'imgfolder');
 
         Officer::create([
             'first_name' => $this->first_name,
@@ -158,7 +159,7 @@ class createofficers extends Component
             'position' => $this->position,
             'exp_date' => $this->exp_date,
             'position_category' => $this->position_category,
-            'officer_signature' => $this->officer_signature,
+            // 'officer_signature' => $this->officer_signature,
             'status' => '1',
         ]);
 
@@ -180,7 +181,7 @@ class createofficers extends Component
             'semester' => $this->semester,
             'position' => $this->position,
             'exp_date' => $this->exp_date,
-            'position_category' => $this->position_category,
+            // 'position_category' => $this->position_category,
             'officer_signature' => $this->officer_signature,
             'status' => '1',
         ];

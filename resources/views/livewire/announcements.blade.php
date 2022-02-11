@@ -191,6 +191,10 @@
                             @error('announcements_content') <span class="error">{{ $message }}</span> @enderror
                         </div>
 
+                    <x-jet-label for="announcement_image" value="{{ __('Announcement Image') }}" />
+                    <x-jet-input wire:model="announcement_image" id="announcement_image" class="block mt-1 w-full" type="file" />
+                    @error('announcement_image') <span class="error">{{ $message }}</span> @enderror
+
                     <x-jet-label for="signature" value="{{ __('Announcement signature') }}" />
                     <x-jet-input wire:model="signature" id="signature" class="block mt-1 w-full" type="text" />
                     @error('signature') <span class="error">{{ $message }}</span> @enderror
