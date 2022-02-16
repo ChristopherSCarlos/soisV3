@@ -318,6 +318,62 @@
 
 <!--====  End of Create Modal Section comment  ====-->
 
+
+<!--=================================================
+=            Update User Section comment            =
+==================================================-->
+<x-jet-dialog-modal wire:model="UpdatemodalFormVisible">
+        <x-slot name="title">
+            {{ __('Save Users') }} {{$userId}}
+        </x-slot>
+        <x-slot name="content">
+            <div class="mt-4">
+                <x-jet-label for="first_name" value="{{ __('first name') }}" />
+                <x-jet-input id="first_name" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="first_name" required autofocus />
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="middle_name" value="{{ __('middle name') }}" />
+                <x-jet-input id="middle_name" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="middle_name" required autofocus />
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="last_name" value="{{ __('last name') }}" />
+                <x-jet-input id="last_name" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="last_name" required autofocus />
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="email" value="{{ __('email') }}" />
+                <x-jet-input id="email" class="block mt-1 w-full" type="email" wire:model.debounce.800ms="email" required autofocus />
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="date_of_birth" value="{{ __('Birth Date') }}" />
+                <x-jet-input wire:model="date_of_birth" id="date_of_birth" class="block mt-1 w-full" type="date" required/>
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="address" value="{{ __('address') }}" />
+                <x-jet-input id="address" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="address" required autofocus />
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="mobile_number" value="{{ __('Mobile Number') }}" />
+                <x-jet-input id="mobile_number" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="mobile_number" required autofocus />
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="student_number" value="{{ __('student_number') }}" />
+                <x-jet-input id="student_number" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="student_number" required autofocus />
+            </div>
+        </x-slot>
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$toggle('UpdatemodalFormVisible')" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-secondary-button>
+                <x-jet-secondary-button class="ml-2" wire:click="update" wire:loading.attr="disabled">
+                    {{ __('Update User') }}
+                </x-jet-secondary-button>                    
+        </x-slot>
+    </x-jet-dialog-modal>
+
+
+<!--====  End of Update User Section comment  ====-->
+
+
 <!--=================================================
 =            Delete User Section comment            =
 ==================================================-->
@@ -463,6 +519,28 @@
 
 
 
+<!--==================================================
+=            Generate Key Section comment            =
+===================================================-->
+    <x-jet-dialog-modal wire:model="modelConfirmUserGenerateKeyVisible">
+        <x-slot name="title">
+            {{ __('Delete User') }}
+        </x-slot>
+        <x-slot name="content">
+            {{ __('Are you sure you want to generate key this user?.') }}
+        </x-slot>
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$toggle('modelConfirmUserGenerateKeyVisible')" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-secondary-button>
+            <x-jet-secondary-button class="ml-2" wire:click="generateKey" wire:loading.attr="disabled">
+                {{ __('Generate Key') }}
+            </x-jet-secondary-button>
+        </x-slot>
+    </x-jet-dialog-modal>
+
+
+<!--====  End of Generate Key Section comment  ====-->
 
 
 

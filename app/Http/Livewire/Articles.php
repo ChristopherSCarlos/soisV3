@@ -303,11 +303,18 @@ class Articles extends Component
         $this->artId = Article::find($this->articleId);
         // $this->seed = Article::find($this->articleId)->organizations;
         // $this->artId->organizations()->detach($this->seed);
-        Article::destroy($this->articleId);
+        // Article::destroy($this->articleId);
+        Article::find($this->articleId)->update($this->deleteModal());
         $this->modalDeleteNewsFormVisible = false;
         $this->reset();
         $this->resetValidation();
         // $this->resetPage();
+    }
+    public function deleteModal()
+    {
+        return [
+            'status' => '0',
+        ];
     }
     
     /*=====  End of Delete Section comment block  ======*/
@@ -545,8 +552,9 @@ class Articles extends Component
 
         // dd(DB::table('articles')->where('user_id', '=', $this->userId)->get());
         return DB::table('articles')
-           ->where('user_id', '=', $this->userId)
-           ->paginate(3);
+            ->where('status','=','1')
+            ->where('user_id', '=', $this->userId)
+            ->paginate(3);
     }
 
     /**
@@ -576,8 +584,7 @@ class Articles extends Component
     {
         $this->userId = Auth::user()->user_id;
         // dd($this->userId);
-        return DB::table('articles')
-           ->paginate(5);
+        return DB::table('articles')->where('status','=','1')->paginate(5);
     }
 
     public function getTagsDataFromDatabase()

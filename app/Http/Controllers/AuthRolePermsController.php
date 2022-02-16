@@ -31,36 +31,30 @@ class AuthRolePermsController extends Controller
 
     public function index()
     {
-            $this->object = new Objects();
-            $this->userRole = $this->object->roles();
-            // echo $this->userRole;
-            $this->user_id = Auth::id();
-            $this->userData = User::find($this->user_id);
-            // echo $this->userData;
-            $this->userRole = $this->userData->roles->first();
-            $this->user_role = $this->userRole->role;
-            // dd($this->user_role);
-            // echo $this->user_role;
-        if(Auth::check()){
-            if($this->user_role == 'Super Admin'){
-
-                // $minutes = 1;
-                // $response = new Response('Hello World');
-                // $response->withCookie(cookie('name', 'virat', $minutes));
-
-                // return $response;
-                return redirect('/default-interfaces');
-            }elseif ($this->user_role == 'Home Page Admin') {
-                // dd($this->user_role);
-                // $minutes = 1;
-                // $response = new Response('Hello World');
-                // $response->withCookie(cookie('name', 'virat', $minutes));
-                // return $response;
-                return redirect('/Organization/dashboard');
-            }else{
-                echo "User";
+        $this->object = new Objects();
+        $this->userRole = $this->object->roles();
+        // echo $this->userRole;
+        $this->user_id = Auth::id();
+        $this->userData = User::find($this->user_id);
+        // echo $this->userData;
+        $this->userRole = $this->userData->roles->first();
+        // dd($this->userRole);
+        if($this->userRole != null){
+            if(Auth::check()){
+                if($this->user_role == 'Super Admin'){
+                    return redirect('/default-interfaces');
+                }elseif ($this->user_role == 'Home Page Admin') {
+                    // dd($this->user_role);
+                    // $minutes = 1;
+                    // $response = new Response('Hello World');
+                    // $response->withCookie(cookie('name', 'virat', $minutes));
+                    // return $response;
+                    return redirect('/Organization/dashboard');
+                }else{
+                    return redirect('/login');
+                }
             }
-            // dd("break");
+        // dd("break");
         // dd("Hello");
         }else{
             // echo Auth::id();

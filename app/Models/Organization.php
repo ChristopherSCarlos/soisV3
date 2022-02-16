@@ -22,7 +22,8 @@ class Organization extends Model
         'organization_secondary_color',
 
         'organization_slug',
-        'organization_type',
+        'organization_type_id',
+        'organization_acronym',
         'page_type',
         'status',
     ];

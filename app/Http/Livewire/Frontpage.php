@@ -347,6 +347,9 @@ class Frontpage extends Component
         // dd('hello');
         return $this->articlesImageArray;
     }
+
+
+
     public function getSelectedNewsImage()
     {
         // dd($this->urlslug);
@@ -490,27 +493,13 @@ class Frontpage extends Component
         // dd(Announcement::where('status','=','1')->orderBy('created_at','asc')->paginate(20));
         return Announcement::where('status','=','1')->orderBy('created_at','asc')->paginate(20);
     }
-
     public function getAnnouncementsInDatabaseFeaturedHomepageLatestFirst()
     {
-         $this->announcementImageReal = Announcement::where('status','=','1')->orderBy('created_at','desc')->take(1)->get();
-        // dd($this->announcementImageReal->count());
-        if($this->announcementImageReal->count() != '0'){
-            // echo "Wotld";
-            // dd($this->announcementImageReal);
-            $this->announcementImageData = Announcement::where('status','=','1')->orderBy('created_at','desc')->take(1)->get(); 
-            // dd(gettype($this->announcementImageData));
-            return $this->announcementImageData;
-        }else{
-            // echo "This";
-            return 0;
-        }
         // dd(Announcement::where('status','=','1')->orderBy('created_at','desc')->take(1)->get());
-        // return Announcement::where('status','=','1')->orderBy('created_at','desc')->take(1)->get();
+        return Announcement::where('status','=','1')->orderBy('created_at','desc')->take(1)->get();
     }
     public function getSelectedAnnouncementImage()
     {
-        // dd("Hello");
         $this->articlesImageID = DB::table('announcements')->where('status','=','1')->orderBy('created_at','desc')->take(1)->pluck('announcements_id');
         // dd($this->articlesImageID);
         // dd($this->articlesImageID);
@@ -520,6 +509,11 @@ class Frontpage extends Component
         }else{
             return 0;
         }
+        // $this->articlesImageID = DB::table('announcements')->where('status','=','1')->orderBy('created_at','desc')->take(1)->pluck('announcements_id');
+        // dd($this->articlesImageID);
+        // $this->articlesImageArray = DB::table('organization_assets')->where('announcement_id','=',$this->articlesImageID)->where('status','=','1')->where('is_latest_image','=','1')->get();
+        // dd($this->articlesImageArray);
+        // return $this->articlesImageArray;
     }
 
     public function getHPThreeAnnouncementLatestImage()
@@ -546,7 +540,6 @@ class Frontpage extends Component
             $this->displayedOrganizationDataPassOnView =  DB::table('articles')->where('is_carousel_org_page','=','1')->where('organization_id','=',$this->displayedOrganizationDataID)->get();
             return $this->displayedOrganizationDataPassOnView;
         // dd($this->displayedOrganizationDataPassOnView);
-
         }
     }
 

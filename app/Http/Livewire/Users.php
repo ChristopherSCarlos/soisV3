@@ -27,6 +27,7 @@ class Users extends Component
     use WithPagination;
 
     public $modalFormVisible = false;
+    public $UpdatemodalFormVisible = false;
     public $modalUpdateUser = false;
     public $modelUpdateUserData = false;
     public $modaladdPermissionModel = false;
@@ -151,7 +152,7 @@ class Users extends Component
     public function updateUserModel($id)
     {
         $this->userId = $id;
-        $this->modalFormVisible = true;
+        $this->UpdatemodalFormVisible = true;
         $this->modelUpdateUserDatas();
     }
 
@@ -183,7 +184,7 @@ class Users extends Component
     public function update()
     {
         User::find($this->userId)->update($this->modelUpdateUser());
-        $this->modalFormVisible = false;
+        $this->UpdatemodalFormVisible = false;
         $this->resetValidation();
         $this->reset();
         $this->cleanUserDataVars();
