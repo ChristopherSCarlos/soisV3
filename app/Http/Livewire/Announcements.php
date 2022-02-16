@@ -7,6 +7,7 @@ use Auth;
 use Storage;
 
 use App\Models\User;
+use App\Models\OrganizationAsset;
 use App\Models\Organization;
 use App\Models\Article;
 use App\Models\Announcement;
@@ -19,6 +20,7 @@ use Livewire\WithFileUploads;
 use Intervention\Image\ImageManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 
 use \Carbon\Carbon;
 use Datetime;
@@ -55,13 +57,28 @@ class Announcements extends Component
         public $announcement_image;
         public $fileName;
 
+        public $modelId;
+        public $userId;
+        public $asset_name;
+        public $asset_status;
+        public $asset_type_id;
+        public $is_latest_logo;
+        public $is_latest_banner;
+        public $is_latest_image;
+        public $page_type_id;
+        public $latestAnnouncementID;
+        public $userDataPivot;
+        public $userDataPivotOrganization;
+        public $latestOrganizationIDtoInsertToDB;
+
         public $date;
         private $data;
         public $param;
+        public $userroles;
 
         public $currentDate;
         public $newDate;
-        public $currentTime;
+        // public $currentTime;
 
         public $checkCurrentTime;
         public $checkCurrentDate;
@@ -147,6 +164,49 @@ class Announcements extends Component
         // dd($this->announcements_title);
 
         Announcement::create($this->createAnnouncementModel());
+
+         $this->asset_name = $this->fileName;
+
+        $this->user_id = Auth::id();
+
+        /* Get User ID */
+        $this->userDataPivot = User::find(Auth::id());
+        /* Get Organization ID from pivot table using USER ID */
+        $this->userDataPivotOrganization = $this->userDataPivot->organizations->first();
+        // $this->latestOrganizationIDtoInsertToDB = $this->userDataPivotOrganization->organization_id;
+        /* Asset Status is set to true */
+        $this->asset_status = 1;
+        /* Asset Type is set to Logo (Logo is 1 in Asset types table) */
+        $this->asset_type_id = 2;
+        /* Set image as latest organization asset logo */
+        $this->is_latest_logo = 0;
+        /* Unset image as image banenr */
+        $this->is_latest_banner = 0;
+        /* Page Type is set to Organization (Organization is id 4 in pagetypes table) */
+        $this->page_type_id = 4;
+
+        $this->latestAnnouncementID = Announcement::latest()->where('status','=','1')->pluck('announcements_id')->first();
+
+        $this->userId = Auth::user()->user_id;
+        $this->user = User::find($this->userId);
+        $this->va = $this->user->organizations->first();
+
+        $this->latestOrganizationIDtoInsertToDB = $this->va->organization_id;
+
+        OrganizationAsset::create([
+            'asset_type_id' => '5',
+            'asset_name' => $this->asset_name,
+            'file' => $this->asset_name,
+            'is_latest_logo' => '0',
+            'is_latest_banner' => '0',
+            'is_latest_image' => '1',
+            'user_id' => $this->userId,
+            'page_type_id' => '3',
+            'organization_id' => $this->latestOrganizationIDtoInsertToDB,
+            'status' => '1',
+            'announcement_id' => $this->latestAnnouncementID,
+        ]);
+
         $this->modalCreateAnnouncementFormVisible = false;
         $this->reset();
         $this->resetValidation();
@@ -156,7 +216,7 @@ class Announcements extends Component
         return [
             'announcement_title' => $this->announcements_title,
             'announcement_content' => $this->announcements_content,
-            'announcement_image' => $this->fileName,
+            // 'announcement_image' => $this->fileName,
             'signature' => $this->signature,
             'signer_position' => $this->signer_position,
             'status' => $this->status,
@@ -259,7 +319,7 @@ class Announcements extends Component
     {
         date_default_timezone_set('Asia/Manila');
         $this->currentDate = date('d-m-y');
-        $this->currentTime = date('h:i:s');
+        // $this->currentTime = date('h:i:s');
         $this->newDate=date('d-m-y', strtotime("+2 months"));
 
     }
@@ -267,7 +327,7 @@ class Announcements extends Component
     {
         date_default_timezone_set('Asia/Manila');
         $this->currentDate = date('d-m-y');
-        $this->currentTime = date('h:i:s');
+        // $this->currentTime = date('h:i:s');
         $this->newDate=date('d-m-Y', strtotime("+2 months"));
         $this->changeAnnouncementStatusOnRefresh();
     }
@@ -352,8 +412,9 @@ class Announcements extends Component
     {
         $this->object = new Objects();
         $this->userRole = $this->object->roles();
+        $this->userroles = $this->userRole->role;
+        return $this->userroles;
         // dd($this->userRole);
-        return $this->userRole;
 
         // dd($this->role->role_name);
     }

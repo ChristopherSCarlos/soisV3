@@ -55,6 +55,7 @@ $(document).ready(function(){
        adaptiveHeight: true,
       prevArrow: $('.prev-arrow'),
     nextArrow: $('.next-arrow'),
+    appendDots: $('.slick-slider-dots'),
       responsive: [
         {
           breakpoint: 1024,
@@ -358,3 +359,89 @@ $(document).ready(function(){
 
 
 
+$(document).ready(function(){
+    $('.homepage-announcement-slick').slick({
+      dots: false,
+      infinite: true,
+      speed: 2000,
+      slidesToShow: 3,
+      slidesToScroll: 3,
+      autoplay: false,
+      autoplaySpeed: 2000,
+      arrows: true,
+      variableWidth: true,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            infinite: true,
+            dots: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+        // You can unslick at a given breakpoint now by adding:
+        // settings: "unslick"
+        // instead of a settings object
+      ]
+    });    
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$(document).ready(function(){
+  $(".HPLatestNews").click(function(){
+    // $("#div1").fadeIn();
+    // $("#div2").fadeIn("slow");
+    $("#homepageLatestNewsDiv").fadeIn(3000);
+    $("#homepageFeaturedNewsDiv").fadeOut(3000);
+  });
+});
+
+$(document).ready(function(){
+  $(".HPFeaturedNews").click(function(){
+    // $("#div1").fadeIn();
+    // $("#div2").fadeIn("slow");
+    $("#homepageLatestNewsDiv").fadeOut(3000);
+    $("#homepageFeaturedNewsDiv").fadeIn(3000);
+  });
+});

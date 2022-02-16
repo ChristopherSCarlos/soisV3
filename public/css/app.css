@@ -1122,6 +1122,12 @@ select {
 .z-10 {
 	z-index: 10;
 }
+.col-span-3 {
+	grid-column: span 3 / span 3;
+}
+.col-start-2 {
+	grid-column-start: 2;
+}
 .col-span-6 {
 	grid-column: span 6 / span 6;
 }
@@ -1131,8 +1137,14 @@ select {
 .col-span-4 {
 	grid-column: span 4 / span 4;
 }
+.col-span-9 {
+	grid-column: span 9 / span 9;
+}
 .col-span-10 {
 	grid-column: span 10 / span 10;
+}
+.col-end-12 {
+	grid-column-end: 12;
 }
 .m-8 {
 	margin: 2rem;
@@ -2280,6 +2292,14 @@ select {
 	--tw-text-opacity: 1;
 	color: rgba(59, 130, 246, var(--tw-text-opacity));
 }
+.text-gray-200 {
+	--tw-text-opacity: 1;
+	color: rgba(229, 231, 235, var(--tw-text-opacity));
+}
+.text-red-300 {
+	--tw-text-opacity: 1;
+	color: rgba(252, 165, 165, var(--tw-text-opacity));
+}
 .text-green-100 {
 	--tw-text-opacity: 1;
 	color: rgba(209, 250, 229, var(--tw-text-opacity));
@@ -2775,7 +2795,7 @@ hr{
     margin: auto auto auto 10%;
 }
 .sliding-annonuncement-image-container{
-    height: 80vh;
+    height: 50%;
     width: 100%;
 }
 @media(max-width: 900px){
@@ -2971,14 +2991,20 @@ h3 {
 .system-title{
     display: block;
 }
+.system-title-2{
+    display: none;
+}
 @media(max-width: 425px){
     .system-title{
         display: none;
     }    
+    .system-title-2{
+        display: block;
+    }
 }
 .homepage-titles{
-    font-family: 'Nunito',sans-serif;
-    font-size: 20px;
+    font-family: 'Roboto',sans-serif;
+    font-size: 150%;
 }
 .newspage-title{
     font-family: 'Roboto',sans-serif;
@@ -3173,6 +3199,8 @@ h3 {
 }
 .frontpage-announcement-data-container{
     width:100vw;
+    padding-top: .5%;
+    padding-bottom: 0.5%;
 }
 .slider-title-container{
     position: absolute; top: 90%; bottom: 0%; background: rgba(33, 38, 38, .8); width: 100vw;
@@ -3186,6 +3214,102 @@ h3 {
 .frontpage-latest-news-slider-data-image{
     -o-object-fit:fill;
        object-fit:fill; height: 20vw
+}
+.announcement-image{
+    width: 50px;
+}
+.latest-announcement-slider-holder{
+    font-family:Arial;
+  width:500px;
+  display:block;
+  /*margin:0 auto;    */
+}
+.slick-slider-dots {
+     position: absolute;
+     bottom: 0px;
+     left: 50%;
+     transform: translateX(-50%);
+     display: flex;
+}
+.slick-slider-dots ul {
+     display: flex;
+     list-style: none;
+     margin: 0;
+     padding: 0;
+     bottom: 50px;
+     background: red;
+}
+.slick-slider-dots ul li {
+     margin: 0 10px;
+}
+.slick-slider-dots ul li button {
+     background: orangered;
+     height: 8px;
+     width: 35px;
+     overflow: hidden;
+     color: orangered;
+     border: none;
+     border-radius: 4px;
+}
+.slick-slider-dots ul li.slick-active button {
+     background: blue;
+     color: blue;
+}
+.button {
+  /*display: inline-block;*/
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 90%;
+  padding: 5%;
+  width: 40%;
+  height: 50%;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+.button span {
+  cursor: pointer;
+  /*display: inline-block;*/
+  position: relative;
+  transition: 0.5s;
+}
+.button span:after {
+  content: '\00bb';
+  /*position: absolute;*/
+  opacity: 0;
+  top: 0;
+  right: -25px;
+  transition: 0.5s;
+}
+.button:hover span {
+  padding-right: 10px;
+}
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+.homepage-announcement-container{
+    transition: all 1s ease;
+}
+.homepage-announcement-container:hover{
+    background: #2a0001;
+    transition: all 1s ease;
+}
+.HPLinksLogo{
+    font-size: 2rem;
+border-radius: 50%;
+border: .2rem solid rgba(50, 50, 50,1.0);
+padding: 40%;
+}
+.QLData{
+    transition: all 1s ease;
+}
+.QLData:hover{
+    background: rgba(50, 50, 50,1.0);
+    transition: all 1s ease;
 }
 .focus-within\:z-10:focus-within {
 	z-index: 10;
@@ -3555,6 +3679,10 @@ h3 {
 		grid-column: span 1 / span 1;
 	}
 
+	.sm\:col-span-10 {
+		grid-column: span 10 / span 10;
+	}
+
 	.sm\:col-span-12 {
 		grid-column: span 12 / span 12;
 	}
@@ -3563,8 +3691,15 @@ h3 {
 		grid-column: span 3 / span 3;
 	}
 
+	.sm\:col-span-8 {
+		grid-column: span 8 / span 8;
+	}
+
 	.sm\:col-span-2 {
 		grid-column: span 2 / span 2;
+	}
+	.sm\:col-start-2 {
+		grid-column-start: 2;
 	}
 
 	.sm\:mx-0 {
@@ -3835,6 +3970,10 @@ h3 {
 		grid-column: span 1 / span 1;
 	}
 
+	.md\:col-start-2 {
+		grid-column-start: 2;
+	}
+
 	.md\:col-span-4 {
 		grid-column: span 4 / span 4;
 	}
@@ -3851,6 +3990,9 @@ h3 {
 		grid-column: span 3 / span 3;
 	}
 
+	.md\:col-span-10 {
+		grid-column: span 10 / span 10;
+	}
 	.md\:my-6 {
 		margin-top: 1.5rem;
 		margin-bottom: 1.5rem;
@@ -3976,8 +4118,15 @@ h3 {
 		grid-column: span 8 / span 8;
 	}
 
+	.lg\:col-start-2 {
+		grid-column-start: 2;
+	}
+
 	.lg\:col-span-1 {
 		grid-column: span 1 / span 1;
+	}
+	.lg\:col-end-11 {
+		grid-column-end: 11;
 	}
 
 	.lg\:col-span-2 {
@@ -4063,9 +4212,24 @@ h3 {
 	.xl\:col-span-3 {
 		grid-column: span 3 / span 3;
 	}
+	.xl\:col-span-6 {
+		grid-column: span 6 / span 6;
+	}
+
+	.xl\:col-span-8 {
+		grid-column: span 8 / span 8;
+	}
+
+	.xl\:col-start-2 {
+		grid-column-start: 2;
+	}
+
+	.xl\:col-end-11 {
+		grid-column-end: 11;
+	}
 
 	.xl\:col-span-2 {
-		grid-column: span 2 / span 2;
+			grid-column: span 2 / span 2;
 	}
 
 	.xl\:grid-cols-4 {
@@ -4079,6 +4243,8 @@ h3 {
 	.xl\:pl-9 {
 		padding-left: 2.25rem;
 	}
+
+
 }
 @media (min-width: 1536px) {
 

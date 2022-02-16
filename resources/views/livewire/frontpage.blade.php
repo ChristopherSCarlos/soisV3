@@ -3,18 +3,17 @@
      =            Homepage Views Section comment            =
      =====================================================-->
      @if($isCurrentSlugInSystemPage->contains($urlslug) or $urlslug == $isFrontPageSlugNull)
-     @section('title', 'Homepage')
+     @section('title', 'Welcome to SOIS')
 <!-- component -->
 
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-
-
-<div class="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800">
+<!-- navbar -->
+<div class="w-full text-gray-700 dark-mode:text-gray-200 dark-mode:bg-gray-800" style="background: #2a0001;">
      <div x-data="{ open: false }" class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
           <div class="p-4 flex flex-row items-center justify-between">
                <a href="{{ url('/')}}" class="flex text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">
                     <img class="h-8" src="{{ asset('image/svg/pup.svg') }}">
-                    <p class="system-title ml-2">Hello</p>
+                    <p  id="titulo1" class="system-title ml-2 text-white">Student Organization Information System</p>
+                    <p  id="titulo2" class="system-title-2 ml-2 text-white">SOIS</p>
                </a>
                <button class="md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">
                     <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
@@ -81,133 +80,220 @@
      </div>
 </div>
 
-<div class="frontpage-announcement mb-6" style="">
-          <div class="homepage-news-bar">
-               @foreach($getDisplayAnnouncementFeaturedHomepage as $HomepageAnnouncement)
-               <div class="frontpage-announcement-data-link-container" style="">
-                    <a href="{{$HomepageAnnouncement->announcement_slug}}">
-                         <div class="frontpage-announcement-data-container flex flex-row justify-center items-center" style="">
-                              <img class="h-5 ml-5 mr-5" src="{{ asset('image/svg/pup.svg') }}">
-                              <h5 class="text-center" style=" ">{{$HomepageAnnouncement->announcement_title}}</h5>
-                              <img class="h-5 ml-5 mr-5" src="{{ asset('image/svg/pup.svg') }}">
-                         </div>
-                    </a>
-               </div>
-               @endforeach
-          </div>
-</div>
-
-<div class="sliding-announcement-wrap-homepage">
-    <div class="sliding-announcement">
-
-          @foreach($getDisplayArticlesOnHomepageCarousel as $HomepageNews)
-          <a href="{{$HomepageNews->article_slug}}">
-              <div class="sliding-annonuncement-image-container">
-                    @foreach($getDisplaySelectedNewsImageData as $newsImage)
-                        @if($newsImage->articles_id == $HomepageNews->articles_id)
-                            <img class="sliding-annonuncement-image" src="{{ asset('files/'.$newsImage->asset_name) }}">
-                        @endif
-                    @endforeach
-                  <h5 class="text-center"></h5>
-               <div class="slider-title-container" style="">
-                    <p class="slider-title-data ml-5 sm:pt-5" style="">{{$HomepageNews->article_title}}</p>
-
-               </div>
-              </div>
-          </a>
-     @endforeach
-
-    </div>
-
-    <button class="button-slider slide-arrow prev-arrow"><i class="carousel-chevron fas fa-angle-left fa-2x"></i></button>
-    <button class="button-slider slide-arrow next-arrow"><i class="carousel-chevron fas fa-angle-right fa-2x"></i></button>
-</div>
-
-<div class="grid grid-cols-12 lg:grid-rows-1 md:grid-rows-1 sm:grid-rows-2 bg-gray-200">
-     <div class="xl:col-span-4 lg:col-span-4 md:col-span-4 sm:col-span-4 col-span-12 mt-4 pl-16">
-          <div class="flex flex-row">
-               <div><p class="homepage-titles"><strong>Latest Announcements</strong></p></div>
-
-          </div>
-          <div class="frontpage-announcement-list-container h-5/6" style="">
-          @foreach($getDisplayAnnouncementFeaturedHomepage as $HomepageAnnouncement)
-               <div class="annonuncement-links-homepage mt-5 bg-gray-200 hover:bg-gray-600">
-                    <a class="bg-gray-200 hover:bg-gray-600 hover:text-white" href="{{$HomepageAnnouncement->announcement_title}}">
-                         <h2 class="text-left text-4x1 font-medium">{{$HomepageAnnouncement->announcement_title}}</h2>
-                         <h5 class="text-left text-xs font-light">{{\Carbon\Carbon::parse($HomepageAnnouncement->created_at)->isoFormat('MMM Do YYYY')}}</h5>
-                    </a>
-               </div>
+<div style="background: #2a0001;">
+     <!-- main slider -->
+     <div class="sliding-announcement-wrap-homepage">
+         <div class="sliding-announcement">
+               @foreach($getDisplayArticlesOnHomepageCarousel as $HomepageNews)
+               <a href="{{$HomepageNews->article_slug}}">
+                   <div class="sliding-annonuncement-image-container">
+                         @foreach($getDisplaySelectedNewsImageData as $newsImage)
+                             @if($newsImage->articles_id == $HomepageNews->articles_id)
+                                 <img class="sliding-annonuncement-image" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                             @endif
+                         @endforeach
+                   </div>
+               </a>
           @endforeach
-          </div>
+         </div>
+         <div class="slick-slider-dots"></div>
+         <button class="button-slider slide-arrow prev-arrow"><i class="carousel-chevron fas fa-angle-left fa-2x"></i></button>
+         <button class="button-slider slide-arrow next-arrow"><i class="carousel-chevron fas fa-angle-right fa-2x"></i></button>
      </div>
-     <div class="xl:col-span-8 lg:col-span-8 md:col-span-8 sm:col-span-8 col-span-12 mt-4 pr-16">
-          <div class="flex flex-row">
-               <div><p class="homepage-titles"><strong>Latest News</strong></p></div>
-          </div>
-          
-          <div class="latest-news-slider-holder bg-gray-900 pl-9 pr-9 w-full">
-               <div class="slider slider-for">
-                  @foreach($getDsiplayArticleLatestOnCreatedPage as $homepageLatestNews)
-                 <div>
-                      <a href="{{$homepageLatestNews->article_slug}}">
-                                       <div class="flex justify-center items-center bg-white-800" style="">
-                                             @foreach($getDisplaySelectedNewsImageData as $newsImage)
-                                                 @if($newsImage->articles_id == $homepageLatestNews->articles_id)
-                                                     <img class="organization-latest-news-slider" style="" src="{{ asset('files/'.$newsImage->asset_name) }}">
-                                                 @endif
-                                             @endforeach
-                                       </div>
-                                       <div class="bg-white-800" style="color: white;">{{$homepageLatestNews->article_title}}</div>
-                                   </a>
-                 </div>
-                  @endforeach
-               </div>
-               <div class="slider slider-nav">
-                 @foreach($getDsiplayArticleLatestOnCreatedPage as $homepageLatestNews)
-                                       <div class="organization-latest-news-slider-container flex justify-center items-center flex-row mt-1 p-2">
-                                             @foreach($getDisplaySelectedNewsImageData as $newsImage)
-                                                 @if($newsImage->articles_id == $homepageLatestNews->articles_id)
-                                                     <div class="ml-2 mr-2">
-                                                          <img class="organization-latest-news-slider transition hover:opacity-25 transition-opacity duration-1000 ease-out h-2/6" style="" src="{{ asset('files/'.$newsImage->asset_name) }}">
-                                                     </div>
-                                                 @endif
-                                             @endforeach
-                                       </div>
-                                   @endforeach
+     
+     <!-- announcement -->
+     <div class="flex flex-col" data-aos="fade-up">
+          <div class="grid grid-cols-12">
+               <div class="col-start-2 col-span-12">
+                    <p class="homepage-titles " style="color:white">Latest Announcements</p>
                </div>
           </div>
-
-
-
-
-     </div>
-</div>
-<div class="grid grid-rows-2 " style="background: #0d0c0d; color:white;">
-     <div class="text-center"><p class="homepage-titles"><strong>Featured Events</strong></p></div>
-</div>
-<div class=" p-6 flex justify-center items-center" style="background: #0d0c0d;width: 100%; color:white;">
-     <div class=" mb-6"  style="width:95% ;">
-          <div class="homepage-events-slick">
-               @foreach($getDisplayEventsHomepage as $HomepageEvents)
-                    <div>
-                    <a href="{{$HomepageEvents->article_slug}}">
-                        <div class="mr-5 ml-5 pl-5 pr-5 flex flex-col">
-                              <div class="flex align-items justify-center items-center">
-                              @foreach($getDisplaySelectedNewsImageData as $newsImage)
-                                   @if($newsImage->articles_id == $HomepageEvents->articles_id)
-                                        <div class="ml-2 mr-2">
-                                             <img class=" transition hover:opacity-25 transition-opacity duration-1000 ease-out" style="object-fit:fill; height:20vh; width: 15vw;" src="{{ asset('files/'.$newsImage->asset_name) }}">
-                                        </div>
-                                   @endif
-                              @endforeach
-                              </div>
-                              <div class="" style="">
-                                   <h5 class="text-center text-sm" style="width: 15vw;">{{$HomepageEvents->article_title}}</h5>
-                              </div>
-                        </div>
-                    </a>
+          <div class="grid grid-cols-12">
+               <div class="p-5 col-start-2 col-end-12 col-span-12 grid grid-cols-10">
+                    @foreach($getDisplayAnnouncementFeaturedHomepageLatestFirst as $HPLatestAnnouncementFirst)
+                    <div class="col-span-10 xl:col-span-6 lg:col-span-6 md:col-span-10 sm:col-span-10">
+                         @foreach($getDisplayAnnouncementImageFrontpage as $announcementImage)
+                             @if($announcementImage->announcement_id == $HPLatestAnnouncementFirst->announcements_id)
+                                 <img class="w-full" style="object-fit:cover;" src="{{ asset('files/'.$announcementImage->file) }}">
+                             @endif
+                         @endforeach
                     </div>
-               @endforeach
+                    <div class="col-span-10 xl:col-span-4 lg:col-span-4 md:col-span-10 sm:col-span-10 flex flex-col">
+                         <div class="justify-center items-center" style="color:white;">
+                              <h2 class="justify-center" style="color:white; font-family: 'Exo 2',sans-serif; font-size: 20px;">{{$HPLatestAnnouncementFirst->announcement_title}}</h2>
+                         </div>
+                         <div style="color:white;"><p><?php echo htmlspecialchars_decode(stripslashes($HPLatestAnnouncementFirst->announcement_content));  ?></p></div>
+                    </div>
+                    @endforeach
+               </div>
+          </div>
+          <div class="grid grid-cols-12">
+               <div class="p-5 col-start-2 sm:col-start-2 xs:col-start-2 md:col-start-2 lg:col-start-2 xl:col-start-2 col-span-3 xs:col-span-3 xl:col-span-3 lg:col-span-3 md:col-span-10 sm:col-span-10">
+                    @foreach($getDisplayAnnouncementImageFrontpageThree as $HPLatestAnnouncemeFirstThree)
+                    <div class="col-span-10 xl:col-span-6 lg:col-span-6 md:col-span-10 sm:col-span-10">
+                         <p>{{$HPLatestAnnouncemeFirstThree->announcements_id}}</p>
+                         @foreach($getDisplayAnnouncementImageFrontpage as $announcementImage)
+                             @if($announcementImage->announcement_id == $HPLatestAnnouncemeFirstThree->announcements_id)
+                                 <img class="w-full" style="object-fit:cover;" src="{{ asset('files/'.$announcementImage->file) }}">
+                             @endif
+                         @endforeach
+                    </div>
+                    <div class="col-span-10 xl:col-span-4 lg:col-span-4 md:col-span-10 sm:col-span-10 flex flex-col">
+                         <div class=" ">
+                              <h2 class="justify-center" style="color:white; font-family: 'Exo 2',sans-serif; font-size: 20px;">Announcement Title</h2>
+                         </div>
+                         <div style="color:white;">Announcement Content</div>
+                    </div>
+                    @endforeach
+               </div>
+          </div>
+     </div>
+</div>
+
+<!-- latest news -->
+<div class="flex flex-col" data-aos="fade-up">
+     <div class="grid grid-cols-12">
+          <div class="col-start-2 col-span-9">
+               <p class="homepage-titles pt-5"><strong>News</strong></p> 
+          </div>
+          <div class="pt-5">
+               <button class="HPLatestNews" onclick="LatestFunction()">Latest</button>
+          </div>
+          <div class="pt-5">
+               <button class="HPFeaturedNews" onclick="FeaturedFunction()">Featured</button>
+          </div>
+     </div>
+     <div id="homepageNewsDiv" onload="homepageNewsFunction()">
+          <div id="homepageLatestNewsDiv">
+               <div class="grid grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-2 lg:pl-9 md:pl-9 sm:pl-9 xl:pl-9 ">
+                    @foreach($getDsiplayArticleLatestOnCreatedPage as $homepageLatestNews)
+                         <div class="article-newspage p-3 flex flex-col">
+                             <a href="{{$homepageLatestNews->article_slug}}">
+                                 <div class="" style="width: 100%;">
+                                     @foreach($getDisplaySelectedNewsImageData as $newsImage)
+                                         @if($newsImage->articles_id == $homepageLatestNews->articles_id)
+                                             <img style="object-fit:cover" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                         @endif
+                                     @endforeach
+                                 </div>
+                                 <div class="">
+                                        <h5 class="">{{$homepageLatestNews->article_title}}</h5>
+                                        <p style="font-size: 10px;">{{\Carbon\Carbon::parse($homepageLatestNews->created_at)->isoFormat('MMM Do YYYY')}}</p>
+                                 </div>
+                             </a>
+                         </div>
+                    @endforeach
+               </div>
+          </div>
+          <div id="homepageFeaturedNewsDiv">
+               <div class="grid grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-2 lg:pl-9 md:pl-9 sm:pl-9 xl:pl-9 ">
+                    @foreach($getDsiplayFeaturedArticleOnCreatedPage as $featuredNewspage)
+                         <div class="article-newspage p-3 flex flex-col">
+                             <a href="{{$featuredNewspage->article_slug}}">
+                                 <div class="" style="width: 100%;">
+                                     @foreach($getDisplaySelectedNewsImageData as $newsImage)
+                                         @if($newsImage->articles_id == $featuredNewspage->articles_id)
+                                             <img style="object-fit:cover" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                         @endif
+                                     @endforeach
+                                 </div>
+                                 <div class="">
+                                        <h5 class="">{{$featuredNewspage->article_title}}</h5>
+                                        <p style="font-size: 10px;">{{\Carbon\Carbon::parse($featuredNewspage->created_at)->isoFormat('MMM Do YYYY')}}</p>
+                                 </div>
+                             </a>
+                         </div>
+                    @endforeach
+               </div>
+          </div>
+     </div>
+</div>
+
+
+
+
+<div data-aos="fade-up">
+     <div class="grid grid-rows-2 " style="background: #0d0c0d; color:white;">
+          <div class="text-center"><p class="homepage-titles"><strong>Featured Events</strong></p></div>
+     </div>
+     <div class=" p-6 flex justify-center items-center" style="background: #0d0c0d;width: 100%; color:white;">
+          <div class=" mb-6"  style="width:95% ;">
+               <div class="homepage-events-slick">
+                    @foreach($getDisplayEventsHomepage as $HomepageEvents)
+                         <div>
+                         <a href="{{$HomepageEvents->article_slug}}">
+                             <div class="mr-5 ml-5 pl-5 pr-5 flex flex-col">
+                                   <div class="flex align-items justify-center items-center">
+                                   @foreach($getDisplaySelectedNewsImageData as $newsImage)
+                                        @if($newsImage->articles_id == $HomepageEvents->articles_id)
+                                             <div class="ml-2 mr-2">
+                                                  <img class=" transition hover:opacity-25 transition-opacity duration-1000 ease-out" style="object-fit:fill; height:20vh; width: 15vw;" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                             </div>
+                                        @endif
+                                   @endforeach
+                                   </div>
+                                   <div class="" style="">
+                                        <h5 class="text-center text-sm" style="width: 15vw;">{{$HomepageEvents->article_title}}</h5>
+                                   </div>
+                             </div>
+                         </a>
+                         </div>
+                    @endforeach
+               </div>
+          </div>
+     </div>
+</div>
+
+<div class="mt-3  mb-3" style="" data-aos="fade-up">
+     <div class="text-center"><p class="homepage-titles">Quick Links</p></div>
+     <div class="grid grid-cols-12">
+          <div class="col-span-3">
+               <a href="http://sois-gpoa.puptaguigcs.net">
+               <div class="QLData  flex flex-col items-center justify-center pt-5">
+                    <div class="">
+                         <span class="HPLinksLogo">
+                              <i class="fas fa-solid fa-calendar-check"></i>
+                         </span>
+                    </div>
+                    <div class="pt-5">GPOA</div>
+               </div>
+               </a>     
+          </div>
+          <div class="col-span-3">
+               <a href="http://sois-membership.puptaguigcs.net">
+                    <div class="QLData flex flex-col items-center justify-center pt-5">
+                         <div class="">
+                              <span class="HPLinksLogo">
+                                   <i class="fas fa-users"></i>
+                              </span>
+                         </div>
+                         <div class="pt-5">Organization Membership</div>
+                    </div>
+               </a>
+          </div>
+          <div class="col-span-3 ">
+               <a href="http://sois-ar.puptaguigcs.net">
+                    <div class="QLData flex flex-col items-center justify-center pt-5">
+                         <div class="">
+                              <span class="HPLinksLogo">
+                                   <i class="fas fa-solid fa-medal"></i>
+                              </span>
+                         </div>
+                         <div class="pt-5">Accomplishment Reports</div>
+                    </div>
+               </a>     
+          </div>
+          <div class="col-span-3">
+               <a href="#">
+                    <div class="QLData flex flex-col items-center justify-center pt-5">
+                         <div class="">
+                              <span class="HPLinksLogo">
+                                   <i class="fas fa-solid fa-money-bill"></i>
+                              </span>
+                         </div>
+                         <div class="pt-5">Financial Statement</div>
+                    </div>
+               </a>     
           </div>
      </div>
 </div>
@@ -216,6 +302,7 @@
      
 @livewire('footers')
 </div>
+
           <!--====  End of Homepage Landing Page Content Section comment  ====-->
      @endif
      
