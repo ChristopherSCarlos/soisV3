@@ -106,7 +106,6 @@
 <!--====  End of Craete Modal Section comment  ====-->
 
 
-
 <!--=====================================================
 =            Sync permission Section comment            =
 ======================================================-->
@@ -136,6 +135,8 @@
 
 
 <!--====  End of Sync permission Section comment  ====-->
+
+
 
 
 

@@ -64,7 +64,8 @@
         
     </head>
     <body id="FrontaPageContent" class="font-sans antialiased" onload="onloadFunctions()">
-        
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v13.0&appId=210115755725416&autoLogAppEvents=1" nonce="Cz0xP27o"></script>
         <x-jet-banner />
 
         <div class="min-h-screen bg-gray-100">

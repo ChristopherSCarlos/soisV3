@@ -25,10 +25,10 @@
                                                 <td class="px-6 py-2">{{ $item->position_category }}</td>
 
                                                 <td>
-                                                    <x-jet-button wire:click="updateShowModal({{ $item->officer_positions_id }})">
+                                                    <x-jet-button wire:click="updateShowModal({{ $item->position_category_id }})">
                                                         {{__('Update')}}
                                                     </x-jet-button>
-                                                    <x-jet-danger-button wire:click="deleteShowModal({{ $item->officer_positions_id }})">
+                                                    <x-jet-danger-button wire:click="deleteShowModal({{ $item->position_category_id }})">
                                                         {{__('Delete')}}
                                                     </x-jet-danger-button>
                                                 </td>
@@ -41,6 +41,9 @@
             </div>
         </div>
     </div>
+
+    {{$OfficerPositionData->links()}}
+
          
 <!--==========================================
 =            Create Officer Modal            =

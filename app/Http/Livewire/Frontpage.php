@@ -68,7 +68,6 @@ class Frontpage extends Component
 
     public $orgSocialSelectedOrganizationData;
     public $orgSocialSelectedOrganizationID;
-
     public $hpLatestAnnouncementImageThree;
     public $hpLatestAnnouncementThree;
 

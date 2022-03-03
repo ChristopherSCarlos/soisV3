@@ -9,10 +9,11 @@ use Storage;
 use App\Models\Organization;
 use App\Models\User;
 use App\Models\SystemAsset;
+use App\Models\OrganizationAsset;
 use App\Models\PageType;
 use App\Http\Livewire\Objects;
 
-use Livewire\WithPagination;
+use Livewire\withPagination;
 
 use Illuminate\Support\STR;
 
@@ -53,8 +54,9 @@ class Organizations extends Component
     public $organization_carousel_image_2;
     public $organization_carousel_image_3;
     public $organization_slug;
-    public $organization_type;
+    public $organization_type_id;
     public $organization_banner;
+    public $organization_acronym;
     
     public $isSetToDefaultHomePage;
     public $isSetToDefaultNotFoundPage;
@@ -115,6 +117,15 @@ class Organizations extends Component
     public $latestSystemAssetForImageUpload;
     public $getSystemAssetData;
 
+
+
+    public function mount()
+    {
+        $this->organization_slug = $this->organization_name;
+
+    }
+
+
     /**
      *
      * Organization Rules
@@ -128,10 +139,30 @@ class Organizations extends Component
             'organization_primary_color' => 'required',
             'organization_secondary_color' => 'required',
             'organization_slug' => 'required',
-            'organization_type' => 'required',
+            'organization_type_id' => 'required',
             'status' => 'required',
         ];
     }
+
+    /*=================================================
+    =            View Organization Section            =
+    =================================================*/
+    public function viewShowModal($id)
+    {
+        $this->resetValidation();
+        $this->reset();
+        $this->viewmodalFormVisible = true;
+        $this->modelId = $id;
+        $this->loadImageModel();
+        // $this->getSelectedOrganizationLogo();
+    }
+    public function getSelectedOrganizationLogo()
+    {
+        $this->systemAssetDataFromDB = SystemAsset::where('organization_id','=',$this->modelId)->get();
+        // dd($this->systemAssetDataFromDB->asset_name);
+    }
+    /*=====  End of View Organization Section  ======*/
+    
 
     /*============================================
     =            Image Upload Section            =

@@ -474,7 +474,7 @@
     <x-slot name="content">
         <div class="mt-4">
                 @foreach($displayArticleImage as $image)
-                    <img src="{{asset('files/'.$image->asset_name)}}">
+                    <img src="{{asset('files/'.$image->file)}}">
                 @endforeach
         </div>
         <div class="mt-4">

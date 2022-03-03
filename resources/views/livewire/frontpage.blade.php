@@ -6,6 +6,9 @@
      @section('title', 'Welcome to SOIS')
 <!-- component -->
 
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+
 <!-- navbar -->
 <div class="w-full text-gray-700 dark-mode:text-gray-200 dark-mode:bg-gray-800" style="background: #2a0001;">
      <div x-data="{ open: false }" class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
@@ -89,7 +92,7 @@
                    <div class="sliding-annonuncement-image-container">
                          @foreach($getDisplaySelectedNewsImageData as $newsImage)
                              @if($newsImage->articles_id == $HomepageNews->articles_id)
-                                 <img class="sliding-annonuncement-image" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                 <img class="sliding-annonuncement-image" src="{{ asset('files/'.$newsImage->file) }}">
                              @endif
                          @endforeach
                    </div>
@@ -169,10 +172,10 @@
                     @foreach($getDsiplayArticleLatestOnCreatedPage as $homepageLatestNews)
                          <div class="article-newspage p-3 flex flex-col">
                              <a href="{{$homepageLatestNews->article_slug}}">
-                                 <div class="" style="width: 100%;">
+                                 <div class="items-center justify-center" style="width: 100%;">
                                      @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                          @if($newsImage->articles_id == $homepageLatestNews->articles_id)
-                                             <img style="object-fit:cover" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                             <img style="object-fit:cover; height:50vh;" src="{{ asset('files/'.$newsImage->file) }}">
                                          @endif
                                      @endforeach
                                  </div>
@@ -193,7 +196,7 @@
                                  <div class="" style="width: 100%;">
                                      @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                          @if($newsImage->articles_id == $featuredNewspage->articles_id)
-                                             <img style="object-fit:cover" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                             <img style="object-fit:cover;  height:50vh;" src="{{ asset('files/'.$newsImage->file) }}">
                                          @endif
                                      @endforeach
                                  </div>
@@ -227,7 +230,7 @@
                                    @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                         @if($newsImage->articles_id == $HomepageEvents->articles_id)
                                              <div class="ml-2 mr-2">
-                                                  <img class=" transition hover:opacity-25 transition-opacity duration-1000 ease-out" style="object-fit:fill; height:20vh; width: 15vw;" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                                  <img class=" transition hover:opacity-25 transition-opacity duration-1000 ease-out" style="object-fit:fill; height:20vh; width: 15vw;" src="{{ asset('files/'.$newsImage->file) }}">
                                              </div>
                                         @endif
                                    @endforeach
@@ -302,7 +305,6 @@
      
 @livewire('footers')
 </div>
-
           <!--====  End of Homepage Landing Page Content Section comment  ====-->
      @endif
      
@@ -402,7 +404,7 @@
           <div class="newspage-featured-top flex flex-wrap justify-center align-items p-3" style="margin:auto;">
                     @foreach($getDisplaySelectedNewsImageData as $newsImage)
                          @if($newsImage->articles_id == $topNews->articles_id)
-                              <img style="object-fit:cover; height:80%;" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                              <img style="object-fit:cover; height:80%;" src="{{ asset('files/'.$newsImage->file) }}">
                          @endif
                     @endforeach
           </div>
@@ -422,7 +424,7 @@
                             <div class="" style="width: 100%;">
                                 @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                     @if($newsImage->articles_id == $latestSixNews->articles_id)
-                                        <img style="object-fit:cover" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                        <img style="object-fit:cover" src="{{ asset('files/'.$newsImage->file) }}">
                                     @endif
                                 @endforeach
                             </div>
@@ -470,7 +472,7 @@
                                    @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                         @if($newsImage->articles_id == $ArticleEvents->articles_id)
                                              <div class="flex align-items justify-center items-center">
-                                                  <img class="newspage-latest-events transition hover:opacity-25 transition-opacity duration-1000 ease-out" style="" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                                  <img class="newspage-latest-events transition hover:opacity-25 transition-opacity duration-1000 ease-out" style="" src="{{ asset('files/'.$newsImage->file) }}">
                                              </div>
                                         @endif
                                    @endforeach
@@ -503,7 +505,7 @@
                        <div class="" style="width: 100%;">
                            @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                @if($newsImage->articles_id == $featuredNewspage->articles_id)
-                                   <img style="object-fit:cover" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                   <img style="object-fit:cover" src="{{ asset('files/'.$newsImage->file) }}">
                                @endif
                            @endforeach
                        </div>
@@ -531,7 +533,7 @@
                               @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                    @if($newsImage->articles_id == $NewsPageAllEvents->articles_id)
                                         <div class="ml-2 mr-2">
-                                             <img class=" transition hover:opacity-25 transition-opacity duration-1000 ease-out" style="object-fit:fill; height:20vh; width: 15vw;" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                             <img class=" transition hover:opacity-25 transition-opacity duration-1000 ease-out" style="object-fit:fill; height:20vh; width: 15vw;" src="{{ asset('files/'.$newsImage->file) }}">
                                         </div>
                                    @endif
                               @endforeach
@@ -734,7 +736,7 @@
                     <div style="">
                          <div class="flex flex-col flex-wrap items-center justify-center" style="">
                          @foreach($getDisplaySelectedNewsImageDataOnSelectedNews as $data)
-                              <img style="max-height: 100%;object-fit: contain;" src="{{asset('files/'.$data->asset_name)}}">
+                              <img style="max-height: 100%;object-fit: contain;" src="{{asset('files/'.$data->file)}}">
                          @endforeach
                          </div>
                     </div>
@@ -804,7 +806,7 @@
                                    @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                         @if($newsImage->articles_id == $ArticleEvents->articles_id)
                                              <div class="flex align-items justify-center items-center">
-                                                  <img class="newspage-latest-events transition hover:opacity-25 transition-opacity duration-1000 ease-out" style="" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                                  <img class="newspage-latest-events transition hover:opacity-25 transition-opacity duration-1000 ease-out" style="" src="{{ asset('files/'.$newsImage->file) }}">
                                              </div>
                                         @endif
                                    @endforeach
@@ -926,7 +928,7 @@
               <div class="sliding-annonuncement-image-container">
                     @foreach($getDisplaySelectedNewsImageData as $newsImage)
                         @if($newsImage->articles_id == $orgPage->articles_id)
-                            <img class="sliding-annonuncement-image" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                            <img class="sliding-annonuncement-image" src="{{ asset('files/'.$newsImage->file) }}">
                         @endif
                     @endforeach
                   <h5 class="text-center"></h5>
@@ -955,7 +957,7 @@
      <div class="lg:col-span-2 md:col-span-2 sm:col-span-8" style="">
           @foreach($getDisplaySelectedOrganizationAssetLogoData as $organizationLogo)
               <div class="flex flex-col flex-wrap justify-center align-items" style="">
-                      <img class="" style="background:white; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.50); max-width: 100%; height: auto" src="{{ asset('files/' . $organizationLogo->asset_name) }}">
+                      <img class="" style="background:white; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.50); max-width: 100%; height: auto" src="{{ asset('files/' . $organizationLogo->file) }}">
                </div>
           @endforeach
      </div>
@@ -1003,7 +1005,7 @@
                                        <div class="flex justify-center items-center bg-white-800" style="">
                                              @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                                  @if($newsImage->articles_id == $orgNews->articles_id)
-                                                     <img class="organization-latest-news-slider" style="object-fit:fill; height: 20vw" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                                     <img class="organization-latest-news-slider" style="object-fit:fill; height: 20vw" src="{{ asset('files/'.$newsImage->file) }}">
                                                  @endif
                                              @endforeach
                                        </div>
@@ -1018,7 +1020,7 @@
                                              @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                                  @if($newsImage->articles_id == $orgNews->articles_id)
                                                      <div class="ml-2 mr-2">
-                                                          <img class="organization-latest-news-slider transition hover:opacity-25 transition-opacity duration-1000 ease-out h-2/6" style="object-fit:fill;" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                                          <img class="organization-latest-news-slider transition hover:opacity-25 transition-opacity duration-1000 ease-out h-2/6" style="object-fit:fill;" src="{{ asset('files/'.$newsImage->file) }}">
                                                      </div>
                                                  @endif
                                              @endforeach
@@ -1047,7 +1049,7 @@
                               @foreach($getDisplaySelectedNewsImageData as $newsImage)
                                    @if($newsImage->articles_id == $HomepageEvents->articles_id)
                                         <div class="ml-2 mr-2">
-                                             <img class=" transition hover:opacity-25 transition-opacity duration-1000 ease-out" style="object-fit:fill; height:20vh; width: 15vw;" src="{{ asset('files/'.$newsImage->asset_name) }}">
+                                             <img class=" transition hover:opacity-25 transition-opacity duration-1000 ease-out" style="object-fit:fill; height:20vh; width: 15vw;" src="{{ asset('files/'.$newsImage->file) }}">
                                         </div>
                                    @endif
                               @endforeach

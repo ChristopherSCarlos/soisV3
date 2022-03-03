@@ -24,6 +24,12 @@ use Illuminate\Support\Facades\DB;
 
 use Auth;
 
+
+use Datetime;
+use DatePeriod;
+use DateInterval;
+
+
 class Sliders extends Component
 {
     /* Traits */
@@ -54,6 +60,34 @@ class Sliders extends Component
         $this->object = new Objects();
         $this->userRole = $this->object->roles();
         $this->userRoleString = $this->userRole->role;
+
+
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+            // echo "1";
+            // echo "<br><br>";
+            // echo $ip;
+            // echo "<br><br>";
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            // echo "2";
+            // echo "<br><br>";
+            // echo $ip;
+            // echo "<br><br>";
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+            // echo "3";
+            // echo "<br><br>";
+            // echo $ip;
+            // echo "<br><br>";
+        }
+
+
+        $newDate=date('Y-m-d', strtotime("+2 months"));
+        // echo $newDate;
+        // echo "Hello";
+        // echo rand(1,10);
+
         // dd($this->userRoleString);
     }
 
@@ -71,6 +105,11 @@ class Sliders extends Component
         $this->modalAddNewsFormVisible = false;
         $this->reset();
         $this->resetValidation();
+        $this->red();
+    }
+    public function red()
+    {
+        return redirect('/default-interfaces');
     }
 
 

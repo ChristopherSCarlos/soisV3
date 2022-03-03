@@ -18,7 +18,7 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 
-use Livewire\WithPagination;
+use Livewire\withPagination;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -65,6 +65,9 @@ class createofficers extends Component
     public $orgUserId;
     public $userOrganization;
     public $orgCount;
+    public $position_title_id;
+    public $term_start;
+    public $term_end;
 
     public $fileName;
 
@@ -83,8 +86,8 @@ class createofficers extends Component
             'school_year' => 'required',
             'semester' => 'required',
             'position' => 'required',
-            'exp_date' => 'required',
-            'position_category' => 'required',
+            'term_start' => 'required',
+            'term_end' => 'required',
             'officer_signature' => 'nullable',
         ];
     }
@@ -134,9 +137,9 @@ class createofficers extends Component
             'organization_id' => 'required',
             'school_year' => 'required',
             'semester' => 'required',
-            'position' => 'required',
-            'exp_date' => 'required',
-            'position_category' => 'required',
+            'position_title_id' => 'required',
+            'term_end' => 'required',
+            'term_start' => 'required',
             // 'position_category' => 'required',
             // 'officer_signature' => 'file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
         ]);
@@ -148,6 +151,7 @@ class createofficers extends Component
 
         // $this->officer_signature->storeAs('files',$this->fileName, 'imgfolder');
 
+        // dd($this);
         Officer::create([
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
@@ -156,9 +160,10 @@ class createofficers extends Component
             'organization_id' => $this->organization_id,
             'school_year' => $this->school_year,
             'semester' => $this->semester,
-            'position' => $this->position,
-            'exp_date' => $this->exp_date,
-            'position_category' => $this->position_category,
+            'position_title_id' => $this->position_title_id,
+            'term_end' => $this->term_end,
+            'term_start' => $this->term_start,
+            // 'position_category' => $this->position_category,
             // 'officer_signature' => $this->officer_signature,
             'status' => '1',
         ]);
@@ -179,10 +184,11 @@ class createofficers extends Component
             'organization_id' => $this->organization_id,
             'school_year' => $this->school_year,
             'semester' => $this->semester,
-            'position' => $this->position,
-            'exp_date' => $this->exp_date,
+            'position_title_id' => $this->position_title_id,
+            'term_end' => $this->term_end,
+            'term_start' => $this->term_start,
             // 'position_category' => $this->position_category,
-            'officer_signature' => $this->officer_signature,
+            // 'officer_signature' => $this->officer_signature,
             'status' => '1',
         ];
     }
@@ -213,8 +219,9 @@ class createofficers extends Component
         $this->organization_id = $data->organization_id;
         $this->school_year = $data->school_year;
         $this->semester = $data->semester;
-        $this->position = $data->position;
-        $this->exp_date = $data->exp_date;
+        $this->position_title_id = $data->position_title_id;
+        $this->term_end = $data->term_end;
+        $this->term_start = $data->term_start;
         $this->position_category = $data->position_category;
     }
 
@@ -229,8 +236,9 @@ class createofficers extends Component
             'organization_id' => 'required',
             'school_year' => 'required',
             'semester' => 'required',
-            'position' => 'required',
-            'exp_date' => 'required',
+            'position_title_id' => 'required',
+            'term_end' => 'required',
+            'term_start' => 'required',
             'position_category' => 'required',
         ]);
         officer::find($this->officers_id)->update($this->modelData());
@@ -273,8 +281,9 @@ class createofficers extends Component
             'organization_id' => $this->organization_id,
             'school_year' => $this->school_year,
             'semester' => $this->semester,
-            'position' => $this->position,
-            'exp_date' => $this->exp_date,
+            'position_title_id' => $this->position_title_id,
+            'term_start' => $this->term_start,
+            'term_end' => $this->term_end,
             'position_category' => $this->position_category,
         ];
     }
@@ -404,7 +413,8 @@ class createofficers extends Component
     
     public function getOfficerPositionsFromDatabase()
     {
-        return DB::table('officer_positions')->where('status','=','1')->get();
+        // return DB::table('officer_positions')->where('status','=','1')->get();
+        return DB::table('position_titles')->get();
     }
     
     /*=====  End of Get Position Category Section  ======*/

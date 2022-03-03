@@ -9,7 +9,7 @@ use App\Models\Announcement;
 use App\Models\User;
 
 use Illuminate\Validation\Rule;
-use Livewire\WithPagination;
+use Livewire\withPagination;
 
 use Illuminate\Support\STR;
 use Illuminate\Support\Facades\DB;

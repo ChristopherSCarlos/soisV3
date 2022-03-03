@@ -14,7 +14,7 @@ use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\DateColumn;
 
-use Livewire\WithPagination;
+use Livewire\withPagination;
 use Illuminate\Validation\Rule;
 
 use Illuminate\Support\Facades\DB;
@@ -155,8 +155,7 @@ class OfficerPositions extends Component
      */
     public function getOfficerPositionData()
     {
-        return DB::table('officer_positions')
-                    ->where('status','=','1')
+        return DB::table('position_categories')
                     ->paginate(10);
     }
     

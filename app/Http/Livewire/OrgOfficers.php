@@ -20,7 +20,7 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 
-use Livewire\WithPagination;
+use Livewire\withPagination;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -89,10 +89,10 @@ class OrgOfficers extends LivewireDatatable
         return[
             // Column::checkbox('officers_id'),
 
-            NumberColumn::name('officers_id')
+            NumberColumn::name('officer_id')
                 ->label('ID')
                 ->defaultSort('asc')
-                ->sortBy('officers_id'),
+                ->sortBy('officer_id'),
 
             Column::name('first_name')
                 ->label('First Name')

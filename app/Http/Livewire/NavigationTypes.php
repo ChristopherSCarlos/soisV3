@@ -7,14 +7,14 @@ use Livewire\Component;
 use App\Models\NavigationMenu;
 use App\Models\NavigationMenuType;
 use App\Models\Page;
-use Livewire\WithPagination;
+use Livewire\withPagination;
 use Illuminate\Support\Facades\DB;
 
 
 class NavigationTypes extends Component
 {
     /* Traits */
-    use WithPagination;
+    use withPagination;
     /* Modals */
     public $modalCreateNavigationTypeFormVisible = false;
     public $modalDeleteNavigationTypeFormVisible = false;

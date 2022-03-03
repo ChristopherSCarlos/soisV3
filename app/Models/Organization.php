@@ -32,5 +32,10 @@ class Organization extends Model
     {
         return $this->belongsToMany(User::class,'organizations_users','organization_id','user_id');
     }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class,'role_user','role_id','user_id')->withPivot('organization_id');
+        // return $this->belongsToMany(User::class,'organizations_users','organization_id','user_id');
+    }
 
 }

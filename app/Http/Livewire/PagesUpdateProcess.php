@@ -10,7 +10,7 @@ use App\Http\Livewire\Objects;
 
 use App\Models\Page;
 use Illuminate\Validation\Rule;
-use Livewire\WithPagination;
+use Livewire\withPagination;
 
 use Illuminate\Support\STR;
 use Illuminate\Support\Facades\DB;

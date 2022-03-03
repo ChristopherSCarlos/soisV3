@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Frontpage;
 use App\Http\Contollers\AuthRolePermsController;
 use App\Http\Contollers\CookieController;
+use App\Http\Livewire\Users;
+use App\Http\Livewire\SelectedUser;
 use App\Http\Livewire\OrganizationPages;
 use App\Http\Livewire\PagesUpdateProcess;
 use App\Http\Livewire\ViewAnnouncement;
@@ -26,11 +28,6 @@ Route::get('/authredirects', 'App\Http\Controllers\AuthRolePermsController@index
 
 Route::get('/cookie/set','App\Http\Controllers\CookieController@setCookie');
 Route::get('/cookie/get','App\Http\Controllers\CookieController@getCookie');
-
-// Route::get('create-symlink', function (){
-//     Artisan::call('storage:link');
-//     return response('Done...');
-// });
 
 Route::group(['middleware' => [
             'isSuperAdmin',
@@ -64,6 +61,16 @@ Route::group(['middleware' => [
         Route::get('/articles', function(){
             return view('admin.articles');
         })->name('articles');
+
+        Route::get('/articles/create', function(){
+            return view('admin.article-create');
+        })->name('articles/create');
+
+        Route::get('/articles/view/{id}', function(){
+            return view('admin.article-update');
+        })->name('articles/view');
+
+
 
         Route::get('/organizations', function(){
             return view('admin.organizations');
@@ -100,7 +107,30 @@ Route::group(['middleware' => [
         Route::get('/users/deleted-users', function(){
             return view('admin.deleted-users');
         })->name('users/deleted-users');
+
+        Route::get('/admin/membership', function(){
+            return view('admin.membership');
+        })->name('admin/membership');
         
+
+        Route::get('/admin/nonacads', function(){
+            return view('admin.nonacademic');
+        })->name('admin/nonacads');
+// 
+        // Route::get('users/selected-user/{id}', [App\Http\Livewire\SelectedUser::class, 'edit'])->name('user/selected-user');
+        
+        Route::get('/users/selected-user/{id}', function(){
+            return view('admin.selected-users');
+        })->name('user/selected-user');
+
+        Route::get('/users/selected-user/update/{id}', function(){
+            return view('admin.update-user');
+        })->name('user/selected-user/update');
+        // Route::get('/', function () {
+        // });
+
+
+
         // Route::get('/announcements/view-selected-announcements/{$announcement_id}', function(){
         //     return view('admin.view-selected-announcements');
         // })->name('announcements/view-selected-announcements');

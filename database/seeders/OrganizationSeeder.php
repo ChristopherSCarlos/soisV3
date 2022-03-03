@@ -31,7 +31,7 @@ class OrganizationSeeder extends Seeder
             ],
             [
                 'organization_type_id' => 1,
-                'organization_name' => 'PASOA',
+                'organization_name' => 'Philippine Association of Students in Office Administration',
                 'organization_acronym' => 'PASOA',
                 'organization_details' => '...',
                 'organization_primary_color' => '#1bbede',
@@ -57,20 +57,20 @@ class OrganizationSeeder extends Seeder
             ],
             [
                 'organization_type_id' => 1,
-                'organization_name' => 'aeces',
-                'organization_acronym' => 'aeces',
+                'organization_name' => 'Association of Electronics and Communications Engineering Students',
+                'organization_acronym' => 'AECES',
                 'organization_details' => '...',
                 'organization_primary_color' => '#1bbede',
                 'organization_secondary_color' => '#1bbede',
                 'organization_tertiary_color' => '#1bbede',
-                'organization_slug' => 'aeces',
+                'organization_slug' => 'AECES',
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
                 'status' => 1,
             ],
             [
                 'organization_type_id' => 1,
-                'organization_name' => 'jpsme',
+                'organization_name' => 'Junior Philippine Society of Mechanical Engineers',
                 'organization_acronym' => 'jpsme',
                 'organization_details' => '...',
                 'organization_primary_color' => '#1bbede',
@@ -83,7 +83,7 @@ class OrganizationSeeder extends Seeder
             ],
             [
                 'organization_type_id' => 1,
-                'organization_name' => 'jpia',
+                'organization_name' => 'Junior Philippine Institute of Accountants',
                 'organization_acronym' => 'jpia',
                 'organization_details' => '...',
                 'organization_primary_color' => '#1bbede',
@@ -96,7 +96,7 @@ class OrganizationSeeder extends Seeder
             ],
             [
                 'organization_type_id' => 1,
-                'organization_name' => 'mentors',
+                'organization_name' => 'Mentors Society',
                 'organization_acronym' => 'mentors',
                 'organization_details' => '...',
                 'organization_primary_color' => '#1bbede',
@@ -109,7 +109,7 @@ class OrganizationSeeder extends Seeder
             ],
             [
                 'organization_type_id' => 1,
-                'organization_name' => 'jma',
+                'organization_name' => 'Junior Marketing Association',
                 'organization_acronym' => 'jma',
                 'organization_details' => '...',
                 'organization_primary_color' => '#1bbede',
@@ -122,7 +122,7 @@ class OrganizationSeeder extends Seeder
             ],
             [
                 'organization_type_id' => 1,
-                'organization_name' => 'jpmap',
+                'organization_name' => 'Junior People Management Association of the Philippines',
                 'organization_acronym' => 'jpmap',
                 'organization_details' => '...',
                 'organization_primary_color' => '#1bbede',
@@ -135,7 +135,7 @@ class OrganizationSeeder extends Seeder
             ],
             [
                 'organization_type_id' => 2,
-                'organization_name' => 'csc',
+                'organization_name' => 'Central Student Council',
                 'organization_acronym' => 'csc',
                 'organization_details' => '...',
                 'organization_primary_color' => '#1bbede',
@@ -148,8 +148,8 @@ class OrganizationSeeder extends Seeder
             ],
             [
                 'organization_type_id' => 2,
-                'organization_name' => 'pupukaw',
-                'organization_acronym' => 'pupukaw',
+                'organization_name' => 'PUPukaw',
+                'organization_acronym' => 'PUPukaw',
                 'organization_details' => '...',
                 'organization_primary_color' => '#1bbede',
                 'organization_secondary_color' => '#1bbede',
@@ -161,7 +161,7 @@ class OrganizationSeeder extends Seeder
             ],
             [
                 'organization_type_id' => 2,
-                'organization_name' => 'erg',
+                'organization_name' => 'Emergency Response Group',
                 'organization_acronym' => 'erg',
                 'organization_details' => '...',
                 'organization_primary_color' => '#1bbede',
@@ -174,45 +174,19 @@ class OrganizationSeeder extends Seeder
             ],
             [
                 'organization_type_id' => 2,
-                'organization_name' => 'test',
-                'organization_acronym' => 'test',
+                'organization_name' => 'The Chronicler',
+                'organization_acronym' => 'The Chronicler',
                 'organization_details' => '...',
                 'organization_primary_color' => '#1bbede',
                 'organization_secondary_color' => '#1bbede',
                 'organization_tertiary_color' => '#1bbede',
-                'organization_slug' => 'test',
+                'organization_slug' => 'the-chronicler',
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
                 'status' => 1,
             ],
-            [
-                'organization_type_id' => 2,
-                'organization_name' => 'test2',
-                'organization_acronym' => 'test2',
-                'organization_details' => '...',
-                'organization_primary_color' => '#1bbede',
-                'organization_secondary_color' => '#1bbede',
-                'organization_tertiary_color' => '#1bbede',
-                'organization_slug' => 'test2',
-                'created_at' => $currentTime,
-                'updated_at' => $currentTime,
-                'status' => 1,
-            ],
-            [
-                'organization_type_id' => 2,
-                'organization_name' => 'qwqwqw',
-                'organization_acronym' => 'qwqwqw',
-                'organization_details' => '...',
-                'organization_primary_color' => '#1bbede',
-                'organization_secondary_color' => '#1bbede',
-                'organization_tertiary_color' => '#1bbede',
-                'organization_slug' => 'qwqwqw',
-                'created_at' => $currentTime,
-                'updated_at' => $currentTime,
-                'status' => 1,
-            ],
-
         ];
         DB::table('organizations')->insert($data);
+    }
     }
 }

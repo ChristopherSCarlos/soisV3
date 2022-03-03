@@ -16,7 +16,6 @@ class OrganizationAsset extends Model
             'organization_id',
             'asset_type_id',
             'file',
-            'asset_name',
             'is_latest_logo',
             'is_latest_banner',
             'is_latest_image',

@@ -74,10 +74,18 @@ class User extends Authenticatable
     public function roles()
     {
         // return $this->belongsToMany(Role::class,'role_user','role_id','user_id','organization_id');
-        return $this->belongsToMany(Role::class,'role_user','role_id','user_id');
+        return $this->belongsToMany(Role::class,'role_user','role_id','user_id')->withPivot('organization_id');
+        // return $this->belongsToMany(Role::class)->withPivot(['role_user','role_id','user_id',]);
     }
     public function organizations()
     {
-        return $this->belongsToMany(Organization::class,'organizations_users','user_id','organization_id');
+        return $this->belongsToMany(Role::class,'role_user','role_id','user_id')->withPivot('organization_id');
+        // return $this->belongsToMany(Organization::class,'role_user','user_id','organization_id');
+    }
+    public function permissions()
+    {
+        // return $this->belongsToMany(Role::class,'role_user','role_id','user_id','organization_id');
+        return $this->belongsToMany(Permission::class,'permission_user','permission_id','user_id');
+        // return $this->belongsToMany(Role::class)->withPivot(['role_user','role_id','user_id',]);
     }
 }

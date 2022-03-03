@@ -5,7 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\AssetType;
 
-use Livewire\WithPagination;
+use Livewire\withPagination;
 use App\Http\Livewire\Objects;
 
 use Illuminate\Http\Request;

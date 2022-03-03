@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Officer;
 use App\Models\Organization;
 use App\Models\OfficerPosition;
+use App\Models\PositionTitle;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
@@ -20,7 +21,7 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 
-use Livewire\WithPagination;
+use Livewire\withPagination;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -59,6 +60,7 @@ class Officers extends LivewireDatatable
     public $position_category;
     public $status;
     public $officer_signature;
+    public $position_titles;
 
     public $userId;
     public $userData;
@@ -302,7 +304,8 @@ class Officers extends LivewireDatatable
     public function builder()
     {
         return Officer::query()
-            ->leftJoin('organizations', 'organizations.organization_id', 'officers.organization_id');
+            ->leftJoin('organizations', 'organizations.organization_id', 'officers.organization_id')
+            ->leftJoin('position_titles', 'position_titles.position_title_id', 'officers.position_title_id');
             // ->leftJoin('officer_positions', 'officer_positions.officer_positions_id', 'officers.position_category');
     }
     
@@ -319,14 +322,14 @@ class Officers extends LivewireDatatable
         return[
             // Column::checkbox('officers_id'),
 
-            NumberColumn::name('officers_id')
+            NumberColumn::name('officer_id')
                 ->label('ID')
                 ->defaultSort('asc')
-                ->sortBy('officers_id'),
+                ->sortBy('officer_id'),
 
             Column::name('first_name')
                 ->label('First Name')
-                ->filterOn('officers.first_name')
+                ->filterOn('first_name')
                 ->filterable()
                 ->editable(),
                 // ->searchable(),
@@ -360,46 +363,46 @@ class Officers extends LivewireDatatable
                 // ->editable(),
                 // ->searchable(),
 
-            Column::name('school_year')
-                ->label('School Year')
-                ->filterable()
+            Column::name('position_title_id')
+                ->label('Position Title ID')
                 ->editable(),
+
+            Column::name('position_titles.position_title')
+                ->label('Position Name')
+                ->filterable($this->position_titles),
+
+            // Column::name('school_year')
+            //     ->label('School Year')
+            //     ->filterable()
+            //     ->editable(),
                 // ->searchable(),
 
-            Column::name('semester')
-                ->label('Semester')
-                ->filterable()
-                ->editable(),
+            // Column::name('semester')
+            //     ->label('Semester')
+            //     ->filterable()
+            //     ->editable(),
                 // ->searchable(),
 
-            Column::name('position')
-                ->label('Position')
-                ->filterable()
-                ->editable(),
+            // Column::name('position')
+            //     ->label('Position')
+            //     ->filterable()
+            //     ->editable(),
                 // ->searchable(),
 
-            DateColumn::name('exp_date')
-                ->label('Retirement')
-                ->filterable(),
+            // DateColumn::name('exp_date')
+            //     ->label('Retirement')
+            //     ->filterable(),
                 // ->editable(),
                 // ->searchable(),
 
-            Column::name('position_category')
-                ->label('Position Category ID')
-                ->editable(),
-
-            Column::name('officer_positions.position_category')
-                ->label('Position Category')
-                ->filterable($this->PositionCategory)
-                ->editable(),
-                // ->searchable(),
 
             BooleanColumn::name('status')
                 ->label('status')
                 ->filterable(),
                 // ->editable(),
 
-            Column::delete('officers_id')
+            Column::delete('officer_id')
+                ->excludeFromExport()
                 ->label('delete'),
 
             
@@ -421,6 +424,11 @@ class Officers extends LivewireDatatable
     public function getPositionCategoryProperty()
     {
         return OfficerPosition::pluck('position_category');
+    }
+
+    public function getPositionProperty()
+    {
+        return Position_titles::pluck('position_title');
     }
     
     /*=====  End of Retrieve Data from database  ======*/

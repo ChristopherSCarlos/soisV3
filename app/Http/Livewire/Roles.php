@@ -6,10 +6,10 @@ use Livewire\Component;
 use App\Models\User;
 use App\Models\Organization;
 use App\Models\Role;
-// use App\Models\UserPermission
 use App\Models\Permission;
+
 use Illuminate\Validation\Rule;
-use Livewire\WithPagination;
+use Livewire\withPagination;
 
 use Illuminate\Support\STR;
 
@@ -61,8 +61,7 @@ class Roles extends Component
     
     
     /*=====  End of Craete Roles Section comment block  ======*/
-
-
+    
     /*=====================================================================
     =            Sync Permission to Role Section comment block            =
     =====================================================================*/
@@ -117,6 +116,7 @@ class Roles extends Component
     {
         return DB::table('permissions')->get();
     }
+
 
     /**
      *
