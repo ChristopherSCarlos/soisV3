@@ -14,12 +14,12 @@ class Permission extends Model
     protected $primaryKey = 'permission_id';
 
     protected $fillable = [
-        'permission_name',
-        'guard_name',
-        'permission_description',
-        'status',
+        // 'permission_name',
         'name',
+        // 'guard_name',
         'description',
+        // 'status',
+        // 'description',
         'created_at',
         'updated_at',
     ];
