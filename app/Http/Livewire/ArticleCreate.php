@@ -20,7 +20,6 @@ use Livewire\WithFileUploads;
 use Intervention\Image\ImageManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
 class ArticleCreate extends Component
 {
     use WithFileUploads;  
@@ -269,6 +268,7 @@ class ArticleCreate extends Component
     {
         return view('livewire.article-create',[
             'displayArticleTypeData' => $this->getArticleType(),
+
         ]);
     }
 }

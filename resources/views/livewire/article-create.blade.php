@@ -7,8 +7,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-    @trixassets
-    @livewireStyles
+
     <style>
         .modal-backdrop {
           z-index: -1;
@@ -27,17 +26,14 @@
     <div class="mt-4">
                     <x-jet-label for="article_featured_image" value="{{ __('Article logo') }}" />
                     <x-jet-input wire:model="article_featured_image" id="article_featured_image" class="block mt-1 w-full" type="file" />
-                    @error('article_featured_image') <span class="error">{{ $message }}</span> @enderror
                 </div>
                 <div class="mt-4">
                     <x-jet-label for="article_title" value="{{ __('Article Title') }}" />
                     <x-jet-input wire:model="article_title" id="article_title" class="block mt-1 w-full" type="text" />
-                    @error('article_title') <span class="error">{{ $message }}</span> @enderror
                 </div>
                 <div class="mt-4">
                     <x-jet-label for="article_subtitle" value="{{ __('Article Topic') }}" />
                     <x-jet-input wire:model="article_subtitle" id="article_subtitle" class="block mt-1 w-full" type="text" />
-                    @error('article_subtitle') <span class="error">{{ $message }}</span> @enderror
                 </div>
                 <div class="mt-4">
                     <div class="body-content" wire:ignore>
@@ -53,9 +49,8 @@
                             <option value="{{$articleType->article_types_id}}">{{$articleType->article_type}}</option>
                         @endforeach
                     </select>
-                    @error('article_type_id') <span class="error">{{ $message }}</span> @enderror
                 </div>
-                <x-jet-secondary-button class="m-2" wire:click="create" wire:loading.attr="disabled">
+                <x-jet-secondary-button class="m-2" wire:click="create">
                     {{ __('Create News') }}
                 </x-jet-secondary-button>
                 
