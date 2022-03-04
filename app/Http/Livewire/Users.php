@@ -152,9 +152,9 @@ class Users extends Component
 
     public function create()
     {
-        // dd($this);
+        // dd($this->first_name);
         User::create($this->modelCreateUser());
-        // dd();
+        dd();
         $this->latestID = DB::table('users')->orderBy('user_id', 'desc')->first();
         DB::table('role_user')->insert([
                 ['role_id' => '8', 'user_id' => $this->latestID->user_id, 'organization_id' => null],
