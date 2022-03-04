@@ -38,7 +38,7 @@
                                             {{ $item->updated_at }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            <x-jet-button wire:click="createShowPermissionModel({{ $item->permission_id }})">
+                                            <x-jet-button wire:click="updatehowPermissionModel({{ $item->permission_id }})">
                                                 {{__('Update Permission')}}
                                             </x-jet-button>
                                             <x-jet-danger-button wire:click="deleteShowPermissionModal({{ $item->permission_id }})">
@@ -111,10 +111,61 @@
 
 
 
+<!--==================================================
+=            Update Modal Section comment            =
+===================================================-->
+<!-- Update CRUD -->
+<x-jet-dialog-modal wire:model="modalUpdatePermissionFormVisible">
+            <x-slot name="title">
+                {{ __('Update Permission') }}
+            </x-slot>
+
+            <x-slot name="content">
+                <div class="mt-4">
+                    <x-jet-label for="permission" value="permission" />
+                    <x-jet-input id="permission" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="permission" required autofocus />
+                </div>
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('modalUpdatePermissionFormVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+                <x-jet-secondary-button class="ml-2" wire:click="update" wire:loading.attr="disabled">
+                    {{ __('Add Permission') }}
+                </x-jet-secondary-button>                    
+            </x-slot>
+        </x-jet-dialog-modal>
 
 
+<!--====  End of Create Modal Section comment  ====-->
 
 
+<!--==================================================
+=            Delete Modal Section comment            =
+===================================================-->
+        <x-jet-dialog-modal wire:model="modelConfirmPermissionDeleteVisible">
+            <x-slot name="title">
+                {{ __('Delete Permission') }}
+            </x-slot>
+
+            <x-slot name="content">
+                {{ __('Are you sure you want to delete your permission? Once your permission is deleted, all of its resources and data will be permanently deleted. ') }}
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('modelConfirmPermissionDeleteVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+
+                <x-jet-danger-button class="ml-2" wire:click="delete" wire:loading.attr="disabled">
+                    {{ __('Delete Permission') }}
+                </x-jet-danger-button>
+            </x-slot>
+        </x-jet-dialog-modal>
+
+
+<!--====  End of Delete Modal Section comment  ====-->
 
 
 

@@ -48,6 +48,10 @@ class Permissions extends Component
     public $created_at;
     public $updated_at;
 
+
+    public $permission_id;
+    private $data;
+
     /*================================================================
     =            Create Permissions Section comment block            =
     ================================================================*/
@@ -106,7 +110,65 @@ class Permissions extends Component
     
     /*=====  End of Create Permissions Section comment block  ======*/
     
+    /*==============================================================
+    =            Update PermissionSection comment block            =
+    ==============================================================*/
+        public function updatehowPermissionModel($id)
+        {
+            $this->resetValidation();
+            $this->reset();
+            $this->modalUpdatePermissionFormVisible = true;
 
+            $this->permission_id = $id;
+            $this->loadSelectedPermission();
+            // dd($id);
+        }
+        public function loadSelectedPermission()
+        {
+            $this->data = DB::table('permissions')->where('permission_id','=',$this->permission_id)->first();
+            // dd($this->data);
+            $this->permission = $this->data->name;
+        }
+
+        public function update()
+        {
+            Permission::find($this->permission_id)->update($this->modelData());
+            $this->modalUpdatePermissionFormVisible = false;
+            $this->reset();
+            $this->resetValidation();
+        }
+        public function modelData()
+        {
+            return [
+                'name' => $this->permission,
+            ];
+        }
+    
+    
+    /*=====  End of Update PermissionSection comment block  ======*/
+
+
+    /*===============================================================
+    =            Delete Permission Section comment block            =
+    ===============================================================*/
+    public function deleteShowPermissionModal($id)
+    {
+        $this->resetValidation();
+        $this->reset();
+        $this->permission_id = $id;
+        $this->modelConfirmPermissionDeleteVisible = true;
+    }
+    public function delete()
+    {
+        Permission::find($this->permission_id)->delete();
+        $this->modelConfirmPermissionDeleteVisible = false;
+        $this->reset();
+        $this->resetValidation();
+    }
+    
+    
+    /*=====  End of Delete Permission Section comment block  ======*/
+    
 
     public function rules()
     {
