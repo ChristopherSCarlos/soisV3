@@ -1,6 +1,6 @@
 <div class="p-5">
     <div class="grid grid-cols-12">
-        <div class="col-span-3" style="background:red;">
+        <div class="col-span-3" style="">
             <div>
                 <table style="width:100%">
                     <tr>
@@ -42,7 +42,7 @@
                 </table>
             </div>
         </div>
-        <div class="col-span-3" style="background:blue;">
+        <div class="col-span-3" style="">
             <div>
                 <table>
                     @if($displayUserSelectedData->count())
@@ -170,7 +170,7 @@
                 </table>
             </div>
         </div>
-        <div class="col-span-3" style="background:red;">
+        <div class="col-span-3" style="">
             <div>
                 <table style="width:100%">
                     <tr>
@@ -188,7 +188,7 @@
                 </table>
             </div>
         </div>
-        <div class="col-span-3" style="background:blue;">
+        <div class="col-span-3" style="">
             <div>
                 <table style="width:100%">
                     <tr>
@@ -224,7 +224,7 @@
                     </tr>
                     <tr>
                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                            <div style="overflow: auto; height: 20rem; background:red;">
+                            <div style="overflow: auto; height: 20rem; ">
                                 @foreach($displayUserPermsData as $perms)
                                     <div class="pl-5 pr-5 pt-2">
                                         <p>{{$perms->name}}</p>
@@ -249,22 +249,22 @@
                 {{__('Update Password User')}}
             </x-jet-button>
             @if($displayUserRoleData->count() > 0)
-            <x-jet-secondary-button class="ml-2">
+            <x-jet-secondary-button wire:click="addShowRoleModel({{$item->user_id}})" class="ml-2">
                 Change Role
             </x-jet-secondary-button>
             @else
-            <x-jet-secondary-button class="ml-2">
+            <x-jet-secondary-button wire:click="addShowRoleModel({{$item->user_id}})" class="ml-2">
                 Add Role
             </x-jet-secondary-button>
             @endif
-            <x-jet-secondary-button class="ml-2">
+            <x-jet-secondary-button wire:click="generateKeyModal({{ $item->user_id }})" class="ml-2">
                 Generate Key
             </x-jet-secondary-button>
-            <x-jet-secondary-button class="ml-2">
+            <x-jet-secondary-button wire:click="addShowPermissionModel({{ $item->user_id }})" class="ml-2">
                 Add Permission
             </x-jet-secondary-button>
-            <x-jet-secondary-button class="ml-2">
-                Add Organization
+            <x-jet-secondary-button wire:click="addShowOrganizationModel({{ $item->user_id }})">
+                {{__('Add Organization')}}
             </x-jet-secondary-button>
             @endforeach
         </div>
@@ -296,7 +296,7 @@
                 </x-jet-secondary-button>
 
                 @if($userId)
-                    <x-jet-secondary-button class="ml-2" wire:click="updateUserPassword" wire:loading.attr="disabled">
+                    <x-jet-secondary-button class="ml-2" wire:click="updatePassword" wire:loading.attr="disabled">
                         {{ __('Update Password') }}
                     </x-jet-secondary-button>                    
                 @endif
@@ -309,13 +309,157 @@
 
 
 
+<!--=======================================================
+=            Sync Role To User Section comment            =
+========================================================-->
+<x-jet-dialog-modal wire:model="modalAddRoleFormVisible">
+            <x-slot name="title">
+                {{ __('Add Role To User') }} {{$userId}}
+            </x-slot>
+
+            <x-slot name="content">
+               <div class="mb-4">
+                    
+    <div class="form-group row">
+        <label for="role" class="col-md-4 col-form-label text-md-right">role</label>
+        <div class="col-md-6">
+            <select wire:model="roleModel" class="form-control">
+                <option value="" selected>Choose role</option>
+                @foreach($rolesList as $role)
+                    <option value="{{ $role->role_id }}">{{ $role->role }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+
+                </div>
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('modalAddRoleFormVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+
+                @if($userId)
+                    <x-jet-secondary-button class="ml-2" wire:click="addRoleToUser" wire:loading.attr="disabled">
+                        {{ __('Sync Role') }}
+                    </x-jet-secondary-button>                    
+                @endif
+            </x-slot>
+        </x-jet-dialog-modal>
 
 
+<!--====  End of Sync Role To User Section comment  ====-->
 
 
+<!--==================================================
+=            Generate Key Section comment            =
+===================================================-->
+    <x-jet-dialog-modal wire:model="modelConfirmUserGenerateKeyVisible">
+        <x-slot name="title">
+            {{ __('Delete User') }}
+        </x-slot>
+        <x-slot name="content">
+            {{ __('Are you sure you want to generate key this user?.') }}
+        </x-slot>
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$toggle('modelConfirmUserGenerateKeyVisible')" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-secondary-button>
+            <x-jet-secondary-button class="ml-2" wire:click="generateKey" wire:loading.attr="disabled">
+                {{ __('Generate Key') }}
+            </x-jet-secondary-button>
+        </x-slot>
+    </x-jet-dialog-modal>
 
 
+<!--====  End of Generate Key Section comment  ====-->
+
+<!--====================================================
+=            Add Permission Section comment            =
+=====================================================-->
+<x-jet-dialog-modal wire:model="modaladdPermissionModel">
+            <x-slot name="title" >
+                <p class="modalTitle">
+                    
+                {{ __('Add Role To User') }} {{$userId}}
+                </p>
+            </x-slot>
+
+            <x-slot name="content">
+                <div class="mb-4 grid grid-cols-1">
+                    <div class="" style="height: 50vh; overflow: auto;">
+                        <div>
+                            <form>
+                                @foreach($permsList as $perms)
+                                    <div class="mt-1">
+                                        <label class="inline-flex items-center">
+                                        <input type="checkbox" value="{{ $perms->permission_id }}" wire:model="permissionModel.{{ $perms->permission_id }}" class="form-checkbox h-6 w-6 text-green-500">
+                                            <span class="ml-3 text-sm">{{ $perms->name }}</span>
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('modaladdPermissionModel')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+
+                @if($userId)
+                    <x-jet-secondary-button class="ml-2" wire:click="addPermissionToUser" wire:loading.attr="disabled">
+                        {{ __('Sync Permission') }}
+                    </x-jet-secondary-button>                    
+                @endif
+            </x-slot>
+        </x-jet-dialog-modal>
 
 
+<!--====  End of Add Permission Section comment  ====-->
+
+<!--===============================================================
+=            Sync User to Organization Section comment            =
+================================================================-->
+<x-jet-dialog-modal wire:model="modalAddOrganizationFormVisible">
+            <x-slot name="title">
+                {{ __('Add Organization To User') }} {{$userId}}
+            </x-slot>
+
+            <x-slot name="content">
+               <div class="mb-4">
+                    <div class="form-group row">
+                        <label for="role" class="col-md-4 col-form-label text-md-right">Organization</label>
+                        <div class="col-md-6">
+                            <select wire:model="organizationModel" class="form-control">
+                                <option value="" selected>Choose Organization</option>
+                                @foreach($displayOrganizationData as $organization)
+                                    <option value="{{ $organization->organization_id }}">{{ $organization->organization_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('modalAddOrganizationFormVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+
+                @if($userId)
+                    <x-jet-secondary-button class="ml-2" wire:click="addOrganizationToUser" wire:loading.attr="disabled">
+                        {{ __('Add Organization to User') }}
+                    </x-jet-secondary-button>                    
+                @endif
+            </x-slot>
+        </x-jet-dialog-modal>
+
+
+<!--====  End of Sync User to Organization Section comment  ====-->
 
 </div>

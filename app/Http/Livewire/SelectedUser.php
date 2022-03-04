@@ -12,6 +12,7 @@ use App\Models\Article;
 use App\Models\AssetType;
 use App\Models\OrganizationAsset;
 use App\Models\SystemAsset;
+use App\Models\SoisGate;
 
 use Livewire\WithPagination;
 use Illuminate\Support\STR;
@@ -29,7 +30,18 @@ class SelectedUser extends Component
     use WithPagination;
  
     public $modalUpdateUserPasswordFormVisible = false;
+    public $modalAddRoleFormVisible = false;
+    public $modelConfirmUserGenerateKeyVisible = false;
+    public $modaladdPermissionModel = false;
+    public $modalAddOrganizationFormVisible = false;
 
+    public $user;
+
+    public $secret_characters;
+    public $end_key;
+    
+    public $organizationModel=null;
+    public $permissionModel=null;
 
     public $userInt;
     public $userId;
@@ -98,6 +110,8 @@ class SelectedUser extends Component
     private $userRoleData;
     public $userRoleDataInt;
     public $roleModel=null;
+
+
 
     public function mount()
     {
@@ -315,10 +329,13 @@ class SelectedUser extends Component
             $this->redirector();
             // dd($this->first_name_DB);
         }
-        public function redirector()
+        public function redirector($id)
         {
+            $this->userId = $id;
+            // dd($this->userId);
             // return redirect()->route('id', $this->userId);
-            return redirect()->route('/user/selected-user', ['id' => $this->userId]);
+            return redirect()->route('user/selected-user', ['id' => $this->userId]);
+            // return redirect('/users/selected-user/'.$this->userId);
             // return redirect('/users/selected-user/'.$this->userId);
         }
         public function updateRedirect()
@@ -341,6 +358,7 @@ class SelectedUser extends Component
         }
         public function updatePassword()
         {
+            $this->userInt;
             $this->current_password_data = DB::table('users')->where('user_id','=',$this->userInt)->first();
             if($this->new_password_1 != null){
                 User::find($this->userInt)->update(['password'=> $this->current_password_data->password]);
@@ -352,52 +370,208 @@ class SelectedUser extends Component
                 $this->reset();
                 $this->new_password_1 = null;
             }
-            $this->redirector();
+            // $this->redirector();
         }
     
     
     /*=====  End of Update Password Section comment block  ======*/
     
 
-    /*=========================================================
-    =            Update Role Section comment block            =
-    =========================================================*/
-    public function test()
+    /*==============================================================
+    =            Sync Role To UserSection comment block            =
+    ==============================================================*/
+    public function addShowRoleModel($id)
     {
-        dd("heyllo");
+        // dd($this->userInt);
+        $this->userId = $id;
+        $this->modalAddRoleFormVisible = true;
+    }
+
+    public function displayRole()
+    {
+        return DB::table('roles')
+            ->orderBy('role_id','asc')
+            ->get();
     }
     public function addRoleToUser()
     {
-        // $this->user = User::find($this->userInt);
-        // $this->RoleUSerChecker = DB::table('role_user')->where('user_id','=',$this->userInt)->first();
-        // dd($this->RoleUSerChecker);
-        dd("Hello");
-        // if($this->RoleUSerChecker){
-        //     DB::table('role_user')->where('user_id','=',$this->userInt)->delete();
-        //     DB::table('role_user')->insert([
-        //         ['role_id' => $this->roleModel, 'user_id' => $this->userInt, 'organization_id' => null],
-        //     ]);
-        //     $this->modalAddRoleFormVisible = false;
-        //     $this->resetAddRoleUserValidation();
-        //     $this->reset();
-        // }else{
-        //     DB::table('role_user')->insert([
-        //         ['role_id' => $this->roleModel, 'user_id' => $this->userInt, 'organization_id' => null],
-        //     ]);
-        //     $this->resetAddRoleUserValidation();
-        //     $this->reset();
-        // }
+        $this->user = User::find($this->userInt);
+        $this->RoleUSerChecker = DB::table('role_user')->where('user_id','=',$this->userInt)->first();
+        if($this->RoleUSerChecker){
+            DB::table('role_user')->where('user_id','=',$this->userInt)->delete();
+            DB::table('role_user')->insert([
+                ['role_id' => $this->roleModel, 'user_id' => $this->userInt, 'organization_id' => null],
+            ]);
+            $this->modalAddRoleFormVisible = false;
+            $this->redirector($this->userInt);
+            $this->resetAddRoleUserValidation();
+            $this->reset();
+        }else{
+            DB::table('role_user')->insert([
+                ['role_id' => $this->roleModel, 'user_id' => $this->userInt, 'organization_id' => null],
+            ]);
+            $this->modalAddRoleFormVisible = false;
+            $this->redirector($this->userInt);
+            $this->resetAddRoleUserValidation();
+            $this->reset();
+        }
     }
     public function resetAddRoleUserValidation()
     {
         $this->roleModel = null;
-        $this->userInt = null;
+        $this->userId = null;
     }
     
     
-    /*=====  End of Update Role Section comment block  ======*/
+    /*=====  End of Sync Role To UserSection comment block  ======*/
     
+    /*====================================================================
+    =            Generate Logged in key Section comment block            =
+    ====================================================================*/
+    public function generateKeyModal($id)
+    {
+        // $this->resetValidation();
+        // $this->reset();
+        $this->userId = $id;
+        $this->modelConfirmUserGenerateKeyVisible = true;
+    }
+    public function generateKey()
+    {
+        // echo Str::uuid();
+        // dd("hello");
+        // $this->end_key =  Str::uuid();
+        $n=60;
+        $this->secret_characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $this->end_key = '';
+        for ($i = 0; $i < $n; $i++) {
+            $index = rand(0, strlen($this->secret_characters) - 1);
+            $this->end_key .= $this->secret_characters[$index];
+        }
+        // return $this->end_key;
+        // // echo $this->end_key;
+        SoisGate::create($this->modelGenerateKey());
+        // dd($this->userId);
+        $this->modelConfirmUserGenerateKeyVisible = false;
+        $this->redirector($this->userInt);
+        $this->resetValidation();
+        $this->reset();
+    }
 
+    public function modelGenerateKey()
+    {
+        return [
+            'user_id' => $this->userId,
+            'gate_key' => $this->end_key,
+        ];
+    }
+    
+    /*=====  End of Generate Logged in key Section comment block  ======*/
+
+
+    /*============================================================
+    =            Add Permission Section comment block            =
+    ============================================================*/
+    public function addShowPermissionModel($id)
+    {
+        // $this->resetValidation();
+        // $this->reset();
+        $this->userId = $id;
+        $this->modaladdPermissionModel = true;
+    }
+
+    public function addPermissionToUser()
+    {
+        $this->user = User::find($this->userInt);
+        // dd(gettype($this->testButtonArray));
+        $this->user->permissions()->sync($this->permissionModel);
+        $this->modaladdPermissionModel = false;
+        $this->redirector($this->userInt);
+        $this->resetValidation();
+        $this->reset();
+        // dd($this->permissionModel);
+    }
+    
+    
+    /*=====  End of Add Permission Section comment block  ======*/
+
+        /*=====================================================================
+    =            Add Organization to UserSection comment block            =
+    =====================================================================*/
+    public function addShowOrganizationModel($id)
+    {
+        $this->userId = $id;
+        // dd($this->userId);
+        $this->modalAddOrganizationFormVisible = true;
+    }
+    public function displayOrganization()
+    {
+        return DB::table('organizations')
+            ->orderBy('organization_id','asc')
+            ->get();
+    }
+    public function addOrganizationToUser()
+    {
+        $this->user = User::find($this->userInt);
+        // dd($this->user);
+        // dd($this->organizationModel);
+        // $this->userOrgData = DB::table('role_user')->where('user_id','=',$this->userInt)->pluck('organization_id');
+        $this->userOrgData = DB::table('role_user')->where('user_id','=',$this->userInt)->first();
+        $this->userOrgDataInt = $this->userOrgData->organization_id;
+        // dd($this->userOrgDataInt);
+        // DB::table('role_user')->where('user_id','=','4')->where('organization_id','=','9')->delete();
+        $this->userRoleData = DB::table('role_user')->where('user_id','=',$this->userInt)->first();
+        $this->userRoleDataInt = $this->userRoleData->role_id;
+        // dd($this->userRoleDataInt);
+        // dd(gettype($this->userRoleData));
+        // dd(DB::table('role_user')->get());
+        $this->RoleUSerChecker = DB::table('role_user')->where('user_id','=',$this->userInt)->where('organization_id','=',$this->userOrgDataInt)->first();
+        // dd($this->RoleUSerChecker);
+        // dd($this->RoleUSerChecker);
+        if($this->RoleUSerChecker){
+            // dd("Hello");
+            // dd(DB::table('role_user')->where('user_id','=',$this->userInt));
+            DB::table('role_user')->where('user_id','=',$this->userInt)->delete();
+            DB::table('role_user')->insert([
+                ['organization_id' => $this->organizationModel,'role_id' => $this->userRoleDataInt, 'user_id' => $this->userInt],
+            ]);
+            $this->modalAddRoleFormVisible = false;
+            $this->redirector($this->userInt);
+            $this->resetValidation();
+            $this->reset();
+        // //     $this->resetAddRoleUserValidation();
+        // //     $this->reset();
+        }else{
+            $this->modalAddRoleFormVisible = false;
+            $this->redirector($this->userInt);
+            $this->resetValidation();
+            $this->reset();
+            // dd("world");
+        //     DB::table('role_user')->insert([
+        //         ['organization_id' => $this->organizationModel,'role_id' => $this->userRoleDataInt, 'user_id' => $this->userInt],
+        //     ]);
+        // //     $this->modalAddRoleFormVisible = false;
+        // //     $this->resetAddRoleUserValidation();
+        // //     $this->reset();
+        }
+        // $user->organizations()->sync($this->organizationModel);
+        // $this->modalAddOrganizationFormVisible = false;
+        // $this->reset();
+        // $this->resetAddRoleUserValidation();
+    }
+    
+    
+    /*=====  End of Add Organization to UserSection comment block  ======*/
+
+    /**
+     *
+     * Get Permission List
+     *
+     */
+    public function listofPermissions()
+    {
+        // dd(DB::table('permissions')->orderBy('permission_id','asc')->get());
+        return DB::table('permissions')->orderBy('permission_id','asc')->get();
+    }
 
 
 
@@ -418,6 +592,9 @@ class SelectedUser extends Component
         return view('livewire.selected-user',[
             'displayRoleData' => $this->listOfRoles(),
             // 'displayAddRoleData' => $this->addRoleToUser(),
+            'rolesList' => $this->listOfRoles(),
+            'permsList' => $this->listofPermissions(),
+            'displayOrganizationData' => $this->displayOrganization(),
 
             'displayUserSelectedData' => $this->getUserData(),
             'displayUserCourseData' => $this->getUserCourse(),
