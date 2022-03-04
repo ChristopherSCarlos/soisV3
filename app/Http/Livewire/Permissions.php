@@ -42,7 +42,7 @@ class Permissions extends Component
     public $permsId;
 
     public $permission_name;
-    public $guard_name;
+    // public $guard_name;
     public $permission_description;
     public $status;
     public $created_at;
@@ -68,7 +68,7 @@ class Permissions extends Component
         DB::table('permissions')->insert([
             [
                 'permission_name' => $this->permission.'-list',
-                'guard_name' => 'web',
+                // 'guard_name' => 'web',
                 'permission_description' => 'list permission enables the | '. $this->permission .' | permission to list data',
                 'status' => '1',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -76,7 +76,7 @@ class Permissions extends Component
             ],
             [
                 'permission_name' => $this->permission.'-create',
-                'guard_name' => 'web',
+                // 'guard_name' => 'web',
                 'permission_description' => 'create permission enables the | '.$this->permission.' | permission to create data',
                 'status' => '1',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -84,7 +84,7 @@ class Permissions extends Component
             ],
             [
                 'permission_name' => $this->permission.'-edit',
-                'guard_name' => 'web',
+                // 'guard_name' => 'web',
                 'permission_description' => 'edit permission enables the | '.$this->permission.' | permission to edit data',
                 'status' => '1',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -92,7 +92,7 @@ class Permissions extends Component
             ],
             [
                 'permission_name' => $this->permission.'-delete',
-                'guard_name' => 'web',
+                // 'guard_name' => 'web',
                 'permission_description' => 'delete permission enables the | '.$this->permission.' | permission to delete data',
                 'status' => '1',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -112,7 +112,7 @@ class Permissions extends Component
     {
         return [
             'permission_name' => 'required',
-            'guard_name' => 'required',
+            // 'guard_name' => 'required',
             'permission_description' => 'required',
             'status' => 'required',
             'created_at' => 'required',

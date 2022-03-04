@@ -154,11 +154,13 @@ class Organizations extends Component
         $this->viewmodalFormVisible = true;
         $this->modelId = $id;
         $this->loadImageModel();
-        // $this->getSelectedOrganizationLogo();
+        $this->getSelectedOrganizationLogo();
     }
     public function getSelectedOrganizationLogo()
     {
-        $this->systemAssetDataFromDB = SystemAsset::where('organization_id','=',$this->modelId)->get();
+        // $this->systemAssetDataFromDB = SystemAsset::where('organization_id','=',$this->modelId)->get();
+        $this->systemAssetDataFromDB = DB::table('organization_assets')->where('organization_id','=',$this->modelId)->where('is_latest_logo','=','1')->first();
+        $this->organization_logo = $this->systemAssetDataFromDB->file; 
         // dd($this->systemAssetDataFromDB->asset_name);
     }
     /*=====  End of View Organization Section  ======*/
