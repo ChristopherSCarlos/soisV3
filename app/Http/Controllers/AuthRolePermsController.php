@@ -23,8 +23,8 @@ class AuthRolePermsController extends Controller
     private $object;
 
     public function __construct(Request $request){
-        $minutes = 1;
-        $response = new Response('Hello World');
+        // $minutes = 1;
+        // $response = new Response('Hello World');
         // $cookie = Cookie::forever('name', 'virat');
         // $response->withCookie($cookie);
     }
