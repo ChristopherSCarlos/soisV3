@@ -143,7 +143,30 @@
 
 
 
+<!--=====================================================
+=            DElete permission Section comment            =
+======================================================-->
+    <x-jet-dialog-modal wire:model="modalDeleteRolesFormVisible">
+        <x-slot name="title">
+            {{ __('Delete Role') }}
+        </x-slot>
+        <x-slot name="content">
+            <div class="m-4">
+                {{ __('Are you sure you want to delete your permission? Once your permission is deleted, all of its resources and data will be permanently deleted. ') }}
+            </div>
+        </x-slot>
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$toggle('modalDeleteRolesFormVisible')" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-secondary-button>
+            <x-jet-secondary-button class="ml-2" wire:click="delete" wire:loading.attr="disabled">
+                {{ __('Delete Role') }}
+            </x-jet-secondary-button>                    
+        </x-slot>
+    </x-jet-dialog-modal>
 
+
+<!--====  End of DElete permission Section comment  ====-->
 
 
 

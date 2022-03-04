@@ -67,8 +67,8 @@ class Roles extends Component
     =====================================================================*/
     public function syncPermissionModel($id)
     {
-        $this->role_id = $id;
-        $this->roleData = Permission::find($this->role_id);
+        $this->roleId = $id;
+        $this->roleData = Permission::find($this->roleId);
         // dd($this->roleData);
         // $user->roles()->sync($this->roleModel);
         // dd($id);
@@ -76,7 +76,7 @@ class Roles extends Component
     }
     public function syncPermission()
     {
-        $this->roleData = Role::find($this->role_id);
+        $this->roleData = Role::find($this->roleId);
         // dd($this->roleData->permissions());
         $this->roleData->permissions()->sync($this->selectedPermsOnRoles);
         // dd($this->selectedPermsOnRoles);
@@ -88,22 +88,36 @@ class Roles extends Component
     
     public function deleteRoleModal($id)
     {
-        $this->role_id = $id;
+        $this->resetValidation();
+        $this->reset();
+        $this->roleId = $id;
+        $this->modalDeleteRolesFormVisible = true;
+    }
 
-        $this->roleData = Role::find($this->role_id);
-        $this->rolePivot = Role::find($this->role_id)->permissions;
+    public function delete()
+    {
+
+        $this->roleData = Role::find($this->roleId);
+        $this->rolePivot = Role::find($this->roleId)->permissions;
         $this->roleData->permissions()->detach($this->rolePivot);
-        dd($this->roleData);
+        // $this->roleData->users()->detach($this->rolePivot);
+        DB::table('role_user')->where('role_id','=',$this->roleId)->delete();
+        DB::table('roles')->where('role_id','=',$this->roleId)->delete();
+        // Permission::find($this->permission_id)->delete();
+        $this->modalDeleteRolesFormVisible = false;
+        $this->reset();
+        $this->resetValidation();
+        // dd($this->roleData);
         // $this->artId = Article::find($this->articleId);
         // $this->seed = Article::find($this->articleId)->organizations;
         // $this->artId->organizations()->detach($this->seed);
         
 
-        // $this->roleId = $this->roleData->permissions()->find($this->role_id);
+        // $this->roleId = $this->roleData->permissions()->find($this->roleId);
         
         // $this->roleId = $this->roleData->permissions()->get();
-        // $this->roleData->roles()->detach($this->role_id);
-        // dd($this->role_id);
+        // $this->roleData->roles()->detach($this->roleId);
+        // dd($this->roleId);
     }
 
 
