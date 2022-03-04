@@ -62,7 +62,7 @@
                                                     {{ $item->announcement_title }}
                                                 </td>
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                    {{ $item->announcement_content }}
+                                                    <!-- {{ $item->announcement_content }} -->
                                                 </td>
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                     {{ $item->signature }}
