@@ -15,9 +15,12 @@
     </style>
     <h2 class="table-title">News Articles</h2>
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
-        <x-jet-button wire:click="createNews">
+        <a href="{{ route('articles/create') }}">
+            
+        <x-jet-button>
             {{ __('Create News') }}
         </x-jet-button>
+        </a>
     </div>
 
     <div class="flex flex-col items-center">
@@ -28,6 +31,7 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead>
                             <tr>
+                                
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Article Title</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Article Sub-Title</th>
                                 <!-- <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Article Content</th> -->
@@ -50,9 +54,6 @@
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                 {{ $item->article_subtitle }}
                                             </td>
-<!--                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->article_content }}
-                                            </td> -->
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                 {{ $item->created_at }}
                                             </td>
@@ -62,8 +63,11 @@
                                                 </a>
                                             </td>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                <x-jet-button wire:click="updateNewsShowModal({{ $item->articles_id }})">
+                                                <!-- <x-jet-button wire:click="updateNewsShowModal({{ $item->articles_id }})">
                                                     {{__('Update')}}
+                                                </x-jet-button> -->
+                                                <x-jet-button wire:click="articleUpdate({{ $item->articles_id }})">
+                                                    {{__('Update Article')}}
                                                 </x-jet-button>
                                                 <x-jet-danger-button wire:click="deleteNewsShowModal({{ $item->articles_id }})">
                                                     {{__('Delete')}}
@@ -93,6 +97,9 @@
                                                 <x-jet-danger-button wire:click="unSetTopNewsShowModal({{ $item->articles_id }})">
                                                     {{__('Not Set as top News')}}
                                                 </x-jet-danger-button>
+                                                <x-jet-danger-button wire:click="articleUpdate({{ $item->articles_id }})">
+                                                    {{__('View Article')}}
+                                                </x-jet-danger-button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -100,43 +107,40 @@
                             @else
                             <!-- this is organization admin -->
                                 @if($articleOrganization->count())
-                                    @foreach($articleOrganization as $item)
+                                    @foreach($articleOrganization as $orgitem)
                                          <tr>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->article_title }}
+                                                {{ $orgitem->article_title }}
                                             </td>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->article_subtitle }}
-                                            </td>
-                                            <!-- <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->article_content }}
-                                            </td> -->
-                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->created_at }}
+                                                {{ $orgitem->article_subtitle }}
                                             </td>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                <a href="{{ url($item->article_slug) }}" class="text-indigo-600 hover:text-indigo-900" target="_blank">
-                                                    {{ $item->article_slug }}
+                                                {{ $orgitem->created_at }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                <a href="{{ url($orgitem->article_slug) }}" class="text-indigo-600 hover:text-indigo-900" target="_blank">
+                                                    {{ $orgitem->article_slug }}
                                                 </a>
                                             </td>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                <x-jet-button wire:click="updateNewsShowModal({{ $item->articles_id }})">
+                                                <x-jet-button wire:click="updateNewsShowModal({{ $orgitem->articles_id }})">
                                                     {{__('Update')}}
                                                 </x-jet-button>
-                                                <x-jet-danger-button wire:click="deletefeaturedNewsShowModal({{ $item->articles_id }})">
+                                                <x-jet-danger-button wire:click="deletefeaturedNewsShowModal({{ $orgitem->articles_id }})">
                                                     {{__('Delete')}}
                                                 </x-jet-danger-button>
                                             </td>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                <x-jet-button wire:click="featuredNewsToOrganizationPageShowModal({{ $item->articles_id }})">
+                                                <x-jet-button wire:click="featuredNewsToOrganizationPageShowModal({{ $orgitem->articles_id }})">
                                                     {{__('Feature')}}
                                                 </x-jet-button>
-                                                <x-jet-danger-button wire:click="unFeaturedNewsToOrganizationPageShowModal({{ $item->articles_id }})">
+                                                <x-jet-danger-button wire:click="unFeaturedNewsToOrganizationPageShowModal({{ $orgitem->articles_id }})">
                                                     {{__('UnFeature')}}
                                                 </x-jet-danger-button>
                                             </td>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                <x-jet-button wire:click="setOrganizationTopNewsShowModal({{ $item->articles_id }})">
+                                                <x-jet-button wire:click="setOrganizationTopNewsShowModal({{ $orgitem->articles_id }})">
                                                     {{__('Set as Top News')}}
                                                 </x-jet-button>
                                             </td>
@@ -499,33 +503,7 @@
 
 
     
-<!--==============================================
-=            Add Tags Section comment            =
-===============================================-->
-<x-jet-dialog-modal wire:model="modalAddTagsFormVisible">
-            <x-slot name="title">
-                {{ __('Available Tags') }}
-            </x-slot>
-            <x-slot name="content">
-                <div class="mt-4">
-                    @foreach($displayTagsData as $tagsData)
-                    <input class="form-checkbox" type="checkbox" value="{{$tagsData->tags_id}}" wire:model="articleTags"/>
-                    <span class="ml-2 text-sm text-gray-600">{{$tagsData->tags_name}}</span>
-                    @endforeach
-                </div>
-            </x-slot>
-            <x-slot name="footer">
-                <x-jet-secondary-button wire:click="$toggle('modalAddTagsFormVisible')" wire:loading.attr="disabled">
-                    {{ __('Cancel') }}
-                </x-jet-secondary-button>
-                <x-jet-secondary-button class="ml-2" wire:click="AddTagsToArticles" wire:loading.attr="disabled">
-                    {{ __('Add Tags') }}
-                </x-jet-secondary-button>
-            </x-slot>
-        </x-jet-dialog-modal>
 
-
-<!--====  End of Add Tags Section comment  ====-->
 
 
 
