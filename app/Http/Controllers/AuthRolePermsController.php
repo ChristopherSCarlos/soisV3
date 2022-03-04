@@ -39,6 +39,7 @@ class AuthRolePermsController extends Controller
         // echo $this->userData;
         $this->userRole = $this->userData->roles->first();
         // dd($this->userRole);
+        $this->user_role = $this->userRole->role;
         if($this->userRole != null){
             if(Auth::check()){
                 if($this->user_role == 'Super Admin'){
