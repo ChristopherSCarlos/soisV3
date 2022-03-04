@@ -13,7 +13,7 @@ use App\Models\OrganizationAsset;
 use App\Models\PageType;
 use App\Http\Livewire\Objects;
 
-use Livewire\withPagination;
+use Livewire\WithPagination;
 
 use Illuminate\Support\STR;
 

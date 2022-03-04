@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\DB;
 class AcademicMembers extends Component
 {
 
-    use withPagination;
+    use WithPagination;
 
     public $modalSetTopNewsFormVisible = false;
 

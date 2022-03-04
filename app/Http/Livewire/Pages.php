@@ -6,7 +6,7 @@ use Livewire\Component;
 use App\Models\Page;
 
 use Illuminate\Validation\Rule;
-use Livewire\withPagination;
+use Livewire\WithPagination;
 
 use Illuminate\Support\STR;
 use Illuminate\Support\Facades\DB;

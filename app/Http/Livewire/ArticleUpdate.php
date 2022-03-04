@@ -13,7 +13,7 @@ use App\Models\AssetType;
 use App\Models\OrganizationAsset;
 use App\Models\SystemAsset;
 
-use Livewire\withPagination;
+use Livewire\WithPagination;
 use Illuminate\Support\STR;
 use Illuminate\Validation\Rule;
 use Livewire\WithFileUploads;
@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ArticleUpdate extends Component
 {
-    use withPagination;
+    use WithPagination;
     public $articleId;
     public $explodedLink;
     public $actual_link;

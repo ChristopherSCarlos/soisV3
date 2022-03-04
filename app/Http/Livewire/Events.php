@@ -8,7 +8,7 @@ use App\Models\Organization;
 use App\Models\SystemAsset;
 use App\Models\User;
 
-use Livewire\withPagination;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithFileUploads;
 
@@ -26,7 +26,7 @@ use Auth;
 class Events extends LivewireDatatable
 {
     // traits
-    use withPagination;
+    use WithPagination;
     use WithFileUploads;    
 
 

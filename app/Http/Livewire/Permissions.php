@@ -8,7 +8,7 @@ use App\Models\Permission;
 use App\Models\Role;
 
 use Illuminate\Validation\Rule;
-use Livewire\withPagination;
+use Livewire\WithPagination;
 
 use Illuminate\Support\STR;
 

@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\Organization;
 use App\Models\PositionTitle;
 
-use Livewire\withPagination;
+use Livewire\WithPagination;
 use Illuminate\Validation\Rule;
 
 use Illuminate\Support\Facades\DB;

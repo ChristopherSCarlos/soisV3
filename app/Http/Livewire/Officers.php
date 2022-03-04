@@ -21,7 +21,7 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 
-use Livewire\withPagination;
+use Livewire\WithPagination;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;

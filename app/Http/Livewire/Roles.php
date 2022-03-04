@@ -9,7 +9,7 @@ use App\Models\Role;
 use App\Models\Permission;
 
 use Illuminate\Validation\Rule;
-use Livewire\withPagination;
+use Livewire\WithPagination;
 
 use Illuminate\Support\STR;
 

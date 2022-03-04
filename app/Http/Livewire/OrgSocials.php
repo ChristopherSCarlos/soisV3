@@ -11,7 +11,7 @@ use App\Models\SocialMedia;
 
 use App\Http\Livewire\Objects;
 
-use Livewire\withPagination;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\STR;
