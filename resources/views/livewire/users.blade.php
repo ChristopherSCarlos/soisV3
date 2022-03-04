@@ -216,12 +216,10 @@
                 <x-jet-label for="mobile_number" value="{{ __('Mobile Number') }}" />
                 <x-jet-input id="mobile_number" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="mobile_number" required autofocus />
             </div>
-            @if($userId)
             <div class="mt-4">
                 <x-jet-label for="password" value="{{ __('password') }}" />
                 <x-jet-input id="password" class="block mt-1 w-full" type="password" wire:model.debounce.800ms="password" required autofocus />
             </div>
-            @endif
             <div class="mt-4">
                 <x-jet-label for="student_number" value="{{ __('student_number') }}" />
                 <x-jet-input id="student_number" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="student_number" required autofocus />
