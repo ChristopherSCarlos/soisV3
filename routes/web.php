@@ -118,7 +118,7 @@ Route::group(['middleware' => [
         })->name('admin/nonacads');
 
         Route::get('/testlivewire', function(){
-            return view('livewire.test-livewire');
+            return view('admin.test-live');
         })->name('testtestlivewire');
 // 
         // Route::get('users/selected-user/{id}', [App\Http\Livewire\SelectedUser::class, 'edit'])->name('user/selected-user');
