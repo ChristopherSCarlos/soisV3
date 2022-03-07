@@ -22,6 +22,7 @@ class CreationTest extends Controller
     {
         return view('normlaravel.test',[
             'articleDatas' => DB::table('users')->paginate(5),
+            'tags_data' => DB::table('tags')->paginate(5),
         ]);
     }
 
