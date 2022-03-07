@@ -42,7 +42,7 @@ class ArticleCreate extends Controller
     {
         // dd(Auth::id());
         // dd(DB::table('role_user')->where('user_id','=',Auth::id())->pluck('organization_id'));
-        return view('normLaravel.article-create',);
+        return view('normlaravel.article-create',);
     }
 
     /**
