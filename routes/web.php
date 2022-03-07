@@ -12,7 +12,8 @@ use App\Http\Livewire\PagesUpdateProcess;
 use App\Http\Livewire\ViewAnnouncement;
 
 use App\Http\Contollers\ArticleCreate;
-
+use App\Http\Contollers\OrganizationCRUD;
+use App\Http\Contollers\AnouncementCRUD;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,11 @@ Route::group(['middleware' => [
 
         Route::get('/article/create', 'App\Http\Controllers\ArticleCreate@index')->name('article/create');
         Route::post('/store-article', 'App\Http\Controllers\ArticleCreate@store');
+
+        Route::resource('articles', 'App\Http\Controllers\ArticleCreate');
+        Route::resource('organization', 'App\Http\Controllers\OrganizationCRUD');
+        Route::resource('announcement', 'App\Http\Controllers\AnouncementCRUD');
+
 
         Route::get('/default-interfaces', function(){
             return view('admin.default-interfaces');
