@@ -105,7 +105,7 @@ class Organizations extends Component
 
     public $loadDataVarsFromDB;
 
-    public $systemAssetDataFromDB;
+    private $systemAssetDataFromDB;
     public $userDataPivot;
     public $userDataPivotOrganization;
     
