@@ -45,7 +45,7 @@
 
 <div class="flex flex-col p-5">
 	<div class="max-w-lg rounded overflow-hidden shadow-lg">
-		<form name="add-articles" id="add-articles" method="POST" action="/store-article" enctype="multipart/form-data">
+		<form name="add-articles" id="add-articles"method="post" action="{{ route('articles.store') }}" enctype="multipart/form-data">
 		@csrf
 		{{ csrf_field() }}
 			<div class="px-6 py-4">
