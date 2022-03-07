@@ -89,10 +89,10 @@
                                     @foreach($articleDatas as $item)
                                          <tr>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->tags_name }}
+                                                {{ $item->first_name }}
                                             </td>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->tags_description }}
+                                                {{ $item->middle_name }}
                                             </td>
                                         </tr>
                                     @endforeach
