@@ -358,9 +358,9 @@ class Users extends Component
             DB::table('role_user')->insert([
                 ['organization_id' => $this->organizationModel,'role_id' => $this->userRoleDataInt, 'user_id' => $this->userId],
             ]);
-        // //     $this->modalAddRoleFormVisible = false;
-        // //     $this->resetAddRoleUserValidation();
-        // //     $this->reset();
+            $this->modalAddRoleFormVisible = false;
+            $this->resetAddRoleUserValidation();
+            $this->reset();
         }else{
             dd("world");
         //     DB::table('role_user')->insert([
