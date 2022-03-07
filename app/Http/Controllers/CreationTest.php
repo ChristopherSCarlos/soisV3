@@ -20,7 +20,7 @@ class CreationTest extends Controller
 
     public function index()
     {
-        return view::make('normLaravel.text');
+        return view::make('normLaravel.test');
     }
 
     /**
