@@ -95,6 +95,7 @@ class Articles extends Component
     public $latestOrganizationIDtoInsertToDB;
     public $latestNewsID;
     public $va;
+    public $vaHolder;
     public $article_id;
 
     public $article_image_view;
