@@ -117,9 +117,15 @@ Route::group(['middleware' => [
             return view('admin.nonacademic');
         })->name('admin/nonacads');
 
+<<<<<<< HEAD
         Route::get('/test', function(){
             return view('livewire.test-livewire');
         })->name('test');
+=======
+        Route::get('/testlivewire', function(){
+            return view('livewire.test-livewire');
+        })->name('testtestlivewire');
+>>>>>>> parent of 39b4755 (laravle test)
 // 
         // Route::get('users/selected-user/{id}', [App\Http\Livewire\SelectedUser::class, 'edit'])->name('user/selected-user');
         
