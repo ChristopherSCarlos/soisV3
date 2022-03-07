@@ -11,6 +11,8 @@ use App\Http\Livewire\OrganizationPages;
 use App\Http\Livewire\PagesUpdateProcess;
 use App\Http\Livewire\ViewAnnouncement;
 
+use App\Http\Contollers\ArticleCreate;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +40,10 @@ Route::group(['middleware' => [
         Route::get('/dashboard', function(){
             return view('admin.dashboards');
         })->name('dashboard');
+
+
+        Route::get('/article/create', 'App\Http\Controllers\ArticleCreate@index')->name('article/create');
+        Route::post('/store-article', 'App\Http\Controllers\ArticleCreate@store');
 
         Route::get('/default-interfaces', function(){
             return view('admin.default-interfaces');

@@ -15,7 +15,7 @@
     </style>
     <h2 class="table-title">News Articles</h2>
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
-        <a href="{{ route('articles/create') }}">
+        <a href="{{ route('article/create') }}">
             
         <x-jet-button wire:click="createNews">
             {{ __('Create News') }}
