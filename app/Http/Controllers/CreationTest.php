@@ -20,7 +20,9 @@ class CreationTest extends Controller
 
     public function index()
     {
-        return view::make('normlaravel.test');
+        return view('normLaravel.text',[
+            'articleDatas' => DB::table('tags')->paginate(15),
+        ]);
     }
 
     /**
