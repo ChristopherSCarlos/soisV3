@@ -103,6 +103,8 @@
             </div>
         </div>
     </div>
+    {{ $articleDatas->links() }}
+
 
 @if(session('status'))
     <div class="alert alert-success">
