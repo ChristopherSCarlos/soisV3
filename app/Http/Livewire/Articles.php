@@ -509,9 +509,15 @@ class Articles extends Component
 
         $this->userId = Auth::user()->user_id;
         $this->user = User::find($this->userId);
-        $this->va = $this->user->organizations->first();
-        // dd($this->va);
-        $this->latestOrganizationIDtoInsertToDB = $this->va->organization_id;
+        $this->va = DB::table('role_user')->where('user_id','=',$this->userId)->first();
+        $this->vaHolder = $this->va->organization_id;
+        $this->latestOrganizationIDtoInsertToDB = (int) $this->vaHolder;
+
+        // $this->userId = Auth::user()->user_id;
+        // $this->user = User::find($this->userId);
+        // $this->va = $this->user->organizations->first();
+        // // dd($this->va);
+        // $this->latestOrganizationIDtoInsertToDB = $this->va->organization_id;
         // dd($this->latestOrganizationIDtoInsertToDB);
 
         // $this->OrgDataFromUser = $this->user->organization->first();
