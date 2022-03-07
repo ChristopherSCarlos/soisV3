@@ -35,7 +35,14 @@ class CreationTest extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $post = new Post;
+        $post->title = $request->title;
+        $post->description = $request->description;
+        // $post->save();
+        echo $request->title;
+        echo $request->description;
+        dd("Hello");
+        // return redirect('add-blog-post-form')->with('status', 'Blog Post Form Data Has Been inserted');
     }
 
     /**

@@ -139,7 +139,8 @@ Route::group(['middleware' => [
             // return view('normlaravel.test',[UserController::class, 'show']);
         // });
         Route::get('/test/normal/controller', 'App\Http\Controllers\CreationTest@index');
-
+        Route::post('/store-form', 'App\Http\Controllers\CreationTest@store');
+        // Route::post('store-form', [PostController::class, 'store']);
         // Route::get('/announcements/view-selected-announcements/{$announcement_id}', function(){
         //     return view('admin.view-selected-announcements');
         // })->name('announcements/view-selected-announcements');
