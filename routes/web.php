@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Frontpage;
 use App\Http\Contollers\AuthRolePermsController;
+use App\Http\Contollers\CreationTest;
 use App\Http\Contollers\CookieController;
 use App\Http\Livewire\Users;
 use App\Http\Livewire\SelectedUser;
@@ -134,6 +135,10 @@ Route::group(['middleware' => [
         // });
 
 
+        // Route::get('/test/normal/controller', function () {
+            // return view('normlaravel.test',[UserController::class, 'show']);
+        // });
+        Route::get('/test/normal/controller', 'App\Http\Controllers\CreationTest@index');
 
         // Route::get('/announcements/view-selected-announcements/{$announcement_id}', function(){
         //     return view('admin.view-selected-announcements');
