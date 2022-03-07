@@ -57,7 +57,7 @@
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap"  style="
                                                                                             ">
-                                            <x-jet-button wire:click="addShowPermissionModel({{ $item->user_id }})">
+                                            <x-jet-button wire:click="addShowRoleModel({{ $item->user_id }})">
                                                 {{__('Add Role')}}
                                             </x-jet-button>
                                             <x-jet-button wire:click="generateKeyModal({{ $item->user_id }})">
