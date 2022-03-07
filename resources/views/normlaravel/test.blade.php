@@ -129,7 +129,7 @@
                                     @foreach($tags_data as $item)
                                          <tr>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                {{ $item->tagas_name }}
+                                                {{ $item->tags_name }}
                                             </td>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                 {{ $item->tags_description }}
