@@ -66,7 +66,7 @@
                                                 <!-- <x-jet-button wire:click="updateNewsShowModal({{ $item->articles_id }})">
                                                     {{__('Update')}}
                                                 </x-jet-button> -->
-                                                <x-jet-button wire:click="articleUpdate({{ $item->articles_id }})">
+                                                <x-jet-button wire:click="updateNewsShowModal({{ $item->articles_id }})">
                                                     {{__('Update Article')}}
                                                 </x-jet-button>
                                                 <x-jet-danger-button wire:click="deleteNewsShowModal({{ $item->articles_id }})">
