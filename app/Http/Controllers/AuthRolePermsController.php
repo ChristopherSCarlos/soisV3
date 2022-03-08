@@ -50,7 +50,7 @@ class AuthRolePermsController extends Controller
                     // $response = new Response('Hello World');
                     // $response->withCookie(cookie('name', 'virat', $minutes));
                     // return $response;
-                    return redirect('/Organization/dashboard');
+                    return redirect('/Organization-articles');
                 }else{
                     return redirect('/login');
                 }
