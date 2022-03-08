@@ -15,19 +15,11 @@
     </style>
     <h2 class="table-title">News Articles</h2>
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
-            @if($RoleUSerString == 'Super Admin')
             <a href="{{ route('articles.create') }}">
-            <x-jet-button wire:click="createNews">
+            <x-jet-button>
                 {{ __('Create School News') }}
             </x-jet-button>
             </a>
-            @else
-            <a href="{{ route('org-articles.create') }}">
-            <x-jet-button wire:click="createNews">
-                {{ __('Create Org News') }}
-            </x-jet-button>
-            </a>
-            @endif
     </div>
 
     <div class="flex flex-col items-center">
