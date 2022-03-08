@@ -140,7 +140,7 @@
                     <x-jet-nav-link href="{{ route('Organization/dashboard') }}" :active="request()->routeIs('Organization/dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('Organization/articles') }}" :active="request()->routeIs('Organization/articles')">
+                    <x-jet-nav-link href="{{ route('Organization-articles') }}" :active="request()->routeIs('Organization-articles')">
                         {{ __('News') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('Organization/organizations') }}" :active="request()->routeIs('Organization/organizations')">
