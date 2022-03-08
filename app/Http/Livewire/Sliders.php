@@ -174,24 +174,28 @@ class Sliders extends Component
 
     public function getOrganizationArticlesFromDatabase()
     {
-        // return Article::where('status','=','1')->where('organization_id','=',$this->organization_id)->get();
-        // dd();
-        return DB::table('articles')->where('status','=','1')->where('organization_id','=',$this->userOrg())->get();
+        // dd(DB::table('articles')->where('status','=','1')->get());
+        $this->userOrg = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        // dd($this->userOrg->organization_id);
+        $this->userOrgHolder = $this->userOrg->organization_id;
+        // dd($this->userOrgHolder);
+        // $this->userOrgString;
+        return DB::table('articles')->where('status','=','1')->where('organization_id','=',$this->userOrgHolder)->get();
         // dd(Article::where('status','=','1')->where('organization_id','=',$this->organization_id)->get());
     }
 
     public function getArticlesFromDatabase()
     {
          // dd(DB::table('articles')->where('status','=','1')->get());
-        $this->userOrg = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        // $this->userOrg = DB::table('role_user')->where('user_id','=',Auth::id())->first();
         // dd($this->userOrg->organization_id);
-        $this->userOrgHolder = $this->userOrg->organization_id;
+        // $this->userOrgHolder = $this->userOrg->organization_id;
         // dd($this->userOrgHolder);
         // $this->userOrgString;
         
         // dd(Article::where('status','=','1')->where('organization_id','=',$this->userOrgHolder)->get());
-        return Article::where('status','=','1')->where('organization_id','=',$this->userOrgHolder)->get();
-        // return Article::where('status','=','1')->get();
+        // return Article::where('status','=','1')->where('organization_id','=',$this->userOrgHolder)->get();
+        return Article::where('status','=','1')->get();
     }
 
     public function read()
