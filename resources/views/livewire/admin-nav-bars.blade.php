@@ -137,25 +137,25 @@
                     
                     @endif
                     @if($getUserRole == "Home Page Admin")
-                    <x-jet-nav-link href="{{ route('Organization/dashboard') }}" :active="request()->routeIs('Organization/dashboard')">
+                    <x-jet-nav-link href="{{ route('Organization-dashboard') }}" :active="request()->routeIs('Organization-dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('Organization-articles') }}" :active="request()->routeIs('Organization-articles')">
                         {{ __('News') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('Organization/organizations') }}" :active="request()->routeIs('Organization/organizations')">
+                    <x-jet-nav-link href="{{ route('Organization-organizations') }}" :active="request()->routeIs('Organization-organizations')">
                         {{ __('Organization') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('Organization/events') }}" :active="request()->routeIs('Organization/events')">
+                    <x-jet-nav-link href="{{ route('Organization-events') }}" :active="request()->routeIs('Organization-events')">
                         {{ __('Events') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('Organization/announcements') }}" :active="request()->routeIs('Organization/announcements')">
+                    <x-jet-nav-link href="{{ route('Organization-announcements') }}" :active="request()->routeIs('Organization-announcements')">
                         {{ __('Announcements') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('Organization/officers') }}" :active="request()->routeIs('Organization/officers')">
+                    <x-jet-nav-link href="{{ route('Organization-officers') }}" :active="request()->routeIs('Organization-officers')">
                         {{ __('Officers') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('Organization/socials') }}" :active="request()->routeIs('Organization/socials')">
+                    <x-jet-nav-link href="{{ route('Organization-socials') }}" :active="request()->routeIs('Organization-socials')">
                         {{ __('Social Media') }}
                     </x-jet-nav-link>
                     @endif

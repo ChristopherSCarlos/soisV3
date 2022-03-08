@@ -173,33 +173,33 @@ Route::group(['middleware' => [
             'verified',
 ]], function(){
 
-        Route::get('/Organization/dashboard', function(){
+        Route::get('/Organization-dashboard', function(){
             return view('orgAdmin.dashboards');
-        })->name('Organization/dashboard');
+        })->name('Organization-dashboard');
         
         Route::get('/Organization-articles', function(){
             return view('orgAdmin.articles');
         })->name('Organization-articles');
 
-        Route::get('/Organization/organizations', function(){
+        Route::get('/Organization-organizations', function(){
             return view('orgAdmin.organizations');
-        })->name('Organization/organizations');
+        })->name('Organization-organizations');
 
-        Route::get('/Organization/events', function(){
+        Route::get('/Organization-events', function(){
             return view('orgAdmin.events');
-        })->name('Organization/events');
+        })->name('Organization-events');
 
-        Route::get('/Organization/announcements', function(){
+        Route::get('/Organization-announcements', function(){
             return view('orgAdmin.announcements');
-        })->name('Organization/announcements');
+        })->name('Organization-announcements');
 
-        Route::get('/Organization/officers', function(){
+        Route::get('/Organization-officers', function(){
             return view('orgAdmin.officers');
-        })->name('Organization/officers');
+        })->name('Organization-officers');
 
-        Route::get('/Organization/socials', function(){
+        Route::get('/Organization-socials', function(){
             return view('orgAdmin.socials');
-        })->name('Organization/socials');
+        })->name('Organization-socials');
 
         Route::get('/announcements/org-deleted-announcements', function(){
             return view('orgAdmin.deleted-announcements');
