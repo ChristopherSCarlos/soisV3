@@ -143,9 +143,6 @@
                     <x-jet-nav-link href="{{ route('Organization-organizations') }}" :active="request()->routeIs('Organization-organizations')">
                         {{ __('Organization') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('Organization-events') }}" :active="request()->routeIs('Organization-events')">
-                        {{ __('Events') }}
-                    </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('Organization-announcements') }}" :active="request()->routeIs('Organization-announcements')">
                         {{ __('Announcements') }}
                     </x-jet-nav-link>
