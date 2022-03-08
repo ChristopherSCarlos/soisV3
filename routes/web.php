@@ -10,6 +10,7 @@ use App\Http\Livewire\SelectedUser;
 use App\Http\Livewire\OrganizationPages;
 use App\Http\Livewire\PagesUpdateProcess;
 use App\Http\Livewire\ViewAnnouncement;
+use App\Http\Contollers\OrgAccArticleCreate;
 
 use App\Http\Contollers\ArticleCreate;
 use App\Http\Contollers\OrganizationCRUD;
@@ -176,6 +177,8 @@ Route::group(['middleware' => [
         Route::get('/Organization-dashboard', function(){
             return view('orgAdmin.dashboards');
         })->name('Organization-dashboard');
+
+        Route::resource('org-articles', 'App\Http\Controllers\OrgAccArticleCreate');
         
         Route::get('/Organization-articles', function(){
             return view('orgAdmin.articles');
@@ -211,7 +214,7 @@ Route::group(['middleware' => [
         })->name('org/articles/create');
 
 
-        Route::resource('org-articles', 'App\Http\Controllers\ArticleCreate');
+
 
 
 
