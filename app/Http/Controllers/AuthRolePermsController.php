@@ -21,52 +21,43 @@ class AuthRolePermsController extends Controller
     public $user_id;
     private $user_role;
     private $object;
-
-    public function __construct(Request $request){
-        // $minutes = 1;
-        // $response = new Response('Hello World');
-        // $cookie = Cookie::forever('name', 'virat');
-        // $response->withCookie($cookie);
-    }
+    private $user_role_count;
 
     public function index()
     {
-        $this->object = new Objects();
-        $this->userRole = $this->object->roles();
-        // echo $this->userRole;
-        $this->user_id = Auth::id();
-        $this->userData = User::find($this->user_id);
-        // echo $this->userData;
-        $this->userRole = $this->userData->roles->first();
-        // dd($this->userRole);
-        $this->user_role = $this->userRole->role;
-        if($this->userRole != null){
+            $this->object = new Objects();
+            $this->userRole = $this->object->roles();
+            // echo $this->userRole;
+            $this->user_id = Auth::id();
+            $this->userData = User::find($this->user_id);
+            // echo $this->userData;
+            $this->userRole = $this->userData->roles->first();
+
             if(Auth::check()){
-                if($this->user_role == 'Super Admin'){
-                    return redirect('/default-interfaces');
-                }elseif ($this->user_role == 'Home Page Admin') {
-                    // dd($this->user_role);
-                    // $minutes = 1;
-                    // $response = new Response('Hello World');
-                    // $response->withCookie(cookie('name', 'virat', $minutes));
-                    // return $response;
-                    return redirect('/Organization-articles');
+                echo $this->userRole->role;
+                
+                $this->user_role_count = $this->userRole->role;
+                if ($this->userRole->role) {
+                    echo "Esixt";
+                    if($this->userRole->role == 'Super Admin'){
+                        echo "Super Admin";
+                        return redirect('/default-interfaces');
+                    }elseif($this->userRole->role == 'Home Page Admin'){
+                        echo 'HomepageAdmin';
+                        return redirect('/Organization/dashboard');
+                    }else{
+                        echo "User";
+                        Auth::logout();
+                        return redirect('/login');
+                    }
                 }else{
+                    echo 'do not extends;';
+                    Auth::logout();
                     return redirect('/login');
                 }
+            }else{
+                echo "Helo";
+                return redirect('/login');
             }
-        // dd("break");
-        // dd("Hello");
-        }else{
-            // echo Auth::id();
-            // echo "\n";
-            // echo 1;
-            // echo "\n";
-            // echo User::find(11); 
-            // dd(User::find(11));
-            // dd("notlogin");
-            // return redirect('/dashboard');
-            return redirect('/login');
-        }
     }
 }
