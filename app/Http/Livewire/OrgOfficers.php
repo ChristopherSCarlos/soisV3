@@ -71,9 +71,9 @@ class OrgOfficers extends LivewireDatatable
     
     public function builder()
     {
-        return Officer::query()
-            ->leftJoin('organizations', 'organizations.organization_id', 'officers.organization_id');
-            // ->leftJoin('officer_positions', 'officer_positions.officer_positions_id', 'officers.position_category');
+       return Officer::query()
+            ->leftJoin('organizations', 'organizations.organization_id', 'officers.organization_id')
+            ->leftJoin('position_titles', 'position_titles.position_title_id', 'officers.position_title_id');
     }
     
     /*=====  End of Join tables Section  ======*/
@@ -96,35 +96,32 @@ class OrgOfficers extends LivewireDatatable
 
             Column::name('first_name')
                 ->label('First Name')
-                ->filterOn('officers.first_name')
-                ->filterable(),
-                // ->editable(),
+                ->filterOn('first_name')
+                ->filterable()
+                ->editable(),
                 // ->searchable(),
 
             Column::name('last_name')
                 ->label('Last Name')
-                ->filterable(),
-                // ->editable(),
+                ->filterable()
+                ->editable(),
                 // ->searchable(),
 
             Column::name('middle_name')
                 ->label('Middle Name')
-                ->filterable(),
-                // ->editable(),
+                ->filterable()
+                ->editable(),
                 // ->searchable(),
 
             Column::name('suffix')
                 ->label('suffix')
-                ->filterable(),
-                // ->editable(),
+                ->filterable()
+                ->editable(),
                 // ->searchable(),
 
             Column::name('organization_id')
-                ->label('Organization ID'),
-                // ->filterable()
-                // ->filterOn($this->orgUserId)
-                // ->where($this->orgUserId)
-                // ->editable(),
+                ->label('Organization ID')
+                ->editable(),
 
             Column::name('organizations.organization_name')
                 ->label('Organization')
@@ -133,34 +130,34 @@ class OrgOfficers extends LivewireDatatable
                 // ->editable(),
                 // ->searchable(),
 
-            Column::name('school_year')
-                ->label('School Year')
-                ->filterable(),
-                // ->editable(),
-                // ->searchable(),
+            Column::name('position_title_id')
+                ->label('Position Title ID')
+                ->editable(),
 
-            Column::name('semester')
-                ->label('Semester')
-                ->filterable(),
-                // ->editable(),
-                // ->searchable(),
+            Column::name('position_titles.position_title')
+                ->label('Position Name')
+                ->filterable($this->position_titles),
 
-            Column::name('position')
-                ->label('Position')
+            DateColumn::name('term_start')
+                ->label('Start of Term')
                 ->filterable(),
-                // ->editable(),
-                // ->searchable(),
+                ->editable(),
+                ->searchable(),
 
-            DateColumn::name('exp_date')
-                ->label('Retirement')
+            DateColumn::name('term_end')
+                ->label('End of Term')
                 ->filterable(),
-                // ->editable(),
-                // ->searchable(),
+                ->editable(),
+                ->searchable(),
 
             BooleanColumn::name('status')
                 ->label('status')
                 ->filterable(),
                 // ->editable(),
+
+            Column::delete('officer_id')
+                ->excludeFromExport()
+                ->label('delete'),
 
             
 
