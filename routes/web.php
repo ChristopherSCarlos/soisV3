@@ -14,6 +14,7 @@ use App\Http\Livewire\ViewAnnouncement;
 use App\Http\Contollers\ArticleCreate;
 use App\Http\Contollers\OrganizationCRUD;
 use App\Http\Contollers\AnouncementCRUD;
+use App\Http\Contollers\UserCRUD;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +50,7 @@ Route::group(['middleware' => [
         Route::resource('articles', 'App\Http\Controllers\ArticleCreate');
         Route::resource('organization', 'App\Http\Controllers\OrganizationCRUD');
         Route::resource('announcement', 'App\Http\Controllers\AnouncementCRUD');
-
+        Route::resource('users', 'App\Http\Controllers\UserCRUD');
 
         Route::get('/default-interfaces', function(){
             return view('admin.default-interfaces');

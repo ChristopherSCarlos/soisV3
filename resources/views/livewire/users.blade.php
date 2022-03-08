@@ -1,9 +1,11 @@
 <div class="p-6">
     <h2 class="table-title">Users Information</h2>
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
-        <x-jet-button wire:click="createShowModel">
+        <a href="{{route('users.create')}}">
+        <x-jet-button>
             {{ __('Create New User') }}
-        </x-jet-button>
+        </x-jet-button>    
+        </a>
         <x-jet-danger-button wire:click="deletedusers">
             {{ __('Deleted Users') }}
         </x-jet-danger-button>
