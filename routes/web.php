@@ -177,9 +177,9 @@ Route::group(['middleware' => [
             return view('orgAdmin.dashboards');
         })->name('Organization/dashboard');
         
-        Route::get('/Organization/articles', function(){
+        Route::get('/Organization-articles', function(){
             return view('orgAdmin.articles');
-        })->name('Organization/articles');
+        })->name('Organization-articles');
 
         Route::get('/Organization/organizations', function(){
             return view('orgAdmin.organizations');
