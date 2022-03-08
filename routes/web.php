@@ -205,6 +205,17 @@ Route::group(['middleware' => [
             return view('orgAdmin.deleted-announcements');
         })->name('articles/org-deleted-announcements');
 
+
+        Route::get('/org/articles/create', function(){
+            return view('admin.article-create');
+        })->name('org/articles/create');
+
+
+        Route::resource('org-articles', 'App\Http\Controllers\ArticleCreate');
+
+
+
+
 });
 
 

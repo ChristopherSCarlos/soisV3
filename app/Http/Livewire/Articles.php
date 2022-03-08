@@ -108,6 +108,27 @@ class Articles extends Component
     public $article_type_id;
     public $selected_article_id;
 
+    public $RoleUSerChecker_ID;
+    private $RoleUSerChecker;
+    public $RoleUSerString;
+    private $RoleUSerStringHolder;
+
+    public function mount()
+    {
+        $this->user = User::find(Auth::id());
+        $this->RoleUSerChecker = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        $this->RoleUSerChecker_ID = $this->RoleUSerChecker->role_id;
+        $this->RoleUSerStringHolder = DB::table('roles')->where('role_id','=',$this->RoleUSerChecker_ID)->first();
+        $this->RoleUSerString =  $this->RoleUSerStringHolder->role;
+        // dd($this->RoleUSerString);
+            // DB::table('role_user')->where('user_id','=',$this->userId)->delete();
+            // DB::table('role_user')->insert([
+                // ['role_id' => $this->roleModel, 'user_id' => $this->userId, 'organization_id' => null],
+            // ]);
+
+        // dd("Hello");
+    }
+
 
     /*======================================================
     =            Add Tags Section comment block            =
