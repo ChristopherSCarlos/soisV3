@@ -372,14 +372,14 @@ class Officers extends LivewireDatatable
 
             DateColumn::name('term_start')
                 ->label('Start of Term')
-                ->filterable(),
-                ->editable(),
+                ->filterable()
+                ->editable()
                 ->searchable(),
 
             DateColumn::name('term_end')
                 ->label('End of Term')
-                ->filterable(),
-                ->editable(),
+                ->filterable()
+                ->editable()
                 ->searchable(),
 
             BooleanColumn::name('status')
