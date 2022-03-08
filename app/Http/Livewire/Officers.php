@@ -370,30 +370,17 @@ class Officers extends LivewireDatatable
                 ->label('Position Name')
                 ->filterable($this->position_titles),
 
-            Column::name('school_year')
-                ->label('School Year')
-                ->filterable()
-                ->editable(),
-                ->searchable(),
-
-            Column::name('semester')
-                ->label('Semester')
-                ->filterable()
-                ->editable(),
-                ->searchable(),
-
-            Column::name('position')
-                ->label('Position')
-                ->filterable()
-                ->editable(),
-                ->searchable(),
-
-            DateColumn::name('exp_date')
-                ->label('Retirement')
+            DateColumn::name('term_start')
+                ->label('Start of Term')
                 ->filterable(),
                 ->editable(),
                 ->searchable(),
 
+            DateColumn::name('term_end')
+                ->label('End of Term')
+                ->filterable(),
+                ->editable(),
+                ->searchable(),
 
             BooleanColumn::name('status')
                 ->label('status')
