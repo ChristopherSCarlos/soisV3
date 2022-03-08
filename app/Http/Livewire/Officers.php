@@ -306,7 +306,6 @@ class Officers extends LivewireDatatable
         return Officer::query()
             ->leftJoin('organizations', 'organizations.organization_id', 'officers.organization_id')
             ->leftJoin('position_titles', 'position_titles.position_title_id', 'officers.position_title_id');
-            // ->leftJoin('officer_positions', 'officer_positions.officer_positions_id', 'officers.position_category');
     }
     
     /*=====  End of Join tables Section  ======*/
@@ -371,29 +370,29 @@ class Officers extends LivewireDatatable
                 ->label('Position Name')
                 ->filterable($this->position_titles),
 
-            // Column::name('school_year')
-            //     ->label('School Year')
-            //     ->filterable()
-            //     ->editable(),
-                // ->searchable(),
+            Column::name('school_year')
+                ->label('School Year')
+                ->filterable()
+                ->editable(),
+                ->searchable(),
 
-            // Column::name('semester')
-            //     ->label('Semester')
-            //     ->filterable()
-            //     ->editable(),
-                // ->searchable(),
+            Column::name('semester')
+                ->label('Semester')
+                ->filterable()
+                ->editable(),
+                ->searchable(),
 
-            // Column::name('position')
-            //     ->label('Position')
-            //     ->filterable()
-            //     ->editable(),
-                // ->searchable(),
+            Column::name('position')
+                ->label('Position')
+                ->filterable()
+                ->editable(),
+                ->searchable(),
 
-            // DateColumn::name('exp_date')
-            //     ->label('Retirement')
-            //     ->filterable(),
-                // ->editable(),
-                // ->searchable(),
+            DateColumn::name('exp_date')
+                ->label('Retirement')
+                ->filterable(),
+                ->editable(),
+                ->searchable(),
 
 
             BooleanColumn::name('status')
