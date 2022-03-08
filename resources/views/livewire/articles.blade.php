@@ -16,7 +16,7 @@
     <h2 class="table-title">News Articles</h2>
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
             @if($RoleUSerString == 'Super Admin')
-            <a href="{{ route('article/create') }}">
+            <a href="{{ route('articles.create') }}">
             <x-jet-button wire:click="createNews">
                 {{ __('Create School News') }}
             </x-jet-button>
