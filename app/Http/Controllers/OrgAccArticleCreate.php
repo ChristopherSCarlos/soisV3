@@ -52,7 +52,6 @@ class OrgAccArticleCreate extends Controller
      */
     public function create()
     {
-        dd("Hello");
         return view('normlaravel.org-article-create',);
     }
 
