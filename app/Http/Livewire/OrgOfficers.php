@@ -157,16 +157,6 @@ class OrgOfficers extends LivewireDatatable
                 // ->editable(),
                 // ->searchable(),
 
-            Column::name('position_category')
-                ->label('Position Category ID'),
-                // ->editable(),
-
-            Column::name('officer_positions.position_category')
-                ->label('Position Category')
-                ->filterable($this->PositionCategory),
-                // ->editable(),
-                // ->searchable(),
-
             BooleanColumn::name('status')
                 ->label('status')
                 ->filterable(),
