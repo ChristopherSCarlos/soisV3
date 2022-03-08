@@ -137,9 +137,6 @@
                     
                     @endif
                     @if($getUserRole == "Home Page Admin")
-                    <x-jet-nav-link href="{{ route('Organization-dashboard') }}" :active="request()->routeIs('Organization-dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('Organization-articles') }}" :active="request()->routeIs('Organization-articles')">
                         {{ __('News') }}
                     </x-jet-nav-link>
