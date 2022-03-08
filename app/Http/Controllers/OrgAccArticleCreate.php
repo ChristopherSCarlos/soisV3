@@ -115,7 +115,8 @@ class OrgAccArticleCreate extends Controller
 
 
         // dd("Hello");
-         return view('org-article-create');
+        return view('normlaravel.org-article-create',);
+
     }
 
     public function articleInsertModel($artTitle,$artSubtitle,$artContent,$type,$status,$userID,$artSlug,$orgID)
@@ -230,8 +231,9 @@ class OrgAccArticleCreate extends Controller
 
 
         // dd("Hello");
-         return view('org-article-create');
-        
+        return view('normlaravel.org-article-create',);
+         
+
          // return redirect('article/create')->with('status', 'Blog Post Form Data Has Been inserted');
     }
 
