@@ -9,6 +9,7 @@ class SoisGates extends Component
 {
 
     public $sois2;
+    public $sois3;
     public $gpoa;
     public $membership;
     public $soisar;
@@ -17,6 +18,8 @@ class SoisGates extends Component
     private $getKey;
     private $gateKey;
     private $ipAddress;
+
+    public $testRoute = 'testroute';
 
     public function mount()
     {
@@ -27,7 +30,7 @@ class SoisGates extends Component
         
         $this->getKey = DB::table('sois_gates')->where('user_id','=',$this->userId)->first();
 
-        $this->gateKey = $this->getKey->gate_key;
+        $this->gateKey = $this->getKey->hash_key;
 
 
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -59,6 +62,12 @@ class SoisGates extends Component
         // dd($this->gateKey);
     }
 
+    public function sois3Function()
+    {
+        $this->sois3 = 'http://sois2.puptaguigcs.net/$0lsL0gIn/idem/'.$this->userId.'/gateportal/'.$this->gateKey.'/'.$this->testRoute;
+        return $this->sois3;
+    }
+
     public function sois2Function()
     {
         $this->sois2 = 'http://sois2.puptaguigcs.net/$0lsL0gIn/idem/'.$this->userId.'/gateportal/'.$this->gateKey;
@@ -84,6 +93,7 @@ class SoisGates extends Component
     {
         return view('livewire.sois-gates',[
             'sois2' => $this->sois2Function(),
+            'sois3' => $this->sois3Function(),
             'gpoa' => $this->gpoaFunction(),
             'member' => $this->membershipFunction(),
             'soisar' => $this->soisarFunction(),
