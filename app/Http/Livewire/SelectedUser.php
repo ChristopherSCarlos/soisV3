@@ -24,12 +24,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
- private $uuid;
-    private $uuidExplodedArray;
-    private $uuidArray;
-    private $selected_key;
- 
-    private $encrypted;
+
 
 class SelectedUser extends Component
 {
@@ -117,7 +112,12 @@ class SelectedUser extends Component
     public $userRoleDataInt;
     public $roleModel=null;
 
-
+    private $uuid;
+    private $uuidExplodedArray;
+    private $uuidArray;
+    private $selected_key;
+ 
+    private $encrypted;
 
     public function mount()
     {
