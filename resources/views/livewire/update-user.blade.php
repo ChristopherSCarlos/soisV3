@@ -57,10 +57,13 @@
                 <x-jet-label for="student_number" value="{{ __('student_number') }} : {{$user->student_number}}" />
                 <x-jet-input id="student_number" class="block mt-1 w-full" type="text" wire:model="student_number_DB" required autofocus />
             </div>
+            
+            <a href="{{ route('user-selected-user', ['id'=> $user->user_id ]) }}">
+                <x-jet-secondary-button class="m-5" wire:click="update">
+                    {{ __('Update User') }}
+                </x-jet-secondary-button>
+            </a>
             @endforeach
-            <x-jet-secondary-button class="m-5" wire:click="update">
-                {{ __('Update User') }}
-            </x-jet-secondary-button>
             </div>
         </div>
     </div>

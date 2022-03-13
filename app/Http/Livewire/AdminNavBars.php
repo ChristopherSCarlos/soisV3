@@ -31,8 +31,6 @@ class AdminNavBars extends Component
         // dd(DB::table('sois_gates')->where('user_id','=',$this->userId)->get());
         DB::table('sois_gates')->where('user_id','=',$this->userId)->update(['is_logged_in' => '0']);
         // dd("Hello");
-            DB::table('sois_gates')->where('user_id','=',$this->userId)->update(['ip_address' => null]);
-
     }
     public function render()
     {

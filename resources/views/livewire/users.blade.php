@@ -42,43 +42,11 @@
                                             {{ $item->email }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            <x-jet-button wire:click="updateUserModel({{ $item->user_id }})">
-                                                {{__('Update User')}}
-                                            </x-jet-button>
-                                            <x-jet-button wire:click="updateUserPasswordModel({{ $item->user_id }})">
-                                                {{__('Update Password User')}}
-                                            </x-jet-button>
-                                            <a href="{{ route('user/selected-user', ['id'=> $item->user_id ]) }}">
+                                            <a href="{{ route('user-selected-user', ['id'=> $item->user_id ]) }}">
                                                 <x-jet-button>
                                                     {{__('Selected User')}}
                                                 </x-jet-button>
                                             </a>
-                                            <!-- <x-jet-danger-button wire:click="deleteShowUserModal({{ $item->user_id }})">
-                                                {{__('Delete')}}
-                                            </x-jet-danger-button> -->
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap"  style="
-                                                                                            ">
-                                            <x-jet-button wire:click="addShowRoleModel({{ $item->user_id }})">
-                                                {{__('Add Role')}}
-                                            </x-jet-button>
-                                            <x-jet-button wire:click="generateKeyModal({{ $item->user_id }})">
-                                                {{__('Generate Key')}}
-                                            </x-jet-button>
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap"  style="
-                                                                                            ">
-                                            <x-jet-button wire:click="addShowPermissionModel({{ $item->user_id }})">
-                                                {{__('Add Permission')}}
-                                            </x-jet-button>
-                                        </td>
-
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap"  style="
-                                                                                            ">
-                                            <x-jet-button wire:click="addShowOrganizationModel({{ $item->user_id }})">
-                                                {{__('Add Organization')}}
-                                            </x-jet-button>
-                                            
                                         </td>
                                     </tr>
                                 @endforeach
@@ -130,45 +98,12 @@
                                             {{ $item->email }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                           <a href="{{ route('user/selected-user', ['id'=> $item->user_id ]) }}">
+                                           <a href="{{ route('user-selected-user', ['id'=> $item->user_id ]) }}">
                                                 <x-jet-button>
                                                     {{__('Selected User')}}
                                                 </x-jet-button>
                                             </a>
-                                            <x-jet-button wire:click="updateUserModel({{ $item->user_id }})">
-                                                {{__('Update User')}}
-                                            </x-jet-button>
-                                            <x-jet-button wire:click="updateUserPasswordModel({{ $item->user_id }})">
-                                                {{__('Update Password User')}}
-                                            </x-jet-button>
-                                            <x-jet-danger-button wire:click="deleteShowUserModal({{ $item->user_id }})">
-                                                {{__('Delete')}}
-                                            </x-jet-danger-button>
-
                                         </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap"  style="
-                                                                                            ">
-                                            <x-jet-button wire:click="addShowRoleModel({{ $item->user_id }})">
-                                                {{__('Add Role')}}
-                                            </x-jet-button>
-                                            <x-jet-button wire:click="generateKeyModal({{ $item->user_id }})">
-                                                {{__('Generate Key')}}
-                                            </x-jet-button>
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap"  style="
-                                                                                            ">
-                                            <x-jet-button wire:click="addShowPermissionModel({{ $item->user_id }})">
-                                                {{__('Add Permission')}}
-                                            </x-jet-button>
-                                        </td>
-
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap"  style="
-                                                                                            ">
-                                            <x-jet-button wire:click="addShowOrganizationModel({{ $item->user_id }})">
-                                                {{__('Add Organization')}}
-                                            </x-jet-button>
-                                            <a href="{{ route('user/selected-user', ['id'=> $item->user_id ]) }}">
-
                                     </tr>
                                 @endforeach
                             @else
@@ -219,42 +154,11 @@
                                             {{ $item->email }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            <x-jet-button wire:click="updateUserModel({{ $item->user_id }})">
-                                                {{__('Update User')}}
-                                            </x-jet-button>
-                                            <x-jet-button wire:click="updateUserPasswordModel({{ $item->user_id }})">
-                                                {{__('Update Password User')}}
-                                            </x-jet-button>
-                                           <a href="{{ route('user/selected-user', ['id'=> $item->user_id ]) }}">
+                                            <a href="{{ route('user-selected-user', ['id'=> $item->user_id ]) }}">
                                                 <x-jet-button>
                                                     {{__('Selected User')}}
                                                 </x-jet-button>
                                             </a>
-                                            <x-jet-danger-button wire:click="deleteShowUserModal({{ $item->user_id }})">
-                                                {{__('Delete')}}
-                                            </x-jet-danger-button>
-                                        </td>
-                                         <td class="px-6 py-4 text-sm whitespace-no-wrap"  style="
-                                                                                            ">
-                                            <x-jet-button wire:click="addShowRoleModel({{ $item->user_id }})">
-                                                {{__('Add Role')}}
-                                            </x-jet-button>
-                                            <x-jet-button wire:click="generateKeyModal({{ $item->user_id }})">
-                                                {{__('Generate Key')}}
-                                            </x-jet-button>
-                                        </td>
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap"  style="
-                                                                                            ">
-                                            <x-jet-button wire:click="addShowPermissionModel({{ $item->user_id }})">
-                                                {{__('Add Permission')}}
-                                            </x-jet-button>
-                                        </td>
-
-                                        <td class="px-6 py-4 text-sm whitespace-no-wrap"  style="
-                                                                                            ">
-                                            <x-jet-button wire:click="addShowOrganizationModel({{ $item->user_id }})">
-                                                {{__('Add Organization')}}
-                                            </x-jet-button>
                                         </td>
                                     </tr>
                                 @endforeach

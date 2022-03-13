@@ -138,13 +138,13 @@ Route::group(['middleware' => [
 // 
         // Route::get('users/selected-user/{id}', [App\Http\Livewire\SelectedUser::class, 'edit'])->name('user/selected-user');
         
-        Route::get('/users/selected-user/{id}', function(){
+        Route::get('/users-selected-user-{id}', function(){
             return view('admin.selected-users');
-        })->name('user/selected-user');
+        })->name('user-selected-user');
 
-        Route::get('/users/selected-user/update/{id}', function(){
+        Route::get('/users-selected-update-{id}', function(){
             return view('admin.update-user');
-        })->name('user/selected-user/update');
+        })->name('user-selected-update');
         // Route::get('/', function () {
         // });
 

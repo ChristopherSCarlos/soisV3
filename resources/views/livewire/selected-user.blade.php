@@ -240,10 +240,10 @@
     <div class="flex flex-col">
         <div class="p-3">
             @foreach($displayUserSelectedData as $item)
-            <a href="{{ route('user/selected-user/update', ['id'=> $item->user_id ]) }}">
-            <x-jet-secondary-button class="ml-2" wire:click="updateRedirect">
-                Update User Data
-            </x-jet-secondary-button>
+            <a href="{{ route('user-selected-update', ['id'=> $item->user_id ]) }}">
+                <x-jet-secondary-button class="ml-2" wire:click="updateRedirect">
+                    Update User Data
+                </x-jet-secondary-button>
             </a>
             <x-jet-button wire:click="updateUserPasswordModel({{ $item->user_id }})">
                 {{__('Update Password User')}}

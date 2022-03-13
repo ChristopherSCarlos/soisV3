@@ -122,8 +122,8 @@ class SelectedUser extends Component
     public function mount()
     {
         $this->actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        $this->explodedLink = explode("/",$this->actual_link);
-        $this->userInt = (int) $this->explodedLink[5];
+        $this->explodedLink = explode("-",$this->actual_link);
+        $this->userInt = (int) $this->explodedLink[3];
     }
 
     public function getUserData()
