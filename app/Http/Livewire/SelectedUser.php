@@ -555,14 +555,14 @@ class SelectedUser extends Component
                 ['organization_id' => $this->organizationModel,'role_id' => $this->userRoleDataInt, 'user_id' => $this->userInt],
             ]);
             $this->modalAddRoleFormVisible = false;
-            // $this->redirector($this->userInt);
+            $this->redirector($this->userInt);
             $this->resetValidation();
             $this->reset();
         // //     $this->resetAddRoleUserValidation();
         // //     $this->reset();
         }else{
             $this->modalAddRoleFormVisible = false;
-            // $this->redirector($this->userInt);
+            $this->redirector($this->userInt);
             $this->resetValidation();
             $this->reset();
             // dd("world");
