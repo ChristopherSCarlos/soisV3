@@ -142,7 +142,7 @@ class UserCRUD extends Controller
     {
          $getUserData = DB::table('users')->where('user_id','=',$id)->get();
         // dd(DB::table('users')->where('user_id','=',$id)->get());
-        // return view('normLaravel/users-update',compact('getUserData'));
+        // return view('normlaravel/users-update',compact('getUserData'));
         $SelectedUserCourseHolder = DB::table('users')->where('user_id','=',$id)->pluck('course_id');
         $SelectedUserCourse = DB::table('courses')->where('course_id','=',$SelectedUserCourseHolder)->get();
         // dd($SelectedUserCourse);
@@ -155,7 +155,7 @@ class UserCRUD extends Controller
         $getCourseData = DB::table('courses')->get();
         $getGenderData = DB::table('genders')->get();
 
-        return view('normLaravel/users-update')->with('displayUserSelectedData', $getUserData)->with('displayCourseDromDBForUpdateSelect', $SelectedUserCourse)->with('displayGenderDromDBForUpdateSelect', $SelectedUserGender)->with('displayCourseDromDB',$getCourseData)->with('displayGenderDromDB',$getGenderData);
+        return view('normlaravel/users-update')->with('displayUserSelectedData', $getUserData)->with('displayCourseDromDBForUpdateSelect', $SelectedUserCourse)->with('displayGenderDromDBForUpdateSelect', $SelectedUserGender)->with('displayCourseDromDB',$getCourseData)->with('displayGenderDromDB',$getGenderData);
     }
 
     /**
