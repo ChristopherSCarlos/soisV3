@@ -347,6 +347,17 @@
                 </div>
             </x-slot>
 
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('modalAddRoleFormVisible')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-jet-secondary-button>
+
+                @if($userId)
+                    <x-jet-secondary-button class="ml-2" wire:click="addRoleToUser" wire:loading.attr="disabled">
+                        {{ __('Sync Role') }}
+                    </x-jet-secondary-button>                    
+                @endif
+            </x-slot>
         </x-jet-dialog-modal>
 
 
