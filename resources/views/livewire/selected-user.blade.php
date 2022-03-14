@@ -240,7 +240,7 @@
     <div class="flex flex-col">
         <div class="p-3">
             @foreach($displayUserSelectedData as $item)
-            <a href="{{ route('user-selected-update', ['id'=> $item->user_id ]) }}">
+            <a href="{{ route('users.edit', $item->user_id) }}">
                 <x-jet-secondary-button class="ml-2" wire:click="updateRedirect">
                     Update User Data
                 </x-jet-secondary-button>
