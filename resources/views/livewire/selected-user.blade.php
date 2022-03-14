@@ -248,6 +248,11 @@
             <x-jet-button wire:click="updateUserPasswordModel({{ $item->user_id }})">
                 {{__('Update Password User')}}
             </x-jet-button>
+            <a href="{{ route('users/access-control', $item->user_id) }}">
+                <x-jet-secondary-button class="ml-2">
+                    Update User Access
+                </x-jet-secondary-button>
+            </a>
             @if($displayUserRoleData->count() > 0)
             <x-jet-secondary-button wire:click="addShowRoleModel({{$item->user_id}})" class="ml-2">
                 Change Role

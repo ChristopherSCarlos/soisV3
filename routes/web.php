@@ -54,6 +54,8 @@ Route::group(['middleware' => [
         Route::resource('users', 'App\Http\Controllers\UserCRUD');
 
         Route::put('users/addRoleToUser/{id}','App\Http\Controllers\UserCRUD@addRole')->name('users/addRoleToUser');
+        Route::get('users/access-control/{id}','App\Http\Controllers\UserCRUD@accessControl')->name('users/access-control');
+        
 
         Route::get('/default-interfaces', function(){
             return view('admin.default-interfaces');

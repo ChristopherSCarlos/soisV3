@@ -64,6 +64,11 @@ class UserCRUD extends Controller
 
     public $role_id;
 
+    public function accessControl($id)
+    {
+        return view('normLaravel\users-update-access');
+    }
+
     public function addRole(Request $request, $id)
     {
         $role_id = $request->role_id;
