@@ -81,7 +81,23 @@ class UserCRUD extends Controller
             echo "Not Exists";
         }
         echo "Hello";
-        return redirect()->route('user-selected-user', ['id' => $id]);
+        $getUserData = DB::table('users')->where('user_id','=',$id)->get();
+        // dd(DB::table('users')->where('user_id','=',$id)->get());
+        // return view('normlaravel/users-update',compact('getUserData'));
+        $SelectedUserCourseHolder = DB::table('users')->where('user_id','=',$id)->pluck('course_id');
+        $SelectedUserCourse = DB::table('courses')->where('course_id','=',$SelectedUserCourseHolder)->get();
+        // dd($SelectedUserCourse);
+
+        $SelectedUserGenderHolder = DB::table('users')->where('user_id','=',$id)->pluck('gender_id');
+        // $this->SelectedUserGender = $this->SelectedUserData->gender_id;
+        $SelectedUserGender = DB::table('genders')->where('gender_id','=',$SelectedUserGenderHolder)->get();
+
+
+        $getCourseData = DB::table('courses')->get();
+        $getGenderData = DB::table('genders')->get();
+
+        return view('normlaravel/users-update')->with('displayUserSelectedData', $getUserData)->with('displayCourseDromDBForUpdateSelect', $SelectedUserCourse)->with('displayGenderDromDBForUpdateSelect', $SelectedUserGender)->with('displayCourseDromDB',$getCourseData)->with('displayGenderDromDB',$getGenderData);
+        // return redirect()->route('user-selected-user', ['id' => $id]);
     }
 
     public function index()
