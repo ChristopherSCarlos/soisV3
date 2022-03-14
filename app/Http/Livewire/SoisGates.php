@@ -41,7 +41,7 @@ class SoisGates extends Component
             // echo "<br><br>";
             $this->ipAddress = $ip;
             $this->ipAddress = $ip;
-            DB::table('sois_gates')->where('user_id','=',$this->userId)->update(['ip_address' => $this->ipAddress]);
+            // DB::table('sois_gates')->where('user_id','=',$this->userId)->update(['ip_address' => $this->ipAddress]);
         } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
             // echo "2";
@@ -49,7 +49,7 @@ class SoisGates extends Component
             // echo $ip;
             // echo "<br><br>";
             $this->ipAddress = $ip;
-            DB::table('sois_gates')->where('user_id','=',$this->userId)->update(['ip_address' => $this->ipAddress]);
+            // DB::table('sois_gates')->where('user_id','=',$this->userId)->update(['ip_address' => $this->ipAddress]);
         } else {
             $ip = $_SERVER['REMOTE_ADDR'];
             // echo "3";
@@ -57,7 +57,7 @@ class SoisGates extends Component
             // echo $ip;
             // echo "<br><br>";
             $this->ipAddress = $ip;
-            DB::table('sois_gates')->where('user_id','=',$this->userId)->update(['ip_address' => $this->ipAddress]);
+            // DB::table('sois_gates')->where('user_id','=',$this->userId)->update(['ip_address' => $this->ipAddress]);
         }
         // dd($this->gateKey);
     }
