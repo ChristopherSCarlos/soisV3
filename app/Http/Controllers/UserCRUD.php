@@ -66,7 +66,7 @@ class UserCRUD extends Controller
 
     public function accessControl($id)
     {
-        return view('normlaravel\users-update-access');
+        return view('normlaravel/users-update-access');
     }
 
     public function addRole(Request $request, $id)
