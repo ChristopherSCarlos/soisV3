@@ -58,7 +58,7 @@
                 <x-jet-input id="student_number" class="block mt-1 w-full" type="text" wire:model="student_number_DB" required autofocus />
             </div>
             
-            <a href="{{ route('user-selected-user', ['id'=> $user->user_id ]) }}">
+             <a href="{{ route('user-selected-user', ['id'=> $user->user_id ]) }}">
                 <x-jet-secondary-button class="m-5" wire:click="update">
                     {{ __('Update User') }}
                 </x-jet-secondary-button>
