@@ -62,6 +62,28 @@ class UserCRUD extends Controller
     public $course_id_DB;
     public $gender_id_DB;
 
+    public $role_id;
+
+    public function addRole(Request $request, $id)
+    {
+        $role_id = $request->role_id;
+        echo $role_id;
+        if (DB::table('role_user')->where('user_id','=',$id)->pluck('role_id') != null) {
+            DB::table('role_user')->where('user_id','=',$id)->delete();
+            DB::table('role_user')->insert([
+                 'role_id' => $role_id, 'user_id' => $id, 'organization_id' => null,   
+            ]);
+            echo "Exists";
+        }else{
+            DB::table('role_user')->insert([
+                 'role_id' => $role_id, 'user_id' => $id, 'organization_id' => null,   
+            ]);
+            echo "Not Exists";
+        }
+        echo "Hello";
+        return redirect()->route('user-selected-user', ['id' => $id]);
+    }
+
     public function index()
     {
         //

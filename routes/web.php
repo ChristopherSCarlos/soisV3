@@ -53,6 +53,8 @@ Route::group(['middleware' => [
         Route::resource('announcement', 'App\Http\Controllers\AnouncementCRUD');
         Route::resource('users', 'App\Http\Controllers\UserCRUD');
 
+        Route::put('users/addRoleToUser/{id}','App\Http\Controllers\UserCRUD@addRole')->name('users/addRoleToUser');
+
         Route::get('/default-interfaces', function(){
             return view('admin.default-interfaces');
         })->name('default-interfaces');

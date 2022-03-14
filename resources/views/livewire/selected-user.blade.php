@@ -320,17 +320,29 @@
             <x-slot name="content">
                <div class="mb-4">
                     
-    <div class="form-group row">
-        <label for="role" class="col-md-4 col-form-label text-md-right">role</label>
-        <div class="col-md-6">
-            <select wire:model="roleModel" class="form-control">
-                <option value="" selected>Choose role</option>
-                @foreach($rolesList as $role)
-                    <option value="{{ $role->role_id }}">{{ $role->role }}</option>
-                @endforeach
-            </select>
-        </div>
+<div class="flex flex-col p-5">
+    <div class="max-w-lg rounded overflow-hidden shadow-lg">
+        @csrf
+        {{ csrf_field() }}
+        @foreach($displayUserSelectedData as $user)
+        <form name="add-role" id="add-role" method="post" action="{{ route('users/addRoleToUser', $user->user_id ) }}">
+            @csrf
+            @method('PUT')
+            <div class="mt-4">
+                <select name="role_id" id="role_id" class="form-control">
+                    <option value="" selected>Choose role</option>
+                    @foreach($rolesList as $role)
+                        <option value="{{ $role->role_id }}">{{ $role->role }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="px-6 pt-4 pb-2">
+                <button class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+        @endforeach
     </div>
+</div>
 
                 </div>
             </x-slot>
