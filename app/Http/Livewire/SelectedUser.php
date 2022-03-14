@@ -473,7 +473,7 @@ class SelectedUser extends Component
     {
         return [
             'gate_key' => $this->uuid,
-            'hash_key' => $this->encrypted,
+            // 'hash_key' => $this->encrypted,
         ];
     }
 
@@ -481,7 +481,7 @@ class SelectedUser extends Component
     {
         return [
             'user_id' => $this->userId,
-            'gate_key' => $this->end_key,
+            'gate_key' => $this->uuid,
         ];
     }
     
