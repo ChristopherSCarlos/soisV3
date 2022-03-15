@@ -63,6 +63,65 @@ class UserCRUD extends Controller
     public $gender_id_DB;
 
     public $role_id;
+    public $organization_id;
+
+    public $UserOrgData;
+    public $UserOrgDataFromDB;
+    public $UserOrg;
+
+    public $UserRoleOrgData;
+    public $UserRole;
+
+    public $UserGateData;
+    public $UserGateErrorLog;
+    public $UserGate;
+
+    public $permissionDataFromDB;
+
+    public $userOrgResultMessage;
+    public $userOrgDataInt;
+    public $userRoleData;
+    public $RoleUSerChecker;
+    public $RoleSignatureChecker;
+
+    public function addOrg(Request $request, $id)
+    {
+        $organization_id = $request->organization_id;
+        // echo $organization_id;
+
+        $userOrgData = DB::table('role_user')->where('user_id','=',$id)->first();
+        $userOrgDataInt = $userOrgData->organization_id;
+        // echo $userOrgDataInt;
+        
+        $userRoleData = DB::table('role_user')->where('user_id','=',$id)->first();
+        $userRoleDataInt = $userRoleData->role_id;
+        // echo $userRoleDataInt;
+        $RoleUSerChecker = DB::table('role_user')->where('user_id','=',$id)->where('organization_id','=',$userOrgDataInt)->first();
+        // dd($RoleUSerChecker);
+        if($RoleUSerChecker){
+            DB::table('role_user')->where('user_id','=',$id)->delete();
+            DB::table('role_user')->insert([
+                ['organization_id' => $organization_id,'role_id' => $userRoleDataInt, 'user_id' => $id],
+            ]);
+        }else{
+            DB::table('role_user')->insert([
+                ['organization_id' => $organization_id,'role_id' => $userRoleDataInt, 'user_id' => $id],
+            ]);
+        }
+        $RoleSignatureChecker = DB::table('event_signatures')->where('user_id','=',$id)->first();
+        // dd($RoleSignatureChecker);
+        if ($RoleSignatureChecker) {
+            DB::table('event_signatures')->where('user_id','=',$id)->delete();
+            DB::table('event_signatures')->insert([
+                ['organization_id' => $organization_id,'role_id' => $userRoleDataInt, 'user_id' => $id],
+            ]);
+        }else{
+            DB::table('event_signatures')->insert([
+                ['organization_id' => $organization_id,'role_id' => $userRoleDataInt, 'user_id' => $id],
+            ]);
+        }
+        return $this->accessControl($id);
+    }
 
     public function accessControl($id)
     {
@@ -72,36 +131,21 @@ class UserCRUD extends Controller
     public function addRole(Request $request, $id)
     {
         $role_id = $request->role_id;
-        echo $role_id;
+        // echo $role_id;
         if (DB::table('role_user')->where('user_id','=',$id)->pluck('role_id') != null) {
             DB::table('role_user')->where('user_id','=',$id)->delete();
             DB::table('role_user')->insert([
                  'role_id' => $role_id, 'user_id' => $id, 'organization_id' => null,   
             ]);
-            echo "Exists";
+            // echo "Exists";
         }else{
             DB::table('role_user')->insert([
                  'role_id' => $role_id, 'user_id' => $id, 'organization_id' => null,   
             ]);
-            echo "Not Exists";
+            // echo "Not Exists";
         }
-        echo "Hello";
-        $getUserData = DB::table('users')->where('user_id','=',$id)->get();
-        // dd(DB::table('users')->where('user_id','=',$id)->get());
-        // return view('normlaravel/users-update',compact('getUserData'));
-        $SelectedUserCourseHolder = DB::table('users')->where('user_id','=',$id)->pluck('course_id');
-        $SelectedUserCourse = DB::table('courses')->where('course_id','=',$SelectedUserCourseHolder)->get();
-        // dd($SelectedUserCourse);
-
-        $SelectedUserGenderHolder = DB::table('users')->where('user_id','=',$id)->pluck('gender_id');
-        // $this->SelectedUserGender = $this->SelectedUserData->gender_id;
-        $SelectedUserGender = DB::table('genders')->where('gender_id','=',$SelectedUserGenderHolder)->get();
-
-
-        $getCourseData = DB::table('courses')->get();
-        $getGenderData = DB::table('genders')->get();
-
-        return view('normlaravel/users-update')->with('displayUserSelectedData', $getUserData)->with('displayCourseDromDBForUpdateSelect', $SelectedUserCourse)->with('displayGenderDromDBForUpdateSelect', $SelectedUserGender)->with('displayCourseDromDB',$getCourseData)->with('displayGenderDromDB',$getGenderData);
+        // echo "Hello";
+        return $this->accessControl($id);
         // return redirect()->route('user-selected-user', ['id' => $id]);
     }
 
