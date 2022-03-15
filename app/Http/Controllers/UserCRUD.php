@@ -185,7 +185,7 @@ class UserCRUD extends Controller
         $getOrganizationData = DB::table('organizations')->get();
         // dd($getRolesData);
         // return view('normlaravel/users-update');
-        return view('normlaravel\users-update-access')
+        return view('normlaravel/users-update-access')
                 ->with('displayUserSelectedData', $getUserData)
                 ->with('rolesList', $getRolesData)
                 ->with('OrgsList', $getOrganizationData)
