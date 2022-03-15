@@ -34,6 +34,7 @@ class UserCRUD extends Controller
     public $student_number;
     public $latestID;
     public $user_id;
+    public $id;
 
     public $getUserData;
     public $store_New_user_data;
@@ -125,7 +126,80 @@ class UserCRUD extends Controller
 
     public function accessControl($id)
     {
-        return view('normlaravel/users-update-access');
+        $getUserData = DB::table('users')->where('user_id','=',$id)->get();
+        // dd(DB::table('users')->where('user_id','=',$id)->get());
+        // return view('normlaravel/users-update',compact('getUserData'));
+        $SelectedUserCourseHolder = DB::table('users')->where('user_id','=',$id)->pluck('course_id');
+        $SelectedUserCourse = DB::table('courses')->where('course_id','=',$SelectedUserCourseHolder)->get();
+        // dd($SelectedUserCourse);
+
+        $SelectedUserGenderHolder = DB::table('users')->where('user_id','=',$id)->pluck('gender_id');
+        // $this->SelectedUserGender = $this->SelectedUserData->gender_id;
+        $SelectedUserGender = DB::table('genders')->where('gender_id','=',$SelectedUserGenderHolder)->get();
+
+        //             'displayUserOrganizationData' => $this->getUserOrganization(),
+        $UserOrgData = DB::table('role_user')->where('user_id','=',$id)->first();
+        // dd($UserOrgData);
+        $UserOrg = $UserOrgData->organization_id;
+        
+        if ($UserOrg) {
+            $userOrgResultMessage = 'Change Organizaion';
+        }else{
+            $userOrgResultMessage = 'Add Organizaion';
+        }
+        // dd($UserOrg);
+
+        // DB::table('organizations')->where('organization_id','=',$this->UserOrg)->get();
+        // dd(DB::table('organizations')->where('organization_id','=',$this->UserOrg)->get());
+
+            // 'displayUserRoleData' => $this->getUserRole(),
+        $UserRoleOrgData = DB::table('role_user')->where('user_id','=',$id)->first();
+        $UserRole = $UserRoleOrgData->role_id;
+        // dd($UserRole);
+
+
+
+            // 'displayUserGateData' => $this->getUserSoisGate(),
+        $UserGateData = DB::table('sois_gates')->where('user_id','=',$id)->get();
+        if($UserGateData){
+            $UserGateErrorLog = "Exists";
+            $UserGate = DB::table('sois_gates')->where('user_id','=',$id)->first();
+            // $UserGateKey = $UserGate->gate_key;
+            // dd($UserGateKey);
+            // return DB::table('sois_gates')->where('user_id','=',$id)->get();
+        }else{
+            $UserGateErrorLog = "Doesn't Exists";
+            // return $UserGateErrorLog;
+            // return DB::table('sois_gates')->where('user_id','=',$id)->get();
+        }
+
+            // 'displayUserPermsData' => $getUserPermission(),
+        $permissionDataFromDB = User::find($id)->permissions()->get();
+
+        // dd(DB::table('organizations')->where('organization_id','=',$UserOrg)->get());
+        // dd(DB::table('sois_gates')->where('user_id','=',$id)->get());
+
+        $getCourseData = DB::table('courses')->get();
+        $getGenderData = DB::table('genders')->get();
+        $getRolesData = DB::table('roles')->get();
+        $getOrganizationData = DB::table('organizations')->get();
+        // dd($getRolesData);
+        // return view('normlaravel/users-update');
+        return view('normlaravel\users-update-access')
+                ->with('displayUserSelectedData', $getUserData)
+                ->with('rolesList', $getRolesData)
+                ->with('OrgsList', $getOrganizationData)
+                ->with('displayCourseDromDBForUpdateSelect', $SelectedUserCourse)
+                ->with('displayGenderDromDBForUpdateSelect', $SelectedUserGender)
+                ->with('displayCourseDromDB',$getCourseData)
+                ->with('displayGenderDromDB',$getGenderData)
+                // ->with('displayUserOrganizationData',$UserOrgData)
+                // ->with('displayUserOrganizationData',DB::table('organizations')->where('organization_id','=',$UserOrg)->get())
+                ->with('displayUserOrganizationData',DB::table('organizations')->where('organization_id','=',$UserOrg)->get())
+                ->with('displayUserOrganizationDataMessage',$userOrgResultMessage)
+                ->with('displayUserRoleData',DB::table('roles')->where('role_id','=',$UserRole)->get())
+                ->with('displayUserGateData',DB::table('sois_gates')->where('user_id','=',$id)->get())
+                ->with('displayUserPermsData',$permissionDataFromDB);
     }
 
     public function addRole(Request $request, $id)
@@ -219,6 +293,7 @@ class UserCRUD extends Controller
         //
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -227,7 +302,7 @@ class UserCRUD extends Controller
      */
     public function edit($id)
     {
-         $getUserData = DB::table('users')->where('user_id','=',$id)->get();
+        $getUserData = DB::table('users')->where('user_id','=',$id)->get();
         // dd(DB::table('users')->where('user_id','=',$id)->get());
         // return view('normlaravel/users-update',compact('getUserData'));
         $SelectedUserCourseHolder = DB::table('users')->where('user_id','=',$id)->pluck('course_id');
@@ -243,6 +318,15 @@ class UserCRUD extends Controller
         $getGenderData = DB::table('genders')->get();
 
         return view('normlaravel/users-update')->with('displayUserSelectedData', $getUserData)->with('displayCourseDromDBForUpdateSelect', $SelectedUserCourse)->with('displayGenderDromDBForUpdateSelect', $SelectedUserGender)->with('displayCourseDromDB',$getCourseData)->with('displayGenderDromDB',$getGenderData);
+        // return view('normlaravel/users-update',[
+        //     'displayUserSelectedData' => $getUserData,
+        //     'displayCourseDromDBForUpdateSelect' => $SelectedUserCourse,
+        //     'displayCourseDromDBForUpdateSelect' => DB::table('courses')->where('course_id','=',$SelectedUserCourseHolder)->get(),
+        //     'displayGenderDromDBForUpdateSelect' => $SelectedUserGender,
+        //     'displayCourseDromDB' =>$getCourseData,
+        //     'displayGenderDromDB' =>$getGenderData,
+        // ]);
+        // return view('normlaravel/users-update')
     }
 
     /**
@@ -254,8 +338,21 @@ class UserCRUD extends Controller
      */
     public function update(Request $request, $id)
     {
+        // $validatedData = $request->validate([
+        //     'first_name' => 'required',
+        // ]);
         $get_user_data_from_database = User::find($id);
         // Start of if
+        // $first_name_DB = $get_user_data_from_database->first_name;
+        // $middle_name_DB = $get_user_data_from_database->middle_name;
+        // $last_name_DB = $get_user_data_from_database->last_name;
+        // $date_of_birth_DB = $get_user_data_from_database->date_of_birth;
+        // $course_id_DB = $get_user_data_from_database->course_id;
+        // $address_DB = $get_user_data_from_database->address;
+        // $gender_id_DB = $get_user_data_from_database->gender_id;
+        // $email_DB = $get_user_data_from_database->email;
+        // $mobile_number_DB = $get_user_data_from_database->mobile_number;
+        // $student_number_DB = $get_user_data_from_database->student_number;
             /*==========================================================================
             =            Selector if data is inputted Section comment block            =
             ==========================================================================*/
@@ -270,6 +367,27 @@ class UserCRUD extends Controller
         $gender_id = $request->gender_id;
         $mobile_number = $request->mobile_number;
         $student_number = $request->student_number;
+        
+        echo "first_name: ".$first_name;
+        echo "<br><br>";
+        echo "middle_name: ".$middle_name;
+        echo "<br><br>";
+        echo "last_name: ".$last_name;
+        echo "<br><br>";
+        echo "date_of_birth: ".$date_of_birth;
+        echo "<br><br>";
+        echo "address: ".$address;
+        echo "<br><br>";
+        echo "email: ".$email;
+        echo "<br><br>";
+        echo "course_id: ".$course_id;
+        echo "<br><br>";
+        echo "gender_id: ".$gender_id;
+        echo "<br><br>";
+        echo "mobile_number: ".$mobile_number;
+        echo "<br><br>";
+        echo "student_number: ".$student_number;
+        echo "<br><br>";
                     if($first_name != null){
                         $first_name_DB = $first_name;
                         echo "first_name_DB: ".$first_name_DB." : This is not null"; 
@@ -370,8 +488,15 @@ class UserCRUD extends Controller
                         echo "<br><br>";
                     }
         //     /*=====  End of Selector if data is inputted Section comment block  ======*/
+
         User::find($id)->update($this->modelUpdateUser($first_name_DB,$middle_name_DB,$last_name_DB,$date_of_birth_DB,$address_DB,$email_DB,$mobile_number_DB,$student_number_DB,$course_id_DB,$gender_id_DB));
+            // $this->reset(['first_name','middle_name','last_name','date_of_birth','address','mobile_number','email','password','student_number','course_id','course_ids','gender_id','gender_ids','first_name_DB','middle_name_DB','last_name_DB','date_of_birth_DB','address_DB','mobile_number_DB','email_DB','password_DB','student_number_DB','course_id_DB','gender_id_DB',]);
+            // $this->redirector();
+        // return redirect('user-selected-user', ['id' => $id]);
         return redirect()->route('user-selected-user', ['id' => $id]);
+            // return view('normlaravel/users-update');
+        // dd("Hello");
+
     }
     public function modelUpdateUser($first_name_DB,$middle_name_DB,$last_name_DB,$date_of_birth_DB,$address_DB,$email_DB,$mobile_number_DB,$student_number_DB,$course_id_DB,$gender_id_DB)
         {
