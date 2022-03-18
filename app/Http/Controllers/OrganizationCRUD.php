@@ -85,7 +85,7 @@ class OrganizationCRUD extends Controller
      */
     public function index()
     {
-        return view('normlaravel.organization-view',[
+        return view('normlaravel/organization-view',[
             // 'articleDatas' => DB::table('tags')->paginate(15),
         ]);
     }
@@ -98,7 +98,7 @@ class OrganizationCRUD extends Controller
     public function create()
     {
 
-        return view('normlaravel.organization-create');
+        return view('normlaravel/organization-create');
     }
 
     /**
@@ -179,7 +179,7 @@ class OrganizationCRUD extends Controller
         // dd($authUserRoleType);
 
         // $this->accessOrgControll();
-        return view('normlaravel\organization-create',[
+        return view('normlaravel/organization-create',[
             // 'userAuthRole' => $authUserRoleType,
         ]);         
     }
@@ -205,7 +205,7 @@ class OrganizationCRUD extends Controller
         }
         
         // return $authUserRoleType;
-        return view('normlaravel\organization-view',[
+        return view('normlaravel/organization-view',[
             'displayOrganizationData' => DB::table('organizations')->where('organization_id','=',$id)->get(),
             'displayOrganizationLogo' => DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_logo','=',1)->get(),
             'displayOrganizationBanner' => DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_banner','=',1)->get(),
@@ -235,7 +235,7 @@ class OrganizationCRUD extends Controller
             // echo $organization_banner_checker;
         }
         // dd(DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_banner','=',1)->get());
-        return view('normlaravel.organization-view',[
+        return view('normlaravel/organization-view',[
             'displayOrganizationData' => DB::table('organizations')->where('organization_id','=',$id)->get(),
             'displayOrganizationLogo' => DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_logo','=',1)->get(),
             'displayOrganizationBanner' => DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_banner','=',1)->get(),
@@ -266,7 +266,7 @@ class OrganizationCRUD extends Controller
 
         echo $organization_acronym;
         // dd("hello");
-        return view('normlaravel.organization-update',[
+        return view('normlaravel/organization-update',[
             'displayOrganizationData' => DB::table('organizations')->where('organization_id','=',$id)->get(),
         ]);
     }
@@ -355,7 +355,7 @@ class OrganizationCRUD extends Controller
 
         // dd("hello");
         return $this->accessOrgControll($id);
-        // return view('normlaravel\organization-view');
+        // return view('normlaravel/organization-view');
         // dd("hello");
     }
 
