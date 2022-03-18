@@ -5,23 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AcademicMemberhsip extends Model
+class NonAcademicMember extends Model
 {
     use HasFactory;
 
     protected $primaryKey = 'academic_member_id';
 
     protected $fillable = [
-        'position_title_id',
+        'academic_member_id',
         'organization_id',
-        'term_start',
-        'term_end',
         'first_name',
         'middle_name',
         'last_name',
-        'suffix',
-        'signature',
-        'status',
+        'student_number',
+        'course',
+        'email',
+        'date_of_birth',
+        'control_number',
+        'address',
         'created_at',
         'updated_at',
     ];
