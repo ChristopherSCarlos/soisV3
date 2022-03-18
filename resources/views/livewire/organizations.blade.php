@@ -61,17 +61,8 @@
                                                         {{__('View')}}
                                                     </x-jet-button>
                                                     </a>
-                                                    <x-jet-button wire:click="updateShowModal({{ $item->organization_id }})">
-                                                        {{__('Update')}}
-                                                    </x-jet-button>
-                                                    <x-jet-button wire:click="updateImageShowModal({{ $item->organization_id }})">
-                                                        {{__('Update Logo')}}
-                                                    </x-jet-button>
-                                                    <x-jet-button wire:click="updateBannerShowModal({{ $item->organization_id }})">
-                                                        {{__('Update Banner')}}
-                                                    </x-jet-button>
                                                     <x-jet-danger-button wire:click="deleteShowModal({{ $item->organization_id }})">
-                                                        {{__('Delete')}}
+                                                        {{__('Deletes')}}
                                                     </x-jet-danger-button>
                                                 </td>
                                                 </td>
@@ -106,22 +97,13 @@
                                                 <td class="px-6 py-2">{{ $item->organization_details }}</td>
                                                 <td>
                                                     <a href="{{route('organizations.show', $item->organization_id)}}">
-                                                    <x-jet-button>
-                                                        {{__('View')}}
-                                                    </x-jet-button>
+                                                        <x-jet-button>
+                                                            {{__('View')}}
+                                                        </x-jet-button>
                                                     </a>
-                                                    <x-jet-button wire:click="updateShowModal({{ $item->organization_id }})">
-                                                        {{__('Update')}}
-                                                    </x-jet-button>
-                                                    <x-jet-button wire:click="updateImageShowModal({{ $item->organization_id }})">
-                                                        {{__('Update Logo')}}
-                                                    </x-jet-button>
-                                                    <x-jet-button wire:click="updateBannerShowModal({{ $item->organization_id }})">
-                                                        {{__('Update Banner')}}
-                                                    </x-jet-button>
                                                     @if($userAuthRole == 'Super Admin')
                                                         <x-jet-danger-button wire:click="deleteShowModal({{ $item->organization_id }})">
-                                                            {{__('Delete')}}
+                                                            {{__('Deletes')}}
                                                         </x-jet-danger-button>
                                                     @endif
                                                 </td>

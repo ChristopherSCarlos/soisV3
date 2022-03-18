@@ -22,7 +22,20 @@
       z-index: -1;
     }
 </style>
-
+<div class="grid grid-cols-12">
+    @foreach($displayOrganizationData as $orgData)
+    	<div class="col-span-12">
+		        <h2>Update {{$orgData->organization_name}}'s Data</h2>
+    	</div>
+    	<div class="col-span-1">
+    		<a href="{{route('organizations')}}">
+				<x-jet-button>
+				    {{ __('Go Back') }}
+				</x-jet-button>
+			</a>
+    	</div>
+	@endforeach
+</div>
 <div class="grid grid-cols-12">
 	<div class="col-span-3">
 		<div class="max-w-sm rounded overflow-hidden shadow-lg">
@@ -50,10 +63,11 @@
 				<div class="flex justify-center align-items" style="height:40%;">
 					<img class="h-7" src="{{ asset('/files/' . $orgBanner->file) }}"/>
 				</div>
-					<p>Merong banner</p>
 				@endforeach
 			@else
-				<p>Walang banner</p>
+				<div class="flex justify-center align-items" style="height:40%;">
+					<p>Image Not found</p>
+				</div>
 			@endif
 		</div>
 			@foreach($displayOrganizationData as $orgData)
@@ -129,9 +143,6 @@
 				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateBanner">
 				    {{__('Update Banner')}}
 				</button>
-				<x-jet-danger-button >
-				    {{__('Delete')}}
-				</x-jet-danger-button>
 			</div>
 		</div>
 			@endforeach
@@ -217,6 +228,42 @@
     </div>
 
 <!--====  End of Update Logo Section comment  ====-->
+
+<!--=========================================================
+=            Delete Organization Section comment            =
+==========================================================-->
+    <div class="modal fade" id="deleteOrg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                @csrf
+                {{ csrf_field() }}
+                @foreach($displayOrganizationData as $orgData)
+                    <form name="add-role" id="add-role" method="post" action="{{ route('organization.destroy', $orgData->organization_id ) }}" enctype="multipart/form-data">
+                    @csrf
+                    @method('DELETE')
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Change {{$orgData->organization_name}}'s Image Banner </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="flex flex-col p-5">
+                                <div class="max-w-lg rounded overflow-hidden shadow-lg">
+                                	  {{ __('Are you sure you want to delete your page? Once your page is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your page.') }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 btn btn-primary" type="button submit">Submit</button>
+                        </div>
+                    </form>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+
+<!--====  End of Delete Organization Section comment  ====-->
 
 
 @extends('layouts.closing-tag')
