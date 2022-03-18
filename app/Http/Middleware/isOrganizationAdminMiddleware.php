@@ -38,18 +38,20 @@ class isOrganizationAdminMiddleware
      */
     public function handle($request, Closure $next)
     {
+        // echo "Hello";
         $this->userId = Auth::id();
         $this->userData = User::find($this->userId);
         // dd($this->userData->roles);
         $this->role = $this->userData->roles->first();
         // dd($this->role);
-        // dd($this->role->role_name);
+        // dd($this->role->role);
 
 
-        if ($this->role->role !== "Home Page Admin") {
+        if ($this->role->role !== "Super Admin" || $this->role->role !== "User") {
+            return $next($request);
+        }else{
             abort(403, 'Unauthorized action.');
         }
 
-        return $next($request);
     }
 }

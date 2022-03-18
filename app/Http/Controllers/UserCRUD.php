@@ -421,7 +421,7 @@ class UserCRUD extends Controller
         //     'displayCourseDromDBForUpdateSelect' => $SelectedUserCourse,
         //     'displayCourseDromDBForUpdateSelect' => DB::table('courses')->where('course_id','=',$SelectedUserCourseHolder)->get(),
         //     'displayGenderDromDBForUpdateSelect' => $SelectedUserGender,
-        //     'displayCourseDromDB' =>$getCourseData,
+        //     'displayCourseDromDB' =>$get
         //     'displayGenderDromDB' =>$getGenderData,
         // ]);
         // return view('normlaravel/users-update')

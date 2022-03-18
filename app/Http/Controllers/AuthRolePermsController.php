@@ -11,6 +11,8 @@ use App\Http\Livewire\Objects;
 use Illuminate\Http\Response;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\STR;
 
 class AuthRolePermsController extends Controller
 {
@@ -35,29 +37,37 @@ class AuthRolePermsController extends Controller
 
             if(Auth::check()){
                 echo $this->userRole->role;
-                
+                echo "<br><br>";
                 $this->user_role_count = $this->userRole->role;
                 if ($this->userRole->role) {
                     echo "Esixt";
+                    echo "<br><br>";
                     if($this->userRole->role == 'Super Admin'){
-                        echo "Super Admin";
-                        return redirect('/default-interfaces');
-                    }elseif($this->userRole->role == 'Home Page Admin'){
-                        echo 'HomepageAdmin';
+                        DB::table('sois_gates')->where('user_id','=',Auth::id())->update(['gate_key' => Str::uuid()]);
+                        echo "<br><br>";
+                        // return redirect('/default-interfaces');
+                    }elseif($this->userRole->role != 'Super Admin' || $this->userRole->role != 'User' ){
+                        echo $this->userRole->role;
+                        echo "<br><br>";
+                        // dd("HomepageAdmin");
                         return redirect('/Organization/dashboard');
-                    }else{
+                    }elseif($this->userRole->role == 'User'){
                         echo "User";
+                        echo "<br><br>";
+                        // dd("User");
+                        // return redirect('/Organization/dashboard');
                         Auth::logout();
                         return redirect('/login');
                     }
+                    // dd("hello");
                 }else{
                     echo 'do not extends;';
                     Auth::logout();
                     return redirect('/login');
                 }
             }else{
-                echo "Helo";
-                return redirect('/login');
+                // echo "Helo";
+                // return redirect('/login');
             }
     }
 }
