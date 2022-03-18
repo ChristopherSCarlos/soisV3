@@ -16,14 +16,19 @@ class AdminNavBars extends Component
     public $userData;
     public $userRole;
 
+    private $roleData;
+    private $role_user_data;
     private $object;
 
     public function getUserData()
     {
-        $this->object = new Objects();
-        $this->userRole = $this->object->roles();
+        // $this->object = new Objects();
+        // $this->userRole = $this->object->roles();
+        $this->role_user_data = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        // dd($this->role_user_data->role_id);
+        $this->roleData = DB::table('roles')->where('role_id','=',$this->role_user_data->role_id)->first();
         // dd($this->userRole->role);
-        return $this->userRole->role; 
+        return $this->roleData->role; 
     }
     public function logoutControll()
     {

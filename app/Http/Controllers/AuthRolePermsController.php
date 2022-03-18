@@ -20,8 +20,10 @@ class AuthRolePermsController extends Controller
     public $userId;
     public $userData;
     public $userRole;
+    public $userRoleData;
     public $user_id;
     private $user_role;
+    private $user_role_Data;
     private $object;
     private $user_role_count;
 
@@ -33,27 +35,41 @@ class AuthRolePermsController extends Controller
             $this->user_id = Auth::id();
             $this->userData = User::find($this->user_id);
             // echo $this->userData;
-            $this->userRole = $this->userData->roles->first();
-
+            // dd(DB::table('role_user')->where('user_id','=',$this->user_id)->first());
+            // dd($this->userData);
+            $this->userRoleData = DB::table('role_user')->where('user_id','=',$this->user_id)->first();
+            $this->userRole = $this->userRoleData->role_id;
+            // dd($this->userRole);
             if(Auth::check()){
-                echo $this->userRole->role;
-                echo "<br><br>";
-                $this->user_role_count = $this->userRole->role;
-                if ($this->userRole->role) {
+                // dd(DB::table('roles')->where('role_id','=',$this->userRole)->first());
+                // echo $this->userRole->role;
+                // echo "<br><br>";
+
+                $this->user_role_Data = DB::table('roles')->where('role_id','=',$this->userRole)->first();
+                // dd($this->user_role_Data);
+                $this->user_role = $this->user_role_Data->role;
+                // dd($this->user_role);
+                // $this->user_role_count = $this->userRole->role;
+                if ($this->user_role) {
                     echo "Esixt";
                     echo "<br><br>";
-                    if($this->userRole->role == 'Super Admin'){
-                        DB::table('sois_gates')->where('user_id','=',Auth::id())->update(['gate_key' => Str::uuid()]);
+                    if($this->user_role == 'Super Admin'){
+                        // DB::table('sois_gates')->where('user_id','=',Auth::id())->update(['gate_key' => Str::uuid()]);
+                        echo $this->user_role;
+
                         echo "<br><br>";
-                        // return redirect('/default-interfaces');
-                    }elseif($this->userRole->role != 'Super Admin' || $this->userRole->role != 'User' ){
-                        echo $this->userRole->role;
+                        return redirect('/default-interfaces');
+                        dd("Super Admin");
+                    }elseif($this->user_role != 'Super Admin' || $this->user_role != 'User' ){
+                        echo $this->user_role;
                         echo "<br><br>";
+                        echo "Not Suer admin";
                         // dd("HomepageAdmin");
                         return redirect('/Organization/dashboard');
-                    }elseif($this->userRole->role == 'User'){
+                    }elseif($this->user_role == 'User'){
                         echo "User";
                         echo "<br><br>";
+                        dd("HomepageAdmin");
                         // dd("User");
                         // return redirect('/Organization/dashboard');
                         Auth::logout();
