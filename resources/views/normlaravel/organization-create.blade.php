@@ -1,6 +1,6 @@
 @extends('layouts.headlines')
 
-@section('page-title','test')
+@section('page-title','SOIS|Organization Creation')
 
 @livewire('admin-nav-bars')
 
@@ -28,9 +28,11 @@
 			        <h2>Create News</h2>
 			    </div>
 			    <div class="col-span-1">
-					<x-jet-secondary-button class="m-2">
-					    {{ __('Go Back') }}
-					</x-jet-secondary-button>
+			    	<a href="{{ route('organizations') }}">
+						<x-jet-secondary-button class="m-2">
+						    {{ __('Go Back') }}
+						</x-jet-secondary-button>
+			    	</a>
 			    </div>
             </div>
 
@@ -45,34 +47,44 @@
 
 <div class="flex flex-col p-5">
 	<div class="max-w-lg rounded overflow-hidden shadow-lg">
-		<form name="add-articles" id="add-articles" method="POST" action="/store-article" enctype="multipart/form-data">
+		<form name="add-articles" id="add-articles" method="POST" action="{{route('organization.store')}}" enctype="multipart/form-data">
 		@csrf
 		{{ csrf_field() }}
 			<div class="px-6 py-4">
-				<div class="form-group">
-					<label for="article_featured_image">article_featured_image</label>
-					<input type="file" id="article_featured_image" name="article_featured_image" class="form-control" required="">
-				</div>
-				<div class="form-group">
-					<label for="article_title">article_title</label>
-					<input type="text" id="article_title" name="article_title" class="form-control" required="">
-				</div>
-				<div class="form-group">
-					<label for="article_subtitle">article_subtitle</label>
-					<input type="text" id="article_subtitle" name="article_subtitle" class="form-control" required="">
-				</div>
-				<div class="form-group">
-					<label for="article_content">article_content</label>
-					<input type="text" id="article_content" name="article_content" class="form-control" required="">
-				</div>
-				<div class="form-group">
-					<label for="article_type_id">Choose Article Type:</label>
-  					<select name="article_type_id" id="article_type_id" class="form-control" required="">
-  					  <option value="1">Select Article Type</option>
-  					  <option value="1">School News</option>
-  					  <option value="2">Event News</option>
-  					</select>
-				</div>
+			
+			<div class="mt-4">
+                <x-jet-label for="Organization_logo" value="{{ __('organization logo') }}" />
+                <x-jet-input name="organization_logo" id="organization_logo" class="form-control block mt-1 w-full" type="file" />
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="organization_name" value="{{ __('Organization name') }}" />
+                <x-jet-input name="organization_name" id="organization_name" class="form-control block mt-1 w-full" type="text" />
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="organization_acronym" value="{{ __('Organization name') }}" />
+                <x-jet-input name="organization_acronym" id="organization_acronym" class="form-control block mt-1 w-full" type="text" />
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="organization_details" value="{{ __('Organization details') }}" />
+                <x-jet-input name="organization_details" id="organization_details" class="form-control block mt-1 w-full" type="text" />
+            </div>
+            <div class="mt-4">
+                <select name="organization_type_id" class="form-control block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <option default hidden>Choose Organization Type</option>
+                        <option value="1">Academic Organization</option>
+                        <option value="2">Non-Academic Organization</option>
+                </select>
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="organization_primary_color" value="{{ __('organization primary color') }}" />
+                <x-jet-input name="organization_primary_color" id="organization_primary_color" class="form-control block mt-1 w-full" type="color" />
+            </div>
+            <div class="mt-4">
+                <x-jet-label for="organization_secondary_color" value="{{ __('organization secondary color') }}" />
+                <x-jet-input name="organization_secondary_color" id="organization_secondary_color" class="form-control block mt-1 w-full" type="color" />
+            </div>
+
 	  		</div>
 	  		<div class="px-6 pt-4 pb-2">
 				<button class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" type="submit" class="btn btn-primary">Submit</button>
