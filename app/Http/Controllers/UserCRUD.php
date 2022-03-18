@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 use App\Models\User;
+use App\Models\Organization;
+use App\Models\Article;
+use App\Models\AssetType;
+use App\Models\OrganizationAsset;
+use App\Models\SystemAsset;
+use App\Models\SoisGate;
+
+use Auth;
 
 class UserCRUD extends Controller
 {
@@ -80,10 +88,95 @@ class UserCRUD extends Controller
     public $permissionDataFromDB;
 
     public $userOrgResultMessage;
+    public $userOrgPermsMessage;
     public $userOrgDataInt;
     public $userRoleData;
     public $RoleUSerChecker;
     public $RoleSignatureChecker;
+
+    public $uuid;
+    public $userData;
+    public $selectedPerms = [];
+
+    public $confirmable_password;
+    public $new_password;
+    public $old_password_1;
+    public $old_password_2;
+
+    public function addPassword(Request $request,$id)
+    {
+        echo Auth::user()->password;
+        $old_password = DB::table('users')->where('user_id','=',$id)->pluck('password');
+        $old_password_1 = str_replace("[\"", '', $old_password);
+        $old_password_2 = str_replace("\"]", '', $old_password_1);
+        $confirmable_password =$request->confirmable_password;
+        $new_password =$request->new_password;
+        if (!Hash::check($new_password, Auth::user()->password)) {
+            if ($new_password != $confirmable_password) {
+                $error = 'new_pw_doest_match_confrimable_pass';
+                return $this->accessControl($id,$error);
+            }else{
+                User::find($id)->update(['password'=>Hash::make($new_password)]);
+                // dd(User::find($id));
+                return $this->accessControl($id);
+            }
+        }else{
+            $error = 'same_password_From_last_pw';
+            return $this->accessControl($id,$error);
+        }
+        // dd($id);
+    }
+
+    public function addPerms(Request $request,$id)
+    {
+        $selectedPerms = $request->selectedPerms;
+        $userData = User::find($id);
+         $userData->permissions()->sync($selectedPerms);
+        return $this->accessControl($id);
+    }
+
+    public function addKey($id)
+    {
+        // echo Str::uuid();
+        $uuid = Str::uuid();
+        // echo "<br><br>";
+        // $this->encrypted =  Hash::make($this->uuid);
+        // echo "<br><br>";
+        // dd(DB::table('sois_gates')->where('user_id','=',$id)->first());
+        $selected_key = DB::table('sois_gates')->where('user_id','=',$id)->first();
+        // dd($selected_key);
+        if ($selected_key) {
+            // DB::table('sois_gates')->where('user_id','=',$id)->delete();
+        //     // DB::table('sois_gates')->inse
+        //     // dd(SoisGate::where('gate_key','=',$this->encrypted)->exists());
+        //     dd("Hello");
+            SoisGate::where('user_id','=',$id)->update($this->modelGenerateKey($id,$uuid));
+            // SoisGate::create($this->modelGenerateKey($id,$uuid));
+        //     // dd($this->userId);
+        //     // $this->modelConfirmUserGenerateKeyVisible = false;
+        //     // $this->redirector($this->userInt);
+        //     // $this->resetValidation();
+        //     // $this->reset();
+        }else{
+        //     echo "Do tno Exist";
+            SoisGate::create($this->modelGenerateKey($id,$uuid));
+        //     // $this->modelConfirmUserGenerateKeyVisible = false;
+        //     // $this->redirector($this->userInt);
+        //     // $this->resetValidation();
+        //     // $this->reset();
+        }
+        // echo "Hello";
+        // dd($id);
+        return $this->accessControl($id);
+
+    }
+    public function modelGenerateKey($id,$uuid)
+    {
+        return [
+            'user_id' => $id,
+            'gate_key' => $uuid,
+        ];
+    }
 
     public function addOrg(Request $request, $id)
     {
@@ -124,8 +217,9 @@ class UserCRUD extends Controller
         return $this->accessControl($id);
     }
 
-    public function accessControl($id)
+    public function accessControl($id, $error = null)
     {
+        echo $error;
         $getUserData = DB::table('users')->where('user_id','=',$id)->get();
         // dd(DB::table('users')->where('user_id','=',$id)->get());
         // return view('normlaravel/users-update',compact('getUserData'));
@@ -183,12 +277,15 @@ class UserCRUD extends Controller
         $getGenderData = DB::table('genders')->get();
         $getRolesData = DB::table('roles')->get();
         $getOrganizationData = DB::table('organizations')->get();
+        $getPermissionsData = DB::table('permissions')->get();
         // dd($getRolesData);
         // return view('normlaravel/users-update');
-        return view('normlaravel/users-update-access')
+        return view('normlaravel\users-update-access')
+                ->with('errorMessage', $error)
                 ->with('displayUserSelectedData', $getUserData)
                 ->with('rolesList', $getRolesData)
                 ->with('OrgsList', $getOrganizationData)
+                ->with('permsList', $getPermissionsData)
                 ->with('displayCourseDromDBForUpdateSelect', $SelectedUserCourse)
                 ->with('displayGenderDromDBForUpdateSelect', $SelectedUserGender)
                 ->with('displayCourseDromDB',$getCourseData)
@@ -199,6 +296,7 @@ class UserCRUD extends Controller
                 ->with('displayUserOrganizationDataMessage',$userOrgResultMessage)
                 ->with('displayUserRoleData',DB::table('roles')->where('role_id','=',$UserRole)->get())
                 ->with('displayUserGateData',DB::table('sois_gates')->where('user_id','=',$id)->get())
+                ->with('displayUserGateKeyData',DB::table('sois_gates')->where('user_id','=',$id)->get())
                 ->with('displayUserPermsData',$permissionDataFromDB);
     }
 
