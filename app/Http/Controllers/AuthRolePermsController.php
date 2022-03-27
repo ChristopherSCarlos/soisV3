@@ -65,7 +65,7 @@ class AuthRolePermsController extends Controller
                         echo "<br><br>";
                         echo "Not Suer admin";
                         // dd("HomepageAdmin");
-                        return redirect('/Organization/dashboard');
+                        return redirect('/Organization-dashboard');
                     }elseif($this->user_role == 'User'){
                         echo "User";
                         echo "<br><br>";

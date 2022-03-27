@@ -36,6 +36,8 @@ class ArticleCreate extends Controller
     public $article_featured_image_name;
     public $convertedArticleSlug;
     public $latestNewsID;
+    public $artData;
+    public $selectedArticle;
 
     private $orgIDHolder;
     public function index()
@@ -52,7 +54,10 @@ class ArticleCreate extends Controller
      */
     public function create()
     {
-        //
+        // dd("Hello");
+        $this->permission_data = new PermissionCheckerController;
+        $this->permission_data->permssionChecker('HP-View_News_Article');
+        return view('normlaravel.article-create',);
     }
 
     /**
@@ -80,8 +85,10 @@ class ArticleCreate extends Controller
 
         // $path=$request->file('article_featured_image')->store('public');
         // $request->file('article_featured_image')->store('public');
+        
         $request->article_featured_image->storeAs('files', $article_featured_image_name);
         $request->article_featured_image->move(public_path('files'), $article_featured_image_name);
+        
         // $this->article_featured_image->store('files', 'imgfolder',$article_featured_image_name);
 
         // $this->article_featured_image->storeAs('files',$article_featured_image_name, 'imgfolder');
@@ -90,6 +97,7 @@ class ArticleCreate extends Controller
 
         $userID = Auth::id();
         $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('organization_id');
+        // dd($orgIDHolder);
         $orgID = (int) $orgIDHolder->organization_id;
         // dd($orgID);
         $artSlug = str_replace(' ', '-', $article_title);
@@ -140,7 +148,7 @@ class ArticleCreate extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -151,7 +159,16 @@ class ArticleCreate extends Controller
      */
     public function edit($id)
     {
-        //
+        $this->permission_data = new PermissionCheckerController;
+        $this->permission_data->permssionChecker('HP-Edit_News_Article');
+        $artData = Article::findOrFail($id);
+        $selectedArticle = DB::table('articles')->where('articles_id','=',$id)->get();
+        // dd($selectedArticle);
+        return view('normlaravel.article-update', compact('artData'), compact('selectedArticle'));
+        // return view('normlaravel.article-update',[
+            // 'selectedArticle' => DB::table('articles')->where('articles_id','=',$id)->get(),
+            // 'art' => $artData,
+        // ]);
     }
 
     /**
@@ -163,12 +180,13 @@ class ArticleCreate extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($request->article_title) {
-            echo "exist";
-        }else{
-            echo "not exist";
-        }
-        dd("Hello");
+        // dd(Article::where('articles_id','=',$id)->get());
+        $validatedData = $request->validate([
+            'article_title' => 'required',
+            'article_subtitle' => 'required',
+            'article_content' => 'required',
+            'article_type_id' => 'required',
+        ]);
         $article_title = $request->article_title;
         $article_subtitle = $request->article_subtitle;
         $article_content = $request->article_content;
@@ -180,7 +198,7 @@ class ArticleCreate extends Controller
 
         $article_featured_image_name = time().'.'.$request->article_featured_image->extension();  
 
-        // $article_featured_image_name = time($article_featured_image->extension());
+        $article_featured_image_name = time($article_featured_image->extension());
         // dd($article_featured_image_name);
 
 
@@ -202,9 +220,24 @@ class ArticleCreate extends Controller
         // echo $convertedArticleSlug;
             // Article::create($createModelWithoutOrg());
         // $syncArticleOrganization();
-        Article::update($this->articleInsertModel($article_title,$article_subtitle,$article_content,$article_type_id,$status = 1,$userID,$artSlug,$orgID));
+        Article::where('articles_id','=',$id)->update($validatedData);
+        // Article::where('articles_id','=',$id)->update($this->articleInsertModel($article_title,$article_subtitle,$article_content,$article_type_id,$status = 1,$userID,$artSlug,$orgID));
         $latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
         // dd($latestNewsID);
+
+        OrganizationAsset::update([
+            'organization_id' => $orgID,
+            'asset_type_id' => '4',
+            'file' => $article_featured_image_name,
+            'is_latest_logo' => '0',
+            'is_latest_banner' => '0',
+            'is_latest_image' => '1',
+            'user_id' => $userID,
+            'page_type_id' => '2',
+            'status' => '1',
+            'articles_id' => $latestNewsID,
+        ]);
+
 
         // dd("Hello");
          return redirect('article/create')->with('status', 'Blog Post Form Data Has Been inserted');
