@@ -19,6 +19,7 @@ use App\Models\AssetType;
 use App\Models\OrganizationAsset;
 use App\Models\SystemAsset;
 use App\Models\SoisGate;
+use App\Models\Permission;
 
 use Auth;
 
@@ -127,11 +128,39 @@ class UserCRUD extends Controller
         // dd($id);
     }
 
+    public function addMorePerms(Request $request,$id)
+    {
+        $selectedMorePerms = $request->selectedMorePerms;
+        $userData = User::find($id);
+        $userData->permissions()->attach($selectedMorePerms);
+        $selectedMorePerms = null;
+        $userData = null;
+        // dd($selectedMorePerms);
+        // dd("hello");
+        return $this->accessControl($id);
+    }
+
     public function addPerms(Request $request,$id)
     {
         $selectedPerms = $request->selectedPerms;
+        // dd(gettype($selectedPerms));
+        // dd($selectedPerms);
+        // $data = [
+        //     ['permission_id' => $selectedPerms],
+        //     ['role_id' => '1'],
+        // ];
+        // DB::table('permission_role')->insert($data);
+        // dd(gettype($selectedPerms));
+        // dd(DB::table('permission_user')->where('user_id','=',$id)->get());
         $userData = User::find($id);
-         $userData->permissions()->sync($selectedPerms);
+        // dd(DB::table('permission_role')->where('role_id','=',$id)->get());
+        // DB::table('permission_role')->where('role_id','=',$id)->delete();
+        // DB::table('permission_role')->insert([
+        //     ['permission_id' => $selectedPerms,'role_id' => $id ],
+        // ]);
+        // dd($selectedPerms);
+        $userData->permissions()->sync($selectedPerms);
+        // return $this->accessControl($id);
         return $this->accessControl($id);
     }
 
@@ -219,6 +248,8 @@ class UserCRUD extends Controller
 
     public function accessControl($id, $error = null)
     {
+        // dd($id);
+        // dd(DB::table('permission_user')->where('user_id','=',$id)->get('permission_id'));
         echo $error;
         $getUserData = DB::table('users')->where('user_id','=',$id)->get();
         // dd(DB::table('users')->where('user_id','=',$id)->get());
@@ -269,7 +300,8 @@ class UserCRUD extends Controller
 
             // 'displayUserPermsData' => $getUserPermission(),
         $permissionDataFromDB = User::find($id)->permissions()->get();
-
+        // dd($permissionDataFromDB);
+        // dd(DB::table('permission_user')->where('user_id','=',$id)->get());
         // dd(DB::table('organizations')->where('organization_id','=',$UserOrg)->get());
         // dd(DB::table('sois_gates')->where('user_id','=',$id)->get());
 
@@ -279,8 +311,38 @@ class UserCRUD extends Controller
         $getOrganizationData = DB::table('organizations')->get();
         $getPermissionsData = DB::table('permissions')->get();
         // dd($getRolesData);
+        $d = DB::table('permission_user')->where('user_id','=',Auth::id())->get('permission_id');
+        $x = (array) $d;
+        // echo gettype($x);
+        // print_r($x->permission_id);
+        $f = DB::table('permission_user')->where('user_id', '=', $id)->get('permission_id');
+        // $f = DB::table('permission_user')->select('permission_id')->where('user_id', '=', $id)->get('permission_id');
+        // echo gettype((string)$f);
+        // $a[] = $f;
+        // dd($a);
+
+$xxx = DB::table('permission_user')->where('user_id','=',$id)->get();
+// echo gettype($xxx);
+foreach ($xxx as $zzz) {
+    $data[] = $zzz->permission_id;
+}
+// dd($data);
+
+        // $c = DB::table('permissions')->whereNotIn('permission_id', $x)->get();;
+        $c = DB::table('permissions')->whereNotIn('permission_id', $data)->get();
+        // dd($c);
+        // dd($f);
+        // $d = DB::table('permissions')
+        //     ->join('permission_user', 'permissions.permission_id', '=', 'permission_user.permission_id')
+            // ->join('orders', 'users.id', '=', 'orders.user_id')
+            // ->select('permissions.permission_id', 'contacts.phone', 'orders.price')
+            // ->select('permissions.permission_id', 'permissions.name')
+            // ->where('permissions.permission_id', '!=', 'permission_user.permission_id')
+            // ->get();
+        // dd($c);
+        // dd("Hello");
         // return view('normlaravel/users-update');
-        return view('normlaravel/users-update-access')
+        return view('normlaravel\users-update-access')
                 ->with('errorMessage', $error)
                 ->with('displayUserSelectedData', $getUserData)
                 ->with('rolesList', $getRolesData)
@@ -297,7 +359,8 @@ class UserCRUD extends Controller
                 ->with('displayUserRoleData',DB::table('roles')->where('role_id','=',$UserRole)->get())
                 ->with('displayUserGateData',DB::table('sois_gates')->where('user_id','=',$id)->get())
                 ->with('displayUserGateKeyData',DB::table('sois_gates')->where('user_id','=',$id)->get())
-                ->with('displayUserPermsData',$permissionDataFromDB);
+                ->with('displayUserPermsData',$permissionDataFromDB)
+                ->with('displayUserSelectedPermsData',DB::table('permissions')->whereNotIn('permission_id', $data)->get());
     }
 
     public function addRole(Request $request, $id)
@@ -421,7 +484,7 @@ class UserCRUD extends Controller
         //     'displayCourseDromDBForUpdateSelect' => $SelectedUserCourse,
         //     'displayCourseDromDBForUpdateSelect' => DB::table('courses')->where('course_id','=',$SelectedUserCourseHolder)->get(),
         //     'displayGenderDromDBForUpdateSelect' => $SelectedUserGender,
-        //     'displayCourseDromDB' =>$get
+        //     'displayCourseDromDB' =>$getCourseData,
         //     'displayGenderDromDB' =>$getGenderData,
         // ]);
         // return view('normlaravel/users-update')
