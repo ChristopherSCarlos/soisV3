@@ -29,6 +29,7 @@ class Roles extends Component
     public $modalCreateRolesFormVisible = false;
     public $modalSyncRolePermissionVisible = false;
     public $modalDeleteRolesFormVisible = false;
+    public $modalViewRolesPermsFormVisible = false;
 
     // variables
     public $role;
@@ -39,6 +40,46 @@ class Roles extends Component
     public $selectedRole;
     public $roleData;
     public $rolePivot;
+    public $perms_array;
+    public $perms;
+    public $role_data;
+    public $role_id;
+
+
+    /*=============================================================
+    =            View Permission Section comment block            =
+    =============================================================*/
+    public function viewPermissionModel($id)
+    {
+        // $this->resetValidation();
+        // $this->reset();
+
+        // $this->perms_array = DB::table('permission_role')->where('role_id','=',$id)->pluck('permission_id');
+        // $this->role_data = DB::table('roles')->where('role_id','=',$id)->get();
+        
+        // dd($this->perms);
+        $this->roleId = $id;
+        // dd($this->roleId);
+        $this->modalViewRolesPermsFormVisible = true;
+        // $this->getPermissionData();
+        // dd($id);
+    }
+    public function getPermissionData()
+    {
+        // $tole
+        // dd($this->roleId);
+
+        // dd($role);
+        // $this->role_id = $role;
+        // dd($id);
+        // dd($this->role_id);
+        // dd($id);
+        // $this->perms = Role::where('role_id','=',$id)->with('permissions')->get();
+        // return $this->perms;
+    }    
+    
+    /*=====  End of View Permission Section comment block  ======*/
+    
 
     /*==========================================================
     =            Craete Roles Section comment block            =
@@ -172,6 +213,7 @@ class Roles extends Component
         return view('livewire.roles',[
             'displayData' => $this->getRolesDataFromDatabase(),
             'displayPermission' => $this->getPermission(),
+            'displayPermissionData' => $this->getPermissionData(),
         ]);
     }
 }
