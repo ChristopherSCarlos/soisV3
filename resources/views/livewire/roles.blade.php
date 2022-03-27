@@ -53,6 +53,11 @@
                                             </x-jet-button>
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                            <a href="{{route('roles.show', $item->role_id)}}">
+                                                <x-jet-button>
+                                                    {{__('View Role')}}
+                                                </x-jet-button>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -118,7 +123,7 @@
             <x-jet-label for="role" value="{{ __('Select Article to add in Homepage Slider') }}" />
                         
                             @foreach($displayPermission as $permissions)
-                        <input type="checkbox" wire:model.lazy="selectedPermsOnRoles" id="{{$permissions->permission_id}}" name="{{$permissions->name}}" value="{{$permissions->permission_id}}">
+                        <input type="checkbox" wire:model="selectedPermsOnRoles" id="{{$permissions->permission_id}}" name="{{$permissions->name}}" value="{{$permissions->permission_id}}">
                         <label for="{{$permissions->name}}">{{$permissions->name}}</label><br>
                             @endforeach
             </div>
@@ -135,12 +140,6 @@
 
 
 <!--====  End of Sync permission Section comment  ====-->
-
-
-
-
-
-
 
 
 <!--=====================================================
@@ -167,6 +166,12 @@
 
 
 <!--====  End of DElete permission Section comment  ====-->
+
+
+
+
+
+
 
 
 

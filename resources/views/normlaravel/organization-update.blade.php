@@ -19,21 +19,32 @@
     }
 </style>
 
+<div class="grid grid-cols-12">
+	<div class="col-span-6">
+		@foreach($displayOrganizationData as $orgData)
+			<p>name: {{$orgData->organization_name}}</p>
+		@endforeach
+	</div>
+	<div class="col-span-6"></div>
+</div>
+
 
 <div class="py-12">
 	<div class="max-w-11xl mx-auto sm:px-6 lg:px-8">
 	    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
 			<div class="grid grid-cols-12">
-			    <div class="col-span-12">
-			        <h2>Create News</h2>
-			    </div>
-			    <div class="col-span-1">
-			    	<a href="{{ route('organizations') }}">
-						<x-jet-secondary-button class="m-2">
-						    {{ __('Go Back') }}
-						</x-jet-secondary-button>
-			    	</a>
-			    </div>
+			    @foreach($displayOrganizationData as $orgData)
+			    	<div class="col-span-12">
+					        <h2>Update {{$orgData->organization_name}}'s Data</h2>
+			    	</div>
+			    	<div class="col-span-1">
+			    		<a href="{{route('organization.show', $orgData->organization_id)}}">
+							<x-jet-button>
+							    {{ __('Go Back') }}
+							</x-jet-button>
+						</a>
+			    	</div>
+				@endforeach
             </div>
 
 <div class="flex flex-wrap flex-row">
@@ -75,11 +86,11 @@
             	</div>
             	<div class="mt-4">
             	    <x-jet-label for="organization_primary_color" value="{{ __('organization primary color') }}: {{$orgData->organization_primary_color}}" />
-            	    <x-jet-input name="organization_primary_color" id="organization_primary_color" class="form-control block mt-1 w-full" type="color" />
+            	    <x-jet-input name="organization_primary_color" id="organization_primary_color" class="form-control block mt-1 w-full" value="{{$orgData->organization_primary_color}}" type="color" />
             	</div>
             	<div class="mt-4">
             	    <x-jet-label for="organization_secondary_color" value="{{ __('organization secondary color') }}: {{$orgData->organization_secondary_color}}" />
-            	    <x-jet-input name="organization_secondary_color" id="organization_secondary_color" class="form-control block mt-1 w-full" type="color" />
+            	    <x-jet-input name="organization_secondary_color" id="organization_secondary_color" class="form-control block mt-1 w-full" value="{{$orgData->organization_secondary_color}}" type="color" />
             	</div>
 	  		</div>
 	  		<div class="px-6 pt-4 pb-2">

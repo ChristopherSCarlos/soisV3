@@ -15,6 +15,7 @@ use App\Models\Article;
 use App\Models\AssetType;
 use App\Models\OrganizationAsset;
 use App\Models\SystemAsset;
+use App\Http\Controllers\PermissionCheckerController;
 
 use Illuminate\Support\STR;
 use Illuminate\Validation\Rule;
@@ -85,7 +86,10 @@ class OrganizationCRUD extends Controller
      */
     public function index()
     {
-        return view('normlaravel/organization-view',[
+        $this->permission_data = new PermissionCheckerController;
+        $this->permission_data->permssionChecker('HP-View_Organization_Page');    
+        return view('normlaravel.organization-view',[
+            // 'articleDatas' => DB::table('tags')->paginate(15),
         ]);
     }
 
@@ -96,8 +100,9 @@ class OrganizationCRUD extends Controller
      */
     public function create()
     {
-
-        return view('normlaravel/organization-create');
+        $this->permission_data = new PermissionCheckerController;
+        $this->permission_data->permssionChecker('HP-Create_Organization_Page');
+        return view('normlaravel.organization-create');
     }
 
     /**
@@ -116,6 +121,7 @@ class OrganizationCRUD extends Controller
 
         $organization_logo_name = time().'.'.$request->organization_logo->extension();  
 
+        // $organization_logo_name = time($organization_logo_name->extension());
 
 
         $organization_name = $request->organization_name;
@@ -126,6 +132,7 @@ class OrganizationCRUD extends Controller
         $organization_acronym = $request->organization_acronym;
 
         $organization_slug = str_replace(" ", "_", $organization_name);
+        echo $organization_type_id;
 
 
         $status = 1;
@@ -137,6 +144,7 @@ class OrganizationCRUD extends Controller
         $request->organization_logo->storeAs('files',$fileName, 'imgfolder');
   
         /* Store $organization_logo_name name in DATABASE from HERE */
+        // Organization::create($request->all());
         Organization::create([
             'organization_details' => $organization_details,
             'organization_name' => $organization_name,
@@ -149,6 +157,7 @@ class OrganizationCRUD extends Controller
         ]);    
         $latest_created_data = DB::table('organizations')->orderBy('organization_id','desc')->first();
         $latest_organization = $latest_created_data->organization_id;
+        // dd($organization_id);
         $is_latest_logo = 1;
         $is_latest_banner = 0;
         $asset_status = 1;
@@ -164,18 +173,25 @@ class OrganizationCRUD extends Controller
             'page_type_id' => $page_type_id,
             'status' => $asset_status,
         ]);
+        // dd("hello");
 
         $authUserId = Auth::id();
         $authUserData = User::find($authUserId);        
         $authUserRole = $authUserData->roles->first();
         $authUserRoleType = $authUserRole->role;         
+        // return $authUserRoleType;
+        // dd($authUserRoleType);
 
-        return view('normlaravel/organization-create',[
+        // $this->accessOrgControll();
+        return view('normlaravel\organization-create',[
+            // 'userAuthRole' => $authUserRoleType,
         ]);         
     }
 
     public function accessOrgControll($id)
     {
+        $this->permission_data = new PermissionCheckerController;
+        $this->permission_data->permssionChecker('HP-View_Organization_Page'); 
         $this->cleanVars();
 
         $authUserId = Auth::id();
@@ -183,15 +199,19 @@ class OrganizationCRUD extends Controller
         $authUserRole = $authUserData->roles->first();
         $authUserRoleType = $authUserRole->role;
 
+        // dd("hello");
 
         $org_latest_banner = DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_banner','=',1)->first();
         if ($org_latest_banner) {
             $organization_banner_checker = 1;
+            // echo $organization_banner_checker;
         }else{
             $organization_banner_checker = 0;
+            // echo $organization_banner_checker;
         }
         
-        return view('normlaravel/organization-view',[
+        // return $authUserRoleType;
+        return view('normlaravel\organization-view',[
             'displayOrganizationData' => DB::table('organizations')->where('organization_id','=',$id)->get(),
             'displayOrganizationLogo' => DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_logo','=',1)->get(),
             'displayOrganizationBanner' => DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_banner','=',1)->get(),
@@ -208,14 +228,22 @@ class OrganizationCRUD extends Controller
      */
     public function show($id)
     {
+        $this->permission_data = new PermissionCheckerController;
+        $this->permission_data->permssionChecker('HP-View_Organization_Page'); 
         $this->cleanVars();
+        // dd(DB::table('organizations')->where('organization_id','=',$id)->get());
+        // dd(DB::table('organization_types')->where('organization_type_id','=',DB::table('organizations')->where('organization_id','=',$id)->pluck('organization_type_id'))->get());
+        // dd(DB::table('OrganizationAsset')->where('organization_type_id','=',DB::table('organizations')->where('organization_id','=',$id)->pluck('organization_type_id'))->get());
         $org_latest_banner = DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_banner','=',1)->first();
         if ($org_latest_banner) {
             $organization_banner_checker = 1;
+            // echo $organization_banner_checker;
         }else{
             $organization_banner_checker = 0;
+            // echo $organization_banner_checker;
         }
-        return view('normlaravel/organization-view',[
+        // dd(DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_banner','=',1)->get());
+        return view('normlaravel.organization-view',[
             'displayOrganizationData' => DB::table('organizations')->where('organization_id','=',$id)->get(),
             'displayOrganizationLogo' => DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_logo','=',1)->get(),
             'displayOrganizationBanner' => DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_banner','=',1)->get(),
@@ -232,8 +260,10 @@ class OrganizationCRUD extends Controller
      */
     public function edit($id)
     {
+        // dd(DB::table('organizations')->where('organization_id','=',$id)->first());
 
         $organization_data_from_DB = DB::table('organizations')->where('organization_id','=',$id)->first();
+        // dd($organization_data_from_DB);
 
         $organization_name = $organization_data_from_DB->organization_name;
         $organization_details = $organization_data_from_DB->organization_details;
@@ -242,7 +272,9 @@ class OrganizationCRUD extends Controller
         $organization_secondary_color = $organization_data_from_DB->organization_secondary_color;
         $organization_acronym = $organization_data_from_DB->organization_acronym;
 
-        return view('normlaravel/organization-update',[
+        // echo $organization_acronym;
+        // dd("hello");
+        return view('normlaravel.organization-update',[
             'displayOrganizationData' => DB::table('organizations')->where('organization_id','=',$id)->get(),
         ]);
     }
@@ -264,41 +296,77 @@ class OrganizationCRUD extends Controller
         $organization_primary_color = $request->organization_primary_color;
         $organization_secondary_color = $request->organization_secondary_color;
         $organization_acronym = $request->organization_acronym;
+        // echo $organization_acronym;
+        // dd($organization_primary_color);
         if($organization_name != null){
             $organization_name_DB = $organization_name;
+            // echo "organization_name_DB: ".$organization_name_DB." : This is not null"; 
+        // dd($organization_name);
+            // echo "<br><br>";
             $organization_slug_DB = str_replace(" ", "_", $organization_name_DB);
+            // echo "organization_slug_DB: ".$organization_slug_DB." : This is null";
+            // echo "<br><br>";
         }else{
             $organization_name_DB = $get_org_data_from_DB->organization_name;
             $organization_slug_DB = $get_org_data_from_DB->organization_slug;
+            // echo "organization_slug_DB: ".$organization_slug_DB." : This is null";
+            // echo "<br><br>";
         }
         if($organization_details != null){
             $organization_details_DB = $organization_details;
+            // echo "organiza_DBtion_details_DB: ".$organization_details_DB." : This is not null"; 
+            // echo "<br><br>";
         }else{
             $organization_details_DB= $get_org_data_from_DB->organization_details;
+            // echo "organization_details_DB: ".$organization_details_DB." : This is null";
+            // echo "<br><br>";
         }
-        if($organization_type_id != null){
+        if($organization_type_id != 0){
             $organization_type_id_DB = (int) $organization_type_id;
+            // echo "organiza_DBtion_details_DB: ".$organization_type_id_DB." : This is not null"; 
+            // echo gettype($organization_type_id_DB);
+            // echo "<br><br>";
         }else{
             $organization_type_id_DB= (int) $get_org_data_from_DB->organization_type_id;
+            // echo gettype($organization_type_id_DB);
+            // echo "organization_type_id_DB: ".$organization_type_id_DB." : This is null";
+            // echo "<br><br>";
         }
         if($organization_primary_color != null){
             $organization_primary_color_DB = $organization_primary_color;
+            // echo "organiza_DBtion_details_DB: ".$organization_primary_color_DB." : This is not null"; 
+            // echo "<br><br>";
         }else{
             $organization_primary_color_DB= $get_org_data_from_DB->organization_primary_color;
+            // echo "organization_primary_color_DB: ".$organization_primary_color_DB." : This is null";
+            // echo "<br><br>";
         }
         if($organization_secondary_color != null){
             $organization_secondary_color_DB = $organization_secondary_color;
+            // echo "organiza_DBtion_details_DB: ".$organization_secondary_color." : This is not null"; 
+            // echo "<br><br>";
         }else{
             $organization_secondary_color_DB= $get_org_data_from_DB->organization_secondary_color;
+            // echo "organization_secondary_color: ".$organization_secondary_color." : This is null";
+            // echo "<br><br>";
         }
         if($organization_acronym != null){
             $organization_acronym_DB = $organization_acronym;
+            // echo "organiza_DBtion_details_DB: ".$organization_acronym_DB." : This is not null"; 
+            // echo "<br><br>";
         }else{
             $organization_acronym_DB= $get_org_data_from_DB->organization_acronym;
+            // echo "organization_acronym_DB: ".$organization_acronym_DB." : This is null";
+            // echo "<br><br>";
         }
         Organization::find($id)->update($this->modelData($organization_name_DB,$organization_details_DB,$organization_type_id_DB,$organization_primary_color_DB,$organization_secondary_color_DB,$organization_acronym_DB,$organization_slug_DB));
+        // $this->modelData($organization_name_DB,$organization_details_DB,$organization_type_id_DB,$organization_primary_color_DB,$organization_secondary_color_DB,$organization_acronym_DB,$organization_slug_DB);
 
+        // dd("hello");
+        $this->cleanVars();
         return $this->accessOrgControll($id);
+        // return view('normlaravel\organization-view');
+        // dd("hello");
     }
 
     public function modelData($organization_name_DB,$organization_details_DB,$organization_type_id_DB,$organization_primary_color_DB,$organization_secondary_color_DB,$organization_acronym_DB,$organization_slug_DB)
@@ -319,7 +387,12 @@ class OrganizationCRUD extends Controller
     public function updateBnner(Request $request,$id)
     {
         $organization_banner = $request->organization_banner;
+        // echo $organization_banner;
+        // echo "<br><br>";  
         $organization_banner_name = time().'.'.$request->organization_banner->extension();
+        // echo $organization_banner_name;
+        // echo "<br><br>";  
+        // dd($organization_id);
         $is_latest_logo = 0;
         $is_latest_banner = 1;
         $asset_status = 1;
@@ -342,19 +415,33 @@ class OrganizationCRUD extends Controller
         ]);
 
         $selectedOrganizationAssetDataIsLatestLogo = OrganizationAsset::latest()->where('organization_id','=',$id)->where('status','=','1')->first();
+        // dd($selectedOrganizationAssetDataIsLatestLogo);
         if ($selectedOrganizationAssetDataIsLatestLogo != null) {
             $selectedOrganizationAssetDataID = $selectedOrganizationAssetDataIsLatestLogo->organization_asset_id;
+            // dd($selectedOrganizationAssetDataID);
+            // dd(OrganizationAsset::find('organization_id','=',$id)->where('is_latest_logo','=','1'));
             OrganizationAsset::where('organization_id','=',$id)->where('is_latest_banner','=','1')->update([
                 'is_latest_banner' => '0',
             ]);
             DB::table('organization_assets')->where('organization_asset_id','=',$selectedOrganizationAssetDataID)->update(['is_latest_banner'=>"1"]);
+            // $this->updateBannermodalFormVisible = false;
+            // $this->clearInput();
+            // $this->reset();
+            // $this->resetValidation();
             $this->cleanVars();
             return $this->accessOrgControll($id);
         }else{
             $this->cleanVars();
             return $this->accessOrgControll($id);
+            // $this->updateBannermodalFormVisible = false;
+            // $this->clearInput();
+            // $this->reset();
+            // $this->resetValidation();
         }
 
+        // dd($id);
+        // $this->cleanVars();
+        // return $this->accessOrgControll($id);
     }
 
     public function updateLogo(Request $request, $id)
@@ -383,8 +470,11 @@ class OrganizationCRUD extends Controller
         ]);
 
         $selectedOrganizationAssetDataIsLatestLogo = OrganizationAsset::latest()->where('organization_id','=',$id)->where('status','=','1')->first();
+        // dd($selectedOrganizationAssetDataIsLatestLogo);
         if ($selectedOrganizationAssetDataIsLatestLogo != null) {
             $selectedOrganizationAssetDataID = $selectedOrganizationAssetDataIsLatestLogo->organization_asset_id;
+            // dd($selectedOrganizationAssetDataID);
+            // dd(DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_logo','=','1')->get());
             OrganizationAsset::where('organization_id','=',$id)->where('is_latest_logo','=','1')->update([
                 'is_latest_logo' => '0',
             ]);
@@ -395,6 +485,7 @@ class OrganizationCRUD extends Controller
             $this->cleanVars();
             return $this->accessOrgControll($id);
         }
+        // dd($id);
     }
 
     public function cleanVars()
@@ -428,6 +519,10 @@ class OrganizationCRUD extends Controller
      */
     public function destroy($id)
     {
-        // 
+        // DB::table('organizations')->where('organization_id','=',$id)->get();
+        // dd(DB::table('organizations')->where('organization_id','=',$id)->get());
+        Organization::find($id)->update(['status'=>'0']);
+        $this->cleanVars();
+        return view('livewire/organizations');
     }
 }

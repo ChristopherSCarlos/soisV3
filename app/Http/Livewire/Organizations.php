@@ -161,7 +161,8 @@ class Organizations extends Component
         // $this->systemAssetDataFromDB = SystemAsset::where('organization_id','=',$this->modelId)->get();
         $this->systemAssetDataFromDB = DB::table('organization_assets')->where('organization_id','=',$this->modelId)->where('is_latest_logo','=','1')->first();
         $this->organization_logo = $this->systemAssetDataFromDB->file; 
-        // dd($this->systemAssetDataFromDB->asset_name);
+        // return $this->organization_logo;
+        // dd($this->systemAssetDataFromDB->file);
     }
     /*=====  End of View Organization Section  ======*/
     

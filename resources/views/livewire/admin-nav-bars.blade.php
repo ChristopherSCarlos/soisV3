@@ -30,9 +30,6 @@
                                 </x-slot>
                                 <x-slot name="content">
                                     <!-- Account Management -->
-                                    <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                        {{ __('Profile') }}
-                                    </x-jet-dropdown-link>
                                     <x-jet-dropdown-link href="{{ route('default-interfaces') }}" :active="request()->routeIs('default-interfaces')">
                                         {{ __('Dashboard') }}
                                     </x-jet-dropdown-link>
@@ -65,6 +62,8 @@
                                 </x-slot>
                             </x-jet-dropdown>
                         </div>
+                        @endif
+                        @if($getUserRole == 'Super Admin' )
                         <div class="ml-3 relative">
                             <x-jet-dropdown align="right" width="48">
                                 <x-slot name="trigger">
@@ -85,13 +84,11 @@
                                     <x-jet-dropdown-link href="{{ route('admin/nonacads') }}">
                                         {{ __('Non-Academic Membership') }}
                                     </x-jet-dropdown-link>
-                                    <x-jet-dropdown-link href="{{ route('events') }}" :active="request()->routeIs('events')">
-                                        {{ __('Events') }}
-                                    </x-jet-dropdown-link>
-
                                 </x-slot>
                             </x-jet-dropdown>
                         </div>
+                        @endif
+                        @if($getUserRole == 'AR Officer Admin' || $getUserRole == 'Super Admin')
                         <div class="ml-3 relative">
                             <x-jet-dropdown align="right" width="48">
                                 <x-slot name="trigger">
@@ -106,13 +103,15 @@
                                 </x-slot>
                                 <x-slot name="content">
                                     <!-- Account Management -->
-                                    <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                        {{ __('Profile') }}
+                                    <x-jet-dropdown-link href="{{ route('ar-links') }}">
+                                        {{ __('AR Data') }}
                                     </x-jet-dropdown-link>
                                     <div class="border-t border-gray-100"></div>
                                 </x-slot>
                             </x-jet-dropdown>
                         </div>
+                        @endif
+                        @if($getUserRole == 'Super Admin' )
                         <div class="ml-3 relative">
                             <x-jet-dropdown align="right" width="48">
                                 <x-slot name="trigger">
@@ -134,22 +133,27 @@
                                 </x-slot>
                             </x-jet-dropdown>
                         </div>
-                    
                     @endif
                     @if($getUserRole == "Home Page Admin")
-                    <x-jet-nav-link href="{{ route('Organization-articles') }}" :active="request()->routeIs('Organization-articles')">
+                    <x-jet-nav-link href="{{ route('Organization/dashboard') }}" :active="request()->routeIs('Organization/dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('Organization/articles') }}" :active="request()->routeIs('Organization/articles')">
                         {{ __('News') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('Organization-organizations') }}" :active="request()->routeIs('Organization-organizations')">
+                    <x-jet-nav-link href="{{ route('Organization/organizations') }}" :active="request()->routeIs('Organization/organizations')">
                         {{ __('Organization') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('Organization-announcements') }}" :active="request()->routeIs('Organization-announcements')">
+                    <x-jet-nav-link href="{{ route('Organization/events') }}" :active="request()->routeIs('Organization/events')">
+                        {{ __('Events') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('Organization/announcements') }}" :active="request()->routeIs('Organization/announcements')">
                         {{ __('Announcements') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('Organization-officers') }}" :active="request()->routeIs('Organization-officers')">
+                    <x-jet-nav-link href="{{ route('Organization/officers') }}" :active="request()->routeIs('Organization/officers')">
                         {{ __('Officers') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('Organization-socials') }}" :active="request()->routeIs('Organization-socials')">
+                    <x-jet-nav-link href="{{ route('Organization/socials') }}" :active="request()->routeIs('Organization/socials')">
                         {{ __('Social Media') }}
                     </x-jet-nav-link>
                     @endif

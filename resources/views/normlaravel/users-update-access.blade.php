@@ -128,14 +128,59 @@
     <!-- Sync Permission User -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#SyncPerms">
             @if($displayUserPermsData->count() > 0)
-                <p>Change Permissions</p>
+                <p>Change Entire Permissions</p>
             @else
                 <p>Add Permissions</p>
             @endif
     </button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#InsertMorePerms">
+                <p>Insert More Permission</p>
+    </button>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#SyncPass">
         <p>Change Password</p>
     </button>
+
+<!--=======================================================
+=            Insert Permission Section comment            =
+========================================================-->
+    <div class="modal fade" id="InsertMorePerms" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                @foreach($displayUserSelectedData as $user)
+                    <form name="add-gatekey" id="add-gatekey" method="post" action="{{ route('users/addMorePermissionsToUser', $user->user_id ) }}">
+                @csrf
+                {{ csrf_field() }}
+                @method('PUT')
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Add {{$user->first_name}}'s permissions </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div  style="height: 60vh; overflow: auto;">
+                                @foreach($displayUserSelectedPermsData as $permsSelect)
+                                    <div class="mt-1">
+                                        <label class="inline-flex items-center">
+                                        <input id="selectedMorePerms" name="selectedMorePerms[]" type="checkbox" value="{{ $permsSelect->permission_id }}"  class="form-checkbox h-6 w-6 text-green-500">
+                                            <span class="ml-3 text-sm">{{ $permsSelect->name }}</span>
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 btn btn-primary" type="button submit">Submit</button>
+                        </div>
+                    </form>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+
+<!--====  End of Insert Permission Section comment  ====-->
+
+
 <!--=====================================================
 =            Sync Role Modal Section comment            =
 ======================================================-->

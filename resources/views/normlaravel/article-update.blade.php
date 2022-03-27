@@ -1,6 +1,6 @@
 @extends('layouts.headlines')
 
-@section('page-title','test')
+@section('page-title','Article Update')
 
 @livewire('admin-nav-bars')
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
@@ -46,28 +46,27 @@
 
 <div class="flex flex-col p-5">
 	<div class="max-w-lg rounded overflow-hidden shadow-lg">
-		<form name="add-articles" id="add-articles" method="POST" action="/store-article" enctype="multipart/form-data">
+		<form name="add-articles" id="add-articles" method="post" action="{{ route('articles.update', $artData->articles_id ) }}" enctype="multipart/form-data">
 		@csrf
-		{{ csrf_field() }}
 		@method('PUT')
 			<div class="px-6 py-4">
 				@foreach($selectedArticle as $selectArt)
 				<div class="form-group">
 					<label for="article_title">article_title : {{$selectArt->article_title}}</label>
-					<input type="text" id="article_title" name="article_title" class="form-control" required="">
+					<input type="text" id="article_title" name="article_title" class="form-control" >
 				</div>
 				<div class="form-group">
 					<label for="article_subtitle">article_subtitle : {{$selectArt->article_subtitle}}</label>
-					<input type="text" id="article_subtitle" name="article_subtitle" class="form-control" required="">
+					<input type="text" id="article_subtitle" name="article_subtitle" class="form-control" >
 				</div>
 				<div class="form-group">
 					<label for="article_content">article_content</label>
-					<input type="text" id="article_content" name="article_content" class="form-control" required="">
+					<input type="text" id="article_content" name="article_content" class="form-control" >
 					<!-- <textarea type="text" input="article_content" id="summernote" class="form-control summernote"></textarea> -->
 				</div>
 				<div class="form-group">
 					<label for="article_type_id">Article Type : {{$selectArt->article_subtitle}}</label>
-  					<select name="article_type_id" id="article_type_id" class="form-control" required="">
+  					<select name="article_type_id" id="article_type_id" class="form-control" >
   					  <option value="1">Select Article Type</option>
   					  <option value="1">School News</option>
   					  <option value="2">Event News</option>

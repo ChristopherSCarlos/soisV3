@@ -1,14 +1,12 @@
 <div>
-    <x-jet-button wire:click="">
-        <a href="{{$sois2}}" target="_blank">SOIS TEST</a>
-    </x-jet-button>
-    <x-jet-button wire:click="">
-        <a href="{{$gpoa}}" target="_blank">GPOA</a>
-    </x-jet-button>
-    <x-jet-button wire:click="">
-        <a href="{{$member}}" target="_blank">Membership</a>
-    </x-jet-button>
-    <x-jet-button wire:click="">
-        <a href="{{$soisar}}" target="_blank">Accomplishment Reports</a>
-    </x-jet-button>
+    @if($errorMessage == 1)
+        <p class="p-6">This user Doesn't have permission to access the Sois Gate. Please Contact the Administrator's to give you access.</p>
+    @endif
+    @foreach($soisbuttons as $butt)
+        @foreach($soisGateKey as $key)
+            <x-jet-button>
+                <a href="{{$butt->external_link}}/$0lsL0gIn/idem/{{$this->userId}}/gateportal/{{$key->gate_key}}" target="_blank">{{$butt->link_name}}</a>
+            </x-jet-button>
+        @endforeach
+    @endforeach
 </div>

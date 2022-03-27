@@ -48,7 +48,6 @@ class Permissions extends Component
     public $created_at;
     public $updated_at;
 
-
     public $permission_id;
     private $data;
 
@@ -110,6 +109,7 @@ class Permissions extends Component
     
     /*=====  End of Create Permissions Section comment block  ======*/
     
+
     /*==============================================================
     =            Update PermissionSection comment block            =
     ==============================================================*/
@@ -146,11 +146,8 @@ class Permissions extends Component
     
     
     /*=====  End of Update PermissionSection comment block  ======*/
+    
 
-
-    /*===============================================================
-    =            Delete Permission Section comment block            =
-    ===============================================================*/
     public function deleteShowPermissionModal($id)
     {
         $this->resetValidation();
@@ -165,10 +162,7 @@ class Permissions extends Component
         $this->reset();
         $this->resetValidation();
     }
-    
-    
-    /*=====  End of Delete Permission Section comment block  ======*/
-    
+
 
     public function rules()
     {
@@ -191,7 +185,6 @@ class Permissions extends Component
     public function getPermissionDataFromDatabase()
     {
         return DB::table('permissions')->paginate(5);
-        // return DB::table('permissions')->where('status','=','1')->paginate(5);
     }
 
     public function render()

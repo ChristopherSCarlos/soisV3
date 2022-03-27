@@ -126,10 +126,17 @@ class Users extends Component
 
 
     public $testButton;
+    public $userPermission;
     public $testButtonArray = [];
 
     public function mount()
     {
+        $this->user_data = User::find(Auth::id()); 
+        $this->userPermission = $this->user_data->permissions()->get();
+
+        // dd($this->userPermission);
+        // return $this->userPermission; 
+        // dd("Hello");
         // return $this->selectedPermsList();
     }
 
@@ -154,7 +161,6 @@ class Users extends Component
     {
         // dd($this->first_name);
         User::create($this->modelCreateUser());
-        dd();
         $this->latestID = DB::table('users')->orderBy('user_id', 'desc')->first();
         DB::table('role_user')->insert([
                 ['role_id' => '8', 'user_id' => $this->latestID->user_id, 'organization_id' => null],
@@ -358,9 +364,9 @@ class Users extends Component
             DB::table('role_user')->insert([
                 ['organization_id' => $this->organizationModel,'role_id' => $this->userRoleDataInt, 'user_id' => $this->userId],
             ]);
-            $this->modalAddRoleFormVisible = false;
-            $this->resetAddRoleUserValidation();
-            $this->reset();
+        // //     $this->modalAddRoleFormVisible = false;
+        // //     $this->resetAddRoleUserValidation();
+        // //     $this->reset();
         }else{
             dd("world");
         //     DB::table('role_user')->insert([
@@ -408,23 +414,29 @@ class Users extends Component
     }
     public function generateKey()
     {
-        echo Str::uuid();
-        // dd("hello");
-        // $this->end_key =  Str::uuid();
-        $n=60;
-        $this->secret_characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $this->end_key = '';
-        for ($i = 0; $i < $n; $i++) {
-            $index = rand(0, strlen($this->secret_characters) - 1);
-            $this->end_key .= $this->secret_characters[$index];
-        }
-        // return $this->end_key;
-        // // echo $this->end_key;
-        SoisGate::create($this->modelGenerateKey());
-        // dd($this->userId);
-        $this->modelConfirmUserGenerateKeyVisible = false;
-        $this->resetValidation();
-        $this->reset();
+         $random = '';
+  for ($i = 0; $i < 20; $i++) {
+    $random .= rand(0, 1) ? rand(0, 9) : chr(rand(ord('a'), ord('z')));
+  }
+  dd($random);
+  // return $random;
+        // echo Str::uuid();
+        // // dd("hello");
+        // // $this->end_key =  Str::uuid();
+        // $n=60;
+        // $this->secret_characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        // $this->end_key = '';
+        // for ($i = 0; $i < $n; $i++) {
+        //     $index = rand(0, strlen($this->secret_characters) - 1);
+        //     $this->end_key .= $this->secret_characters[$index];
+        // }
+        // // return $this->end_key;
+        // // // echo $this->end_key;
+        // SoisGate::create($this->modelGenerateKey());
+        // // dd($this->userId);
+        // $this->modelConfirmUserGenerateKeyVisible = false;
+        // $this->resetValidation();
+        // $this->reset();
     }
 
     public function modelGenerateKey()

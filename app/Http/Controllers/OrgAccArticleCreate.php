@@ -42,7 +42,7 @@ class OrgAccArticleCreate extends Controller
     {
         // dd(Auth::id());
         // dd(DB::table('role_user')->where('user_id','=',Auth::id())->pluck('organization_id'));
-        return view('normlaravel.org-article-create',);
+        return view('normlaravel.article-create',);
     }
 
     /**
@@ -52,7 +52,8 @@ class OrgAccArticleCreate extends Controller
      */
     public function create()
     {
-        return view('normlaravel.org-article-create',);
+        // dd("Hello");
+        return view('normlaravel.article-create',);
     }
 
     /**
@@ -115,8 +116,7 @@ class OrgAccArticleCreate extends Controller
 
 
         // dd("Hello");
-        return view('normlaravel.org-article-create',);
-
+         return redirect('article/create')->with('status', 'Blog Post Form Data Has Been inserted');
     }
 
     public function articleInsertModel($artTitle,$artSubtitle,$artContent,$type,$status,$userID,$artSlug,$orgID)
@@ -231,10 +231,7 @@ class OrgAccArticleCreate extends Controller
 
 
         // dd("Hello");
-        return view('normlaravel.org-article-create',);
-         
-
-         // return redirect('article/create')->with('status', 'Blog Post Form Data Has Been inserted');
+         return redirect('article/create')->with('status', 'Blog Post Form Data Has Been inserted');
     }
 
     /**

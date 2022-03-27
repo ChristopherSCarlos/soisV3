@@ -102,101 +102,103 @@ class ArticleCreate extends Component
     }
     public function create()
     {
-        $this->validate([
-            'article_featured_image' => 'required|file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
-            'article_content' => 'required',
-        ]);
+        // $this->validate([
+        //     'article_featured_image' => 'required|file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
+        //     'article_content' => 'required',
+        // ]);
 
-        $article_content = $this->article_content;
-        $dom = new \DomDocument();
-        $dom->loadHtml($article_content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        $imageFile = $dom->getElementsByTagName('imageFile');
-        foreach($imageFile as $item => $image){
-            $data = $img->getAttribute('src');
+        dd($this->article_title);
 
-            list($type, $data) = explode(';', $data);
-            list(, $data)      = explode(',', $data);
+        // $article_content = $this->article_content;
+        // $dom = new \DomDocument();
+        // $dom->loadHtml($article_content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        // $imageFile = $dom->getElementsByTagName('imageFile');
+        // foreach($imageFile as $item => $image){
+        //     $data = $img->getAttribute('src');
 
-            $imgeData = base64_decode($data);
-            $image_name= "/upload/" . time().$item.'.png';
-            $path = public_path() . $image_name;
-            file_put_contents($path, $imgeData);
-            $image->removeAttribute('src');
-            $image->setAttribute('src', $image_name);
-        }
-        $article_content = $dom->saveHTML();
+        //     list($type, $data) = explode(';', $data);
+        //     list(, $data)      = explode(',', $data);
 
-        $this->article_featured_image_name = time().'.'.$this->article_featured_image->extension();
-        // dd($this->article_featured_image_name);
+        //     $imgeData = base64_decode($data);
+        //     $image_name= "/upload/" . time().$item.'.png';
+        //     $path = public_path() . $image_name;
+        //     file_put_contents($path, $imgeData);
+        //     $image->removeAttribute('src');
+        //     $image->setAttribute('src', $image_name);
+        // }
+        // $article_content = $dom->saveHTML();
 
-
-        $this->article_featured_image->store('files', 'imgfolder',$this->article_featured_image_name);
-
-        $this->article_featured_image->storeAs('files',$this->article_featured_image_name, 'imgfolder');
+        // $this->article_featured_image_name = time().'.'.$this->article_featured_image->extension();
+        // // dd($this->article_featured_image_name);
 
 
-        $this->userId = Auth::user()->user_id;
-        $this->user = User::find($this->userId);
-        $this->va = $this->user->organizations->first();
+        // $this->article_featured_image->store('files', 'imgfolder',$this->article_featured_image_name);
+
+        // $this->article_featured_image->storeAs('files',$this->article_featured_image_name, 'imgfolder');
 
 
-        // dd($this->va);
-        $this->latestOrganizationIDtoInsertToDB = $this->va->organization_id;
-        if($this->latestOrganizationIDtoInsertToDB == null){
-            $this->convertedArticleSlug = str_replace(' ', '-', $this->article_title);
+        // $this->userId = Auth::user()->user_id;
+        // $this->user = User::find($this->userId);
+        // $this->va = $this->user->organizations->first();
 
-            Article::create($this->createModelWithoutOrg());
-        // $this->syncArticleOrganization();
 
-            $this->latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
-        // dd($this->latestNewsID);
+        // // dd($this->va);
+        // $this->latestOrganizationIDtoInsertToDB = $this->va->organization_id;
+        // if($this->latestOrganizationIDtoInsertToDB == null){
+        //     $this->convertedArticleSlug = str_replace(' ', '-', $this->article_title);
 
-            OrganizationAsset::create([
-                'organization_id' => $this->latestOrganizationIDtoInsertToDB,
-                'asset_type_id' => '4',
-                'file' => $this->article_featured_image_name,
-                'is_latest_logo' => '0',
-                'is_latest_banner' => '0',
-                'is_latest_image' => '1',
-                'user_id' => $this->userId,
-                'page_type_id' => '2',
-                'status' => '1',
-                'articles_id' => $this->latestNewsID,
-            ]);
-            $this->article_featured_image = null;
-            $this->reset();
-            $this->resetValidation();
-            $this->newsRedirector();
-        }else{
-            $this->convertedArticleSlug = str_replace(' ', '-', $this->article_title);
+        //     // Article::create($this->createModelWithoutOrg());
+        // // $this->syncArticleOrganization();
 
-            Article::create($this->createModel());
-        // $this->syncArticleOrganization();
+        //     $this->latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
+        // // dd($this->latestNewsID);
 
-            $this->latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
-        // dd($this->latestNewsID);
+        //     // OrganizationAsset::create([
+        //     //     'organization_id' => $this->latestOrganizationIDtoInsertToDB,
+        //     //     'asset_type_id' => '4',
+        //     //     'file' => $this->article_featured_image_name,
+        //     //     'is_latest_logo' => '0',
+        //     //     'is_latest_banner' => '0',
+        //     //     'is_latest_image' => '1',
+        //     //     'user_id' => $this->userId,
+        //     //     'page_type_id' => '2',
+        //     //     'status' => '1',
+        //     //     'articles_id' => $this->latestNewsID,
+        //     // ]);
+        //     // $this->article_featured_image = null;
+        //     // $this->reset();
+        //     // $this->resetValidation();
+        //     $this->newsRedirector();
+        // }else{
+        //     $this->convertedArticleSlug = str_replace(' ', '-', $this->article_title);
 
-            OrganizationAsset::create([
-                'organization_id' => $this->latestOrganizationIDtoInsertToDB,
-                'asset_type_id' => '4',
-                'file' => $this->article_featured_image_name,
-                'is_latest_logo' => '0',
-                'is_latest_banner' => '0',
-                'is_latest_image' => '1',
-                'user_id' => $this->userId,
-                'page_type_id' => '2',
-                'status' => '1',
-                'articles_id' => $this->latestNewsID,
-            ]);
-            $this->article_featured_image = null;
-            $this->reset();
-            $this->resetValidation();
-            $this->newsRedirector();
-        }
-        // dd($this->latestOrganizationIDtoInsertToDB);
+        //     Article::create($this->createModel());
+        // // $this->syncArticleOrganization();
 
-        // $this->OrgDataFromUser = $this->user->organization->first();
-        // $this->OrgDataFromUserOrganizationNameString = $this->OrgDataFromUser->organization_name;
+        //     $this->latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
+        // // dd($this->latestNewsID);
+
+        //     OrganizationAsset::create([
+        //         'organization_id' => $this->latestOrganizationIDtoInsertToDB,
+        //         'asset_type_id' => '4',
+        //         'file' => $this->article_featured_image_name,
+        //         'is_latest_logo' => '0',
+        //         'is_latest_banner' => '0',
+        //         'is_latest_image' => '1',
+        //         'user_id' => $this->userId,
+        //         'page_type_id' => '2',
+        //         'status' => '1',
+        //         'articles_id' => $this->latestNewsID,
+        //     ]);
+        //     $this->article_featured_image = null;
+        //     $this->reset();
+        //     $this->resetValidation();
+        //     $this->newsRedirector();
+        // }
+        // // dd($this->latestOrganizationIDtoInsertToDB);
+
+        // // $this->OrgDataFromUser = $this->user->organization->first();
+        // // $this->OrgDataFromUserOrganizationNameString = $this->OrgDataFromUser->organization_name;
 
 
         

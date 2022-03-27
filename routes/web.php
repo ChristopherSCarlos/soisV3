@@ -5,17 +5,21 @@ use App\Http\Livewire\Frontpage;
 use App\Http\Contollers\AuthRolePermsController;
 use App\Http\Contollers\CreationTest;
 use App\Http\Contollers\CookieController;
+use App\Http\Contollers\ArticleCreate;
+use App\Http\Contollers\OrgAccArticleCreate;
+use App\Http\Contollers\OrganizationCRUD;
+use App\Http\Contollers\AnouncementCRUD;
+use App\Http\Contollers\UserCRUD;
+use App\Http\Contollers\OrgCRUD;
+
+
+
 use App\Http\Livewire\Users;
 use App\Http\Livewire\SelectedUser;
 use App\Http\Livewire\OrganizationPages;
 use App\Http\Livewire\PagesUpdateProcess;
 use App\Http\Livewire\ViewAnnouncement;
-use App\Http\Contollers\OrgAccArticleCreate;
 
-use App\Http\Contollers\ArticleCreate;
-use App\Http\Contollers\OrganizationCRUD;
-use App\Http\Contollers\AnouncementCRUD;
-use App\Http\Contollers\UserCRUD;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,29 +44,39 @@ Route::group(['middleware' => [
             'auth:sanctum',
             'verified',
 ]], function(){
-        Route::get('/dashboard', function(){
-            return view('admin.dashboards');
-        })->name('dashboard');
 
+        Route::get('/test/normal/controller', 'App\Http\Controllers\CreationTest@index')->name('test/normal/controller');
+        Route::post('/store-form', 'App\Http\Controllers\CreationTest@store');
 
         Route::get('/article/create', 'App\Http\Controllers\ArticleCreate@index')->name('article/create');
+        // Route::get('/article/update/{id}', 'App\Http\Controllers\ArticleCreate@edit')->name('article/update');
         Route::post('/store-article', 'App\Http\Controllers\ArticleCreate@store');
 
         Route::resource('articles', 'App\Http\Controllers\ArticleCreate');
         Route::resource('organization', 'App\Http\Controllers\OrganizationCRUD');
         Route::resource('announcement', 'App\Http\Controllers\AnouncementCRUD');
         Route::resource('users', 'App\Http\Controllers\UserCRUD');
+        Route::resource('roles', 'App\Http\Controllers\RoleController');
+        // Route::resource('articles', ArticleCreate::class);
 
         Route::put('users/addRoleToUser/{id}','App\Http\Controllers\UserCRUD@addRole')->name('users/addRoleToUser');
         Route::put('users/addOrganizationToUser/{id}','App\Http\Controllers\UserCRUD@addOrg')->name('users/addOrganizationToUser');
         Route::put('users/addGateKeyToUser/{id}','App\Http\Controllers\UserCRUD@addKey')->name('users/addGateKeyToUser');
         Route::put('users/addPermissionsToUser/{id}','App\Http\Controllers\UserCRUD@addPerms')->name('users/addPermissionsToUser');
+        Route::put('users/addMorePermissionsToUser/{id}','App\Http\Controllers\UserCRUD@addMorePerms')->name('users/addMorePermissionsToUser');
         Route::put('users/addPasswordToUser/{id}','App\Http\Controllers\UserCRUD@addPassword')->name('users/addPasswordToUser');
         Route::get('users/access-control/{id}','App\Http\Controllers\UserCRUD@accessControl')->name('users/access-control');
         
         Route::put('organization/updateBanner/{id}','App\Http\Controllers\OrganizationCRUD@updateBnner')->name('organization/updateBanner');
         Route::put('organization/updateLogo/{id}','App\Http\Controllers\OrganizationCRUD@updateLogo')->name('organization/updateLogo');
+        // Route::put('organization/deleteOrg/{id}','App\Http\Controllers\OrganizationCRUD@destroy')->name('organization/deleteOrg');
+
         
+
+
+        Route::get('/dashboard', function(){
+            return view('admin.dashboards');
+        })->name('dashboard');
 
         Route::get('/default-interfaces', function(){
             return view('admin.default-interfaces');
@@ -88,9 +102,9 @@ Route::group(['middleware' => [
             return view('admin.articles');
         })->name('articles');
 
-        Route::get('/articles/create', function(){
-            return view('admin.article-create');
-        })->name('articles/create');
+        // Route::get('/articles/create', function(){
+        //     return view('admin.article-create');
+        // })->name('articles/create');
 
         Route::get('/articles/view/{id}', function(){
             return view('admin.article-update');
@@ -113,6 +127,10 @@ Route::group(['middleware' => [
         Route::get('/officers', function(){
             return view('admin.officers');
         })->name('officers');
+
+        Route::get('/ar-links', function(){
+            return view('admin.ar-links');
+        })->name('ar-links');
 
         Route::get('/system-pages/create-system-page', function(){
             return view('admin.pages-create-process');
@@ -143,10 +161,13 @@ Route::group(['middleware' => [
             return view('admin.nonacademic');
         })->name('admin/nonacads');
 
-        Route::get('/testlivewire', function(){
-            return view('livewire.test-livewire');
-        })->name('testtestlivewire');
+        Route::get('/test', function(){
+            return view('livewire.testl-livewire');
+        })->name('test');
+
 // 
+        
+
         // Route::get('users/selected-user/{id}', [App\Http\Livewire\SelectedUser::class, 'edit'])->name('user/selected-user');
         
         Route::get('/users-selected-user-{id}', function(){
@@ -160,14 +181,7 @@ Route::group(['middleware' => [
         // });
 
 
-        // Route::get('/test/normal/controller', function () {
-            // return view('normlaravel.test',[UserController::class, 'show']);
-        // });
-        // Route::get('/test/normal/controller', 'App\Http\Controllers\CreationTest@index');
-        // Route::post('/store-form', 'App\Http\Controllers\CreationTest@store');
-        Route::get('/test/normal/controller', 'App\Http\Controllers\CreationTest@index')->name('test/normal/controller');
-        Route::post('/store-form', 'App\Http\Controllers\CreationTest@store');
-        // Route::post('store-form', [PostController::class, 'store']);
+
         // Route::get('/announcements/view-selected-announcements/{$announcement_id}', function(){
         //     return view('admin.view-selected-announcements');
         // })->name('announcements/view-selected-announcements');
@@ -185,50 +199,41 @@ Route::group(['middleware' => [
             'verified',
 ]], function(){
 
-        Route::get('/Organization-dashboard', function(){
+        Route::get('/Organization/dashboard', function(){
             return view('orgAdmin.dashboards');
-        })->name('Organization-dashboard');
+        })->name('Organization/dashboard');
+
 
         Route::resource('org-articles', 'App\Http\Controllers\OrgAccArticleCreate');
+
         
-        Route::get('/Organization-articles', function(){
+        Route::get('/Organization/articles', function(){
             return view('orgAdmin.articles');
-        })->name('Organization-articles');
+        })->name('Organization/articles');
 
-        Route::get('/Organization-organizations', function(){
+        Route::get('/Organization/organizations', function(){
             return view('orgAdmin.organizations');
-        })->name('Organization-organizations');
+        })->name('Organization/organizations');
 
-        Route::get('/Organization-events', function(){
+        Route::get('/Organization/events', function(){
             return view('orgAdmin.events');
-        })->name('Organization-events');
+        })->name('Organization/events');
 
-        Route::get('/Organization-announcements', function(){
+        Route::get('/Organization/announcements', function(){
             return view('orgAdmin.announcements');
-        })->name('Organization-announcements');
+        })->name('Organization/announcements');
 
-        Route::get('/Organization-officers', function(){
+        Route::get('/Organization/officers', function(){
             return view('orgAdmin.officers');
-        })->name('Organization-officers');
+        })->name('Organization/officers');
 
-        Route::get('/Organization-socials', function(){
+        Route::get('/Organization/socials', function(){
             return view('orgAdmin.socials');
-        })->name('Organization-socials');
+        })->name('Organization/socials');
 
         Route::get('/announcements/org-deleted-announcements', function(){
             return view('orgAdmin.deleted-announcements');
         })->name('articles/org-deleted-announcements');
-
-
-        Route::get('/org/articles/create', function(){
-            return view('admin.article-create');
-        })->name('org/articles/create');
-
-
-
-
-
-
 
 });
 

@@ -69,7 +69,7 @@ class UpdateUser extends Component
     }
     public function getUserData()
     {
-        return DB::table('users')->where('user_id','=',$this->userInt)->paginate(1);
+        return DB::table('users')->where('user_id','=',$this->userInt)->get();
     }
     public function getUserCourse()
     {
@@ -206,12 +206,14 @@ class UpdateUser extends Component
             User::find($this->userInt)->update($this->modelUpdateUser());
             $this->resetValidation();
             $this->reset(['first_name','middle_name','last_name','date_of_birth','address','mobile_number','email','password','student_number','course_id','course_ids','gender_id','gender_ids','first_name_DB','middle_name_DB','last_name_DB','date_of_birth_DB','address_DB','mobile_number_DB','email_DB','password_DB','student_number_DB','course_id_DB','gender_id_DB',]);
-            $this->redirector();
+            // $this->redirector();
             // dd($this->first_name_DB);
         }
         public function redirector()
         {
-            return redirect('/users/selected-user/'.$this->userInt);
+            // return redirect()->route('login');
+            return redirect()->route('user-selected-user', ['id' => $this->userInt]);
+            // return redirect('/users-selected-user-'.$this->userInt);
         }
         public function updateRedirect()
         {

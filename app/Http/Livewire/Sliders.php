@@ -39,10 +39,6 @@ class Sliders extends Component
     public $userRole;
     public $userRoleString;
 
-    private $userOrg;
-    public $userOrgHolder;
-    public $userOrgString;
-
     /* Modals */
     public $modalAddNewsFormVisible = false;
     public $modalRemoveNewsFormVisible = false;
@@ -169,38 +165,21 @@ class Sliders extends Component
     
     public function getOrganizationArticlesSliderFromDatabase()
     {
-        // dd(DB::table('articles')->where('status','=','1')->get());
-        $this->userOrg = DB::table('role_user')->where('user_id','=',Auth::id())->first();
-        // dd($this->userOrg->organization_id);
-        $this->userOrgHolder = $this->userOrg->organization_id;
-        // dd($this->userOrgHolder);
-        // $this->userOrgString;
-        return DB::table('articles')->where('is_carousel_org_page','=','1')->where('organization_id','=',$this->userOrgHolder)->paginate(10);
+        return DB::table('articles')->where('is_carousel_org_page','=','1')->where('organization_id','=',$this->userOrg())->paginate(10);
     }
 
     public function getOrganizationArticlesFromDatabase()
     {
-        // dd(DB::table('articles')->where('status','=','1')->get());
-        $this->userOrg = DB::table('role_user')->where('user_id','=',Auth::id())->first();
-        // dd($this->userOrg->organization_id);
-        $this->userOrgHolder = $this->userOrg->organization_id;
-        // dd($this->userOrgHolder);
-        // $this->userOrgString;
-        return DB::table('articles')->where('status','=','1')->where('organization_id','=',$this->userOrgHolder)->get();
+        // return Article::where('status','=','1')->where('organization_id','=',$this->organization_id)->get();
+        // dd();
+        return DB::table('articles')->where('status','=','1')->where('organization_id','=',$this->userOrg())->get();
         // dd(Article::where('status','=','1')->where('organization_id','=',$this->organization_id)->get());
     }
 
     public function getArticlesFromDatabase()
     {
-         // dd(DB::table('articles')->where('status','=','1')->get());
-        // $this->userOrg = DB::table('role_user')->where('user_id','=',Auth::id())->first();
-        // dd($this->userOrg->organization_id);
-        // $this->userOrgHolder = $this->userOrg->organization_id;
-        // dd($this->userOrgHolder);
-        // $this->userOrgString;
-        
-        // dd(Article::where('status','=','1')->where('organization_id','=',$this->userOrgHolder)->get());
-        // return Article::where('status','=','1')->where('organization_id','=',$this->userOrgHolder)->get();
+        // dd(DB::table('articles')->where('status','=','1')->get());
+        // dd(Article::where('status','=','1')->get()   );
         return Article::where('status','=','1')->get();
     }
 

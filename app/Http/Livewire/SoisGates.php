@@ -14,24 +14,36 @@ class SoisGates extends Component
     public $membership;
     public $soisar;
     public $userId;
+    public $errorMessage;
 
     private $getKey;
     private $gateKey;
     private $ipAddress;
+    private $sois_links_data;
 
-    public $testRoute = 'testroute';
+    public $testRoute = 'reroute-test';
 
     public function mount()
     {
         $this->userId = Auth::id();
-
+        // dd(DB::table('sois_links')->where('status','=','1')->get());
+        $sois_links_data = DB::table('sois_links')->where('status','=','1')->get(['external_link','link_name']);
+        // $sois_links_data = DB::table('sois_links')->where('status','=','1')->only('external_link','link_name')->toArray();
+        // dd($sois_links_data->external_link);
         // echo User::find($this->userId);
         DB::table('sois_gates')->where('user_id','=',$this->userId)->update(['is_logged_in' => '1']);
         
         $this->getKey = DB::table('sois_gates')->where('user_id','=',$this->userId)->first();
 
-        $this->gateKey = $this->getKey->gate_key;
+        if ($this->getKey != null) {
+            $this->gateKey = $this->getKey->gate_key;
+        }else{
+            $this->errorMessage = 1;
+        }
 
+
+
+        // dd($this->gateKey);
 
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             $ip = $_SERVER['HTTP_CLIENT_IP'];
@@ -60,6 +72,12 @@ class SoisGates extends Component
             // DB::table('sois_gates')->where('user_id','=',$this->userId)->update(['ip_address' => $this->ipAddress]);
         }
         // dd($this->gateKey);
+    }
+
+    public function linkButtons()
+    {
+        dD(DB::table('sois_links')->where('status','=','1')->get());
+        dd("hello");
     }
 
     public function sois3Function()
@@ -97,6 +115,8 @@ class SoisGates extends Component
             'gpoa' => $this->gpoaFunction(),
             'member' => $this->membershipFunction(),
             'soisar' => $this->soisarFunction(),
+            'soisbuttons' => DB::table('sois_links')->where('status','=','1')->get(),
+            'soisGateKey' => DB::table('sois_gates')->where('user_id','=',$this->userId)->get(),
         ]);
     }
 }
