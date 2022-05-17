@@ -57,6 +57,8 @@ Route::group(['middleware' => [
         Route::resource('announcement', 'App\Http\Controllers\AnouncementCRUD');
         Route::resource('users', 'App\Http\Controllers\UserCRUD');
         Route::resource('roles', 'App\Http\Controllers\RoleController');
+        Route::resource('sub-links', 'App\Http\Controllers\SoisSubLinksCRUD');
+        Route::resource('AR-Events', 'App\Http\Controllers\AccomplishEventsCRUD');
         // Route::resource('articles', ArticleCreate::class);
 
         Route::put('users/addRoleToUser/{id}','App\Http\Controllers\UserCRUD@addRole')->name('users/addRoleToUser');
@@ -111,6 +113,9 @@ Route::group(['middleware' => [
         })->name('articles/view');
 
 
+        Route::get('/sub-links', function(){
+            return view('admin.sub-links');
+        })->name('sub-links');
 
         Route::get('/organizations', function(){
             return view('admin.organizations');
@@ -165,6 +170,42 @@ Route::group(['middleware' => [
             return view('livewire.testl-livewire');
         })->name('test');
 
+        Route::get('/upcoming-events', function(){
+            return view('admin.upcoming-event');
+        })->name('upcoming-events');
+
+        Route::get('/gpoa-events', function(){
+            return view('admin.gpoa-events');
+        })->name('gpoa-events');
+
+        Route::get('/approved-partnerships', function(){
+            return view('admin.approved-partnership');
+        })->name('approved-partnerships');
+
+        Route::get('/partnership-application', function(){
+            return view('admin.partnership-application');
+        })->name('partnership-application');
+
+        Route::get('/approved-events', function(){
+            return view('admin.approved-events');
+        })->name('approved-events');
+
+        Route::get('/disapproved-events', function(){
+            return view('admin.disapproved-events');
+        })->name('disapproved-events');
+
+        Route::get('/declined-partnerships', function(){
+            return view('admin.declined-partnerships');
+        })->name('declined-partnerships');
+
+
+
+
+        // memberships
+        Route::get('/memberships', function(){
+            return view('admin.memberships');
+        })->name('memberships');
+
 // 
         
 
@@ -206,6 +247,11 @@ Route::group(['middleware' => [
 
         Route::resource('org-articles', 'App\Http\Controllers\OrgAccArticleCreate');
 
+
+        Route::get('/ar-menu', function(){
+            return view('orgAdmin.ar-menu');
+        })->name('ar-menu');
+
         
         Route::get('/Organization/articles', function(){
             return view('orgAdmin.articles');
@@ -234,6 +280,123 @@ Route::group(['middleware' => [
         Route::get('/announcements/org-deleted-announcements', function(){
             return view('orgAdmin.deleted-announcements');
         })->name('articles/org-deleted-announcements');
+
+
+        Route::get('/upcoming-events', function(){
+            return view('admin.upcoming-event');
+        })->name('upcoming-events');
+
+
+
+        Route::get('Organization/upcoming-events', function(){
+            return view('admin.upcoming-event');
+        })->name('Organization/upcoming-events');
+
+        Route::get('Organization/gpoa-events', function(){
+            return view('admin.gpoa-events');
+        })->name('Organization/gpoa-events');
+
+        Route::get('Organization/approved-partnerships', function(){
+            return view('admin.approved-partnership');
+        })->name('Organization/approved-partnerships');
+
+        Route::get('Organization/partnership-application', function(){
+            return view('admin.partnership-application');
+        })->name('Organization/partnership-application');
+
+        Route::get('Organization/approved-events', function(){
+            return view('admin.approved-events');
+        })->name('Organization/approved-events');
+
+        Route::get('Organization/disapproved-events', function(){
+            return view('admin.disapproved-events');
+        })->name('Organization/disapproved-events');
+
+        Route::get('Organization/declined-partnerships', function(){
+            return view('admin.declined-partnerships');
+        })->name('Organization/declined-partnerships');
+
+
+
+
+
+        Route::get('Organization/memberships', function(){
+            return view('admin.memberships');
+        })->name('Organization/memberships');
+
+        Route::get('Organization/userManagement', function(){
+            return view('admin.membership-user-management');
+        })->name('Organization/userManagement');
+
+        Route::get('Organization/membershipsMembers', function(){
+            return view('admin.membership-members');
+        })->name('Organization/membershipsMembers');
+
+        Route::get('Organization/paymentDetails', function(){
+            return view('admin.payment-details');
+        })->name('Organization/paymentDetails');
+
+        Route::get('Organization/applicationRequest', function(){
+            return view('admin.application-requests');
+        })->name('Organization/applicationRequest');
+
+        Route::get('Organization/accountRegistrants', function(){
+            return view('admin.account-registrants');
+        })->name('Organization/accountRegistrants');
+
+        Route::get('Organization/declinedApplications', function(){
+            return view('admin.declined-applications');
+        })->name('Organization/declinedApplications');
+
+        Route::get('Organization/MyAcademicOrgs', function(){
+            return view('admin.my-org-academic');
+        })->name('Organization/MyAcademicOrgs');
+
+        Route::get('Organization/MyNonAcademicOrgs', function(){
+            return view('admin.my-org-nonacademic');
+        })->name('Organization/MyNonAcademicOrgs');
+
+        Route::get('Organization/MyApplicationAcademic', function(){
+            return view('admin.my-application-academic');
+        })->name('Organization/MyApplicationAcademic');
+
+        Route::get('Organization/MyApplicationNonAcademic', function(){
+            return view('admin.my-application-non-academic');
+        })->name('Organization/MyApplicationNonAcademic');
+
+        Route::get('Organizations/Messages/Inbox', function(){
+            return view('admin.membership-messages');
+        })->name('Organizations/Messages/Inbox');
+
+        Route::get('Organizations/Messages/Sent', function(){
+            return view('admin.membership-messages-sent');
+        })->name('Organizations/Messages/Sent');
+
+        Route::get('Organizations/MyMessages/Inbox', function(){
+            return view('admin.membership-my-messages-inbox');
+        })->name('Organizations/MyMessages/Inbox');
+
+
+
+        // AR ROUTES
+
+        Route::get('Organization/AR-Events', function(){
+            return view('admin.ar-events');
+        })->name('Organization/AR-Events');
+
+        Route::get('Organization/GPOA/AR-Events', function(){
+            return view('admin.ar-gpoa-events');
+        })->name('Organization/GPOA/AR-Events');
+
+        Route::get('Organization/accomplishments', function(){
+            return view('admin.ar-accomplishments');
+        })->name('Organization/accomplishments');
+
+        Route::get('Organization/student-accomplishments', function(){
+            return view('admin.ar-student-accomplishments');
+        })->name('Organization/student-accomplishments');
+
+
 
 });
 

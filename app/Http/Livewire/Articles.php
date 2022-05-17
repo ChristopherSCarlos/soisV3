@@ -128,8 +128,8 @@ class Articles extends Component
         $this->RoleUSerStringHolder = DB::table('roles')->where('role_id','=',$this->RoleUSerChecker_ID)->first();
         $this->RoleUSerString =  $this->RoleUSerStringHolder->role;
 
-        $this->permission_data = new PermissionCheckerController;
-        $this->permission_data->permssionChecker('HP-View_News_Article');
+        // $this->permission_data = new PermissionCheckerController;
+        // $this->permission_data->permssionChecker('HP-View_News_Article');
     }
 
     /*======================================================
