@@ -1,26 +1,3 @@
-<meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tailwind CSS Duration Transition Dropdowns menu on Hover with Alpine js v3 </title>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>
-
-
-<style>
-     li > .ul-id {
-        transform: translatex(100%) scale(0);
-      }
-      li:hover > .ul-id {
-        transform: translatex(101%) scale(1);
-      }
-      li > button svg {
-        transform: rotate(-90deg);
-      }
-      li:hover > button svg {
-        transform: rotate(-270deg);
-      }
-</style>
-
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100  bg-red-900" style="background: maroon !important;">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,664 +11,542 @@
                     </a>
                 </div>
 
-
-                <!-- Navigation Links -->
-                <!-- SUPER ADMIN HOMEAPGE NAVIGATION -->
-                @if($getUserRole == "Super Admin")
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                            <span class="pr-1 flex-1">Homepage</span>
-                            <span>
-                                <svg class="w-6 h-6 text-white text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul id="menu" aria-hidden="true" class="ul-id bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                            <a href="{{ route('default-interfaces') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Dashboard</li>
-                            </a>
-                            <a href="{{ route('organizations') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Organizations</li>
-                            </a>
-                            <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                <button aria-haspopup="true" aria-controls="menu-lang" class="w-full text-left flex items-center outline-none focus:outline-none">
-                                    <span class="pr-1 flex-1">News and Announcement</span>
-                                    <span class="mr-auto">
-                                        <svg class="fill-current h-4 w-4 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                                        </svg>
-                                    </span>
-                                </button>
-                                <ul id="menu-lang" aria-hidden="true" class="ul-id bg-white border rounded-sm absolute top-0 right-0  transition duration-150 ease-in-out origin-top-left min-w-32 ">
-                                    <a href="{{ route('articles') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">News</li>
-                                    </a>
-                                    <a href="{{ route('announcements') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Announcemets</li>
-                                    </a>
-                                </ul>
-                            </li>
-                            <a href="{{ route('roles') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Roles</li>
-                            </a>
-                            <a href="{{ route('sub-links') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Gate SubLinks</li>
-                            </a>
-                            <a href="{{ route('officers') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Officers</li>
-                            </a>
-                            <a href="{{ route('users') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Users</li>
-                            </a>
-                        </ul>
-                    </div>
-                </div>
-                @endif
+                <!-- SUPER ADMIN NAVIGATION -->
                 @if($getUserRole == "Super Admin")
-                <!-- SUPER ADMIN MEMBERSHIP NAVIGATION -->
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                            <span class="pr-1 flex-1">Membership Report</span>
-                            <span>
-                                <svg class="w-6 h-6 text-white text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul id="menu" aria-hidden="true" class="ul-id bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                            <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                <button aria-haspopup="true" aria-controls="menu-lang" class="w-full text-left flex items-center outline-none focus:outline-none">
-                                    <span class="pr-1 flex-1">Organizations</span>
-                                    <span class="mr-auto">
-                                        <svg class="fill-current h-4 w-4 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                        <span class="" >Homepage</span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                                         </svg>
-                                    </span>
-                                </button>
-                                <ul id="menu-lang" aria-hidden="true" class="ul-id bg-white border rounded-sm absolute top-0 right-0  transition duration-150 ease-in-out origin-top-left min-w-32 ">
-                                    <a href="{{ route('articles') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Dashboard</li>
-                                    </a>
-                                    <a href="{{ route('memberships')}} ">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Memberships</li>
-                                    </a>
-                                    <a href="{{ route('announcements') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">User Management</li>
-                                    </a>
-                                </ul>
-                            </li>
-                            <a href="{{ route('roles') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Members</li>
-                            </a>
-                            <a href="{{ route('sub-links') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Payment Details</li>
-                            </a>
-                            <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                <button aria-haspopup="true" aria-controls="menu-lang" class="w-full text-left flex items-center outline-none focus:outline-none">
-                                    <span class="pr-1 flex-1">Application</span>
-                                    <span class="mr-auto">
-                                        <svg class="fill-current h-4 w-4 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                                        </svg>
-                                    </span>
-                                </button>
-                                <ul id="menu-lang" aria-hidden="true" class="ul-id bg-white border rounded-sm absolute top-0 right-0  transition duration-150 ease-in-out origin-top-left min-w-32 ">
-                                    <a href="{{ route('articles') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Application Requests</li>
-                                    </a>
-                                    <a href="{{ route('announcements') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Account Registrants</li>
-                                    </a>
-                                    <a href="{{ route('announcements') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Declined Applications</li>
-                                    </a>
-                                </ul>
-                            </li>
-                            <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                <button aria-haspopup="true" aria-controls="menu-lang" class="w-full text-left flex items-center outline-none focus:outline-none">
-                                    <span class="pr-1 flex-1">Messages</span>
-                                    <span class="mr-auto">
-                                        <svg class="fill-current h-4 w-4 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                                        </svg>
-                                    </span>
-                                </button>
-                                <ul id="menu-lang" aria-hidden="true" class="ul-id bg-white border rounded-sm absolute top-0 right-0  transition duration-150 ease-in-out origin-top-left min-w-32 ">
-                                    <a href="{{ route('articles') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Inbox</li>
-                                    </a>
-                                    <a href="{{ route('announcements') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Sent</li>
-                                    </a>
-                                </ul>
-                            </li>
-                            <hr>
-                            <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                <button aria-haspopup="true" aria-controls="menu-lang" class="w-full text-left flex items-center outline-none focus:outline-none">
-                                    <span class="pr-1 flex-1">My Organizations</span>
-                                    <span class="mr-auto">
-                                        <svg class="fill-current h-4 w-4 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                                        </svg>
-                                    </span>
-                                </button>
-                                <ul id="menu-lang" aria-hidden="true" class="ul-id bg-white border rounded-sm absolute top-0 right-0  transition duration-150 ease-in-out origin-top-left min-w-32 ">
-                                    <a href="{{ route('articles') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Academic</li>
-                                    </a>
-                                    <a href="{{ route('announcements') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Non-Academic</li>
-                                    </a>
-                                </ul>
-                            </li>
-                            <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                <button aria-haspopup="true" aria-controls="menu-lang" class="w-full text-left flex items-center outline-none focus:outline-none">
-                                    <span class="pr-1 flex-1">My Application</span>
-                                    <span class="mr-auto">
-                                        <svg class="fill-current h-4 w-4 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                                        </svg>
-                                    </span>
-                                </button>
-                                <ul id="menu-lang" aria-hidden="true" class="ul-id bg-white border rounded-sm absolute top-0 right-0  transition duration-150 ease-in-out origin-top-left min-w-32 ">
-                                    <a href="{{ route('articles') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Academic</li>
-                                    </a>
-                                    <a href="{{ route('announcements') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Non-Academic</li>
-                                    </a>
-                                </ul>
-                            </li>
-                            <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                <button aria-haspopup="true" aria-controls="menu-lang" class="w-full text-left flex items-center outline-none focus:outline-none">
-                                    <span class="pr-1 flex-1">My Messages</span>
-                                    <span class="mr-auto">
-                                        <svg class="fill-current h-4 w-4 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                                        </svg>
-                                    </span>
-                                </button>
-                                <ul id="menu-lang" aria-hidden="true" class="ul-id bg-white border rounded-sm absolute top-0 right-0  transition duration-150 ease-in-out origin-top-left min-w-32 ">
-                                    <a href="{{ route('articles') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Inbox </li>
-                                    </a>
-                                    <a href="{{ route('announcements') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Sent</li>
-                                    </a>
-                                </ul>
-                            </li>
-                        </ul>
+                                    </button>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <x-jet-dropdown-link href="{{ route('default-interfaces') }}" class="">
+                                        Dashbaord
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('organizations') }}" class="">
+                                        Organization
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('articles') }}" class="">
+                                        News
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('announcements') }}" class="">
+                                        Announcement
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('roles') }}" class="">
+                                        Roles
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('sub-links') }}" class="">
+                                        Gate SubLinks
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('users') }}" class="">
+                                        Users
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
                     </div>
-                </div>
-                @endif
-                <!-- SUPER ADMIN GPOA NAVIGATION -->
-                @if($getUserRole == "Super Admin")
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                            <span class="pr-1 flex-1">GPOA Report</span>
-                            <span>
-                                <svg class="w-6 h-6 text-white text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul id="menu" aria-hidden="true" class="ul-id bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                            <a href="{{ route('upcoming-events') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Upcoming Events</li>
-                            </a>
-                            <a href="{{ route('gpoa-events') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Events</li>
-                            </a>
-                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">
-                                <button aria-haspopup="true" aria-controls="menu-lang" class="w-full text-left flex items-center outline-none focus:outline-none">
-                                    <span class="pr-1 flex-1">Partnership</span>
-                                    <span class="mr-auto">
-                                        <svg class="fill-current h-4 w-4 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                        <span class="" >Membership</span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                                         </svg>
-                                    </span>
-                                </button>
-                                <ul id="menu-lang" aria-hidden="true" class="ul-id bg-white border rounded-sm absolute top-0 right-0  transition duration-150 ease-in-out origin-top-left min-w-32 ">
-                                    <a href="{{ route('approved-partnerships') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Partnership Requests</li>
-                                    </a>
-                                    <a href="{{ route('partnership-application') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Partnership Application</li>
-                                    </a>
-                                </ul>
-                            </li>
-                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">
-                                <button aria-haspopup="true" aria-controls="menu-lang" class="w-full text-left flex items-center outline-none focus:outline-none">
-                                    <span class="pr-1 flex-1">Reports</span>
-                                    <span class="mr-auto">
-                                        <svg class="fill-current h-4 w-4 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                                    </button>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <x-jet-dropdown-link href="" class="">
+                                        Organization
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="" class="">
+                                        Application
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="" class="">
+                                        Messages
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="" class="">
+                                        My Organization
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="" class="">
+                                        My Application
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="" class="">
+                                        My Messages
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
+                    </div>
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                        <span class="" >Gpoa</span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                                         </svg>
-                                    </span>
-                                </button>
-                                <ul id="menu-lang" aria-hidden="true" class="ul-id bg-white border rounded-sm absolute top-0 right-0  transition duration-150 ease-in-out origin-top-left min-w-32 ">
-                                    <a href="{{ route('approved-events') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Approved Events</li>
-                                    </a>
-                                    <a href="{{ route('disapproved-events') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Disapproved Events</li>
-                                    </a>
-                                    <a href="{{ route('approved-partnerships') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Accepted Partnerships</li>
-                                    </a>
-                                    <a href="{{ route('declined-partnerships') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Declined Partnership</li>
-                                    </a>
-                                </ul>
-                            </li>
-                        </ul>
+                                    </button>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <x-jet-dropdown-link href="" class="">
+                                        Upcoming Event
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="" class="">
+                                        Event
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="" class="">
+                                        Partnership
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="" class="">
+                                        Reports
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
                     </div>
-                </div>
-                @endif
-                <!-- SUPER ADMIN FINANCIAL NAVIGATION  -->
-                @if($getUserRole == "Super Admin")
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                            <span class="pr-1 flex-1">Financial Report</span>
-                            <span>
-                                <svg class="w-6 h-6 text-white text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul id="menu" aria-hidden="true" class="ul-id bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                            <a href="{{ route('upcoming-events') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Upcoming Events</li>
-                            </a>
-                        </ul>
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                        <span class="" >Financial</span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <x-jet-dropdown-link href="" class="">
+                                        Upcoming Event
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="" class="">
+                                        Event
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="" class="">
+                                        Partnership
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="" class="">
+                                        Reports
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
                     </div>
-                </div>
                 @endif
-                <!-- SUPER  ADMIN ACCOMPLISHMENT NAVIGATION -->
-                @if($getUserRole == "Super Admin")
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                            <span class="pr-1 flex-1">Accomplishment Report</span>
-                            <span>
-                                <svg class="w-6 h-6 text-white text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul id="menu" aria-hidden="true" class="ul-id bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                            @if($getUserRole == 'Super Admin')
-                                <a href="{{ route('ar-links') }}">
-                                    <li class="rounded-sm px-3 py-1 hover:bg-gray-100">AR Menu</li>
-                                </a>
-                            @endif
-                            @if($getUserRole == 'AR Officer Admin')
-                                <a href="{{ route('Organization/dashboard') }}">
-                                    <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Dashboard</li>
-                                </a>
-                                <a href="{{ route('ar-menu') }}">
-                                    <li class="rounded-sm px-3 py-1 hover:bg-gray-100">AR Menu</li>
-                                </a>
-                            @endif
-                        </ul>
-                    </div>
-                </div>
-                @endif
-                
-                <!-- ORGANIZATION ADMIN GPOA NAVIGATION -->
+                <!-- GPOA ADMIN NAVIGATION -->
                 @if($getUserRole == "GPOA Admin")
-                <div class="hidden sm:flex sm:items-center sm:ml-6">    
-                    <a href="{{ route('Organization/upcoming-events') }}">
-                        <div class="group inline-block ">   
-                            <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                                <span class="pr-1 flex-1">Upcoming Events</span>
-                            </button>
-                        </div>
-                    </a>
-                </div>
-                <div class="hidden sm:flex sm:items-center sm:ml-6">    
-                    <a href="{{ route('Organization/gpoa-events') }}">
-                        <div class="group inline-block ">   
-                            <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                                <span class="pr-1 flex-1">Events</span>
-                            </button>
-                        </div>
-                    </a>
-                </div>
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                            <span class="pr-1 flex-1">Partnership</span>
-                            <span>
-                                <svg class="w-6 h-6 text-white text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul id="menu" aria-hidden="true" class="ul-id bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                            <a href="{{ route('Organization/approved-partnerships') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Partnership Requests</li>
-                            </a>
-                            <a href="{{ route('Organization/partnership-application') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Partnership Application</li>
-                            </a>
-                        </ul>
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                        <span class="" >Upcoming Events</span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <x-jet-dropdown-link href="{{ route('Organization/upcoming-events') }}" class="">
+                                        Upcoming Event
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
                     </div>
-                </div>
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                            <span class="pr-1 flex-1">Reports</span>
-                            <span>
-                                <svg class="w-6 h-6 text-white text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul id="menu" aria-hidden="true" class="ul-id bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                            <a href="{{ route('Organization/approved-events') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Approved Events</li>
-                            </a>
-                            <a href="{{ route('Organization/disapproved-events') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Disapproved Events</li>
-                            </a>
-                            <a href="{{ route('Organization/approved-partnerships') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Accepted Partnership</li>
-                            </a>
-                            <a href="{{ route('Organization/declined-partnerships') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Declined Partnership</li>
-                            </a>
-                        </ul>
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                        <span class="" >Events</span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <x-jet-dropdown-link href="{{ route('Organization/gpoa-events') }}" class="">
+                                        Event
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
                     </div>
-                </div>
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                        <span class="" >Partnership</span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <x-jet-dropdown-link href="{{ route('Organization/approved-partnerships') }}" class="">
+                                        Partnership Requests
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('Organization/partnership-application') }}" class="">
+                                        Partnership Application
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
+                    </div>
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                        <span class="" >Reports</span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <x-jet-dropdown-link href="{{ route('Organization/approved-events') }}" class="">
+                                        Approved Events
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('Organization/disapproved-events') }}" class="">
+                                        Disapproved Events
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('Organization/approved-partnerships') }}" class="">
+                                        Accepted Partnership
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('Organization/declined-partnerships') }}" class="">
+                                        Declined Partnership
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
+                    </div>
                 @endif
-
+                <!-- MEMBERSHIP ADMIN NAVIGATION -->
                 @if($getUserRole == "Membership Admin")
-                <!-- ORGANIZATION ADMIN MEMBERSHIP NAVIGATION -->
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                            <span class="pr-1 flex-1">Organizations</span>
-                            <span>
-                                <svg class="w-6 h-6 text-white text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul id="menu" aria-hidden="true" class="ul-id bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                            <a href="{{ route('Organization/dashboard') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Dashboard</li>
-                            </a>
-                            <a href="{{ route('Organization/memberships') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Memberships</li>
-                            </a>
-                            <a href="{{ route('Organization/userManagement') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">User Management</li>
-                            </a>
-                        </ul>
-                    </div>
-                </div>
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <a href="{{ route('Organization/membershipsMembers') }}">
-                            <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                                <span class="pr-1 flex-1">Members</span>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <a href="{{ route('Organization/paymentDetails') }}">
-                            <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                                <span class="pr-1 flex-1">Payment Details</span>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                            <span class="pr-1 flex-1">Application</span>
-                            <span>
-                                <svg class="w-6 h-6 text-white text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul id="menu" aria-hidden="true" class="ul-id bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                            <a href="{{ route('Organization/applicationRequest') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Application Rrquests</li>
-                            </a>
-                            <a href="{{ route('Organization/accountRegistrants') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Account Registrants</li>
-                            </a>
-                            <a href="{{ route('Organization/declinedApplications') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Declined Aplications</li>
-                            </a>
-                        </ul>
-                    </div>
-                </div>
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                            <span class="pr-1 flex-1">Messages</span>
-                            <span>
-                                <svg class="w-6 h-6 text-white text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul id="menu" aria-hidden="true" class="ul-id bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                            <a href="{{ route('Organizations/Messages/Inbox') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Inbox</li>
-                            </a>
-                            <a href="{{ route('Organizations/Messages/Sent') }}">
-                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Sent</li>
-                            </a>
-                        </ul>
-                    </div>
-                </div>
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                            <span class="pr-1 flex-1">My Membership</span>
-                            <span>
-                                <svg class="w-6 h-6 text-white text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul id="menu" aria-hidden="true" class="ul-id bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                            <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                <button aria-haspopup="true" aria-controls="menu-lang" class="w-full text-left flex items-center outline-none focus:outline-none">
-                                    <span class="pr-1 flex-1">My Organizations</span>
-                                    <span class="mr-auto">
-                                        <svg class="fill-current h-4 w-4 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                        <span class="" >Organization</span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                                         </svg>
-                                    </span>
-                                </button>
-                                <ul id="menu-lang" aria-hidden="true" class="ul-id bg-white border rounded-sm absolute top-0 right-0  transition duration-150 ease-in-out origin-top-left min-w-32 ">
-                                    <a href="{{ route('Organization/MyAcademicOrgs') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Academic</li>
+                                    </button>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <x-jet-dropdown-link href="{{ route('Organization/dashboard') }}" class="">
+                                        Dashboard
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('Organization/memberships') }}" class="">
+                                        Memberships
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('Organization/userManagement') }}" class="">
+                                        User Management
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                    <div class="block px-4 py-2 text-xs text-gray-400">
+                                        {{ __('My Organization') }}
+                                    </div>
+                                    <x-jet-dropdown-link href="{{ route('Organization/MyAcademicOrgs') }}" class="">
+                                        Academic
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('Organization/MyNonAcademicOrgs') }}" class="">
+                                        Non-Academic
+                                    </x-jet-dropdown-link>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
+                    </div> 
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <a href="{{ route('Organization/membershipsMembers') }}">
+                                        <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                            <span class="" >Members</span>
+                                            <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
                                     </a>
-                                    <a href="{{ route('Organization/MyNonAcademicOrgs') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Non-academic</li>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                            </x-slot>
+                        </x-jet-dropdown>
+                    </div>                
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <a href="{{ route('Organization/paymentDetails') }}">
+                                        <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                            <span class="" >Payment Details</span>
+                                            <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
                                     </a>
-                                </ul>
-                            </li>
-                            <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                <button aria-haspopup="true" aria-controls="menu-lang" class="w-full text-left flex items-center outline-none focus:outline-none">
-                                    <span class="pr-1 flex-1">My Application</span>
-                                    <span class="mr-auto">
-                                        <svg class="fill-current h-4 w-4 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                            </x-slot>
+                        </x-jet-dropdown>
+                    </div>                
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                        <span class="" >Application</span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                                         </svg>
-                                    </span>
-                                </button>
-                                <ul id="menu-lang" aria-hidden="true" class="ul-id bg-white border rounded-sm absolute top-0 right-0  transition duration-150 ease-in-out origin-top-left min-w-32 ">
-                                    <a href="{{ route('Organization/MyApplicationAcademic') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Academic</li>
-                                    </a>
-                                    <a href="{{ route('Organization/MyApplicationNonAcademic') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Non-academic</li>
-                                    </a>
-                                </ul>
-                            </li>
-                            <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                <button aria-haspopup="true" aria-controls="menu-lang" class="w-full text-left flex items-center outline-none focus:outline-none">
-                                    <span class="pr-1 flex-1">My Messages</span>
-                                    <span class="mr-auto">
-                                        <svg class="fill-current h-4 w-4 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                                        </svg>
-                                    </span>
-                                </button>
-                                <ul id="menu-lang" aria-hidden="true" class="ul-id bg-white border rounded-sm absolute top-0 right-0  transition duration-150 ease-in-out origin-top-left min-w-32 ">
-                                    <a href="{{ route('Organizations/MyMessages/Inbox') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Inbox</li>
-                                    </a>
-                                    <a href="{{ route('announcements') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Sent</li>
-                                    </a>
-                                </ul>
-                            </li>
-                        </ul>
+                                    </button>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <x-jet-dropdown-link href="{{ route('Organization/applicationRequest') }}" class="">
+                                        Application Requests
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('Organization/accountRegistrants') }}" class="">
+                                        Account Registrants
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('Organization/declinedApplications') }}" class="">
+                                        Declined Applications
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                    <div class="block px-4 py-2 text-xs text-gray-400">
+                                        {{ __('My Application') }}
+                                    </div>
+                                    <x-jet-dropdown-link href="{{ route('Organization/MyApplicationAcademic') }}" class="">
+                                        Academic
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('Organization/MyApplicationNonAcademic') }}" class="">
+                                        Non-Academic
+                                    </x-jet-dropdown-link>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
                     </div>
-                </div>
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                        <span class="" >Messages</span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <x-jet-dropdown-link href="{{ route('Organizations/Messages/Inbox') }}" class="">
+                                        Inbox 
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('Organizations/Messages/Sent') }}" class="">
+                                        Sent
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                    <div class="block px-4 py-2 text-xs text-gray-400">
+                                        {{ __('My Messages') }}
+                                    </div>
+                                    <x-jet-dropdown-link href="{{ route('Organizations/MyMessages/Inbox') }}" class="">
+                                        Inbox
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="#" class="">
+                                        Sent wala pa to
+                                    </x-jet-dropdown-link>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
+                    </div>
                 @endif
-
-                <!-- ORGANIZATION ADMIN ACCOMPLISHMENT NAVIGATION -->
-                @if($getUserRole == "AR Officer Admin")
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                            <span class="pr-1 flex-1">Event Report</span>
-                            <span>
-                                <svg class="w-6 h-6 text-white text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul id="menu" aria-hidden="true" class="ul-id bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                            <a href="{{ route('articles') }}">
-                                <li class="px-3 py-1 hover:bg-gray-100">Create Event</li>
-                            </a>
-                            <a href="{{ route('Organization/AR-Events') }}">
-                                <li class="px-3 py-1 hover:bg-gray-100">View Event</li>
-                            </a>
-                            <a href="{{ route('Organization/GPOA/AR-Events') }}">
-                                <li class="px-3 py-1 hover:bg-gray-100">GPOA Event</li>
-                            </a>
-                        </ul>
+                <!-- ACCOMPLISHMENT ADMIN NAVIGATION -->
+                @if($getUserRole == "AR Admin")
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                        <span class="" >Event Report</span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <x-jet-dropdown-link href="{{ route('Organization/AR-Events') }}" class="">
+                                        View Event
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('Organization/GPOA/AR-Events') }}" class="">
+                                        Gpoa Event
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
                     </div>
-                </div>
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                            <span class="pr-1 flex-1">Accomplishment Report</span>
-                            <span>
-                                <svg class="w-6 h-6 text-white text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul id="menu" aria-hidden="true" class="ul-id bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                            <a href="{{ route('articles') }}">
-                                <li class="px-3 py-1 hover:bg-gray-100">Create AR</li>
-                            </a>
-                            <a href="{{ route('Organization/accomplishments') }}">
-                                <li class="px-3 py-1 hover:bg-gray-100">Submissions</li>
-                            </a>
-                        </ul>
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <a href="{{ route('Organization/accomplishments') }}">
+                                        <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                            <span class="" >Accomplishment Report</span>
+                                            <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </a>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <div class="border-t border-gray-100"></div>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
                     </div>
-                </div>
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                            <span class="pr-1 flex-1">Student Report</span>
-                            <span>
-                                <svg class="w-6 h-6 text-white text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul id="menu" aria-hidden="true" class="ul-id bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                            <a href="{{ route('Organization/student-accomplishments') }}">
-                                <li class="px-3 py-1 hover:bg-gray-100">Submissions</li>
-                            </a>
-                        </ul>
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <a href="{{ route('Organization/student-accomplishments') }}">
+                                        <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                            <span class="" >Student Report</span>
+                                            <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </a>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <div class="border-t border-gray-100"></div>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
                     </div>
-                </div>
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                            <span class="pr-1 flex-1">Organization Documents</span>
-                            <span>
-                                <svg class="w-6 h-6 text-white text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul id="menu" aria-hidden="true" class="ul-id bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                            <a href="{{ route('articles') }}">
-                                <li class="px-3 py-1 hover:bg-gray-100">All Organization Document</li>
-                            </a>
-                            <a href="{{ route('articles') }}">
-                                <li class="px-3 py-1 hover:bg-gray-100">Types</li>
-                            </a>
-                        </ul>
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                        <span class="" >Organization Documents</span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <x-jet-dropdown-link href="" class="">
+                                        All Organization Document
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="" class="">
+                                        Types
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
                     </div>
-                </div>
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                            <span class="pr-1 flex-1">Officer</span>
-                            <span>
-                                <svg class="w-6 h-6 text-white text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul id="menu" aria-hidden="true" class="ul-id bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                            <a href="{{ route('articles') }}">
-                                <li class="px-3 py-1 hover:bg-gray-100">Manage Officer Signature</li>
-                            </a>
-                        </ul>
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                        <span class="" >Officers</span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <x-jet-dropdown-link href="" class="">
+                                        Manages Officer Signature
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
                     </div>
-                </div>
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <div class="group inline-block ">
-                        <button aria-haspopup="true" aria-controls="menu" class="flex items-center block p-2 bg-white bg-gray-100 rounded-md outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                            <span class="pr-1 flex-1">Accomplishment</span>
-                            <span>
-                                <svg class="w-6 h-6 text-white text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul id="menu" aria-hidden="true" class="ul-id bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                            <a href="{{ route('articles') }}">
-                                <li class="px-3 py-1 hover:bg-gray-100">My Accomplishment</li>
-                            </a>
-                            <a href="{{ route('articles') }}">
-                                <li class="px-3 py-1 hover:bg-gray-100">Submit an Accomlishment</li>
-                            </a>
-                        </ul>
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                        <span class="" >Accomplishment</span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <x-jet-dropdown-link href="" class="">
+                                        My Accomplishment
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="" class="">
+                                        Submit an Accomplishment
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
                     </div>
-                </div>
-
-
-
-
                 @endif
-
+                </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
