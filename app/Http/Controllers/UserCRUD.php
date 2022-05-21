@@ -321,11 +321,15 @@ class UserCRUD extends Controller
         // $a[] = $f;
         // dd($a);
 
-$xxx = DB::table('permission_user')->where('user_id','=',$id)->get();
+        $xxx = DB::table('permission_user')->where('user_id','=',$id)->get();
 // echo gettype($xxx);
-foreach ($xxx as $zzz) {
-    $data[] = $zzz->permission_id;
-}
+        if ($xxx != null) {
+            $data[] = [0];
+        }else{
+            foreach ($xxx as $zzz) {
+                $data[] = $zzz->permission_id;
+            }
+        }
 // dd($data);
 
         // $c = DB::table('permissions')->whereNotIn('permission_id', $x)->get();;
