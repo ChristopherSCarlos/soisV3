@@ -60,14 +60,8 @@
                 @error('organization_id') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
-                <x-jet-label for="school_year" value="{{ __('School Year') }}" />
-                <x-jet-input wire:model="school_year" id="school_year" class="block mt-1 w-full" type="text" required/>
-                @error('school_year') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
-                <x-jet-label for="semester" value="{{ __('Semester') }}" />
-                <x-jet-input wire:model="semester" id="semester" class="block mt-1 w-full" type="text" required/>
-                @error('semester') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
                 <x-jet-label for="position" value="{{ __('Position') }}" />
@@ -142,14 +136,8 @@
                 @error('organization_id') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
-                <x-jet-label for="school_year" value="{{ __('School Year') }}" />
-                <x-jet-input wire:model="school_year" id="school_year" class="block mt-1 w-full" type="text" required/>
-                @error('school_year') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
-                <x-jet-label for="semester" value="{{ __('Semester') }}" />
-                <x-jet-input wire:model="semester" id="semester" class="block mt-1 w-full" type="text" required/>
-                @error('semester') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">
                 <x-jet-label for="position" value="{{ __('Position') }}" />

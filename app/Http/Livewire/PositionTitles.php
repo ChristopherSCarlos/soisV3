@@ -27,6 +27,10 @@ class PositionTitles extends Component
     public $organization_id;
     public $selectedOrganization;
 
+    public $position_category;
+    public $position_category_id;
+    public $selectedPositionCategory;
+
     public $user;
     public $va;
     private $role;
@@ -88,15 +92,28 @@ class PositionTitles extends Component
         $this->userId = Auth::id();
         $this->user = User::find($this->userId);
         $this->role = $this->user->roles->first();
-        // dd($this->va->organization_id);
         // $this->organization_id = $this->va->organization_id;
         if($this->role->role = 'Super Admin'){
-            PositionTitle::create($this->modelCreateOrgPositionTitle());
+            // PositionTitle::create($this->modelCreateOrgPositionTitle());
+            DB::table('position_titles')->insert([
+            [
+                'position_title' => $this->position_title,
+                'organization_id' => $this->selectedOrganization,
+                'position_category_id' => $this->selectedPositionCategory,
+            ]
             // dd($this->selectedOrganization);
 
+        ]);
         }elseif($this->role->role = 'Home Page Admin'){
             $this->va = $this->user->organizations->first();
-            PositionTitle::create($this->modelCreatePositionTitle());
+            // PositionTitle::create($this->modelCreatePositionTitle());
+            DB::table('positione_title')->insert([
+            [
+                'position_title' => $this->position_title,
+                'organization_id' => $this->organization_id,
+                'position_category_id' => $this->selectedPositionCategory,
+            ],
+        ]);
             // dd($this->va);
         }
         // dd("HEllo");
@@ -277,6 +294,10 @@ class PositionTitles extends Component
     
     /*=====  End of Get Organization Section  ======*/
 
+    public function getPositionCategory()
+    {
+        return DB::table('position_categories')->get();
+    }
     
 
     public function render()
@@ -287,6 +308,7 @@ class PositionTitles extends Component
             'getOrganization' => $this->getOrganizationsFromDatabase(),
             'getUserOrgData' => $this->specificOrganization(),
             'getUserRole' => $this->getAuthUserRole(),
+            'listPositionCategory' => $this->getPositionCategory(),
         ]);
     }
 }

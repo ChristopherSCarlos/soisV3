@@ -54,7 +54,6 @@ class Officers extends LivewireDatatable
     public $suffix;
     public $organization_id;
     public $school_year;
-    public $semester;
     public $position;
     public $exp_date;
     public $position_category;
@@ -74,8 +73,6 @@ class Officers extends LivewireDatatable
     //         'middle_name' => 'required',
     //         'suffix' => 'nullable',
     //         'organization_id' => 'required',
-    //         'school_year' => 'required',
-    //         'semester' => 'required',
     //         'position' => 'required',
     //         'exp_date' => 'required',
     //         'position_category' => 'required',
@@ -134,8 +131,6 @@ class Officers extends LivewireDatatable
             'middle_name' => $this->middle_name,
             'suffix' => $this->suffix,
             'organization_id' => $this->organization_id,
-            'school_year' => $this->school_year,
-            'semester' => $this->semester,
             'position' => $this->position,
             'exp_date' => $this->exp_date,
             'position_category' => $this->position_category,
@@ -168,7 +163,6 @@ class Officers extends LivewireDatatable
     //     $this->suffix = $data->suffix;
     //     $this->organization_id = $data->organization_id;
     //     $this->school_year = $data->school_year;
-    //     $this->semester = $data->semester;
     //     $this->position = $data->position;
     //     $this->exp_date = $data->exp_date;
     //     $this->position_category = $data->position_category;
@@ -183,8 +177,6 @@ class Officers extends LivewireDatatable
     //         'middle_name' => 'required',
     //         'suffix' => 'nullable',
     //         'organization_id' => 'required',
-    //         'school_year' => 'required',
-    //         'semester' => 'required',
     //         'position' => 'required',
     //         'exp_date' => 'required',
     //         'position_category' => 'required',
@@ -227,8 +219,6 @@ class Officers extends LivewireDatatable
     //         'middle_name' => $this->middle_name,
     //         'suffix' => $this->suffix,
     //         'organization_id' => $this->organization_id,
-    //         'school_year' => $this->school_year,
-    //         'semester' => $this->semester,
     //         'position' => $this->position,
     //         'exp_date' => $this->exp_date,
     //         'position_category' => $this->position_category,
@@ -371,14 +361,11 @@ class Officers extends LivewireDatatable
                 ->label('Position Name')
                 ->filterable($this->position_titles),
 
-            // Column::name('school_year')
             //     ->label('School Year')
             //     ->filterable()
             //     ->editable(),
                 // ->searchable(),
 
-            // Column::name('semester')
-            //     ->label('Semester')
             //     ->filterable()
             //     ->editable(),
                 // ->searchable(),

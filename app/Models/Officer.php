@@ -19,8 +19,6 @@ class Officer extends Model
         'middle_name',
         'suffix',
         'organization_id',
-        'school_year',
-        'semester',
         'position_title_id',
         'term_end',
         'term_start',

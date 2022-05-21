@@ -49,6 +49,9 @@
                                     <x-jet-dropdown-link href="{{ route('users') }}" class="">
                                         Users
                                     </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('officers') }}" class="">
+                                        Officers
+                                    </x-jet-dropdown-link>
                                     <div class="border-t border-gray-100"></div>
                                 </div>
                             </x-slot>
