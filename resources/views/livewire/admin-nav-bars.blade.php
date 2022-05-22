@@ -157,6 +157,46 @@
                         </x-jet-dropdown>
                     </div>
                 @endif
+                <!-- HOMEPAGE ADMIN NAVIGATION -->
+                @if($getUserRole == "Home Page Admin")
+                    <div class="ml-3 relative">
+                        <x-jet-dropdown align="right" width="60">
+                            <x-slot name="trigger">
+                                <span class="inline-flex rounded-md">
+                                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
+                                        <span class="" >Homepage</span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-60">
+                                    <x-jet-dropdown-link href="{{ route('default-interfaces') }}" class="">
+                                        Dashbaord
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('Organization/organizations') }}" class="">
+                                        Organization
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('Organization/articles') }}" class="">
+                                        News
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('Organization/announcements') }}" class="">
+                                        Announcement
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('Organization/officers') }}" class="">
+                                        Officers
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('Organization/socials') }}" class="">
+                                        Socials
+                                    </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
+                    </div>
+                @endif
                 <!-- GPOA ADMIN NAVIGATION -->
                 @if($getUserRole == "GPOA Admin")
                     <div class="ml-3 relative">
@@ -408,7 +448,7 @@
                     </div>
                 @endif
                 <!-- ACCOMPLISHMENT ADMIN NAVIGATION -->
-                @if($getUserRole == "AR Admin")
+                @if($getUserRole == "AR Officer Admin" || $getUserRole == "AR President Admin")
                     <div class="ml-3 relative">
                         <x-jet-dropdown align="right" width="60">
                             <x-slot name="trigger">
@@ -515,7 +555,7 @@
                             </x-slot>
                             <x-slot name="content">
                                 <div class="w-60">
-                                    <x-jet-dropdown-link href="" class="">
+                                    <x-jet-dropdown-link href="{{ route('Organization/OfficerSignatures') }}" class="">
                                         Manages Officer Signature
                                     </x-jet-dropdown-link>
                                     <div class="border-t border-gray-100"></div>
@@ -537,7 +577,7 @@
                             </x-slot>
                             <x-slot name="content">
                                 <div class="w-60">
-                                    <x-jet-dropdown-link href="" class="">
+                                    <x-jet-dropdown-link href="{{route('Organization/myAccomplishments')}}" class="">
                                         My Accomplishment
                                     </x-jet-dropdown-link>
                                     <x-jet-dropdown-link href="" class="">
