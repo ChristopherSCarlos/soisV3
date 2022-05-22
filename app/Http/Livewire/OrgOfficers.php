@@ -145,9 +145,9 @@ class OrgOfficers extends LivewireDatatable
                 // ->editable(),
                 // ->searchable(),
 
-            Column::name('position')
-                ->label('Position')
-                ->filterable(),
+            // Column::name('position')
+            //     ->label('Position')
+            //     ->filterable(),
                 // ->editable(),
                 // ->searchable(),
 
