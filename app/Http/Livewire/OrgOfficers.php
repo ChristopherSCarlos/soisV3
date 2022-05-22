@@ -133,15 +133,15 @@ class OrgOfficers extends LivewireDatatable
                 // ->editable(),
                 // ->searchable(),
 
-            Column::name('school_year')
-                ->label('School Year')
-                ->filterable(),
+            // Column::name('school_year')
+            //     ->label('School Year')
+            //     ->filterable(),
                 // ->editable(),
                 // ->searchable(),
 
-            Column::name('semester')
-                ->label('Semester')
-                ->filterable(),
+            // Column::name('semester')
+            //     ->label('Semester')
+            //     ->filterable(),
                 // ->editable(),
                 // ->searchable(),
 
