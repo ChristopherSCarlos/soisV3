@@ -131,7 +131,7 @@ class Officers extends LivewireDatatable
             'middle_name' => $this->middle_name,
             'suffix' => $this->suffix,
             'organization_id' => $this->organization_id,
-            'position' => $this->position,
+            // 'position' => $this->position,
             'exp_date' => $this->exp_date,
             'position_category' => $this->position_category,
             'status' => '1',

@@ -151,9 +151,9 @@ class OrgOfficers extends LivewireDatatable
                 // ->editable(),
                 // ->searchable(),
 
-            DateColumn::name('exp_date')
-                ->label('Retirement')
-                ->filterable(),
+            // DateColumn::name('exp_date')
+            //     ->label('Retirement')
+            //     ->filterable(),
                 // ->editable(),
                 // ->searchable(),
 
