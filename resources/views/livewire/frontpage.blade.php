@@ -93,6 +93,7 @@
                          @foreach($getDisplaySelectedNewsImageData as $newsImage)
                              @if($newsImage->articles_id == $HomepageNews->articles_id)
                                  <img class="sliding-annonuncement-image" src="{{ asset('files/'.$newsImage->file) }}">
+                                 <p>{{ asset('files/'.$newsImage->file) }}</p>
                              @endif
                          @endforeach
                    </div>
