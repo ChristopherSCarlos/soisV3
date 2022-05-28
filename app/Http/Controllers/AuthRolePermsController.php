@@ -60,7 +60,13 @@ class AuthRolePermsController extends Controller
                         echo "<br><br>";
                         return redirect('/default-interfaces');
                         // dd("Super Admin");
-                    }elseif($this->user_role != 'Super Admin' || $this->user_role != 'User' ){
+                    }
+                    elseif($this->user_role != 'Head of Student Affairs'){
+                        echo $this->user_role;
+                        echo "<br><br>";
+                        // dd("Head of student affairs");
+                        return redirect('/admin-default-interfaces');
+                    }elseif($this->user_role != 'Super Admin' || $this->user_role != 'Head of Student Affairs' || $this->user_role != 'User' ){
                         echo $this->user_role;
                         echo "<br><br>";
                         echo "Not Suer admin";
@@ -69,6 +75,7 @@ class AuthRolePermsController extends Controller
                     }elseif($this->user_role == 'User'){
                         echo "User";
                         echo "<br><br>";
+                        dd("HomepageAdmin");
                         // dd("User");
                         // return redirect('/Organization/dashboard');
                         Auth::logout();

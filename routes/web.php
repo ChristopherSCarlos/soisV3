@@ -19,6 +19,7 @@ use App\Http\Livewire\SelectedUser;
 use App\Http\Livewire\OrganizationPages;
 use App\Http\Livewire\PagesUpdateProcess;
 use App\Http\Livewire\ViewAnnouncement;
+use App\Http\Middleware\isHeadOfStudentServices;
 
 
 /*
@@ -38,6 +39,36 @@ Route::get('/authredirects', 'App\Http\Controllers\AuthRolePermsController@index
 
 Route::get('/cookie/set','App\Http\Controllers\CookieController@setCookie');
 Route::get('/cookie/get','App\Http\Controllers\CookieController@getCookie');
+
+Route::group(['middleware' => [
+            'isHeadOfStudentServices',
+            'auth:sanctum',
+            'verified',
+]], function(){
+
+        Route::resource('admin-articles', 'App\Http\Controllers\ArticleCreate');
+        Route::resource('admin-organization', 'App\Http\Controllers\OrganizationCRUD');
+        Route::resource('admin-announcement', 'App\Http\Controllers\AnouncementCRUD');
+        Route::resource('admin-users', 'App\Http\Controllers\UserCRUD');
+        Route::resource('admin-roles', 'App\Http\Controllers\RoleController');
+        Route::resource('admin-sub-links', 'App\Http\Controllers\SoisSubLinksCRUD');
+        Route::resource('admin-AR-Events', 'App\Http\Controllers\AccomplishEventsCRUD');
+
+        Route::resource('admin-org-articles', 'App\Http\Controllers\OrgAccArticleCreate');
+
+        Route::get('/admin-default-interfaces', function(){
+            return view('admin.default-interfaces');
+        })->name('admin-default-interfaces');
+
+        Route::get('/admin-org', function(){
+            return view('admin.organizations');
+        })->name('admin-org');
+
+        Route::get('/adminArticles', function(){
+            return view('admin.articles');
+        })->name('adminArticles');
+
+});
 
 Route::group(['middleware' => [
             'isSuperAdmin',
@@ -74,7 +105,9 @@ Route::group(['middleware' => [
         // Route::put('organization/deleteOrg/{id}','App\Http\Controllers\OrganizationCRUD@destroy')->name('organization/deleteOrg');
 
         
-
+        Route::get('/superorganization', function(){
+            return view('admin.organizations');
+        })->name('superorganization');
 
         Route::get('/dashboard', function(){
             return view('admin.dashboards');

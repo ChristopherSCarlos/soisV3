@@ -13,7 +13,7 @@
 
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- SUPER ADMIN NAVIGATION -->
-                @if($getUserRole == "Super Admin")
+                @if($getUserRole == "Super Admin" || $getUserRole == "Head of Student Services")
                     <div class="ml-3 relative">
                         <x-jet-dropdown align="right" width="60">
                             <x-slot name="trigger">
@@ -28,11 +28,12 @@
                             </x-slot>
                             <x-slot name="content">
                                 <div class="w-60">
+                                    @if($getUserRole == "Super Admin")
                                     <x-jet-dropdown-link href="{{ route('default-interfaces') }}" class="">
                                         Dashbaord
                                     </x-jet-dropdown-link>
-                                    <x-jet-dropdown-link href="{{ route('organizations') }}" class="">
-                                        Organization
+                                    <x-jet-dropdown-link href="{{ route('organization') }}" class="">
+                                        Organizations
                                     </x-jet-dropdown-link>
                                     <x-jet-dropdown-link href="{{ route('articles') }}" class="">
                                         News
@@ -52,6 +53,30 @@
                                     <x-jet-dropdown-link href="{{ route('officers') }}" class="">
                                         Officers
                                     </x-jet-dropdown-link>
+                                    @endif
+                                    @if($getUserRole == "Head of Student Services")
+                                    <x-jet-dropdown-link href="{{ route('admin-default-interfaces') }}" class="">
+                                        Dashbaord
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('admin-org') }}" class="">
+                                        Organizations
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('adminArticles') }}" class="">
+                                        News
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('announcements') }}" class="">
+                                        Announcement
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('sub-links') }}" class="">
+                                        Gate SubLinks
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('users') }}" class="">
+                                        Users
+                                    </x-jet-dropdown-link>
+                                    <x-jet-dropdown-link href="{{ route('officers') }}" class="">
+                                        Officers
+                                    </x-jet-dropdown-link>
+                                    @endif
                                     <div class="border-t border-gray-100"></div>
                                 </div>
                             </x-slot>
