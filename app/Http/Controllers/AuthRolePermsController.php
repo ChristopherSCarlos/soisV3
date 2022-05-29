@@ -61,7 +61,7 @@ class AuthRolePermsController extends Controller
                         return redirect('/default-interfaces');
                         // dd("Super Admin");
                     }
-                    elseif($this->user_role != 'Head of Student Affairs'){
+                    elseif($this->user_role == 'Head of Student Affairs'){
                         echo $this->user_role;
                         echo "<br><br>";
                         // dd("Head of student affairs");
