@@ -32,7 +32,7 @@
                                     <x-jet-dropdown-link href="{{ route('default-interfaces') }}" class="">
                                         Dashbaord
                                     </x-jet-dropdown-link>
-                                    <x-jet-dropdown-link href="{{ route('organization') }}" class="">
+                                    <x-jet-dropdown-link href="{{ route('superorganization') }}" class="">
                                         Organizations
                                     </x-jet-dropdown-link>
                                     <x-jet-dropdown-link href="{{ route('articles') }}" class="">
