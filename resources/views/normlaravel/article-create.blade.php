@@ -3,7 +3,7 @@
 <div class="p-5">
 @extends('layouts.headlines')
 
-@section('page-title','test')
+@section('page-title','Article Create')
 
 @livewire('admin-nav-bars')
 
