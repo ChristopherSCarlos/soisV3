@@ -1,6 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
+<div class="p-5">
 @extends('layouts.headlines')
 
-@section('page-title','Article Create')
+@section('page-title','test')
 
 @livewire('admin-nav-bars')
 
@@ -46,7 +49,7 @@
 
 <div class="flex flex-col p-5">
 	<div class="max-w-lg rounded overflow-hidden shadow-lg">
-		<form name="add-articles" id="add-articles" method="POST" action="{{ route('articles.store') }}" enctype="multipart/form-data">
+		<form name="add-articles" id="add-articles" method="POST" action="{{ route('org-articles.store') }}" enctype="multipart/form-data">
 		@csrf
 		{{ csrf_field() }}
 			<div class="px-6 py-4">
@@ -62,7 +65,7 @@
 					<label for="article_subtitle">article_subtitle</label>
 					<input type="text" id="article_subtitle" name="article_subtitle" class="form-control" required="">
 				</div>
-				<div class="form-group">
+				<div class="form-group" wire:ignore>
 					<label for="article_content">article_content</label>
 					<textarea type="text" input="article_content" name="article_content" id="summernote" class="summernote"></textarea>
 				</div>
@@ -90,6 +93,28 @@
 
         </div>
     </div>
+<!--========================================
+=            Summernote Section            =
+=========================================-->
+
+<script>
+      $('#summernote').summernote({
+        tabsize: 2,
+        height: 120,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link', 'picture', 'video']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+      });
+    </script>
+
+<!--====  End of Summernote Section  ====-->
+
 </div>
 
 
@@ -97,7 +122,7 @@
 
 
 
-
-
 @extends('layouts.closing-tag')
+</div>
+</html>
 
