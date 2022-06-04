@@ -371,19 +371,29 @@ class UserCRUD extends Controller
     {
         $role_id = $request->role_id;
         // echo $role_id;
+        $orgainzation_id = $request->organization_id;
+        
+        $userWithOrgData = DB::table('role_user')->where('user_id','=',$id)->where('organization_id','!=',null)->first();
+        // dd($userWithOrgData->organization_id);
+
+        // dd(DB::table('role_user')->where('user_id','=',$id)->where('organization_id','!=',null)->first());
+        // echo $role_id;
+        
         if (DB::table('role_user')->where('user_id','=',$id)->pluck('role_id') != null) {
-            DB::table('role_user')->where('user_id','=',$id)->delete();
+            // DB::table('role_user')->where('user_id','=',$id)->delete();
             DB::table('role_user')->insert([
-                 'role_id' => $role_id, 'user_id' => $id, 'organization_id' => null,   
+                 'role_id' => $role_id, 'user_id' => $id, 'organization_id' => $userWithOrgData->organization_id,   
             ]);
             // echo "Exists";
         }else{
             DB::table('role_user')->insert([
-                 'role_id' => $role_id, 'user_id' => $id, 'organization_id' => null,   
+                 'role_id' => $role_id, 'user_id' => $id, 'organization_id' => $userWithOrgData->organization_id,   
             ]);
             // echo "Not Exists";
         }
+        
         // echo "Hello";
+        $role_id = null;
         return $this->accessControl($id);
         // return redirect()->route('user-selected-user', ['id' => $id]);
     }
