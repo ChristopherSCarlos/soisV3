@@ -378,18 +378,21 @@ class UserCRUD extends Controller
 
         // dd(DB::table('role_user')->where('user_id','=',$id)->where('organization_id','!=',null)->first());
         // echo $role_id;
+                
+        DB::table('role_user')->insert([
+                 'role_id' => $role_id, 'user_id' => $id, 'organization_id' => $userWithOrgData->organization_id,   
+            ]);
         
-        if (DB::table('role_user')->where('user_id','=',$id)->pluck('role_id') != null) {
-            // DB::table('role_user')->where('user_id','=',$id)->delete();
-            DB::table('role_user')->insert([
-                 'role_id' => $role_id, 'user_id' => $id, 'organization_id' => $userWithOrgData->organization_id,   
+        $userRoleData = DB::table('role_user')->where('user_id','=',$id)->first();
+        // dd($userRoleData->role_id);
+        $userRoleDataInt = $userRoleData->role_id;
+        // echo $userRoleDataInt;
+        $RoleUSerChecker = DB::table('role_user')->where('user_id','=',$id)->where('organization_id','=',$userRoleData->organization_id)->first();
+        // dd($RoleUSerChecker);
+        if (DB::table('event_signatures')->where('user_id','=',$id)->first() == null) {
+            DB::table('event_signatures')->insert([
+                ['organization_id' => $userRoleData->organization_id,'role_id' => $userRoleDataInt, 'user_id' => $id],
             ]);
-            // echo "Exists";
-        }else{
-            DB::table('role_user')->insert([
-                 'role_id' => $role_id, 'user_id' => $id, 'organization_id' => $userWithOrgData->organization_id,   
-            ]);
-            // echo "Not Exists";
         }
         
         // echo "Hello";
