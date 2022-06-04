@@ -105,13 +105,7 @@
 
     <!-- Sync Role To User -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#SyncRole">
-        @foreach($displayUserRoleData as $viewRole)
-            @if($viewRole->role != null)
-                <p>Change Role</p>
-            @else
-                <p>Add Role</p>
-            @endif
-        @endforeach
+        <p>Add Role</p>
     </button>
     <!-- Sync Organization to User -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#SyncOrganization">
