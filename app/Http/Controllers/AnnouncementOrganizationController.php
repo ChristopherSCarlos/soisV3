@@ -40,7 +40,7 @@ class AnnouncementOrganizationController extends Controller
     public function create()
     {
         // dd("Hello");
-        return view('normLaravel\org-announcement-create');
+        return view('normLaravel/org-announcement-create');
     }
 
     /**
