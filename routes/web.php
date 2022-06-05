@@ -280,6 +280,7 @@ Route::group(['middleware' => [
 
         Route::resource('org-articles', 'App\Http\Controllers\OrgAccArticleCreate');
         Route::resource('organizations', 'App\Http\Controllers\OrganizationController');
+        Route::resource('orgAnnouncements', 'App\Http\Controllers\AnnouncementOrganizationController');
 
         Route::get('/ar-menu', function(){
             return view('orgAdmin.ar-menu');
