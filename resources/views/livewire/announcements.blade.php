@@ -16,9 +16,11 @@
 
     <h2 class="table-title">Announcements</h2>
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
-        <x-jet-button wire:click="createAnnouncement">
-            {{ __('Create Announcement') }}
-        </x-jet-button>
+        <a href="{{ route('orgAnnouncements.create') }}">
+            <x-jet-button>
+                {{ __('Create Announcement') }}
+            </x-jet-button>
+        </a>
         @if($roleUser == 'Super Admin')
             <x-jet-danger-button wire:click="deletedannouncements">
                 {{ __('Deleted Announcements') }}
