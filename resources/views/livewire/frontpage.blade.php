@@ -1,3 +1,5 @@
+
+
 <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>     
      <!--====================================================
      =            Homepage Views Section comment            =
@@ -9,91 +11,84 @@
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
 
-<!-- navbar -->
-<div class="w-full text-gray-700 dark-mode:text-gray-200 dark-mode:bg-gray-800" style="background: #2a0001;">
-     <div x-data="{ open: false }" class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
+
+
+<!-- front page navigation -->
+     <div>
+         
+        <div id="navbar" style="padding:0px;" x-data="{ open: false }" class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
           <div class="p-4 flex flex-row items-center justify-between">
                <a href="{{ url('/')}}" class="flex text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">
                     <img class="h-8" src="{{ asset('image/svg/pup.svg') }}">
                     <p  id="titulo1" class="system-title ml-2 text-white">Student Organization Information System</p>
                     <p  id="titulo2" class="system-title-2 ml-2 text-white">SOIS</p>
                </a>
-               <button class="md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">
+               <button style="color:white" class="md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">
                     <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
                          <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
                          <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                     </svg>
                </button>
           </div>
-          <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
-               <a href="/">
-               <span class="inline-flex rounded-md">
-                   <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                    <i class="fas fa-home"></i>
-                       <span class="ml-1">Home</span>
-                   </button>
-               </span>
-               </a>
-               <a href="/news">
-               <span class="inline-flex rounded-md">
-                   <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                    <i class="far fa-newspaper"></i>
-                       <span class="ml-1">News</span>
-                   </button>
-               </span>
-               </a>
-                                  <x-jet-dropdown align="right" width="60">
-                                      <x-slot name="trigger">
-                                          <span class="inline-flex rounded-md">
-                                              <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
-                                                  <i class="fas fa-users"></i>
-                                                  <span class="ml-1">Organization</span>
-                                                  <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                      <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                                  </svg>
-                                              </button>
-                                          </span>
-                                      </x-slot>
-                                      <x-slot name="content">
-                                          <div class="w-60">
-                                              <!-- Team Management -->
-                                              <div class="block px-4 py-2 text-xs text-gray-400">
-                                                  {{ __('PUP ORGANIZATIONS') }}
-                                              </div>
-                                              <!-- Team Settings -->
-                                              @foreach($orgLinks as $orgWebLinks)
-                                                  <x-jet-dropdown-link href="{{ url($orgWebLinks->organization_slug) }}" class="frontpage-nav-bar-design">
-                                                      {{ $orgWebLinks->organization_name }}
-                                                  </x-jet-dropdown-link>
-                                              @endforeach
-                                              <div class="border-t border-gray-100"></div>
-                                          </div>
-                                      </x-slot>
-                                  </x-jet-dropdown>
-
-               <a href="{{ url('/login') }}">
-               <span class="inline-flex rounded-md">
-                   <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                    <i class="fas fa-sign-in-alt"></i>
-                       <span class="ml-1">Login</span>
-                   </button>
-               </span>
-               </a>
-          </nav>
+          <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow md:pb-0 hidden md:flex md:justify-end md:flex-row">
+                <a href="/" class="frontpage-nav-button" style="">
+                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                     <i class="fas fa-home"></i>
+                        <span class="ml-1">Home</span>
+                    </button>
+                    <span class="inline-flex rounded-md">
+                    </span>
+                </a>
+                <a href="/news" class="frontpage-nav-button">
+                    <span class="inline-flex rounded-md">
+                        <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                         <i class="far fa-newspaper"></i>
+                            <span class="ml-1">News</span>
+                        </button>
+                    </span>
+                </a>
+                <div class="Panel frontpage-nav-button">
+                    <span class="inline-flex rounded-md">
+                  <button class=" frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                      <i class="fas fa-users"></i>
+                                <span class="ml-1">Organization</span>
+                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                  </button>
+                    </span>
+                  <div id="myDropdown" class="dropdown-content">
+                    <div class="block px-4 py-2 text-xs text-gray-400">
+                        {{ __('PUP ORGANIZATIONS') }}
+                    </div>
+                    @foreach($orgLinks as $orgWebLinks)
+                        <a href="{{ url($orgWebLinks->organization_slug) }}" class="frontpage-nav-bar-design">{{ $orgWebLinks->organization_name }}</a>
+                    @endforeach
+                  </div>
+                </div>
+                <a href="{{ url('/login') }}" class="frontpage-nav-button">
+                    <span class="inline-flex rounded-md">
+                        <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                         <i class="fas fa-sign-in-alt"></i>
+                            <span class="ml-1">Login</span>
+                        </button>
+                    </span>
+                </a>
+            </nav>
      </div>
-</div>
+         
+     </div>
 
-<div style="background: #2a0001;">
+
      <!-- main slider -->
-     <div class="sliding-announcement-wrap-homepage">
-         <div class="sliding-announcement">
+     <div class="sliding-announcement-wrap-homepage" style="">
+         <div class="sliding-announcement"  style="margin-bottom:0px; background: #1a1a1a;">
                @foreach($getDisplayArticlesOnHomepageCarousel as $HomepageNews)
                <a href="{{$HomepageNews->article_slug}}">
-                   <div class="sliding-annonuncement-image-container">
+                   <div class="sliding-annonuncement-image-container" style="">
                          @foreach($getDisplaySelectedNewsImageData as $newsImage)
                              @if($newsImage->articles_id == $HomepageNews->articles_id)
-                                 <img class="sliding-annonuncement-image" src="{{ asset('files/'.$newsImage->file) }}">
-                                 <p>{{ asset('files/'.$newsImage->file) }}</p>
+                                 <img class="sliding-annonuncement-image" src="{{ asset('files/'.$newsImage->file) }}" style="object-fit: contain;">
                              @endif
                          @endforeach
                    </div>
@@ -101,126 +96,155 @@
           @endforeach
          </div>
          <div class="slick-slider-dots"></div>
-         <button class="button-slider slide-arrow prev-arrow"><i class="carousel-chevron fas fa-angle-left fa-2x"></i></button>
-         <button class="button-slider slide-arrow next-arrow"><i class="carousel-chevron fas fa-angle-right fa-2x"></i></button>
+         <button class="button-slider slide-arrow prev-arrow" style=""><i class="carousel-chevron fas fa-angle-left fa-2x"></i></button>
+         <button class="button-slider slide-arrow next-arrow" style=""><i class="carousel-chevron fas fa-angle-right fa-2x"></i></button>
      </div>
-     
-     <!-- announcement -->
+<!-- End of front page navigation -->
+
+
+<!-- front page carousel -->
+<!-- end f=of frontpage carousel -->
+
+<div class="grid grid-cols-12">
+    <div class="text-center col-span-12 xs:col-span-6 sm:col-span-12 md:col-span-6 lg:col-span-6 xl:col-span-6" style="background: #1a1a1a;">
+        <div class="text-white p-6 text-center">
+            @foreach($displayARLink as $accomplishmentLink)
+            <h4>{{$accomplishmentLink->link_name}}</h4>
+            <p style="font-size:60%;">{{$accomplishmentLink->link_description}}</p>
+            <a href="{{$accomplishmentLink->external_link}}">
+                <x-jet-secondary-button>Visit Site</x-jet-secondary-button>
+            </a>
+            @endforeach
+        </div>
+    </div>
+    <div class="col-span-12 xs:col-span-6 sm:col-span-12 md:col-span-6 lg:col-span-6 xl:col-span-6" style="background: #1a1a1a;">
+        <div class="text-white p-6 text-center">
+            @foreach($displayGPOALink as $gpoaLink)
+            <h4>{{$gpoaLink->link_name}}</h4>
+            <p style="font-size:60%;">{{$gpoaLink->link_description}}</p>
+            <a href="{{$gpoaLink->external_link}}">
+                <x-jet-secondary-button>Visit Site</x-jet-secondary-button>
+            </a>
+            @endforeach
+        </div>
+    </div>
+    <div class="col-span-12 xs:col-span-6 sm:col-span-12 md:col-span-6 lg:col-span-6 xl:col-span-6" style="background: #1a1a1a;">
+        <div class="text-white p-6 text-center">
+            @foreach($displayMembershipLink as $membershipLink)
+            <h4>{{$membershipLink->link_name}}</h4>
+            <p style="font-size:60%;">{{$membershipLink->link_description}}</p>
+            <a href="{{$membershipLink->external_link}}">
+                <x-jet-secondary-button>Visit Site</x-jet-secondary-button>
+            </a>
+            @endforeach
+        </div>
+    </div>
+    <div class="col-span-12 xs:col-span-6 sm:col-span-12 md:col-span-6 lg:col-span-6 xl:col-span-6" style="background: #1a1a1a;">
+        <div class="text-white p-6 text-center">
+            <h4>Financial Report</h4>
+            <p style="font-size:60%;">"Description"</p>
+            <a href="#">
+                <x-jet-secondary-button>Visit Site</x-jet-secondary-button>
+            </a>
+        </div>
+    </div>
+</div> 
+
+<!-- announcement -->
      <div class="flex flex-col" data-aos="fade-up">
           <div class="grid grid-cols-12">
-               <div class="col-start-2 col-span-12">
-                    <p class="homepage-titles " style="color:white">Latest Announcements</p>
+               <div class="col-start-2 col-span-12 p-6">
+                    <p class="homepage-titles " style="color:black">Latest Announcements</p>
                </div>
           </div>
-          <div class="grid grid-cols-12">
-               <div class="p-5 col-start-2 col-end-12 col-span-12 grid grid-cols-10">
-                    @foreach($getDisplayAnnouncementFeaturedHomepageLatestFirst as $HPLatestAnnouncementFirst)
-                    <div class="col-span-10 xl:col-span-6 lg:col-span-6 md:col-span-10 sm:col-span-10">
-                         @foreach($getDisplayAnnouncementImageFrontpage as $announcementImage)
-                             @if($announcementImage->announcement_id == $HPLatestAnnouncementFirst->announcements_id)
-                                 <img class="w-full" style="object-fit:cover;" src="{{ asset('files/'.$announcementImage->file) }}">
-                             @endif
-                         @endforeach
-                    </div>
-                    <div class="col-span-10 xl:col-span-4 lg:col-span-4 md:col-span-10 sm:col-span-10 flex flex-col">
-                         <div class="justify-center items-center" style="color:white;">
-                              <h2 class="justify-center" style="color:white; font-family: 'Exo 2',sans-serif; font-size: 20px;">{{$HPLatestAnnouncementFirst->announcement_title}}</h2>
-                         </div>
-                         <div style="color:white;"><p><?php echo htmlspecialchars_decode(stripslashes($HPLatestAnnouncementFirst->announcement_content));  ?></p></div>
-                    </div>
+          <div id="homepageNewsDiv">
+            <div id="homepageLatestNewsDiv">
+                <div class="grid grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-2 lg:pl-9 md:pl-9 sm:pl-9 xl:pl-9 ">
+                    @foreach($getDsiplayArticleLatestOnCreatedPage as $homepageLatestNews)
+                        <div class="article-newspage p-3 flex flex-col">
+                            <a href="{{$homepageLatestNews->article_slug}}">
+                                <div class="items-center justify-center" style="width: 100%;">
+                                    @foreach($getDisplaySelectedNewsImageData as $newsImage)
+                                        @if($newsImage->articles_id == $homepageLatestNews->articles_id)
+                                            <img class="frontpage-image-announcement" style="object-fit:cover;" src="{{ asset('files/'.$newsImage->file) }}">
+                                        @endif
+                                    @endforeach
+                                </div>
+                                <div class="home-page-latest-news-slick">
+                                    <h5 class="text-black">{{$homepageLatestNews->article_title}}</h5>
+                                    <p style="font-size: 10px;">{{\Carbon\Carbon::parse($homepageLatestNews->created_at)->isoFormat('MMM Do YYYY')}}</p>
+                                </div>
+                            </a>
+                        </div>
                     @endforeach
-               </div>
-          </div>
-          <div class="grid grid-cols-12">
-               <div class="p-5 col-start-2 sm:col-start-2 xs:col-start-2 md:col-start-2 lg:col-start-2 xl:col-start-2 col-span-3 xs:col-span-3 xl:col-span-3 lg:col-span-3 md:col-span-10 sm:col-span-10">
-                    @foreach($getDisplayAnnouncementImageFrontpageThree as $HPLatestAnnouncemeFirstThree)
-                    <div class="col-span-10 xl:col-span-6 lg:col-span-6 md:col-span-10 sm:col-span-10">
-                         <p>{{$HPLatestAnnouncemeFirstThree->announcements_id}}</p>
-                         @foreach($getDisplayAnnouncementImageFrontpage as $announcementImage)
-                             @if($announcementImage->announcement_id == $HPLatestAnnouncemeFirstThree->announcements_id)
-                                 <img class="w-full" style="object-fit:cover;" src="{{ asset('files/'.$announcementImage->file) }}">
-                             @endif
-                         @endforeach
-                    </div>
-                    <div class="col-span-10 xl:col-span-4 lg:col-span-4 md:col-span-10 sm:col-span-10 flex flex-col">
-                         <div class=" ">
-                              <h2 class="justify-center" style="color:white; font-family: 'Exo 2',sans-serif; font-size: 20px;">Announcement Title</h2>
-                         </div>
-                         <div style="color:white;">Announcement Content</div>
-                    </div>
-                    @endforeach
-               </div>
-          </div>
+                </div>
+            </div>
      </div>
 </div>
 
 <!-- latest news -->
 <div class="flex flex-col" data-aos="fade-up">
-     <div class="grid grid-cols-12">
-          <div class="col-start-2 col-span-9">
-               <p class="homepage-titles pt-5"><strong>News</strong></p> 
-          </div>
-          <div class="pt-5">
-               <button class="HPLatestNews" onclick="LatestFunction()">Latest</button>
-          </div>
-          <div class="pt-5">
-               <button class="HPFeaturedNews" onclick="FeaturedFunction()">Featured</button>
-          </div>
-     </div>
-     <div id="homepageNewsDiv" onload="homepageNewsFunction()">
-          <div id="homepageLatestNewsDiv">
-               <div class="grid grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-2 lg:pl-9 md:pl-9 sm:pl-9 xl:pl-9 ">
+    <div style="background: #1a1a1a;">
+        <div class="grid grid-cols-12">
+            <div class="col-start-2 col-span-9">
+                <p class="homepage-titles pt-5" style="color: white;"><strong>News</strong></p> 
+            </div>
+        </div>
+        <div id="homepageNewsDiv" onload="homepageNewsFunction()">
+            <div id="homepageLatestNewsDiv">
+                <div class="grid grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-2 lg:pl-9 md:pl-9 sm:pl-9 xl:pl-9 ">
                     @foreach($getDsiplayArticleLatestOnCreatedPage as $homepageLatestNews)
-                         <div class="article-newspage p-3 flex flex-col">
-                             <a href="{{$homepageLatestNews->article_slug}}">
-                                 <div class="items-center justify-center" style="width: 100%;">
-                                     @foreach($getDisplaySelectedNewsImageData as $newsImage)
-                                         @if($newsImage->articles_id == $homepageLatestNews->articles_id)
-                                             <img style="object-fit:cover; height:50vh;" src="{{ asset('files/'.$newsImage->file) }}">
-                                         @endif
-                                     @endforeach
-                                 </div>
-                                 <div class="">
-                                        <h5 class="">{{$homepageLatestNews->article_title}}</h5>
-                                        <p style="font-size: 10px;">{{\Carbon\Carbon::parse($homepageLatestNews->created_at)->isoFormat('MMM Do YYYY')}}</p>
-                                 </div>
-                             </a>
-                         </div>
+                        <div class="article-newspage p-3 flex flex-col">
+                            <a href="{{$homepageLatestNews->article_slug}}">
+                                <div class="items-center justify-center" style="width: 100%;">
+                                    @foreach($getDisplaySelectedNewsImageData as $newsImage)
+                                        @if($newsImage->articles_id == $homepageLatestNews->articles_id)
+                                            <img class="frontpage-image-announcement" style="object-fit:cover;" src="{{ asset('files/'.$newsImage->file) }}">
+                                        @endif
+                                    @endforeach
+                                </div>
+                                <div class="home-page-latest-news-slick">
+                                    <h5 class="text-white">{{$homepageLatestNews->article_title}}</h5>
+                                    <p style="font-size: 10px;">{{\Carbon\Carbon::parse($homepageLatestNews->created_at)->isoFormat('MMM Do YYYY')}}</p>
+                                </div>
+                            </a>
+                        </div>
                     @endforeach
-               </div>
-          </div>
-          <div id="homepageFeaturedNewsDiv">
-               <div class="grid grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-2 lg:pl-9 md:pl-9 sm:pl-9 xl:pl-9 ">
+                </div>
+            </div>
+            <div id="homepageFeaturedNewsDiv">
+                <div class="grid grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-2 lg:pl-9 md:pl-9 sm:pl-9 xl:pl-9 ">
                     @foreach($getDsiplayFeaturedArticleOnCreatedPage as $featuredNewspage)
-                         <div class="article-newspage p-3 flex flex-col">
-                             <a href="{{$featuredNewspage->article_slug}}">
-                                 <div class="" style="width: 100%;">
-                                     @foreach($getDisplaySelectedNewsImageData as $newsImage)
-                                         @if($newsImage->articles_id == $featuredNewspage->articles_id)
-                                             <img style="object-fit:cover;  height:50vh;" src="{{ asset('files/'.$newsImage->file) }}">
-                                         @endif
-                                     @endforeach
-                                 </div>
-                                 <div class="">
-                                        <h5 class="">{{$featuredNewspage->article_title}}</h5>
-                                        <p style="font-size: 10px;">{{\Carbon\Carbon::parse($featuredNewspage->created_at)->isoFormat('MMM Do YYYY')}}</p>
-                                 </div>
-                             </a>
-                         </div>
+                        <div class="article-newspage p-3 flex flex-col">
+                            <a href="{{$featuredNewspage->article_slug}}">
+                                <div class="" style="width: 100%;">
+                                    @foreach($getDisplaySelectedNewsImageData as $newsImage)
+                                        @if($newsImage->articles_id == $featuredNewspage->articles_id)
+                                            <img style="object-fit:cover;  height:50vh;" src="{{ asset('files/'.$newsImage->file) }}">
+                                        @endif
+                                    @endforeach
+                                </div>
+                                <div class="">
+                                       <h5 class="">{{$featuredNewspage->article_title}}</h5>
+                                       <p style="font-size: 10px;">{{\Carbon\Carbon::parse($featuredNewspage->created_at)->isoFormat('MMM Do YYYY')}}</p>
+                                </div>
+                            </a>
+                        </div>
                     @endforeach
-               </div>
-          </div>
-     </div>
-</div>
+                </div>
+            </div>
+        </div>
+    /div>
+    </div>
 
 
 
 
-<div data-aos="fade-up">
-     <div class="grid grid-rows-2 " style="background: #0d0c0d; color:white;">
+<div data-aos="fade-up" style="background: #ffffff;">
+     <div class="grid grid-rows-2 " >
           <div class="text-center"><p class="homepage-titles"><strong>Featured Events</strong></p></div>
      </div>
-     <div class=" p-6 flex justify-center items-center" style="background: #0d0c0d;width: 100%; color:white;">
+     <div class=" p-6 flex justify-center items-center" style="width: 100%;">
           <div class=" mb-6"  style="width:95% ;">
                <div class="homepage-events-slick">
                     @foreach($getDisplayEventsHomepage as $HomepageEvents)
@@ -244,60 +268,6 @@
                          </div>
                     @endforeach
                </div>
-          </div>
-     </div>
-</div>
-
-<div class="mt-3  mb-3" style="" data-aos="fade-up">
-     <div class="text-center"><p class="homepage-titles">Quick Links</p></div>
-     <div class="grid grid-cols-12">
-          <div class="col-span-3">
-               <a href="http://sois-gpoa.puptaguigcs.net">
-               <div class="QLData  flex flex-col items-center justify-center pt-5">
-                    <div class="">
-                         <span class="HPLinksLogo">
-                              <i class="fas fa-solid fa-calendar-check"></i>
-                         </span>
-                    </div>
-                    <div class="pt-5">GPOA</div>
-               </div>
-               </a>     
-          </div>
-          <div class="col-span-3">
-               <a href="http://sois-membership.puptaguigcs.net">
-                    <div class="QLData flex flex-col items-center justify-center pt-5">
-                         <div class="">
-                              <span class="HPLinksLogo">
-                                   <i class="fas fa-users"></i>
-                              </span>
-                         </div>
-                         <div class="pt-5">Organization Membership</div>
-                    </div>
-               </a>
-          </div>
-          <div class="col-span-3 ">
-               <a href="http://sois-ar.puptaguigcs.net">
-                    <div class="QLData flex flex-col items-center justify-center pt-5">
-                         <div class="">
-                              <span class="HPLinksLogo">
-                                   <i class="fas fa-solid fa-medal"></i>
-                              </span>
-                         </div>
-                         <div class="pt-5">Accomplishment Reports</div>
-                    </div>
-               </a>     
-          </div>
-          <div class="col-span-3">
-               <a href="#">
-                    <div class="QLData flex flex-col items-center justify-center pt-5">
-                         <div class="">
-                              <span class="HPLinksLogo">
-                                   <i class="fas fa-solid fa-money-bill"></i>
-                              </span>
-                         </div>
-                         <div class="pt-5">Financial Statement</div>
-                    </div>
-               </a>     
           </div>
      </div>
 </div>

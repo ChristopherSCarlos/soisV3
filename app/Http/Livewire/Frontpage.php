@@ -76,6 +76,21 @@ class Frontpage extends Component
     private $tst;
     public $request;
 
+    private $connect; 
+
+    public function testCarousel()
+    {
+        $this->connect = mysqli_connect("localhost", "root", "", "sois1");
+        // dd($this->connect);
+    }
+
+    public function make_query($connect)
+    {
+     $query = "SELECT * FROM banner ORDER BY banner_id ASC";
+     $result = mysqli_query($connect, $query);
+     return $result;
+    }
+
     public function mount($urlslug = null)
     {
         $this->retrieveContent($urlslug);
@@ -220,7 +235,7 @@ class Frontpage extends Component
     }
     public function getArticleLatestSix()
     {
-        // dd(DB::table('articles')->orderBy('created_at','asc')->skip(1)->take(10)->get());
+        // dd(DB::table('articles')->orderBy('created_at','asc')->take(8)->get());
         return DB::table('articles')->orderBy('created_at','asc')->take(8)->get();
         // return DB::table('articles')->orderBy('created_at','asc')->paginate(10);
         // dd(DB::table('articles')->orderBy('created_at','asc')->take(6)->get());
@@ -241,7 +256,7 @@ class Frontpage extends Component
     public function getLatestArticle()
     {
         // dd(DB::table('articles')->where('status','=','1')->orderBy('created_at','desc')->paginate(15));
-        return DB::table('articles')->where('status','=','1')->orderBy('created_at','desc')->paginate(15);
+        return DB::table('articles')->where('status','=','1')->orderBy('created_at','desc')->paginate(4);
     }
     public function getAllFeaturedArticle() 
     {
@@ -340,10 +355,11 @@ class Frontpage extends Component
         //     // $this->articlesImageArray[] = $object->toArray();
         // }
         $this->articlesImageArray = DB::table('organization_assets')->where('status','=','1')->where('is_latest_image','=','1')->get();
-        // dd($articlesImageArray);
+        // dd($this->articlesImageArray);
         // $s       // dd(DB::table('organization_assets')->where('articles_id','=',$i)->where('status','=','1')->where('is_latest_image','=','1')->get());
         // dd($this->articlesImageIDCount);
         // dd('hello');
+        // dd($this->articlesImageArray);
         return $this->articlesImageArray;
     }
 
@@ -495,7 +511,9 @@ class Frontpage extends Component
     public function getAnnouncementsInDatabaseFeaturedHomepageLatestFirst()
     {
         // dd(Announcement::where('status','=','1')->orderBy('created_at','desc')->take(1)->get());
-        return Announcement::where('status','=','1')->orderBy('created_at','desc')->take(1)->get();
+        // dd(gettype(DB::table('announcements')->orderBy('created_at','desc')->get()));
+        // return DB::table('announcements')->paginate(5);
+        // return Announcement::orderBy('created_at','desc')->get();
     }
     public function getSelectedAnnouncementImage()
     {
@@ -527,6 +545,8 @@ class Frontpage extends Component
 
     public function getHomepageCarouselDataFromDatabase()
     {
+
+        // dd(DB::table('articles')->where('is_carousel_homepage','=','1')->get());
         return DB::table('articles')->where('is_carousel_homepage','=','1')->get();
     }
 
@@ -596,10 +616,32 @@ class Frontpage extends Component
         // dd($this->orgSocialSelectedOrganizationData);
     }
 
+    
+
+    // FRONT PAGE DISPLAY SOIS LINKS
+    public function getGPOALink()
+    {
+        return DB::table('sois_links')->where('link_name','=','GPOA')->get();
+    }
+    public function getARLink()
+    {
+        return DB::table('sois_links')->where('link_name','=','Accomplishment Report')->get();
+    }
+    public function getMembershipLink()
+    {
+        return DB::table('sois_links')->where('link_name','=','Membership')->get();
+    }
+
 
     public function render()
     {
         return view('livewire.frontpage',[
+            'displayGPOALink' => $this->getGPOALink(),
+            'displayARLink' => $this->getARLink(),
+            'displayMembershipLink' => $this->getMembershipLink(),
+
+            'test' => $this->testCarousel(),
+
             'isWebpageHomepage' => $this->selectSystemHomepage(),
             'isCurrentSlugInSystemPage' => $this->selectSlugForSystemPagesViews(),
             'getTopBarNav' => $this->topBarLinks(),

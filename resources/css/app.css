@@ -262,7 +262,14 @@ hr{
   position: relative;
 }
 
-
+#navbar{
+    position:fixed;
+  width:100%;
+  background-color:transparent;
+  z-index:10;
+  border-radius:0;
+  border-color:transparent;
+}
 
 .frontpage-title-container{
   display: flex;
@@ -458,20 +465,39 @@ hr{
 }
 
 .sliding-annonuncement-image-container{
-    height: 80vh;
+    height: 100vh;
     width: 100%;
 }
-@media(max-width: 900px){
-.sliding-annonuncement-image-container{
-    height: 50%;
-    width: 100%;
-}    
+@media(max-width: 1024px){
+    .sliding-annonuncement-image-container{
+        width: 100%;
+        height: 80vh;
+    }    
 }
+@media(max-width: 768px){
+    .sliding-annonuncement-image-container{
+        width: 100%;
+        height: 60vh;
+    }    
+}
+@media(max-width: 435px){
+    .sliding-annonuncement-image-container{
+        width: 100%;
+        height: 30vh;
+    }    
+}
+@media(max-width: 320px){
+    .sliding-annonuncement-image-container{
+        width: 100%;
+        height: 20vh;
+    }    
+}
+
 
 .sliding-annonuncement-image{
     object-fit: fill;
     width: 100vw;
-    height: 100%;
+    /*height: 100%;*/
 }
 
 .button-slider {
@@ -532,6 +558,9 @@ hr{
 .sliding-announcement-wrap-homepage {
     position: relative;
     width: 100%;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px;
+    background: #1a1a1a;
     /*height: 0vh;*/
 }
 .sliding-announcement-wrap {
@@ -936,10 +965,19 @@ h3 {
 
 
 
-
-
-
-
+.frontpage-image-announcement{
+    height: 50vh;
+}
+@media(max-width: 790px){
+    .frontpage-image-announcement{
+        height: 20vh;
+    }    
+}
+@media(max-width: 1024px){
+    .frontpage-image-announcement{
+        height: 20vh;
+    }    
+}
 
 
 
@@ -1013,27 +1051,34 @@ h3 {
 
 
 .slick-slider-dots {
+    background-color: red;
      position: absolute;
      bottom: 0px;
-     left: 50%;
+     left: 40%;
      transform: translateX(-50%);
      display: flex;
+}
+@media(max-width: 640px){
+    .slick-slider-dots{
+        left: 25%;
+    }    
 }
  .slick-slider-dots ul {
      display: flex;
      list-style: none;
      margin: 0;
      padding: 0;
-     bottom: 50px;
+     bottom: 10px;
      background: red;
 }
  .slick-slider-dots ul li {
      margin: 0 10px;
 }
  .slick-slider-dots ul li button {
-     background: orangered;
+     background: pink;
      height: 8px;
      width: 35px;
+     /*width: 10px;*/
      overflow: hidden;
      color: orangered;
      border: none;
@@ -1048,6 +1093,12 @@ h3 {
 
 
 
+@media(max-width: 640px){
+    .frontpage-nav-button{
+        background-color: rgba(0, 0, 0, 0.61);
+        backdrop-filter: blur(5px);
+    }
+}
 
 
 
@@ -1055,13 +1106,54 @@ h3 {
 
 
 
+.dropbtn {
+  height: 28px;
+  width: 50px;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
 
+.Panel {
+  position: relative;
+  display: inline-block;
+  /*width: 50px;*/
+  margin-right: 2em;
+}
 
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 300px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  height: 15em;
+}
 
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
 
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
 
+.Panel:hover .dropdown-content {
+  display: block;
+  overflow: auto;
+}
 
-
+.Panel:hover .dropbtn {
+  background-size: 28px 50px;
+  background-repeat: no-repeat;
+  /*height: 50px;*/
+  /*width: 28px;*/
+  /*margin-left: 30px;*/
+}
 
 
 
