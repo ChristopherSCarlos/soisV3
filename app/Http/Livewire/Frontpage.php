@@ -635,8 +635,6 @@ class Frontpage extends Component
             'displayARLink' => $this->getARLink(),
             'displayMembershipLink' => $this->getMembershipLink(),
 
-            'test' => $this->testCarousel(),
-
             'isWebpageHomepage' => $this->selectSystemHomepage(),
             'isCurrentSlugInSystemPage' => $this->selectSlugForSystemPagesViews(),
             'getTopBarNav' => $this->topBarLinks(),
