@@ -78,11 +78,6 @@ class Frontpage extends Component
 
     private $connect; 
 
-    public function testCarousel()
-    {
-        $this->connect = mysqli_connect("localhost", "root", "", "sois1");
-        // dd($this->connect);
-    }
 
     public function make_query($connect)
     {
