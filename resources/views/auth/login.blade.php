@@ -1,17 +1,12 @@
 <x-guest-layout>
-
-
-
-    <div class="flex flex-wrap flex-row justify-center justify-items-center content-center items-center p-6 login" >
-        <div class="flex flex-wrap flex-row justify-center justify-items-center content-center items-center p-6 glass">
-                    <div class="p-6" style="width: 500px;height:500px;">
-            <div class="logo-image-login">
-              <div>
-                  <img src="{{ asset('image/svg/pup.svg') }}">
-              </div>
-            </div>
+<div class="login-main-container" style="width: 100vw; height: 100vh;">
+    <div class="login-inner-container glass" style="">
+        <div class="login-inner-elements-container" style="">
+            <a href="/">
+                <img class="login-image" style="" src="{{ asset('image/svg/pup.svg') }}">
+            </a>
         </div>
-        <div class="flex flex-wrap flex-row justify-center justify-items-center content-center items-center p-6" style="width: 500px;height:500px;">
+        <div class="login-inner-elements-container" style="">
             @if (session('status'))
             <div class="mb-4 font-medium text-sm text-green-600">
                 {{ session('status') }}
@@ -44,9 +39,10 @@
                     </x-jet-button>
                 </div>
             </form>
-        </div>  
         </div>
     </div>
+</div>
+    
 
 
 

@@ -1069,17 +1069,6 @@ select {
 .prose > :last-child {
 	margin-bottom: 0;
 }
-.sr-only {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	white-space: nowrap;
-	border-width: 0;
-}
 .pointer-events-none {
 	pointer-events: none;
 }
@@ -1602,9 +1591,6 @@ select {
 .flex-wrap {
 	flex-wrap: wrap;
 }
-.content-center {
-	align-content: center;
-}
 .items-end {
 	align-items: flex-end;
 }
@@ -1619,9 +1605,6 @@ select {
 }
 .justify-between {
 	justify-content: space-between;
-}
-.justify-items-center {
-	justify-items: center;
 }
 .gap-6 {
 	gap: 1.5rem;
@@ -1901,6 +1884,9 @@ select {
 	--tw-bg-opacity: 1;
 	background-color: rgba(209, 213, 219, var(--tw-bg-opacity));
 }
+.bg-transparent {
+	background-color: transparent;
+}
 .bg-green-900 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(6, 78, 59, var(--tw-bg-opacity));
@@ -1928,13 +1914,6 @@ select {
 .bg-indigo-100 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(224, 231, 255, var(--tw-bg-opacity));
-}
-.bg-red-900 {
-	--tw-bg-opacity: 1;
-	background-color: rgba(127, 29, 29, var(--tw-bg-opacity));
-}
-.bg-transparent {
-	background-color: transparent;
 }
 .bg-gray-900 {
 	--tw-bg-opacity: 1;
@@ -1987,11 +1966,11 @@ select {
 .p-3 {
 	padding: 0.75rem;
 }
-.p-1 {
-	padding: 0.25rem;
-}
 .p-4 {
 	padding: 1rem;
+}
+.p-1 {
+	padding: 0.25rem;
 }
 .px-4 {
 	padding-left: 1rem;
@@ -2715,47 +2694,6 @@ hr{
     -o-object-fit: cover; 
        object-fit: cover;
 }
-.login{
-    background: linear-gradient(to bottom, transparent, #0a0000), url('/image/pup-newspage.jpg');
-
-    height: 100vh;
-
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  
-  /* Needed to position the navbar */
-    position: relative;
-    transition: all 1s ease;
-    -webkit-filter: brightness(80%);
-
-}
-.login:hover{
-    -webkit-filter: brightness(100%);
-    transition: all 1s ease;
-}
-.glass{
-    background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
-  color: white;
-  font-weight: bold;
-  /*border: 3px solid #f1f1f1;*/
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  width: 80%;
-  padding: 20px;
-  text-align: center;
-}
-.login-label{
-    color: rgba(255, 255, 255, 1.0);
-}
-.login-input{
-    color: rgba(0, 0, 0, 1.0);
-}
 .news-title-text{
     font-family: 'Exo 2',sans-serif;
     font-size: 55px;
@@ -3040,7 +2978,7 @@ h3 {
 .system-title-2{
     display: none;
 }
-@media(max-width: 425px){
+@media(max-width: 1024px){
     .system-title{
         display: none;
     }    
@@ -3339,7 +3277,7 @@ h3 {
   position: relative;
   display: inline-block;
   /*width: 50px;*/
-  margin-right: 2em;
+  /*margin-right: 2em;*/
 }
 .dropdown-content {
   display: none;
@@ -3426,6 +3364,80 @@ padding: 40%;
     background: rgba(50, 50, 50,1.0);
     transition: all 1s ease;
 }
+/*start of login page*/
+.login-main-container{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+
+
+    background: linear-gradient(to bottom, transparent, #0a0000), url('/image/pup-newspage.jpg');
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  
+  /* Needed to position the navbar */
+    position: relative;
+    transition: all 1s ease;
+    -webkit-filter: brightness(80%);
+}
+.login-main-container:hover{
+    -webkit-filter: brightness(100%);
+    transition: all 1s ease;
+}
+.login-inner-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap ;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+.login-inner-elements-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center; 
+    /*max-width: 50vw;*/
+    /*height: 100%;*/
+    padding: 5%;
+}
+@media(max-width: 789px){
+    .login-inner-elements-container{
+        padding: 5% 5% 0% 5%;
+    }    
+}
+.login-image{
+    height: 50vh;
+    -o-object-fit: contain;
+       object-fit: contain;
+}
+.glass{
+    background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  /*border: 3px solid #f1f1f1;*/
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 80%;
+  padding: 20px;
+  text-align: center;
+}
+.login-label{
+    color: rgba(255, 255, 255, 1.0);
+}
+.login-input{
+    color: black;
+}
+/*End of login page*/
 .focus-within\:z-10:focus-within {
 	z-index: 10;
 }
@@ -3465,6 +3477,10 @@ padding: 40%;
 	--tw-bg-opacity: 1;
 	background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
 }
+.hover\:bg-gray-200:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
+}
 .hover\:bg-blue-100:hover {
 	--tw-bg-opacity: 1;
 	background-color: rgba(219, 234, 254, var(--tw-bg-opacity));
@@ -3500,10 +3516,6 @@ padding: 40%;
 .hover\:bg-yellow-50:hover {
 	--tw-bg-opacity: 1;
 	background-color: rgba(255, 251, 235, var(--tw-bg-opacity));
-}
-.hover\:bg-gray-200:hover {
-	--tw-bg-opacity: 1;
-	background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
 }
 .hover\:bg-gray-600:hover {
 	--tw-bg-opacity: 1;
@@ -3645,6 +3657,10 @@ padding: 40%;
 	--tw-bg-opacity: 1;
 	background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
 }
+.focus\:bg-gray-200:focus {
+	--tw-bg-opacity: 1;
+	background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
+}
 .focus\:bg-white:focus {
 	--tw-bg-opacity: 1;
 	background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
@@ -3652,10 +3668,6 @@ padding: 40%;
 .focus\:bg-yellow-50:focus {
 	--tw-bg-opacity: 1;
 	background-color: rgba(255, 251, 235, var(--tw-bg-opacity));
-}
-.focus\:bg-gray-200:focus {
-	--tw-bg-opacity: 1;
-	background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
 }
 .focus\:text-gray-700:focus {
 	--tw-text-opacity: 1;
@@ -3673,6 +3685,10 @@ padding: 40%;
 	--tw-text-opacity: 1;
 	color: rgba(107, 114, 128, var(--tw-text-opacity));
 }
+.focus\:text-gray-900:focus {
+	--tw-text-opacity: 1;
+	color: rgba(17, 24, 39, var(--tw-text-opacity));
+}
 .focus\:text-yellow-700:focus {
 	--tw-text-opacity: 1;
 	color: rgba(180, 83, 9, var(--tw-text-opacity));
@@ -3680,10 +3696,6 @@ padding: 40%;
 .focus\:text-white:focus {
 	--tw-text-opacity: 1;
 	color: rgba(255, 255, 255, var(--tw-text-opacity));
-}
-.focus\:text-gray-900:focus {
-	--tw-text-opacity: 1;
-	color: rgba(17, 24, 39, var(--tw-text-opacity));
 }
 .focus\:outline-none:focus {
 	outline: 2px solid transparent;
@@ -4321,3 +4333,19 @@ padding: 40%;
 		grid-template-columns: repeat(4, minmax(0, 1fr));
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
