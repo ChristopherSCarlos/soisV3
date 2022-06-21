@@ -263,7 +263,108 @@ Route::group(['middleware' => [
         Route::post('/announcements/view-selected-announcements/{announcement_id}', [App\Http\Livewire\ViewAnnouncement::class, 'URLRedirector'])->name('announcements/view-selected-announcements');
         // Route::get('/system-pages/update-system-page/{$pages_id}', [App\Http\Livewire\PagesUpdateProcess::class, 'render'])->name('system-pages/update-system-page');
 
+         // SUPER ADMIN NAVIGATION FOR MEMBERSHIP SYSTEM
+        Route::get('/SAmemberships', function(){
+            return view('admin.sa-member-membership');
+        })->name('SAmemberships');
 
+        Route::get('/SAUserManagement', function(){
+            return view('admin.sa-membership-user-management');
+        })->name('SAUserManagement');
+
+        Route::get('/SAAcademicOrganization', function(){
+            return view('admin.sa-membership-academic-organization');
+        })->name('SAAcademicOrganization');
+
+        Route::get('/SANonAcademicOrganization', function(){
+            return view('admin.sa-membership-non-academic-organization');
+        })->name('SANonAcademicOrganization');
+
+        Route::get('/SAApplicationReqeusts', function(){
+            return view('admin.sa-membership-application-requests');
+        })->name('SAApplicationReqeusts');
+
+        Route::get('/SAAccountRegistrants', function(){
+            return view('admin.sa-membership-account-registrants');
+        })->name('SAAccountRegistrants');
+
+        Route::get('/SAAccountRegistrants', function(){
+            return view('admin.sa-membership-declined-applications');
+        })->name('SAAccountRegistrants');
+
+        Route::get('/SAAcademicApplication', function(){
+            return view('admin.sa-membership-academic-application');
+        })->name('SAAcademicApplication');
+
+        Route::get('/SANonAcademicApplication', function(){
+            return view('admin.sa-membership-non-academic-application');
+        })->name('SANonAcademicApplication');
+
+        Route::get('/SAMembershipMembers', function(){
+            return view('admin.sa-membership-members');
+        })->name('SAMembershipMembers');
+
+        Route::get('/SAPaymentDetails', function(){
+            return view('admin.sa-membership-payment-details');
+        })->name('SAPaymentDetails');
+
+        // SUPER ADMIN NAVIGATION FOR GPOA SYSTEM
+        Route::get('/SAPartnershipRequests', function(){
+            return view('admin.sa-gpoa-partnership-requests');
+        })->name('SAPartnershipRequests');
+
+        Route::get('/SAPartnershipApplication', function(){
+            return view('admin.sa-gpoa-partnership-application');
+        })->name('SAPartnershipApplication');
+
+        Route::get('/SAApprovedEvents', function(){
+            return view('admin.sa-gpoa-approved-events');
+        })->name('SAApprovedEvents');
+
+        Route::get('/SADisApprovedEvents', function(){
+            return view('admin.sa-gpoa-disapproved-events');
+        })->name('SADisApprovedEvents');
+
+        Route::get('/SAApprovedPartnership', function(){
+            return view('admin.sa-gpoa-approved-partnership');
+        })->name('SAApprovedPartnership');
+
+        Route::get('/SADeclinedPartnership', function(){
+            return view('admin.sa-gpoa-declined-partnership');
+        })->name('SADeclinedPartnership');
+
+        Route::get('/SAUpcomingEvents', function(){
+            return view('admin.sa-gpoa-upcoming-events');
+        })->name('SAUpcomingEvents');
+
+        Route::get('/SAAccomplishedEvents', function(){
+            return view('admin.sa-gpoa-accomplished-events');
+        })->name('SAAccomplishedEvents');
+
+        // SUPER ADMIN NAVIGATION FOR ACCOMPLISHMENT REPORTS SYSTEM
+        Route::get('/SAAREvents', function(){
+            return view('admin.sa-accomplishment-ar-events');
+        })->name('SAAREvents'); 
+
+        Route::get('/SAARGpoaEvents', function(){
+            return view('admin.sa-accomplishment-gpoa-events');
+        })->name('SAARGpoaEvents'); 
+
+        Route::get('/SAAROfficerSignature', function(){
+            return view('admin.sa-accomplishment-officers-signature');
+        })->name('SAAROfficerSignature'); 
+
+        Route::get('/SAARCompiledAccomplishments', function(){
+            return view('admin.sa-accomplishment-my-accomplishments');
+        })->name('SAARCompiledAccomplishments'); 
+
+        Route::get('/SAARAccomplishmentReports', function(){
+            return view('admin.sa-accomplishment-accomplishment-reports');
+        })->name('SAARAccomplishmentReports'); 
+
+        Route::get('/SAARStudentAccomplishments', function(){
+            return view('admin.sa-accomplishment-student-accomplishments');
+        })->name('SAARStudentAccomplishments'); 
 
 });
 
