@@ -288,9 +288,9 @@ Route::group(['middleware' => [
             return view('admin.sa-membership-account-registrants');
         })->name('SAAccountRegistrants');
 
-        Route::get('/SAAccountRegistrants', function(){
+        Route::get('/SADeclinedApplication', function(){
             return view('admin.sa-membership-declined-applications');
-        })->name('SAAccountRegistrants');
+        })->name('SADeclinedApplication');
 
         Route::get('/SAAcademicApplication', function(){
             return view('admin.sa-membership-academic-application');
