@@ -121,7 +121,7 @@
                             <x-jet-dropdown-link href="{{ route('SAAccountRegistrants') }}" class="">
                                 Account Registrants
                             </x-jet-dropdown-link>
-                            <x-jet-dropdown-link href="{{ route('SAAccountRegistrants') }}" class="">
+                            <x-jet-dropdown-link href="{{ route('SADeclinedApplication') }}" class="">
                                 Declined Applications
                             </x-jet-dropdown-link>
                             <div class="border-t border-gray-100"></div>
