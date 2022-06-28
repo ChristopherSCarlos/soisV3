@@ -8,7 +8,9 @@ use App\Http\Contollers\CookieController;
 use App\Http\Contollers\ArticleCreate;
 use App\Http\Contollers\OrgAccArticleCreate;
 use App\Http\Contollers\OrganizationCRUD;
+use App\Http\Contollers\OrganizationController;
 use App\Http\Contollers\AnouncementCRUD;
+use App\Http\Contollers\AnnouncementCRUD;
 use App\Http\Contollers\UserCRUD;
 use App\Http\Contollers\OrgCRUD;
 
@@ -69,6 +71,7 @@ Route::group(['middleware' => [
         })->name('adminArticles');
 
 });
+
 
 Route::group(['middleware' => [
             'isSuperAdmin',
@@ -150,10 +153,6 @@ Route::group(['middleware' => [
             return view('admin.sub-links');
         })->name('sub-links');
 
-        Route::get('/organizations', function(){
-            return view('admin.organizations');
-        })->name('organizations');
-
         Route::get('/events', function(){
             return view('admin.events');
         })->name('events');
@@ -231,7 +230,14 @@ Route::group(['middleware' => [
             return view('admin.declined-partnerships');
         })->name('declined-partnerships');
 
+        Route::get('/declined-partnerships', function(){
+            return view('admin.declined-partnerships');
+        })->name('declined-partnerships');
 
+
+        Route::get('Organization/memberships', function(){
+            return view('admin.memberships');
+        })->name('Organization/memberships');
 
 
         // memberships
@@ -263,7 +269,8 @@ Route::group(['middleware' => [
         Route::post('/announcements/view-selected-announcements/{announcement_id}', [App\Http\Livewire\ViewAnnouncement::class, 'URLRedirector'])->name('announcements/view-selected-announcements');
         // Route::get('/system-pages/update-system-page/{$pages_id}', [App\Http\Livewire\PagesUpdateProcess::class, 'render'])->name('system-pages/update-system-page');
 
-         // SUPER ADMIN NAVIGATION FOR MEMBERSHIP SYSTEM
+
+        // SUPER ADMIN NAVIGATION FOR MEMBERSHIP SYSTEM
         Route::get('/SAmemberships', function(){
             return view('admin.sa-member-membership');
         })->name('SAmemberships');
@@ -330,7 +337,7 @@ Route::group(['middleware' => [
         })->name('SAApprovedPartnership');
 
         Route::get('/SADeclinedPartnership', function(){
-            return view('admin.sa-gpoa-declined-partnership');
+            return view('admin.sa-gpoa-decline-partnership');
         })->name('SADeclinedPartnership');
 
         Route::get('/SAUpcomingEvents', function(){
@@ -366,6 +373,10 @@ Route::group(['middleware' => [
             return view('admin.sa-accomplishment-student-accomplishments');
         })->name('SAARStudentAccomplishments'); 
 
+        Route::get('/SAARSubmitAccomplishments', function(){
+            return view('admin.s-a-page-if-no-data');
+        })->name('SAARSubmitAccomplishments'); 
+
 });
 
 Route::group(['middleware' => [
@@ -382,6 +393,8 @@ Route::group(['middleware' => [
         Route::resource('org-articles', 'App\Http\Controllers\OrgAccArticleCreate');
         Route::resource('organizations', 'App\Http\Controllers\OrganizationController');
         Route::resource('orgAnnouncements', 'App\Http\Controllers\AnnouncementOrganizationController');
+
+        Route::post('/org-store-announcement', 'App\Http\Controllers\AnnouncementOrganizationController@store');
 
         Route::get('/ar-menu', function(){
             return view('orgAdmin.ar-menu');
@@ -400,9 +413,12 @@ Route::group(['middleware' => [
             return view('orgAdmin.events');
         })->name('Organization/events');
 
-        Route::get('Organization/announcements', function(){
+        Route::get('OrganizationAnnouncements', function(){
             return view('orgAdmin.announcements');
-        })->name('Organization/announcements');
+        })->name('OrganizationAnnouncements');
+
+        // Route::post('/org-announcement-create.blade', 'App\Http\Controllers\AnnouncementCRUD@store');
+
 
         Route::get('Organization/officers', function(){
             return view('orgAdmin.officers');
