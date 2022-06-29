@@ -39,12 +39,14 @@ class ArticleCreate extends Controller
     public $artData;
     public $selectedArticle;
 
+    public $_instance;
+
     private $orgIDHolder;
     public function index()
     {
         // dd(Auth::id());
         // dd(DB::table('role_user')->where('user_id','=',Auth::id())->pluck('organization_id'));
-        return view('normlaravel.article-create',);
+        return view('normlaravel.super-article-create',);
     }
 
     /**
@@ -55,9 +57,9 @@ class ArticleCreate extends Controller
     public function create()
     {
         // dd("Hello");
-        $this->permission_data = new PermissionCheckerController;
-        $this->permission_data->permssionChecker('HP-View_News_Article');
-        return view('normlaravel.article-create',);
+        // $this->permission_data = new PermissionCheckerController;
+        // $this->permission_data->permssionChecker('HP-View_News_Article');
+        return view('normlaravel.super-article-create',);
     }
 
     /**
@@ -68,62 +70,40 @@ class ArticleCreate extends Controller
      */
     public function store(Request $request)
     {
-        $article_title = $request->article_title;
-        $article_subtitle = $request->article_subtitle;
-        $article_content = $request->article_content;
-        $article_type_id = $request->article_type_id;
-
-        $request->validate([
-            'article_featured_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
-        $article_featured_image_name = time().'.'.$request->article_featured_image->extension();  
-
-        // $article_featured_image_name = time($article_featured_image->extension());
-        // dd($article_featured_image_name);
-
-
-        // $path=$request->file('article_featured_image')->store('public');
-        // $request->file('article_featured_image')->store('public');
-        
-        $request->article_featured_image->storeAs('files', $article_featured_image_name);
-        $request->article_featured_image->move(public_path('files'), $article_featured_image_name);
-        
-        // $this->article_featured_image->store('files', 'imgfolder',$article_featured_image_name);
-
-        // $this->article_featured_image->storeAs('files',$article_featured_image_name, 'imgfolder');
-
-        // echo $imageName;
-
-        $userID = Auth::id();
-        $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('organization_id');
-        // dd($orgIDHolder);
-        $orgID = (int) $orgIDHolder->organization_id;
-        // dd($orgID);
-        $artSlug = str_replace(' ', '-', $article_title);
-        // echo $convertedArticleSlug;
-            // Article::create($createModelWithoutOrg());
-        // $syncArticleOrganization();
-        Article::create($this->articleInsertModel($article_title,$article_subtitle,$article_content,$article_type_id,$status = 1,$userID,$artSlug,$orgID));
-        $latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
-        // dd($latestNewsID);
-
-        OrganizationAsset::create([
-            'organization_id' => $orgID,
-            'asset_type_id' => '4',
-            'file' => $article_featured_image_name,
-            'is_latest_logo' => '0',
-            'is_latest_banner' => '0',
-            'is_latest_image' => '1',
-            'user_id' => $userID,
-            'page_type_id' => '2',
-            'status' => '1',
-            'articles_id' => $latestNewsID,
-        ]);
-
-
         // dd("Hello");
-         return redirect('article/create')->with('status', 'Blog Post Form Data Has Been inserted');
+        $checkUserData = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        $UserRole = DB::table('roles')->where('role_id','=',$checkUserData->role_id)->first();
+            $orgDataOnNull = DB::table('organizations')->where('organization_acronym','=','PUP')->first();
+            $orgID2 = $orgDataOnNull->organization_id;
+                $article_title = $request->article_title;
+                $article_subtitle = $request->article_subtitle;
+                $article_content = $request->article_content;
+                $article_type_id = $request->article_type_id;
+                $request->validate([
+                    'article_featured_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                ]);
+                $article_featured_image_name = time().'.'.$request->article_featured_image->extension();  
+                $request->article_featured_image->storeAs('files', $article_featured_image_name);
+                $request->article_featured_image->move(public_path('files'), $article_featured_image_name);
+                $userID = Auth::id();
+                $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('organization_id');
+                $orgID2 = (int) $orgIDHolder->organization_id;
+                $artSlug = str_replace(' ', '-', $article_title);
+                Article::create($this->articleInsertModel($article_title,$article_subtitle,$article_content,$article_type_id,$status = 1,$userID,$artSlug,$orgID2));
+                $latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
+                OrganizationAsset::create([
+                    'organization_id' => $orgID2,
+                    'asset_type_id' => '4',
+                    'file' => $article_featured_image_name,
+                    'is_latest_logo' => '0',
+                    'is_latest_banner' => '0',
+                    'is_latest_image' => '1',
+                    'user_id' => $userID,
+                    'page_type_id' => '2',
+                    'status' => '1',
+                    'articles_id' => $latestNewsID,
+                ]);
+                return redirect('articles/create')->with('status', 'School news article has been created.');
     }
 
     public function articleInsertModel($artTitle,$artSubtitle,$artContent,$type,$status,$userID,$artSlug,$orgID)
@@ -159,8 +139,8 @@ class ArticleCreate extends Controller
      */
     public function edit($id)
     {
-        $this->permission_data = new PermissionCheckerController;
-        $this->permission_data->permssionChecker('HP-Edit_News_Article');
+        // $this->permission_data = new PermissionCheckerController;
+        // $this->permission_data->permssionChecker('HP-Edit_News_Article');
         $artData = Article::findOrFail($id);
         $selectedArticle = DB::table('articles')->where('articles_id','=',$id)->get();
         // dd($selectedArticle);

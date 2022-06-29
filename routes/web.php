@@ -136,9 +136,9 @@ Route::group(['middleware' => [
             return view('admin.tags');
         })->name('tags');
 
-        Route::get('/articles', function(){
+        Route::get('/viewarticles', function(){
             return view('admin.articles');
-        })->name('articles');
+        })->name('viewarticles');
 
         // Route::get('/articles/create', function(){
         //     return view('admin.article-create');

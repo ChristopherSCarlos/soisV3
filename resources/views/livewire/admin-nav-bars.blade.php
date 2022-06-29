@@ -35,7 +35,7 @@
                             <x-jet-dropdown-link href="{{ route('superorganization') }}" class="">
                                 Organizations
                             </x-jet-dropdown-link>
-                            <x-jet-dropdown-link href="{{ route('articles') }}" class="">
+                            <x-jet-dropdown-link href="{{ route('viewarticles') }}" class="">
                                 News
                             </x-jet-dropdown-link>
                             <x-jet-dropdown-link href="{{ route('announcements') }}" class="">
@@ -264,7 +264,7 @@
                         <x-jet-dropdown-link href="{{route('SAARCompiledAccomplishments')}}" class="">
                             My Accomplishment
                         </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="" class="">
+                        <x-jet-dropdown-link href="{{route('SAARSubmitAccomplishments')}}" class="">
                             Submit an Accomplishment
                         </x-jet-dropdown-link>
 
@@ -298,7 +298,7 @@
                             <x-jet-dropdown-link href="{{ route('superorganization') }}" class="">
                                 Organizations
                             </x-jet-dropdown-link>
-                            <x-jet-dropdown-link href="{{ route('articles') }}" class="">
+                            <x-jet-dropdown-link href="{{ route('viewarticles') }}" class="">
                                 News
                             </x-jet-dropdown-link>
                             <x-jet-dropdown-link href="{{ route('announcements') }}" class="">
