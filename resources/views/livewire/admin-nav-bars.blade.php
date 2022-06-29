@@ -36,7 +36,7 @@
                                 Organizations
                             </x-jet-dropdown-link>
                             <x-jet-dropdown-link href="{{ route('viewarticles') }}" class="">
-                                News
+                                News ARticles
                             </x-jet-dropdown-link>
                             <x-jet-dropdown-link href="{{ route('announcements') }}" class="">
                                 Announcement
