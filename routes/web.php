@@ -70,6 +70,30 @@ Route::group(['middleware' => [
             return view('admin.articles');
         })->name('adminArticles');
 
+        Route::get('/adminAnnouncements', function(){
+            return view('admin.announcements');
+        })->name('adminAnnouncements');
+
+        Route::get('/announcements/Admin-deleted-announcements', function(){
+            return view('admin.deleted-announcements');
+        })->name('articles/Admin-deleted-announcements');
+
+        Route::resource('adminCreateAnnouncement', 'App\Http\Controllers\AdminAnnouncement');
+
+
+        Route::get('/Adminofficers', function(){
+            return view('admin.officers');
+        })->name('Adminofficers');
+
+        Route::get('/adminSub-links', function(){
+            return view('admin.sub-links');
+        })->name('adminSub-links');
+
+
+        Route::get('/Adminusers', function(){
+            return view('admin.users');
+        })->name('Adminusers');
+
 });
 
 
