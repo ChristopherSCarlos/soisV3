@@ -49,7 +49,8 @@ Route::group(['middleware' => [
 ]], function(){
 
         Route::resource('admin-articles', 'App\Http\Controllers\ArticleCreate');
-        Route::resource('admin-organization', 'App\Http\Controllers\OrganizationCRUD');
+        Route::resource('admin-sliders', 'App\Http\Controllers\AdminSlider');
+        Route::resource('admin-organization', 'App\Http\Controllers\AdminOrganization');
         Route::resource('admin-announcement', 'App\Http\Controllers\AnouncementCRUD');
         Route::resource('admin-users', 'App\Http\Controllers\UserCRUD');
         Route::resource('admin-roles', 'App\Http\Controllers\RoleController');
@@ -57,6 +58,9 @@ Route::group(['middleware' => [
         Route::resource('admin-AR-Events', 'App\Http\Controllers\AccomplishEventsCRUD');
 
         Route::resource('admin-org-articles', 'App\Http\Controllers\OrgAccArticleCreate');
+
+        Route::put('adminorganization/updateBanner/{id}','App\Http\Controllers\AdminOrganization@updateBnner')->name('adminorganization/updateBanner');
+        Route::put('adminorganization/updateLogo/{id}','App\Http\Controllers\AdminOrganization@updateLogo')->name('adminorganization/updateLogo');
 
         Route::get('/admin-default-interfaces', function(){
             return view('admin.default-interfaces');
@@ -94,6 +98,112 @@ Route::group(['middleware' => [
             return view('admin.users');
         })->name('Adminusers');
 
+        // SUPER ADMIN NAVIGATION FOR MEMBERSHIP SYSTEM
+        Route::get('/Adminmemberships', function(){
+            return view('admin.sa-member-membership');
+        })->name('Adminmemberships');
+
+        Route::get('/AdminUserManagement', function(){
+            return view('admin.sa-membership-user-management');
+        })->name('AdminUserManagement');
+
+        Route::get('/AdminAcademicOrganization', function(){
+            return view('admin.sa-membership-academic-organization');
+        })->name('AdminAcademicOrganization');
+
+        Route::get('/AdminNonAcademicOrganization', function(){
+            return view('admin.sa-membership-non-academic-organization');
+        })->name('AdminNonAcademicOrganization');
+
+        Route::get('/AdminApplicationReqeusts', function(){
+            return view('admin.sa-membership-application-requests');
+        })->name('AdminApplicationReqeusts');
+
+        Route::get('/AdminAccountRegistrants', function(){
+            return view('admin.sa-membership-account-registrants');
+        })->name('AdminAccountRegistrants');
+
+        Route::get('/AdminDeclinedApplication', function(){
+            return view('admin.sa-membership-declined-applications');
+        })->name('AdminDeclinedApplication');
+
+        Route::get('/AdminAcademicApplication', function(){
+            return view('admin.sa-membership-academic-application');
+        })->name('AdminAcademicApplication');
+
+        Route::get('/AdminNonAcademicApplication', function(){
+            return view('admin.sa-membership-non-academic-application');
+        })->name('AdminNonAcademicApplication');
+
+        Route::get('/AdminMembershipMembers', function(){
+            return view('admin.sa-membership-members');
+        })->name('AdminMembershipMembers');
+
+        Route::get('/AdminPaymentDetails', function(){
+            return view('admin.sa-membership-payment-details');
+        })->name('AdminPaymentDetails');
+
+        // SUPER ADMIN NAVIGATION FOR GPOA SYSTEM
+        Route::get('/AdminPartnershipRequests', function(){
+            return view('admin.sa-gpoa-partnership-requests');
+        })->name('AdminPartnershipRequests');
+
+        Route::get('/AdminPartnershipApplication', function(){
+            return view('admin.sa-gpoa-partnership-application');
+        })->name('AdminPartnershipApplication');
+
+        Route::get('/AdminApprovedEvents', function(){
+            return view('admin.sa-gpoa-approved-events');
+        })->name('AdminApprovedEvents');
+
+        Route::get('/AdminDisApprovedEvents', function(){
+            return view('admin.sa-gpoa-disapproved-events');
+        })->name('AdminDisApprovedEvents');
+
+        Route::get('/AdminApprovedPartnership', function(){
+            return view('admin.sa-gpoa-approved-partnership');
+        })->name('AdminApprovedPartnership');
+
+        Route::get('/AdminDeclinedPartnership', function(){
+            return view('admin.sa-gpoa-decline-partnership');
+        })->name('AdminDeclinedPartnership');
+
+        Route::get('/AdminUpcomingEvents', function(){
+            return view('admin.sa-gpoa-upcoming-events');
+        })->name('AdminUpcomingEvents');
+
+        Route::get('/AdminAccomplishedEvents', function(){
+            return view('admin.sa-gpoa-accomplished-events');
+        })->name('AdminAccomplishedEvents');
+
+        // SUPER ADMIN NAVIGATION FOR ACCOMPLISHMENT REPORTS SYSTEM
+        Route::get('/AdminAREvents', function(){
+            return view('admin.sa-accomplishment-ar-events');
+        })->name('AdminAREvents'); 
+
+        Route::get('/AdminARGpoaEvents', function(){
+            return view('admin.sa-accomplishment-gpoa-events');
+        })->name('AdminARGpoaEvents'); 
+
+        Route::get('/AdminAROfficerSignature', function(){
+            return view('admin.sa-accomplishment-officers-signature');
+        })->name('AdminAROfficerSignature'); 
+
+        Route::get('/AdminARCompiledAccomplishments', function(){
+            return view('admin.sa-accomplishment-my-accomplishments');
+        })->name('AdminARCompiledAccomplishments'); 
+
+        Route::get('/AdminARAccomplishmentReports', function(){
+            return view('admin.sa-accomplishment-accomplishment-reports');
+        })->name('AdminARAccomplishmentReports'); 
+
+        Route::get('/AdminARStudentAccomplishments', function(){
+            return view('admin.sa-accomplishment-student-accomplishments');
+        })->name('AdminARStudentAccomplishments'); 
+
+        Route::get('/AdminARSubmitAccomplishments', function(){
+            return view('admin.s-a-page-if-no-data');
+        })->name('AdminARSubmitAccomplishments');
 });
 
 
