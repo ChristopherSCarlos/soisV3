@@ -38,7 +38,7 @@ class OfficerControl extends Controller
      */
     public function create()
     {
-        return view('normlaravel\admin-sois-officer-create',[
+        return view('normlaravel.admin-sois-officer-create',[
             'getOrganization' => Organization::where('status','=','1')->get(),
             'getPositionTitles' => PositionTitle::get(),
         ]);

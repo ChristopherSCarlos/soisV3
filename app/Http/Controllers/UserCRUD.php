@@ -358,7 +358,7 @@ class UserCRUD extends Controller
         // dd($c);
         // dd("Hello");
         // return view('normlaravel/users-update');
-        return view('normlaravel\users-update-access')
+        return view('normlaravel.users-update-access')
                 ->with('errorMessage', $error)
                 ->with('displayUserSelectedData', $getUserData)
                 ->with('rolesList', $getRolesData)

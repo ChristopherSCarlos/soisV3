@@ -60,7 +60,7 @@ class AdminSlider extends Controller
      */
     public function create()
     {
-        return view('normlaravel\admin-slider',[
+        return view('normlaravel.admin-slider',[
             'getDisplayArticleOnSelectModal' => Article::where('status','=','1')->get(),
         ]);
     }
@@ -83,7 +83,7 @@ class AdminSlider extends Controller
 
     public function accessControlBack()
     {
-        return view('normlaravel\admin-slider',[
+        return view('normlaravel.admin-slider',[
             'getDisplayArticleOnSelectModal' => Article::where('status','=','1')->get(),
         ]);
     }
