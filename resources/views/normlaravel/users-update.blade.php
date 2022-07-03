@@ -21,45 +21,45 @@
 
 
 <div class="py-12">
-    <div class="max-w-11xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
-            <div class="grid grid-cols-12">
-                <div class="col-span-12">
-                    <h2>Create News</h2>
-                </div>
-                <div class="col-span-1">
-                    @foreach($displayUserSelectedData as $user)
-                        <a href="{{ route('user-selected-user', $user->user_id) }}">
-                           <x-jet-secondary-button class="m-2">
-                               {{ __('Go Back') }}
-                           </x-jet-secondary-button>
-                        </a>
-                    @endforeach
-                </div>
+	<div class="max-w-11xl mx-auto sm:px-6 lg:px-8">
+	    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
+			<div class="grid grid-cols-12">
+			    <div class="col-span-12">
+			        <h2>Create News</h2>
+			    </div>
+			    <div class="col-span-1">
+			    	@foreach($displayUserSelectedData as $user)
+                	    <a href="{{ route('user-selected-user', $user->user_id) }}">
+						   <x-jet-secondary-button class="m-2">
+						       {{ __('Go Back') }}
+						   </x-jet-secondary-button>
+                	    </a>
+                	@endforeach
+			    </div>
             </div>
 
 <div class="flex flex-wrap flex-row">
-    @if(session('status'))
-      <div class="alert alert-success">
-          {{ session('status') }}
-      </div>
-    @endif  
+	@if(session('status'))
+	  <div class="alert alert-success">
+	      {{ session('status') }}
+	  </div>
+	@endif	
 </div>
 
 
 <div class="flex flex-col p-5">
-    <div class="max-w-lg rounded overflow-hidden shadow-lg">
-        @csrf
-        {{ csrf_field() }}
-        @foreach($displayUserSelectedData as $user)
-        <form name="add-users" id="add-users" method="post" action="{{ route('users.update', $user->user_id ) }}">
-            @csrf
-            @method('PUT')
-            <div class="mt-4">
+	<div class="max-w-lg rounded overflow-hidden shadow-lg">
+		@csrf
+		{{ csrf_field() }}
+		@foreach($displayUserSelectedData as $user)
+		<form name="add-users" id="add-users" method="post" action="{{ route('users.update', $user->user_id ) }}">
+			@csrf
+			@method('PUT')
+			<div class="mt-4">
                 <label for="first_name" >{{ __('First name') }} : {{$user->first_name}}</label>
-                <input name="first_name" id="first_name" class="form-control block mt-1 w-full" type="text" autofocus >
-            </div>
-            <div class="mt-4">
+				<input name="first_name" id="first_name" class="form-control block mt-1 w-full" type="text" autofocus >
+			</div>
+			<div class="mt-4">
                 <label for="middle_name" value="">{{ __('Middle Name') }} : {{$user->middle_name}}</label>
                 <input name="middle_name" id="middle_name" class="form-control block mt-1 w-full" type="text"  autofocus />
             </div>
@@ -109,12 +109,12 @@
                 <label for="student_number" value="">{{ __('student_number') }} : {{$user->student_number}}</label>
                 <input name="student_number" id="student_number" class="form-control block mt-1 w-full" type="text"  autofocus />
             </div>
-            <div class="px-6 pt-4 pb-2">
-                <button class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
-        @endforeach
-    </div>
+			<div class="px-6 pt-4 pb-2">
+			    <button class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</form>
+		@endforeach
+	</div>
 </div>
 
 

@@ -28,11 +28,9 @@
 			        <h2>Create News</h2>
 			    </div>
 			    <div class="col-span-1">
-			    	<a href="{{ route('organizations') }}">
-						<x-jet-secondary-button class="m-2">
-						    {{ __('Go Back') }}
-						</x-jet-secondary-button>
-			    	</a>
+					<x-jet-secondary-button class="m-2">
+					    {{ __('Go Back') }}
+					</x-jet-secondary-button>
 			    </div>
             </div>
 
@@ -69,7 +67,7 @@
                 <x-jet-input name="organization_details" id="organization_details" class="form-control block mt-1 w-full" type="text" />
             </div>
             <div class="mt-4">
-                <select name="organization_type_id" class="form-control block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                <select name="organization_type_id" class="form-control block leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                         <option default hidden>Choose Organization Type</option>
                         <option value="1">Academic Organization</option>
                         <option value="2">Non-Academic Organization</option>

@@ -39,7 +39,6 @@ class AuthRolePermsController extends Controller
             // dd($this->userData);
             $this->userRoleData = DB::table('role_user')->where('user_id','=',$this->user_id)->first();
             $this->userRole = $this->userRoleData->role_id;
-            // dd($this->userRole);
             if(Auth::check()){
                 // dd(DB::table('roles')->where('role_id','=',$this->userRole)->first());
                 // echo $this->userRole->role;

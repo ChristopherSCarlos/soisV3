@@ -7,6 +7,8 @@ use Livewire\Component;
 use App\Models\PageType;
 use Livewire\WithPagination;
 use App\Http\Livewire\Objects;
+use App\Models\User;
+use Auth;
 
 class PageTypes extends Component
 {
@@ -94,6 +96,28 @@ class PageTypes extends Component
     
     
     /*=====  End of Delete PAge Type Section comment block  ======*/
+
+    public function getAuthUserRole()
+    {
+        $this->authUserId = Auth::id();
+        $this->authUserData = User::find($this->authUserId);        
+        if($this->authUserData->roles->first() != null){
+            $this->authUserRole = $this->authUserData->roles->first();
+            print_r($this->authUserRole->role);           
+            $this->authUserRoleType = $this->authUserRole->role;         
+            echo "Not Null";
+        }else{
+            $this->RoleUserDataOnNull = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+            // dd($this->RoleUserDataOnNull->role_id);
+            $this->RoleDataOnNull = DB::table('roles')->where('role_id','=',$this->RoleUserDataOnNull->role_id)->first();        
+            // dd($this->RoleDataOnNull->role);        
+            echo "Null";
+            $this->authUserRoleType = $this->RoleDataOnNull->role;         
+        }
+        // dd($this->authUserRoleType);
+        // dd($this->authUserId);
+        return $this->authUserRoleType;
+    }
     
     public function infoShowModel()
     {
@@ -138,6 +162,7 @@ class PageTypes extends Component
     {
         return view('livewire.page-types',[
             'getPageTypeData' => $this->read(),
+            'getUserRole' => $this->getAuthUserRole(),
         ]);
     }
 }

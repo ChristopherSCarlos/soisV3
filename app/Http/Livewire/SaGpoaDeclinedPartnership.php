@@ -54,6 +54,8 @@ class SaGpoaDeclinedPartnership extends Component
     }
     public function render()
     {
-        return view('livewire.sa-gpoa-declined-partnership');
+        return view('livewire.sa-gpoa-declined-partnership',[
+            'listDataFromDB' => $this->get_ata_from_Db(),
+        ]);
     }
 }

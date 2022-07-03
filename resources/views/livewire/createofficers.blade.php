@@ -1,7 +1,22 @@
 <div>
-<x-jet-button wire:click="createOfficerModal">
-    {{ __('Add New Officer') }}
-</x-jet-button>
+        @if($getUserRole == 'Super Admin')
+            <a href="{{route('sadmin-officers.create')}}">
+                <x-jet-button>
+                    {{ __('Add Officer') }}
+                </x-jet-button>
+            </a>
+        @else
+            <a href="{{route('admin-officers.create')}}">
+                <x-jet-button>
+                    {{ __('Add Officer') }}
+                </x-jet-button>
+            </a>
+        @endif
+<!-- <a href="{{route('admin-officers.create')}}">
+    <x-jet-button>
+        {{ __('Add Officer') }}
+    </x-jet-button>
+</a> -->
 
 <!--==========================================
 =            Create Officer Modal            =
@@ -44,7 +59,7 @@
             </div>
             <div class="mt-4">
                 <x-jet-label for="position_title_id" value="{{ __('Position') }}" />
-                <x-jet-input wire:model="position_title_id" id="semester" class="block mt-1 w-full" type="text" required/>
+                <x-jet-input wire:model="position_title_id" id="position_title_id" class="block mt-1 w-full" type="text" required/>
                 @error('position') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="mt-4">

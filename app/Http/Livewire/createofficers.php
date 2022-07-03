@@ -346,6 +346,28 @@ class createofficers extends Component
     //     return $this->authUserRoleType;
     // }
 
+    public function getAuthUserRole()
+    {
+        $this->authUserId = Auth::id();
+        $this->authUserData = User::find($this->authUserId);        
+        if($this->authUserData->roles->first() != null){
+            $this->authUserRole = $this->authUserData->roles->first();
+            print_r($this->authUserRole->role);           
+            $this->authUserRoleType = $this->authUserRole->role;         
+            echo "Not Null";
+        }else{
+            $this->RoleUserDataOnNull = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+            // dd($this->RoleUserDataOnNull->role_id);
+            $this->RoleDataOnNull = DB::table('roles')->where('role_id','=',$this->RoleUserDataOnNull->role_id)->first();        
+            // dd($this->RoleDataOnNull->role);        
+            echo "Null";
+            $this->authUserRoleType = $this->RoleDataOnNull->role;         
+        }
+        // dd($this->authUserRoleType);
+        // dd($this->authUserId);
+        return $this->authUserRoleType;
+    }
+
     /*==============================================
     =            calling tables section            =
     ==============================================*/
@@ -440,6 +462,7 @@ class createofficers extends Component
             'PositionTitlesData' => $this->getPositionsFromDatabase(),
             'OrganizationPositions' => $this->specificOrganization(),
             'getAuthUserRole' => $this->userRole,
+            'getUserRole' => $this->getAuthUserRole(),
             // 'userAuthRole' => $this->getAuthUserRole(),
             // 'posts' => $this->specificOrganization(),
             // 'userAffliatedOrganization' => $this->specificOrganization(),

@@ -1,3 +1,9 @@
 <div class="p-6">
-     Close your eyes. Count to one. That is how long forever feels. 
+     @foreach($AR_sub_links as $arLinks)
+          <a href="{{$arLinks->sub_link}}" target="_blank">
+               <x-jet-secondary-button class="m-2">
+                   {{$arLinks->sub_name}}
+               </x-jet-secondary-button>
+          </a>
+     @endforeach
 </div>

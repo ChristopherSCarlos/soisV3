@@ -12,7 +12,7 @@ class AssetType extends Model
     protected $primaryKey = 'asset_types_id';
 
     protected $fillable = [
-        'asset_type_name',
+        'type',
         'asset_type_description',
         'status',
     ];

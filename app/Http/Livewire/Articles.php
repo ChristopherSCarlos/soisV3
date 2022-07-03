@@ -672,15 +672,12 @@ class Articles extends Component
         // dd($this->userData->roles->first());
         if($this->userData->roles->first() != null){
             $this->authUserRole = $this->userData->roles->first();
-            print_r($this->authUserRole->role);           
             $this->authUserRoleType = $this->authUserRole->role;         
-            echo "Not Null";
         }else{
             $this->RoleUserDataOnNull = DB::table('role_user')->where('user_id','=',Auth::id())->first();
             // dd($this->RoleUserDataOnNull->role_id);
             $this->RoleDataOnNull = DB::table('roles')->where('role_id','=',$this->RoleUserDataOnNull->role_id)->first();        
             // dd($this->RoleDataOnNull->role);        
-            echo "Null";
             $this->authUserRoleType = $this->RoleDataOnNull->role;         
         }
         // dd($this->authUserRoleType);

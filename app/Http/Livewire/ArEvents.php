@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Models\OrganizationAsset;
 use App\Models\Organization;
 use App\Models\Article;
-use App\Models\AccomplishmentReport;
+use App\Models\Event;
 
 use Livewire\WithPagination;
 use App\Http\Livewire\Objects;
@@ -25,7 +25,7 @@ use \Carbon\Carbon;
 use Datetime;
 use DatePeriod;
 use DateInterval;
-class ArAccomplishments extends Component
+class ArEvents extends Component
 {
     use WithPagination;
     private $organizationID;
@@ -35,18 +35,22 @@ class ArAccomplishments extends Component
     {
         $this->organizationData = DB::table('role_user')->where('user_id','=',Auth::id())->first();
         $this->organizationID = $this->organizationData->organization_id;
-
+        // dD("Helo");
+            // return DB::table('accomplished_events')
         // dd(
-            // AccomplishmentReport::with('accomplishmentReportType')
-            return AccomplishmentReport::with('accomplishmentReportType')
-                ->where('organization_id', $this->organizationID)
-                ->paginate(30, ['*'], 'orgAR');
-                // ->get()
+            // Event::with('eventRole',
+            return Event::with('eventRole',
+                'eventCategory',
+                'eventLevel',)
+            ->where('organization_id', $this->organizationID,)
+            ->orderByRaw('MONTH(`start_date`) ASC, `start_date` ASC')
+            ->paginate(30, ['*'], 'events');
+            // ->get()
         // );
     }
     public function render()
     {
-        return view('livewire.ar-accomplishments',[
+        return view('livewire.ar-events',[
             'list_data_from_db' => $this->get_data_from_db(),
         ]);
     }

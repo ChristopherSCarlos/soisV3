@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
 use App\Models\Permission;
+
 class Role extends Model
 {
     use HasFactory;
@@ -19,12 +20,9 @@ class Role extends Model
     protected $primaryKey = 'role_id';
 
    protected $fillable = [
-        'role_name',
-        'role_description',
-        'guard_name',
         'role',
         'description',
-        'created_at',
+        'craeted_at',
         'updated_at',
     ];
 

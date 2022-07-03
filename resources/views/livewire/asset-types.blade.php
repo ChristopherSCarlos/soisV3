@@ -1,16 +1,35 @@
 <div class="p-6">
     <h2 class="table-title">System Asset Types</h2>
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
-        <x-jet-button wire:click="createAssetTypeShowModel">
+        @if($getUserRole == 'Super Admin')
+            <a href="{{route('sadmin-system-assets-type.create')}}">
+                <x-jet-button>
+                    {{ __('Create Asset Type') }}
+                </x-jet-button>
+            </a>
+        @else
+            <a href="{{route('admin-system-assets-type.create')}}">
+                <x-jet-button>
+                    {{ __('Create Asset Type') }}
+                </x-jet-button>
+            </a>
+        @endif
+
+        <!-- <a href="{{route('admin-system-assets-type.create')}}">
+                <x-jet-button>
+                    {{ __('Create Asset Type') }}
+                </x-jet-button>
+            </a> -->
+<!--         <x-jet-button wire:click="createAssetTypeShowModel">
             {{ __('Create Asset Type') }}
-        </x-jet-button>
+        </x-jet-button> -->
         <x-jet-button wire:click="infoShowModel" class="ml-5 bg-green-900" style="background: green;">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
             </svg>
         </x-jet-button>
     </div> 
-    <div class="flex flex-col lg:items-center">
+    <div class="flex flex-col overflow-auto" >
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">

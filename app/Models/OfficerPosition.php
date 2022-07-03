@@ -9,12 +9,10 @@ class OfficerPosition extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'officer_positions_id';
+    protected $primaryKey = 'position_category_id';
 
     protected $fillable = [
-        'officer_positions_id',
         'position_category',
-        'status',
     ];
 
 }

@@ -36,7 +36,7 @@
                                 Organizations
                             </x-jet-dropdown-link>
                             <x-jet-dropdown-link href="{{ route('viewarticles') }}" class="">
-                                News ARticles
+                                News
                             </x-jet-dropdown-link>
                             <x-jet-dropdown-link href="{{ route('announcements') }}" class="">
                                 Announcement
@@ -64,16 +64,16 @@
                             <x-jet-dropdown-link href="{{ route('adminArticles') }}" class="">
                                 News
                             </x-jet-dropdown-link>
-                            <x-jet-dropdown-link href="{{ route('announcements') }}" class="">
+                            <x-jet-dropdown-link href="{{ route('adminAnnouncements') }}" class="">
                                 Announcement
                             </x-jet-dropdown-link>
-                            <x-jet-dropdown-link href="{{ route('sub-links') }}" class="">
+                            <x-jet-dropdown-link href="{{ route('adminSub-links') }}" class="">
                                 Gate SubLinks
                             </x-jet-dropdown-link>
-                            <x-jet-dropdown-link href="{{ route('users') }}" class="">
+                            <x-jet-dropdown-link href="{{ route('Adminusers') }}" class="">
                                 Users
                             </x-jet-dropdown-link>
-                            <x-jet-dropdown-link href="{{ route('officers') }}" class="">
+                            <x-jet-dropdown-link href="{{ route('Adminofficers') }}" class="">
                                 Officers
                             </x-jet-dropdown-link>
                         @endif
@@ -167,6 +167,83 @@
                                 Payment Details
                             </x-jet-dropdown-link>
                         @endif
+                        @if($getUserRole == "Head of Student Services")
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Organization') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('Adminmemberships') }}" class="">
+                                Membership
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('AdminUserManagement') }}" class="">
+                                User Management
+                            </x-jet-dropdown-link>
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('My Organization') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('AdminAcademicOrganization') }}" class="">
+                                Academic
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('AdminNonAcademicOrganization') }}" class="">
+                                Non-Academic
+                            </x-jet-dropdown-link>
+
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Application') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('AdminApplicationReqeusts') }}" class="">
+                                Application Requests
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('AdminAccountRegistrants') }}" class="">
+                                Account Registrants
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('AdminDeclinedApplication') }}" class="">
+                                Declined Applications
+                            </x-jet-dropdown-link>
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('My Application') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('AdminAcademicApplication') }}" class="">
+                                Academic
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('AdminNonAcademicApplication') }}" class="">
+                                Non-Academic
+                            </x-jet-dropdown-link>
+
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Messages') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('Organizations/Messages/Inbox') }}" class="">
+                                Inbox 
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('Organizations/Messages/Sent') }}" class="">
+                                Sent
+                            </x-jet-dropdown-link>
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('My Messages') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('Organizations/MyMessages/Inbox') }}" class="">
+                                Inbox
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="#" class="">
+                                Sent wala pa to
+                            </x-jet-dropdown-link>
+
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Others') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('AdminMembershipMembers') }}" class="">
+                                Members
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('AdminPaymentDetails') }}" class="">
+                                Payment Details
+                            </x-jet-dropdown-link>
+                        @endif
                     </div>
                 </div>
                 <div class="Panel ">
@@ -180,41 +257,80 @@
                         </button>
                     </span>
                     <div id="myDropdown" class="dropdown-content">
+                        @if($getUserRole == "Super Admin")
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Partnership') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('SAPartnershipRequests') }}" class="">
+                                Partnership Request
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('SAPartnershipApplication') }}" class="">
+                                Partnership Application
+                            </x-jet-dropdown-link>
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Reports') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('SAApprovedEvents') }}" class="">
+                                Approved Reports
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('SADisApprovedEvents') }}" class="">
+                                Disapproved Events
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('SAApprovedPartnership') }}" class="">
+                                Accepted Partnership
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('SADeclinedPartnership') }}" class="">
+                                Declined Partnership
+                            </x-jet-dropdown-link>
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Others') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('SAUpcomingEvents') }}" class="">
+                                Upcoming Events
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('SAAccomplishedEvents') }}" class="">
+                                Events
+                            </x-jet-dropdown-link>
+                        @endif
+                        @if($getUserRole == "Head of Student Services")
                         <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Partnership') }}
-                        </div>
-                        <x-jet-dropdown-link href="{{ route('SAPartnershipRequests') }}" class="">
-                            Partnership Request
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('SAPartnershipApplication') }}" class="">
-                            Partnership Application
-                        </x-jet-dropdown-link>
-                        <div class="border-t border-gray-100"></div>
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Reports') }}
-                        </div>
-                        <x-jet-dropdown-link href="{{ route('SAApprovedEvents') }}" class="">
-                            Approved Reports
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('SADisApprovedEvents') }}" class="">
-                            Disapproved Events
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('SAApprovedPartnership') }}" class="">
-                            Accepted Partnership
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('SADeclinedPartnership') }}" class="">
-                            Declined Partnership
-                        </x-jet-dropdown-link>
-                        <div class="border-t border-gray-100"></div>
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Others') }}
-                        </div>
-                        <x-jet-dropdown-link href="{{ route('SAUpcomingEvents') }}" class="">
-                            Upcoming Events
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('SAAccomplishedEvents') }}" class="">
-                            Events
-                        </x-jet-dropdown-link>
+                                {{ __('Partnership') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('AdminPartnershipRequests') }}" class="">
+                                Partnership Request
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('AdminPartnershipApplication') }}" class="">
+                                Partnership Application
+                            </x-jet-dropdown-link>
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Reports') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('AdminApprovedEvents') }}" class="">
+                                Approved Reports
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('AdminDisApprovedEvents') }}" class="">
+                                Disapproved Events
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('AdminApprovedPartnership') }}" class="">
+                                Accepted Partnership
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('AdminDeclinedPartnership') }}" class="">
+                                Declined Partnership
+                            </x-jet-dropdown-link>
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Others') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('AdminUpcomingEvents') }}" class="">
+                                Upcoming Events
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('AdminAccomplishedEvents') }}" class="">
+                                Events
+                            </x-jet-dropdown-link>
+                        @endif
                     </div>
                 </div>
                 <div class="Panel ">
@@ -228,56 +344,102 @@
                         </button>
                     </span>
                     <div id="myDropdown" class="dropdown-content">
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Event Report') }}
-                        </div>
-                        <x-jet-dropdown-link href="{{ route('SAAREvents') }}" class="">
-                            View Event
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('SAARGpoaEvents') }}" class="">
-                            Gpoa Event
-                        </x-jet-dropdown-link>
-
-                        <div class="border-t border-gray-100"></div>
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Organization Documents') }}
-                        </div>
-                        <x-jet-dropdown-link href="" class="">
-                            All Organization Document
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="" class="">
-                            Types
-                        </x-jet-dropdown-link>
-
-                        <div class="border-t border-gray-100"></div>
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Officers') }}
-                        </div>
-                        <x-jet-dropdown-link href="{{ route('SAAROfficerSignature') }}" class="">
-                            Manages Officer Signature
-                        </x-jet-dropdown-link>
-
-                        <div class="border-t border-gray-100"></div>
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Accomplishments') }}
-                        </div>
-                        <x-jet-dropdown-link href="{{route('SAARCompiledAccomplishments')}}" class="">
-                            My Accomplishment
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{route('SAARSubmitAccomplishments')}}" class="">
-                            Submit an Accomplishment
-                        </x-jet-dropdown-link>
-
-                        <div class="border-t border-gray-100"></div>
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Others') }}
-                        </div>
-                        <x-jet-dropdown-link href="{{ route('SAARAccomplishmentReports') }}" class="">
-                            Accomplishment Report
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('SAARStudentAccomplishments') }}" class="">
-                            Student Report
-                        </x-jet-dropdown-link>
+                        @if($getUserRole == "Super Admin")
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Event Report') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('SAAREvents') }}" class="">
+                                View Event
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('SAARGpoaEvents') }}" class="">
+                                Gpoa Event
+                            </x-jet-dropdown-link>
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Organization Documents') }}
+                            </div>
+                            <x-jet-dropdown-link href="" class="">
+                                All Organization Document
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="" class="">
+                                Types
+                            </x-jet-dropdown-link>
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Officers') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('SAAROfficerSignature') }}" class="">
+                                Manages Officer Signature
+                            </x-jet-dropdown-link>
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Accomplishments') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{route('SAARCompiledAccomplishments')}}" class="">
+                                My Accomplishment
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{route('SAARSubmitAccomplishments')}}" class="">
+                                Submit an Accomplishment
+                            </x-jet-dropdown-link>
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Others') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('SAARAccomplishmentReports') }}" class="">
+                                Accomplishment Report
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('SAARStudentAccomplishments') }}" class="">
+                                Student Report
+                            </x-jet-dropdown-link>
+                        @endif
+                        @if($getUserRole == "Head of Student Services")
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Event Report') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('AdminAREvents') }}" class="">
+                                View Event
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('AdminARGpoaEvents') }}" class="">
+                                Gpoa Event
+                            </x-jet-dropdown-link>
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Organization Documents') }}
+                            </div>
+                            <x-jet-dropdown-link href="" class="">
+                                All Organization Document
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="" class="">
+                                Types
+                            </x-jet-dropdown-link>
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Officers') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('AdminAROfficerSignature') }}" class="">
+                                Manages Officer Signature
+                            </x-jet-dropdown-link>
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Accomplishments') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{route('AdminARCompiledAccomplishments')}}" class="">
+                                My Accomplishment
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{route('AdminARSubmitAccomplishments')}}" class="">
+                                Submit an Accomplishment
+                            </x-jet-dropdown-link>
+                            <div class="border-t border-gray-100"></div>
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Others') }}
+                            </div>
+                            <x-jet-dropdown-link href="{{ route('AdminARAccomplishmentReports') }}" class="">
+                                Accomplishment Report
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('AdminARStudentAccomplishments') }}" class="">
+                                Student Report
+                            </x-jet-dropdown-link>
+                        @endif
                     </div>
                 </div>
                 <div class="Panel ">

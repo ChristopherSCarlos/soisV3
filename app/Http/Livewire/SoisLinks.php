@@ -9,6 +9,9 @@ use App\Models\SoisLink;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\User;
+use Auth;
+
 class SoisLinks extends Component
 {
     /* Traits */
@@ -111,6 +114,27 @@ class SoisLinks extends Component
             'status' => $this->status,
         ];
     }
+    public function getAuthUserRole()
+    {
+        $this->authUserId = Auth::id();
+        $this->authUserData = User::find($this->authUserId);        
+        if($this->authUserData->roles->first() != null){
+            $this->authUserRole = $this->authUserData->roles->first();
+            print_r($this->authUserRole->role);           
+            $this->authUserRoleType = $this->authUserRole->role;         
+            echo "Not Null";
+        }else{
+            $this->RoleUserDataOnNull = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+            // dd($this->RoleUserDataOnNull->role_id);
+            $this->RoleDataOnNull = DB::table('roles')->where('role_id','=',$this->RoleUserDataOnNull->role_id)->first();        
+            // dd($this->RoleDataOnNull->role);        
+            echo "Null";
+            $this->authUserRoleType = $this->RoleDataOnNull->role;         
+        }
+        // dd($this->authUserRoleType);
+        // dd($this->authUserId);
+        return $this->authUserRoleType;
+    }
     public function read()
     {
         return SoisLink::where('status','=','1')->get();
@@ -120,6 +144,7 @@ class SoisLinks extends Component
     {
         return view('livewire.sois-links',[
             'getDisplaySOISLIinks' => $this->read(),
+            'getUserRole' => $this->getAuthUserRole(),
         ]);
     }
 }

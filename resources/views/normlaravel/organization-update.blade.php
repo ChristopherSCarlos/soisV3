@@ -84,14 +84,14 @@
             	            <option value="2">Non-Academic Organization</option>
             	    </select>
             	</div>
-            	<div class="mt-4">
+<!--             	<div class="mt-4">
             	    <x-jet-label for="organization_primary_color" value="{{ __('organization primary color') }}: {{$orgData->organization_primary_color}}" />
             	    <x-jet-input name="organization_primary_color" id="organization_primary_color" class="form-control block mt-1 w-full" value="{{$orgData->organization_primary_color}}" type="color" />
             	</div>
             	<div class="mt-4">
             	    <x-jet-label for="organization_secondary_color" value="{{ __('organization secondary color') }}: {{$orgData->organization_secondary_color}}" />
             	    <x-jet-input name="organization_secondary_color" id="organization_secondary_color" class="form-control block mt-1 w-full" value="{{$orgData->organization_secondary_color}}" type="color" />
-            	</div>
+            	</div> -->
 	  		</div>
 	  		<div class="px-6 pt-4 pb-2">
 				<button class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" type="submit" class="btn btn-primary">Submit</button>

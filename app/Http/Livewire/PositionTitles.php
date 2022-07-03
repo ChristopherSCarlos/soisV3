@@ -276,12 +276,22 @@ class PositionTitles extends Component
     {
         $this->authUserId = Auth::id();
         $this->authUserData = User::find($this->authUserId);        
-        $this->authUserRole = DB::table('role_user')->where('user_id','=',Auth::id())->first();
-        // dd($this->authUserRole->role_id);
-        $this->authUserRoleType = $this->authUserRole->role_id;         
+        if($this->authUserData->roles->first() != null){
+            $this->authUserRole = $this->authUserData->roles->first();
+            print_r($this->authUserRole->role);           
+            $this->authUserRoleType = $this->authUserRole->role;         
+            echo "Not Null";
+        }else{
+            $this->RoleUserDataOnNull = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+            // dd($this->RoleUserDataOnNull->role_id);
+            $this->RoleDataOnNull = DB::table('roles')->where('role_id','=',$this->RoleUserDataOnNull->role_id)->first();        
+            // dd($this->RoleDataOnNull->role);        
+            echo "Null";
+            $this->authUserRoleType = $this->RoleDataOnNull->role;         
+        }
         // dd($this->authUserRoleType);
-        // dd($this->authUserRoleType);
-        return DB::table('roles')->where('role_id','=',$this->role_id)->paginate(10);
+        // dd($this->authUserId);
+        return $this->authUserRoleType;
     }
     
     /*=====  End of Get User Role  ======*/

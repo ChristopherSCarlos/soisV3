@@ -3,7 +3,13 @@
 
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
         @if($userAuthRole == 'Super Admin')
-            <a href="{{route('organization.create')}}">
+            <a href="{{route('sadmin-organization.create')}}">
+            <x-jet-button>
+                {{ __('Create Organization') }}
+            </x-jet-button>
+            </a>
+        @else
+            <a href="{{route('admin-organization.create')}}">
             <x-jet-button>
                 {{ __('Create Organization') }}
             </x-jet-button>
@@ -11,7 +17,7 @@
         @endif
     </div>
 
-    <div class="flex flex-col lg:items-center">
+    <div class="flex flex-col">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -30,7 +36,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                                @if($userAuthRole == 'Super Admin')
+                                @if($userAuthRole == 'Super Admin' || $userAuthRole == 'Head of Student Services')
                                     @if($posts->count())
                                         @foreach($posts as $item)
                                             <tr>
@@ -56,11 +62,20 @@
                                                     <td class="px-6 py-2">Non-Academic</td>
                                                 @endif
                                                 <td>
+                                                    @if($userAuthRole == 'Super Admin')
                                                     <a href="{{route('organization.show', $item->organization_id)}}">
-                                                    <x-jet-button>
-                                                        {{__('View')}}
-                                                    </x-jet-button>
+                                                        <x-jet-button>
+                                                            {{__('Super View')}}
+                                                        </x-jet-button>
                                                     </a>
+                                                    @endif
+                                                    @if($userAuthRole == 'Head of Student Services')
+                                                    <a href="{{route('admin-organization.show', $item->organization_id)}}">
+                                                        <x-jet-button>
+                                                            {{__('Admin View ')}}
+                                                        </x-jet-button>
+                                                    </a>
+                                                    @endif
                                                     <x-jet-danger-button wire:click="deleteShowModal({{ $item->organization_id }})">
                                                         {{__('Deletes')}}
                                                     </x-jet-danger-button>
@@ -75,18 +90,11 @@
                                             </td>
                                         </tr>
                                     @endif
+                                <!-- @elseif($userAuthRole == 'Home Page Admin') -->
                                 @else
                                     @if($userAffliatedOrganization->count())
                                         @foreach($userAffliatedOrganization as $item)
                                             <tr>
-                                                
-                                                <!-- <td class="px-6 py-2">
-                                                    @if (!empty($item->organization_logo))
-                                                        <img width="100px" src="{{ asset('/files/' . $item->organization_logo) }}"/>
-                                                    @else
-                                                        No featured image available!
-                                                    @endif
-                                                </td> -->
                                                 <td class="px-6 py-2">{{ $item->organization_name }}</td>
                                                 <td class="px-6 py-2">{{ $item->organization_details }}</td>
                                                 <td class="px-6 py-2">

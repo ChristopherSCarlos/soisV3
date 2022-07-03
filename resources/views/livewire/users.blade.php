@@ -1,6 +1,6 @@
 <div class="p-6">
     <h2 class="table-title">Users Information</h2>
-    <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
+    <div class="flex  justify-end px-4 py-3 text-right sm:px-6">
         <a href="{{route('users.create')}}">
         <x-jet-button>
             {{ __('Create New User') }}
@@ -12,7 +12,7 @@
         </x-jet-danger-button>
     </div>
         <h3 class="title">Admin Users</h3>
-        <div class="flex flex-col lg:items-center">
+        <div class="flex flex-col ">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -69,7 +69,7 @@
     {{ $AdminTable->links() }}
 
     <h3 class="title">Homepage Admin Users</h3>
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col ">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -125,7 +125,7 @@
     {{ $HomepageAdminTable->links() }}
 
     <h3 class="title">Users</h3>
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col ">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -492,7 +492,7 @@
                             <form>
                                 @foreach($permsList as $perms)
                                     <div class="mt-1">
-                                        <label class="inline-flex items-center">
+                                        <label class="inline-flex ">
                                         <input type="checkbox" value="{{ $perms->permission_id }}" wire:model="permissionModel.{{ $perms->permission_id }}" class="form-checkbox h-6 w-6 text-green-500">
                                             <span class="ml-3 text-sm">{{ $perms->name }}</span>
                                         </label>

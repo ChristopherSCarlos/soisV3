@@ -16,11 +16,13 @@
 
     <h2 class="table-title">Announcements</h2>
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
-        <a href="{{ route('orgAnnouncements.create') }}">
+        @if($roleUser == 'Head of Student Services')
+        <a href="{{ route('adminCreateAnnouncement.create') }}">
             <x-jet-button>
                 {{ __('Create Announcement') }}
             </x-jet-button>
         </a>
+        @endif
         @if($roleUser == 'Super Admin')
             <x-jet-danger-button wire:click="deletedannouncements">
                 {{ __('Deleted Announcements') }}
@@ -31,7 +33,7 @@
             </x-jet-danger-button>
         @endif
     </div>
-    <div class="flex flex-col lg:items-center">
+    <div class="flex flex-col">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -64,7 +66,7 @@
                                                     {{ $item->announcement_title }}
                                                 </td>
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                    <!-- {{ $item->announcement_content }} -->
+                                                    {{ $item->announcement_content }}
                                                 </td>
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                     {{ $item->signature }}
@@ -103,7 +105,8 @@
                                             </td>
                                         </tr>
                                     @endif
-                                @else
+                                @endif
+                                @if($roleUser != 'Super Admin')
                                     @if($displayOrgAnnouncements->count())
                                         @foreach($displayOrgAnnouncements as $item)
                                              <tr>
@@ -154,7 +157,7 @@
                                     @else
                                         <tr>
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap" colspan="4">
-                                                No Results Found
+                                                No Results Found -
                                             </td>
                                         </tr>
                                     @endif
@@ -171,6 +174,24 @@
     @else
         {{$displayOrgAnnouncements->links()}}
     @endif
+
+    <div class="p-6">
+    @livewireScripts
+        <div class="flex flex-col items-center">
+            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        <livewire:appointments-calendar
+                        before-calendar-view="calendar/before"
+                        after-calendar-view="path/to/view/starting/from/views/folder"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    @livewireScripts
+    @livewireCalendarScripts
+    </div>
 
 
 <!--==================================================

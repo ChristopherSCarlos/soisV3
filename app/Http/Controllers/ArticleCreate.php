@@ -128,7 +128,15 @@ class ArticleCreate extends Controller
      */
     public function show($id)
     {
-
+        // dd($id);
+        // dd(DB::table('organization_assets')->where('articles_id','=',$id)->get());
+        $article_Data = DB::table('articles')->where('articles_id','=',$id)->get();
+        // dd(DB::table('articles')->where('articles_id','=',$id)->first());
+        $article_image = DB::table('organization_assets')->where('articles_id','=',$id)->get();
+        return view('normlaravel.super-article-show', [
+            'artData' => $article_Data,
+            'artImage' => $article_image,
+        ]);
     }
 
     /**
@@ -160,6 +168,7 @@ class ArticleCreate extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd("Hello");
         // dd(Article::where('articles_id','=',$id)->get());
         $validatedData = $request->validate([
             'article_title' => 'required',
@@ -172,30 +181,10 @@ class ArticleCreate extends Controller
         $article_content = $request->article_content;
         $article_type_id = $request->article_type_id;
 
-        $request->validate([
-            'article_featured_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
-        $article_featured_image_name = time().'.'.$request->article_featured_image->extension();  
-
-        $article_featured_image_name = time($article_featured_image->extension());
-        // dd($article_featured_image_name);
-
-
-        // $path=$request->file('article_featured_image')->store('public');
-        // $request->file('article_featured_image')->store('public');
-        $request->article_featured_image->storeAs('files', $article_featured_image_name);
-        $request->article_featured_image->move(public_path('files'), $article_featured_image_name);
-        // $this->article_featured_image->store('files', 'imgfolder',$article_featured_image_name);
-
-        // $this->article_featured_image->storeAs('files',$article_featured_image_name, 'imgfolder');
-
-        // echo $imageName;
 
         $userID = Auth::id();
         $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('organization_id');
         $orgID = (int) $orgIDHolder->organization_id;
-        // dd($orgID);
         $artSlug = str_replace(' ', '-', $article_title);
         // echo $convertedArticleSlug;
             // Article::create($createModelWithoutOrg());
@@ -205,22 +194,86 @@ class ArticleCreate extends Controller
         $latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
         // dd($latestNewsID);
 
-        OrganizationAsset::update([
-            'organization_id' => $orgID,
+        
+
+
+        // dd("Hello");
+         return redirect('viewarticle')->with('status', 'Blog Post Form Data Has Been inserted');
+    }
+
+    public function updateImage($id)
+    {
+        $article_image = DB::table('organization_assets')->where('articles_id','=',$id)->get();
+        // dd($article_image);
+        $article_id = DB::table('organization_assets')->where('articles_id','=',$id)->first();
+        $imageID = $article_id->organization_asset_id;
+        // dd($imageID);
+        $article_Data = DB::table('articles')->where('articles_id','=',$id)->first();
+        $article_id = $article_Data->articles_id;
+        return view('normlaravel.super-article-updateImage', [
+            'artImage' => $article_image,
+            'id' => $imageID,
+            'artID' => $article_id,
+        ]);
+    }
+    public function updateImageProcess(Request $request, $id, $artID)
+    {
+
+        $validate = $request->validate([
+            'article_featured_image' => 'required',
+        ]);
+        $article_featured_image= $request->article_featured_image;
+        $article_featured_image_name = time().'.'.$article_featured_image->extension();
+
+        $article_featured_image->store('files', 'imgfolder',$article_featured_image_name);
+
+        $article_featured_image->storeAs('files',$article_featured_image_name, 'imgfolder');
+
+
+        $userId = Auth::user()->user_id;
+        $user = User::find($userId);
+        $va = DB::table('role_user')->where('user_id','=',$userId)->first();
+        $vaHolder = $va->organization_id;
+        $latestOrganizationIDtoInsertToDB = (int) $vaHolder;
+        // dd($latestOrganizationIDtoInsertToDB);
+
+        OrganizationAsset::create([
             'asset_type_id' => '4',
+            'asset_name' => $article_featured_image_name,
             'file' => $article_featured_image_name,
             'is_latest_logo' => '0',
             'is_latest_banner' => '0',
             'is_latest_image' => '1',
-            'user_id' => $userID,
+            'user_id' => $userId,
             'page_type_id' => '2',
+            'organization_id' => $latestOrganizationIDtoInsertToDB,
             'status' => '1',
-            'articles_id' => $latestNewsID,
+            'articles_id' => $artID,
         ]);
 
+        $selectedNewsAssetDataIsLatestImage = OrganizationAsset::latest()->where('articles_id','=',$artID)->where('status','=','1')->first();
+        // dd($selectedNewsAssetDataIsLatestImage);
+        // dd($selectedNewsAssetDataIsLatestImage);
+        if ($selectedNewsAssetDataIsLatestImage != null) {
+            $selectedNewsAssetDataID = $selectedNewsAssetDataIsLatestImage->organization_asset_id;
+            // dd($selectedNewsAssetDataID);
+            // dd(OrganizationAsset::find('organization_id','=',$artID)->where('is_latest_logo','=','1'));
+            OrganizationAsset::where('articles_id','=',$artID)->where('is_latest_image','=','1')->update([
+                'is_latest_image' => '0',
+            ]);
+            DB::table('organization_assets')->where('organization_asset_id','=',$selectedNewsAssetDataID)->update(['is_latest_image'=>'1']);
+        }else{
+         return redirect('viewarticle')->with('status', 'Blog Post Form Data Has Been inserted');
+        }
 
-        // dd("Hello");
-         return redirect('article/create')->with('status', 'Blog Post Form Data Has Been inserted');
+         return redirect('viewarticle')->with('status', 'Blog Post Form Data Has Been inserted');
+    }
+
+
+    public function featureNews($id)
+    {
+        Article::where('articles_id',$id)->update(['is_featured_in_newspage' => '1']);
+        return redirect('articles.show', array('id' =>$id));
     }
 
     /**

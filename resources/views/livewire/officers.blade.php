@@ -3,12 +3,12 @@
 
 @livewireStyles
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
-        <!-- <x-jet-button wire:click="createOfficerModal">
-                {{ __('Add New Officer') }}
-        </x-jet-button> -->
-    </div>
-    <div class="flex flex-col lg:items-center">
+	<div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
+		<!-- <x-jet-button wire:click="createOfficerModal">
+				{{ __('Add New Officer') }}
+		</x-jet-button> -->
+	</div>
+	<div class="flex flex-col items-center">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-         
+		 
 <!--==========================================
 =            Create Officer Modal            =
 ===========================================-->
@@ -75,12 +75,7 @@
             </div>
             <div class="mt-4">
                 <x-jet-label for="position_category" value="{{ __('Position Category') }}" />
-                <select wire:model="position_category" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                        <option default hidden>Choose Position Category</option>
-                    @foreach($getOfficerPosition as $op)
-                        <option value="{{$op->officer_positions_id}}">{{$op->position_category}}</option>
-                    @endforeach
-                </select>
+                <x-jet-input wire:model="position_category" id="position_category" class="block mt-1 w-full" type="text" required/>
                 @error('position_category') <span class="error">{{ $message }}</span> @enderror
             </div>
         </x-slot>
@@ -151,12 +146,7 @@
             </div>
             <div class="mt-4">
                 <x-jet-label for="position_category" value="{{ __('Position Category') }}" />
-                <select wire:model="position_category" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                        <option default hidden>Choose Position Category</option>
-                    @foreach($getOfficerPosition as $op)
-                        <option value="{{$op->officer_positions_id}}">{{$op->position_category}}</option>
-                    @endforeach
-                </select>
+                <x-jet-input wire:model="position_category" id="position_category" class="block mt-1 w-full" type="date" required/>
                 @error('position_category') <span class="error">{{ $message }}</span> @enderror
             </div>
         </x-slot>

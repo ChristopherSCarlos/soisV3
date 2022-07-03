@@ -25,14 +25,6 @@
 			    <div class="col-span-12">
 			        <h2>Update News</h2>
 			    </div>
-			    <div class="col-span-1">
-					<a href="{{ route('articles') }}">
-						<x-jet-secondary-button class="m-2">
-						    {{ __('Go Back') }}
-						</x-jet-secondary-button>
-					</a>
-
-			    </div>
             </div>
 
 <div class="flex flex-wrap flex-row">

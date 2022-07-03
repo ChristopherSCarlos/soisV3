@@ -15,12 +15,6 @@
     </style>
     <h2 class="table-title">News Articles</h2>
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
-        <a href="{{ route('test/normal/controller') }}">
-            
-        <x-jet-button>
-            {{ __('Test Form') }}
-        </x-jet-button>
-        </a>
         @if($RoleUSerString == 'Super Admin')
             <a href="{{ route('articles.create') }}">
             <x-jet-button>
@@ -36,7 +30,7 @@
             @endif
     </div>
 
-    <div class="flex flex-col lg:items-center">
+    <div class="flex flex-col ">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -51,8 +45,6 @@
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Date Creation</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">News Link</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Featured In Newspage</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Top News</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -83,44 +75,13 @@
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">Delete</button>
                                                 </form> -->
-                                                <a href="{{ route('articles.edit',$item->articles_id) }}">
+                                                <a href="{{ route('articles.show',$item->articles_id) }}">
                                                     <x-jet-button>
-                                                        {{__('Update Article')}}
+                                                        {{__('Show Article')}}
                                                     </x-jet-button>
                                                 </a>
-                                                <!-- <x-jet-button wire:click="updateNewsShowModal({{ $item->articles_id }})">
-                                                    {{__('Update Article')}}
-                                                </x-jet-button> -->
                                                 <x-jet-danger-button wire:click="deleteNewsShowModal({{ $item->articles_id }})">
                                                     {{__('Delete')}}
-                                                </x-jet-danger-button>
-                                                <x-jet-button wire:click="editImageNewsModal({{ $item->articles_id }})">
-                                                    {{__('Edit Image')}}
-                                                </x-jet-button>
-                                            </td>
-                                            <td class="px-6 py-4 text-sm whitespace-no-wrap" style="@if($item->is_featured_in_newspage == 1)  
-                                                                                                background: rgba(25, 98, 181, 1);
-                                                                                            @else
-                                                                                                background: rgba(173, 45, 16, 1.0);
-                                                                                            @endif">
-                                                <x-jet-button wire:click="featuredNewsShowModal({{ $item->articles_id }})">
-                                                    
-                                                    {{__('Feature')}}
-                                                </x-jet-button>
-                                                <x-jet-danger-button wire:click="deletefeaturedNewsShowModal({{ $item->articles_id }})">
-                                                    {{__('UnFeature')}}
-                                                </x-jet-danger-button>
-                                            </td>
-                                            <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                <x-jet-button wire:click="setTopNewsShowModal({{ $item->articles_id }})">
-                                                    
-                                                    {{__('Set As Top News')}}
-                                                </x-jet-button>
-                                                <x-jet-danger-button wire:click="unSetTopNewsShowModal({{ $item->articles_id }})">
-                                                    {{__('Not Set as top News')}}
-                                                </x-jet-danger-button>
-                                                <x-jet-danger-button wire:click="articleUpdate({{ $item->articles_id }})">
-                                                    {{__('View Article')}}
                                                 </x-jet-danger-button>
                                             </td>
                                         </tr>

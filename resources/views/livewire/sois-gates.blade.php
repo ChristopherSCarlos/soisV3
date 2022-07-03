@@ -5,7 +5,7 @@
     @foreach($soisbuttons as $butt)
         @foreach($soisGateKey as $key)
             <x-jet-button>
-                <a href="{{$butt->external_link}}$0lsL0gIn/idem/{{$this->userId}}/gateportal/{{$key->gate_key}}" target="_blank">{{$butt->link_name}}</a>
+                <a href="{{$butt->external_link}}/$0lsL0gIn/idem/{{$this->userId}}/gateportal/{{$key->gate_key}}" target="_blank">{{$butt->link_name}}</a>
             </x-jet-button>
         @endforeach
     @endforeach

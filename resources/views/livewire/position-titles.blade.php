@@ -2,16 +2,30 @@
 
     <h2 class="table-title">Position Titles</h2>
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
-        <x-jet-button wire:click="createPositionTitleModal">
+        @if($getUserRole == 'Super Admin')
+            <a href="{{route('sadmin-position-titles.create')}}">
+                <x-jet-button>
+                    {{ __('Create Position Titles') }}
+                </x-jet-button>
+            </a>
+        @else
+            <a href="{{route('admin-position-titles.create')}}">
+            <x-jet-button>
+                {{ __('Create Position Titles') }}
+            </x-jet-button>
+            </a>
+        @endif
+        <!-- <x-jet-button wire:click="createPositionTitleModal">
             {{ __('Create Position') }}
-        </x-jet-button>
+        </x-jet-button> -->
     </div>
 
 
-    <div class="flex flex-col lg:items-center">
+    <div class="flex flex-col">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead>
                             <tr>
@@ -181,7 +195,13 @@
                         @error('selectedOrganization') <span class="error">{{ $message }}</span> @enderror
                     @else
                         @if($getUserRole == 'Home Page Admin')
-                            
+                            <x-jet-label for="selectedOrganization" value="{{ __('Organization') }}" />
+                        <select wire:model="selectedOrganization" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <option default hidden>Choose organization</option>
+                            @foreach($getOrganization as $orgs)
+                                <option value="{{$orgs->organization_id}}">{{$orgs->organization_name}}</option>
+                            @endforeach
+                        </select>
                         @endif
                     @endif
                 </div>

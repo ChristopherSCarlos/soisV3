@@ -22,25 +22,29 @@ use Datetime;
 use DatePeriod;
 use DateInterval;
 
-
-class ApprovedEvents extends Component
+class ApprovedPartnership extends Component
 {
     use WithPagination;
 
-    public function get_data_from_db()
+    private $org_id;
+    public function getDataFromDB()
     {
-        return DB::table('upcoming_events')
-            ->where('upcoming_events.advisers_approval','=','approved')
-            ->where('upcoming_events.studAffairs_approval','=','approved')
-            ->where('upcoming_events.directors_approval','=','approved')
-            ->orderBy('upcoming_event_id', 'desc')
+        $this->org_id = DB::table('organizations')->where('organization_id','=',Auth::id())->first();
+        // dd($this->org_id->organization_id);
+        // dd(DB::table('partnership_requests')->where()->get());
+        return DB::table('partnership_requests')
+            ->join('upcoming_events','upcoming_events.upcoming_event_id','=','partnership_requests.event_id')
+            ->join('organizations','organizations.organization_id','=','partnership_requests.request_by')
+            ->where('partnership_requests.request_to', $this->org_id->organization_id)
+            ->where('partnership_requests.request_status','=','pending')
+            ->orderBy('partnership_requests.event_id','DESC')
             ->paginate(3);
     }
 
     public function render()
     {
-        return view('livewire.approved-events',[
-            'listDataFromDB' => $this->get_data_from_db(),
+        return view('livewire.approved-partnership',[
+            'list_data' => $this->getDataFromDB(),
         ]);
     }
 }

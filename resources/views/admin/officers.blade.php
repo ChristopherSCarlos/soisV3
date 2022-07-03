@@ -20,12 +20,10 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-2 items-center justify-center">
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    @livewire('position-titles')
-                </div>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                @livewire('position-titles')
             </div>
         </div>
     </div>

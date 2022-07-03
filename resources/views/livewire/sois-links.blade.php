@@ -2,21 +2,37 @@
     <h2 class="table-title">SOIS System Links</h2>
 
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
-        <x-jet-button wire:click="createSOISLinksModel">
-            {{ __('Add SOIS Links') }}
-        </x-jet-button>
+        @if($getUserRole == 'Super Admin')
+            <a href="{{route('sadmin-sois-sub-links.create')}}">
+                <x-jet-button>
+                    {{ __('Add Data in Homepage Slider') }}
+                </x-jet-button>
+            </a>
+        @else
+            <a href="{{route('admin-sois-sub-links.create')}}">
+                <x-jet-button>
+                    {{ __('Add Data in Homepage Slider') }}
+                </x-jet-button>
+            </a>
+        @endif
+
+        <!-- <a href="{{route('admin-sois-sub-links.create')}}">
+                <x-jet-button>
+                    {{ __('Add Data in Homepage Slider') }}
+                </x-jet-button>
+            </a> -->
         <x-jet-button wire:click="infoShowModel" class="ml-5" style="background: green;">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
             </svg>
         </x-jet-button>
     </div>
-    <div class="flex flex-col lg:items-center">
-        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+    <div class="flex flex-col" >
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 ">
+            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8 ">
+                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg " style="overflow-x:auto;">
 
-                    <table class="min-w-full divide-y divide-gray-200">
+                    <table class="min-w-full divide-y divide-gray-200  ">
                         <thead>
                             <tr>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Name</th>
@@ -61,8 +77,6 @@
         </div>
     </div>
     <br>
-
-
 
 
 <!--=================================================
