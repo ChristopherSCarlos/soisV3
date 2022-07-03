@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<div class="">
 @extends('layouts.headlines')
 
-@section('page-title','Article Create')
+@section('page-title','test')
 
 @livewire('admin-nav-bars')
 
@@ -15,7 +12,6 @@
 
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-
 
 <style>
     .modal-backdrop {
@@ -49,32 +45,17 @@
 
 <div class="flex flex-col p-5">
 	<div class="max-w-lg rounded overflow-hidden shadow-lg">
-		<form name="add-articles" id="add-articles" method="POST" action="{{ route('articles.store') }}" enctype="multipart/form-data">
+		<form name="add-articles" id="add-articles" method="POST" action="{{ route('admin-sliders.store') }}" enctype="multipart/form-data">
 		@csrf
 		{{ csrf_field() }}
 			<div class="px-6 py-4">
 				<div class="form-group">
-					<label for="article_featured_image">article_featured_image</label>
-					<input type="file" id="article_featured_image" name="article_featured_image" class="form-control" required="">
-				</div>
-				<div class="form-group">
-					<label for="article_title">article_title</label>
-					<input type="text" id="article_title" name="article_title" class="form-control" required="">
-				</div>
-				<div class="form-group">
-					<label for="article_subtitle">article_subtitle</label>
-					<input type="text" id="article_subtitle" name="article_subtitle" class="form-control" required="">
-				</div>
-				<div class="form-group" wire:ignore>
-					<label for="article_content">article_content</label>
-					<textarea type="text" input="article_content" name="article_content" id="summernote" class="summernote"></textarea>
-				</div>
-				<div class="form-group">
-					<label for="article_type_id">Choose Article Type:</label>
-  					<select name="article_type_id" id="article_type_id" class="form-control" required="">
-  					  <option value="1">Select Article Type</option>
-  					  <option value="1">School News</option>
-  					  <option value="2">Event News</option>
+					<label for="articleData">{{ __('Select Article to add in Homepage Slider') }}</label>
+  					<select name="article_type_id" id="article_type_id" class="form-control block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 round leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required="">
+  					<option value="" selected>Choose Article News</option>
+  						@foreach($getDisplayArticleOnSelectModal as $articles)
+                            <option value="{{$articles->articles_id}}">{{$articles->article_title}}</option>
+                        @endforeach
   					</select>
 				</div>
 	  		</div>
@@ -93,29 +74,12 @@
 
         </div>
     </div>
-<!--========================================
-=            Summernote Section            =
-=========================================-->
-
-<script>
-      $('#summernote').summernote({
-        tabsize: 2,
-        height: 120,
-        toolbar: [
-          ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture', 'video']],
-          ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-      });
-    </script>
-
-<!--====  End of Summernote Section  ====-->
-
 </div>
+
+
+
+
+
 
 
 
@@ -123,6 +87,4 @@
 
 
 @extends('layouts.closing-tag')
-</div>
-</html>
 

@@ -2,46 +2,54 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Event;
 use Livewire\Component;
-use Illuminate\Support\Collection;
-use Asantibanez\LivewireCalendar\LivewireCalendar;
+use App\Models\Permission;
+use App\Models\Role;
+use App\Models\User;
+
+use Illuminate\Validation\Rule;
+use Livewire\WithPagination;
+
+use Illuminate\Support\STR;
+
+use Storage;
+use Auth;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Support\Facades\DB;
 
 use \Carbon\Carbon;
 use Datetime;
 use DatePeriod;
 use DateInterval;
-// use Carbon\Carbon;
 
-class AppointmentsCalendar extends LivewireCalendar
+class ApplicationRequests extends Component
 {
-    public function events(): Collection
+    use WithPagination;
+
+    private $organizationID;
+    private $organizationData;
+
+    public function get_data_from_DB()
     {
-        return Event::whereNotNull('date')
-            ->whereDate('scheduled_at', '>=', $this->gridStartsAt)
-            ->whereDate('scheduled_at', '<=', $this->gridEndsAt)
-            ->get()
-            ->map(function (Event $model) {
-                return [
-                    'id' => $model->id,
-                    'title' => $model->title,
-                    'description' => $model->notes,
-                    'date' => $model->scheduled_at,
-                ];
-            });
+        $this->organizationData = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        $this->organizationID = $this->organizationData->organization_id;
+        // dd(
+            return DB::table('academic_applications')->join('academic_membership','academic_membership.academic_membership_id','=','academic_applications.membership_id')
+                            ->join('organizations','organizations.organization_id','=','academic_membership.organization_id')
+                            ->where('application_status','=','pending')
+                            ->orderBy('application_id','DESC')
+                            ->paginate(5, ['*'], 'applicants');
+                            // ->get()
+        // );
     }
 
-    // public function onEventClick($eventId)
-    // {
-    //     // return redirect()->route( route: 'admin')
-    // }
-
-    // public function onEventDropped($eventId, $year, $month, $day)
-    // {
-    //     Events::where('id', $eventId)
-    //         ->update(['due date' => $year . '-' . $month . '-' . $day]);
-    // }
-
+    public function render()
+    {
+        return view('livewire.application-requests',[
+            'list_data_from_DB' => $this->get_data_from_DB(),
+        ]);
+    }
 }

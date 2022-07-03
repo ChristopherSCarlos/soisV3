@@ -2,45 +2,47 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Event;
 use Livewire\Component;
-
-use Illuminate\Validation\Rule;
-use Livewire\WithPagination;
-
-use Illuminate\Support\STR;
-
-use Auth;
-
+use Illuminate\Support\Collection;
+use Asantibanez\LivewireCalendar\LivewireCalendar;
 use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\Hash;
-
 use Illuminate\Support\Facades\DB;
 
 use \Carbon\Carbon;
 use Datetime;
 use DatePeriod;
 use DateInterval;
+// use Carbon\Carbon;
 
-
-class ApprovedEvents extends Component
+class AppointmentsCalendar extends LivewireCalendar
 {
-    use WithPagination;
-
-    public function get_data_from_db()
+    public function events(): Collection
     {
-        return DB::table('upcoming_events')
-            ->where('upcoming_events.advisers_approval','=','approved')
-            ->where('upcoming_events.studAffairs_approval','=','approved')
-            ->where('upcoming_events.directors_approval','=','approved')
-            ->orderBy('upcoming_event_id', 'desc')
-            ->paginate(3);
+        return Event::query()
+            ->whereDate('start_date', '>=', $this->gridStartsAt)
+            ->whereDate('start_date', '<=', $this->gridEndsAt)
+            ->get()
+            ->map(function (Event $model) {
+                return [
+                    'id' => $model->id,
+                    'title' => $model->title,
+                    'description' => $model->notes,
+                    'date' => $model->start_date,
+                ];
+            });
     }
+    
 
-    public function render()
-    {
-        return view('livewire.approved-events',[
-            'listDataFromDB' => $this->get_data_from_db(),
-        ]);
-    }
+    // public function onEventClick($eventId)
+    // {
+    //     // return redirect()->route( route: 'admin')
+    // }
+
+    // public function onEventDropped($eventId, $year, $month, $day)
+    // {
+    //     Events::where('id', $eventId)
+    //         ->update(['due date' => $year . '-' . $month . '-' . $day]);
+    // }
+
 }

@@ -131,7 +131,7 @@ class Officers extends LivewireDatatable
             'middle_name' => $this->middle_name,
             'suffix' => $this->suffix,
             'organization_id' => $this->organization_id,
-            // 'position' => $this->position,
+            'position' => $this->position,
             'exp_date' => $this->exp_date,
             'position_category' => $this->position_category,
             'status' => '1',
@@ -387,10 +387,6 @@ class Officers extends LivewireDatatable
                 ->label('status')
                 ->filterable(),
                 // ->editable(),
-
-            Column::delete('officer_id')
-                ->excludeFromExport()
-                ->label('delete'),
 
             
 

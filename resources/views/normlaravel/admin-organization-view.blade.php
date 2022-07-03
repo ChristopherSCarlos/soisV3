@@ -26,116 +26,116 @@
    
 </div>
 <div class="grid grid-cols-12">
-    <div class="col-span-3">
-        <div class="max-w-sm rounded overflow-hidden shadow-lg">
-            @foreach($displayOrganizationLogo as $imageData)
-                <img width="w-full" src="{{ asset('/files/' . $imageData->file) }}"/>
-            @endforeach
-            <div class="px-6 py-4">
-                @foreach($displayOrganizationData as $orgData)
-                <div class="font-bold text-xl mb-2">{{$orgData->organization_name}}'s Logo</div>
-            </div>
-            <div class="px-6 pt-4 pb-2">
-                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateLogo">
-                        {{__('Update Logo')}}
-                    </button>
-                </span>
-            </div>
-            @endforeach
-        </div>
-    </div>
-    <div class="col-span-9">
-        <div >
-            @if($displayOrganizationBannerChecker != 0)
-                @foreach($displayOrganizationBanner as $orgBanner)
-                <div class="flex justify-center align-items" style="height:40%;">
-                    <img class="h-7" src="{{ asset('/files/' . $orgBanner->file) }}"/>
-                </div>
-                @endforeach
-            @else
-                <div class="flex justify-center align-items" style="height:40%;">
-                    <p>Image Not found</p>
-                </div>
-            @endif
-        </div>
-            @foreach($displayOrganizationData as $orgData)
-        <div class="flex flex-col">
-                <div class="grid grid-cols-12">
-                    <div class="col-span-6">
-                        <p>Organization Name:</p>
-                    </div>
-                    <div class="col-span-6">
-                        <p>{{$orgData->organization_name}}</p>
-                    </div>
-                </div>
-                <div class="grid grid-cols-12">
-                    <div class="col-span-6">
-                        <p>Organization Acronym:</p>
-                    </div>
-                    <div class="col-span-6">
-                        <p>{{$orgData->organization_acronym}}</p>
-                    </div>
-                </div>
-                <div class="grid grid-cols-12">
-                    <div class="col-span-6">
-                        <p>Organization Tagline:</p>
-                    </div>
-                    <div class="col-span-6">
-                        <p>{{$orgData->organization_details}}</p>
-                    </div>
-                </div>
-                <div class="grid grid-cols-12">
-                    <div class="col-span-6">
-                        <p>Organization Type:</p>
-                    </div>
-                    <div class="col-span-6">
-                        @foreach($displayOrganizationType as $orgType)
-                            <p>{{$orgType->organization_type}}</p>
-                        @endforeach
-                    </div>
-                </div>
-                <div class="grid grid-cols-12">
-                    <div class="col-span-6">
-                        <p>Organization Slug:</p>
-                    </div>
-                    <div class="col-span-6">
-                        <a href="{{ url($orgData->organization_slug) }}" class="text-indigo-600 hover:text-indigo-900" target="_blank">
-                            <p>{{$orgData->organization_slug}}</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="grid grid-cols-12">
-                    <div class="col-span-6">
-                        <p>Organization Primary Color:</p>
-                    </div>
-                    <div class="col-span-6">
-                        <div class="h-20 w-full" style="background: {{$orgData->organization_primary_color}};"></div>
-                    </div>
-                </div>
-                <div class="grid grid-cols-12">
-                    <div class="col-span-6">
-                        <p>Organization Secondary Color:</p>
-                    </div>
-                    <div class="col-span-6">
-                        <div class="h-20 w-full" style="background: {{$orgData->organization_secondary_color}};"></div>
-                    </div>
-                </div>
-        </div>
-        <div class="flex flex-col">
-            <div class="flex flex-row">
-                <a href="{{ route('organization.edit', $orgData->organization_id) }}">
-                    <x-jet-button >
-                        {{__('Update')}}
-                    </x-jet-button>
-                </a>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateBanner">
-                    {{__('Update Banner')}}
-                </button>
-            </div>
-        </div>
-            @endforeach
-    </div>
+	<div class="col-span-3">
+		<div class="max-w-sm rounded overflow-hidden shadow-lg">
+			@foreach($displayOrganizationLogo as $imageData)
+		  		<img width="w-full" src="{{ asset('/files/' . $imageData->file) }}"/>
+			@endforeach
+		  	<div class="px-6 py-4">
+				@foreach($displayOrganizationData as $orgData)
+		  	  	<div class="font-bold text-xl mb-2">{{$orgData->organization_name}}'s Logo</div>
+		  	</div>
+		  	<div class="px-6 pt-4 pb-2">
+		  	 	<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+		  	 		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateLogo">
+					    {{__('Update Logo')}}
+					</button>
+		  	 	</span>
+		  	</div>
+			@endforeach
+		</div>
+	</div>
+	<div class="col-span-9">
+		<div >
+			@if($displayOrganizationBannerChecker != 0)
+				@foreach($displayOrganizationBanner as $orgBanner)
+				<div class="flex justify-center align-items" style="height:40%;">
+					<img class="h-7" src="{{ asset('/files/' . $orgBanner->file) }}"/>
+				</div>
+				@endforeach
+			@else
+				<div class="flex justify-center align-items" style="height:40%;">
+					<p>Image Not found</p>
+				</div>
+			@endif
+		</div>
+			@foreach($displayOrganizationData as $orgData)
+		<div class="flex flex-col">
+        		<div class="grid grid-cols-12">
+        			<div class="col-span-6">
+        				<p>Organization Name:</p>
+        			</div>
+        			<div class="col-span-6">
+        				<p>{{$orgData->organization_name}}</p>
+        			</div>
+        		</div>
+        		<div class="grid grid-cols-12">
+        			<div class="col-span-6">
+        				<p>Organization Acronym:</p>
+        			</div>
+        			<div class="col-span-6">
+        				<p>{{$orgData->organization_acronym}}</p>
+        			</div>
+        		</div>
+        		<div class="grid grid-cols-12">
+        			<div class="col-span-6">
+        				<p>Organization Tagline:</p>
+        			</div>
+        			<div class="col-span-6">
+        				<p>{{$orgData->organization_details}}</p>
+        			</div>
+        		</div>
+        		<div class="grid grid-cols-12">
+        			<div class="col-span-6">
+        				<p>Organization Type:</p>
+        			</div>
+        			<div class="col-span-6">
+        				@foreach($displayOrganizationType as $orgType)
+        					<p>{{$orgType->organization_type}}</p>
+						@endforeach
+        			</div>
+        		</div>
+        		<div class="grid grid-cols-12">
+        			<div class="col-span-6">
+        				<p>Organization Slug:</p>
+        			</div>
+        			<div class="col-span-6">
+        				<a href="{{ url($orgData->organization_slug) }}" class="text-indigo-600 hover:text-indigo-900" target="_blank">
+        					<p>{{$orgData->organization_slug}}</p>
+						</a>
+        			</div>
+        		</div>
+        		<div class="grid grid-cols-12">
+        			<div class="col-span-6">
+        				<p>Organization Primary Color:</p>
+        			</div>
+        			<div class="col-span-6">
+        				<div class="h-20 w-full" style="background: {{$orgData->organization_primary_color}};"></div>
+        			</div>
+        		</div>
+        		<div class="grid grid-cols-12">
+        			<div class="col-span-6">
+        				<p>Organization Secondary Color:</p>
+        			</div>
+        			<div class="col-span-6">
+        				<div class="h-20 w-full" style="background: {{$orgData->organization_secondary_color}};"></div>
+        			</div>
+        		</div>
+		</div>
+		<div class="flex flex-col">
+			<div class="flex flex-row">
+				<a href="{{ route('admin-organization.edit', $orgData->organization_id) }}">
+					<x-jet-button >
+					    {{__('Update')}}
+					</x-jet-button>
+			    </a>
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateBanner">
+				    {{__('Update Banner')}}
+				</button>
+			</div>
+		</div>
+			@endforeach
+	</div>
 </div>
 
 
@@ -149,7 +149,7 @@
                 @csrf
                 {{ csrf_field() }}
                 @foreach($displayOrganizationData as $orgData)
-                    <form name="add-role" id="add-role" method="post" action="{{ route('organization/updateBanner', $orgData->organization_id ) }}" enctype="multipart/form-data">
+                    <form name="add-role" id="add-role" method="post" action="{{ route('adminorganization/updateBanner', $orgData->organization_id ) }}" enctype="multipart/form-data">
                         <div class="modal-header">
                             <h5 class="modal-title" id="staticBackdropLabel">Change {{$orgData->organization_name}}'s Image Banner </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -160,8 +160,8 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="mt-4">
-                                        <x-jet-label for="Organization_banner" value="{{ __('organization logo') }}" />
-                                        <x-jet-input name="organization_banner" id="organization_banner" class="form-control block mt-1 w-full" type="file" />
+										<x-jet-label for="Organization_banner" value="{{ __('organization logo') }}" />
+										<x-jet-input name="organization_banner" id="organization_banner" class="form-control block mt-1 w-full" type="file" />
                                     </div>
                                 </div>
                             </div>
@@ -189,7 +189,7 @@
                 @csrf
                 {{ csrf_field() }}
                 @foreach($displayOrganizationData as $orgData)
-                    <form name="add-role" id="add-role" method="post" action="{{ route('organization/updateLogo', $orgData->organization_id ) }}" enctype="multipart/form-data">
+                    <form name="add-role" id="add-role" method="post" action="{{ route('adminorganization/updateLogo', $orgData->organization_id ) }}" enctype="multipart/form-data">
                         <div class="modal-header">
                             <h5 class="modal-title" id="staticBackdropLabel">Change {{$orgData->organization_name}}'s Image Banner </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -200,8 +200,8 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="mt-4">
-                                        <x-jet-label for="Organization_logo" value="{{ __('organization logo') }}" />
-                                        <x-jet-input name="organization_logo" id="organization_logo" class="form-control block mt-1 w-full" type="file" />
+										<x-jet-label for="Organization_logo" value="{{ __('organization logo') }}" />
+										<x-jet-input name="organization_logo" id="organization_logo" class="form-control block mt-1 w-full" type="file" />
                                     </div>
                                 </div>
                             </div>
@@ -237,7 +237,7 @@
                         <div class="modal-body">
                             <div class="flex flex-col p-5">
                                 <div class="max-w-lg rounded overflow-hidden shadow-lg">
-                                      {{ __('Are you sure you want to delete your page? Once your page is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your page.') }}
+                                	  {{ __('Are you sure you want to delete your page? Once your page is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your page.') }}
                                 </div>
                             </div>
                         </div>

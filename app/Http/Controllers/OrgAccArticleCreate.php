@@ -38,30 +38,12 @@ class OrgAccArticleCreate extends Controller
     public $selectedArticle;
 
     private $orgIDHolder;
-    public function index()
-    {
-        // dd(Auth::id());
-        // dd(DB::table('role_user')->where('user_id','=',Auth::id())->pluck('organization_id'));
-        return view('normlaravel.article-create',);
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // dd("Hello");
-        return view('normlaravel.article-create',);
-    }
+    private $checkUserData;
+    private $checkUserRole;
+    private $UserRole;
+    private $orgDataOnNull;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $checkUserData = DB::table('role_user')->where('user_id','=',Auth::id())->first();
@@ -139,6 +121,32 @@ class OrgAccArticleCreate extends Controller
             }
         }
     }
+
+    public function index()
+    {
+        // dd(Auth::id());
+        // dd(DB::table('role_user')->where('user_id','=',Auth::id())->pluck('organization_id'));
+        return view('normlaravel.article-create');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        // dd("Hello");
+        return view('normlaravel.article-create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
 
     public function articleInsertModel($artTitle,$artSubtitle,$artContent,$type,$status,$userID,$artSlug,$orgID)
     {

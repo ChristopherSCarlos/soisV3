@@ -20,7 +20,7 @@
 @endif
             <div class="grid grid-cols-12">
                 <div class="col-span-12">
-                    <h2>Create News</h2>
+                    <h2>User Acceess Control</h2>
                 </div>
                 <div class="col-span-1">
                 @foreach($displayUserSelectedData as $user)
@@ -68,11 +68,7 @@
                             <tr>
                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                     @foreach($displayUserRoleData as $viewRole)
-                                        @if($viewRole->role != null)
-                                            {{ $viewRole->role }}
-                                        @else
-                                            <p>Data Unavailable</p>
-                                        @endif
+                                        {{ $viewRole->role_id }}
                                     @endforeach
                                 </td>
                             </tr>
@@ -198,7 +194,7 @@
                                         <select name="role_id" id="role_id" class="form-control">
                                             <option value="" selected>Choose role</option>
                                             @foreach($rolesList as $role)
-                                                <option value="{{ $role->role_id }}">{{ $role->role }}</option>
+                                                <option value="{{ $role->role_id }}">{{ $role->role_id }}</option>
                                             @endforeach
                                         </select>
                                     </div>

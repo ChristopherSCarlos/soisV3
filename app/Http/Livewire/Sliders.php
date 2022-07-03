@@ -54,14 +54,18 @@ class Sliders extends Component
     public $organization_id;
     public $articleOrgData;
 
+    private $userRoleData;
+    private $role_name;
+
+
     
     public function mount()
     {
-        $this->object = new Objects();
-        $this->userRole = $this->object->roles();
-        $this->userRoleString = $this->userRole->role;
+        // $this->object = new Objects();
+        // $this->userRole = $this->object->roles();
+        // $this->userRoleString = $this->userRole->role;
 
-
+        // dd("Hello");
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             $ip = $_SERVER['HTTP_CLIENT_IP'];
             // echo "1";
@@ -195,20 +199,31 @@ class Sliders extends Component
     {
         $this->userId = Auth::id();
         $this->user = User::find($this->userId);
-        $this->va = $this->user->organizations->first();
-        $this->organization_id = $this->va->organization_id;
+        $this->userRoleData = DB::table('role_user')->where('user_id','=',$this->userId)->first();
+        if ($this->userRoleData->organization_id != null) {
+            $this->organization_id = $this->userRoleData->organization_id;
+        }else{
+            $this->organization_id = 1;
+        }
         return $this->organization_id;
     }
 
     public function getRole()
     {
-        // dd($this->userRole->role);
+        $this->userId = Auth::id();
+        $this->user = User::find($this->userId);
+        $this->userRoleData = DB::table('role_user')->where('user_id','=',$this->userId)->first();
+        
+        $this->role_name = DB::table('roles')->where('role_id','=',$this->userRoleData->role_id)->first();
+        return $this->role_name->role;
+        // dd($this->userRoleData->role_id);
     }
 
     public function render()
     {
         return view('livewire.sliders',[
             'getCarouselHomepage' => $this->read(),
+            'getUserRole' => $this->getRole(),
             'getCarouselOrganization' => $this->getOrganizationArticlesFromDatabase(),
             'getDisplayArticleOnSelectModal' => $this->getArticlesFromDatabase(),
             'getDisplayOrganizationArticleOnSelectModal' => $this->getOrganizationArticlesSliderFromDatabase(),

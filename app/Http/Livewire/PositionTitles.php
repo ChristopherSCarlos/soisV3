@@ -32,18 +32,19 @@ class PositionTitles extends Component
     public $selectedPositionCategory;
 
     public $user;
-    public $va;
+    private $va;
     private $role;
     private $userRoles;
     private $userRole;
     private $userRolesString;
+    private $role_id;
 
 
     public $userId;
-    public $authUserId;
-    public $authUserData;
-    public $authUserRole;
-    public $authUserRoleType;
+    private $authUserId;
+    private $authUserData;
+    private $authUserRole;
+    private $authUserRoleType;
     public $authUser;
     public $OrgDataFromUser;
     public $orgUserId;
@@ -255,11 +256,12 @@ class PositionTitles extends Component
     {
         $this->userId = Auth::id();
         $this->user = User::find($this->userId);
-        $this->va = $this->user->organizations->first();
-        $this->organization_id = $this->va->organizations_id;
-        // dd("Hello");
+        // dd();
+        
+        $this->va = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        $this->organization_id = $this->va->organization_id;
         // dd(DB::table('position_titles')->where('organization_id','=',$this->userOrg())->paginate(10));
-        return DB::table('position_titles')->where('organization_id','=',$this->organization_id)->paginate(10);
+        return DB::table('organizations')->where('organization_id','=',$this->organization_id)->paginate(10);
     }
 
     
@@ -274,11 +276,12 @@ class PositionTitles extends Component
     {
         $this->authUserId = Auth::id();
         $this->authUserData = User::find($this->authUserId);        
-        $this->authUserRole = $this->authUserData->roles->first();
-        $this->authUserRoleType = $this->authUserRole->role;         
+        $this->authUserRole = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        // dd($this->authUserRole->role_id);
+        $this->authUserRoleType = $this->authUserRole->role_id;         
         // dd($this->authUserRoleType);
         // dd($this->authUserRoleType);
-        return $this->authUserRoleType;
+        return DB::table('roles')->where('role_id','=',$this->role_id)->paginate(10);
     }
     
     /*=====  End of Get User Role  ======*/

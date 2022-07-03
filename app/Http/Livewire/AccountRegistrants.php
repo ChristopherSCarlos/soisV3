@@ -34,6 +34,7 @@ class AccountRegistrants extends Component
 
     public function get_data_from_DB()
     {
+        
         $this->organizationData = DB::table('role_user')->where('user_id','=',Auth::id())->first();
         $this->organizationID = $this->organizationData->organization_id;
         // dd(

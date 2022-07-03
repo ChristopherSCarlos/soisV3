@@ -86,8 +86,8 @@ class OrganizationCRUD extends Controller
      */
     public function index()
     {
-        $this->permission_data = new PermissionCheckerController;
-        $this->permission_data->permssionChecker('HP-View_Organization_Page');    
+        // $this->permission_data = new PermissionCheckerController;
+        // $this->permission_data->permssionChecker('HP-View_Organization_Page');    
         return view('normlaravel.organization-view',[
             // 'articleDatas' => DB::table('tags')->paginate(15),
         ]);
@@ -100,8 +100,8 @@ class OrganizationCRUD extends Controller
      */
     public function create()
     {
-        $this->permission_data = new PermissionCheckerController;
-        $this->permission_data->permssionChecker('HP-Create_Organization_Page');
+        // $this->permission_data = new PermissionCheckerController;
+        // $this->permission_data->permssionChecker('HP-Create_Organization_Page');
         return view('normlaravel.organization-create');
     }
 
@@ -190,14 +190,18 @@ class OrganizationCRUD extends Controller
 
     public function accessOrgControll($id)
     {
-        $this->permission_data = new PermissionCheckerController;
-        $this->permission_data->permssionChecker('HP-View_Organization_Page'); 
-        $this->cleanVars();
+        // $this->permission_data = new PermissionCheckerController;
+        // $this->permission_data->permssionChecker('HP-View_Organization_Page'); 
+        // $this->cleanVars();
 
         $authUserId = Auth::id();
         $authUserData = User::find($authUserId);        
-        $authUserRole = $authUserData->roles->first();
-        $authUserRoleType = $authUserRole->role;
+        // dd(DB::table('role_user')->where('user_id','=',Auth::id())->first());
+        $authUserRole = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        // dd($authUserRole->role_id);
+        // dd(DB::table('roles')->where('role_id','=',$authUserRole->role_id)->first());
+        $role_name = DB::table('roles')->where('role_id','=',$authUserRole->role_id)->first();
+        $authUserRoleType = $role_name->role;
 
         // dd("hello");
 
@@ -228,8 +232,8 @@ class OrganizationCRUD extends Controller
      */
     public function show($id)
     {
-        $this->permission_data = new PermissionCheckerController;
-        $this->permission_data->permssionChecker('HP-View_Organization_Page'); 
+        // $this->permission_data = new PermissionCheckerController;
+        // $this->permission_data->permssionChecker('HP-View_Organization_Page'); 
         $this->cleanVars();
         // dd(DB::table('organizations')->where('organization_id','=',$id)->get());
         // dd(DB::table('organization_types')->where('organization_type_id','=',DB::table('organizations')->where('organization_id','=',$id)->pluck('organization_type_id'))->get());

@@ -16,37 +16,37 @@
 <!-- front page navigation -->
      <div>
          
-        <div id="navbar" style="padding:0px;" x-data="{ open: false }" class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
+        <div class="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800">
+     <div x-data="{ open: false }" class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
           <div class="p-4 flex flex-row items-center justify-between">
                <a href="{{ url('/')}}" class="flex text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">
                     <img class="h-8" src="{{ asset('image/svg/pup.svg') }}">
-                    <p  id="titulo1" class="system-title ml-2 text-white">Student Organization Information System</p>
-                    <p  id="titulo2" class="system-title-2 ml-2 text-white">SOIS</p>
+                    <p class="ml-2">Student Organization Information System</p>
                </a>
-               <button style="color:white" class="md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">
+               <button class="md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">
                     <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
                          <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
                          <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                     </svg>
                </button>
           </div>
-          <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow md:pb-0 hidden md:flex md:justify-end md:flex-row">
-                <a href="/" class="frontpage-nav-button" style="">
-                    <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                     <i class="fas fa-home"></i>
-                        <span class="ml-1">Home</span>
-                    </button>
-                    <span class="inline-flex rounded-md">
-                    </span>
-                </a>
-                <a href="/news" class="frontpage-nav-button">
-                    <span class="inline-flex rounded-md">
-                        <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                         <i class="far fa-newspaper"></i>
-                            <span class="ml-1">News</span>
-                        </button>
-                    </span>
-                </a>
+          <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
+               <a href="/">
+               <span class="inline-flex rounded-md">
+                   <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                    <i class="fas fa-home"></i>
+                       <span class="ml-1">Home</span>
+                   </button>
+               </span>
+               </a>
+               <a href="/news">
+               <span class="inline-flex rounded-md">
+                   <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                    <i class="far fa-newspaper"></i>
+                       <span class="ml-1">News</span>
+                   </button>
+               </span>
+               </a>
                 <div class="Panel frontpage-nav-button">
                     <span class="inline-flex rounded-md">
                   <button class=" frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
@@ -66,29 +66,30 @@
                     @endforeach
                   </div>
                 </div>
-                <a href="{{ url('/login') }}" class="frontpage-nav-button">
-                    <span class="inline-flex rounded-md">
-                        <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                         <i class="fas fa-sign-in-alt"></i>
-                            <span class="ml-1">Login</span>
-                        </button>
-                    </span>
-                </a>
-            </nav>
+               <a href="{{ url('/login') }}">
+               <span class="inline-flex rounded-md">
+                   <button type="button" class="frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                    <i class="fas fa-sign-in-alt"></i>
+                       <span class="ml-1">Login</span>
+                   </button>
+               </span>
+               </a>
+          </nav>
      </div>
+</div>
          
      </div>
 
 
      <!-- main slider -->
-     <div class="sliding-announcement-wrap-homepage" style="">
-         <div class="sliding-announcement"  style="margin-bottom:0px; background: #1a1a1a;">
+     <div class="sliding-announcement-wrap-homepage" style=" height: 80vh;">
+         <div class="sliding-announcement"  style="margin-bottom:0px; background: #1a1a1a;  height: 80vh;">
                @foreach($getDisplayArticlesOnHomepageCarousel as $HomepageNews)
                <a href="{{$HomepageNews->article_slug}}">
-                   <div class="sliding-annonuncement-image-container" style="">
+                   <div class="sliding-annonuncement-image-container" style=" height: 80vh;">
                          @foreach($getDisplaySelectedNewsImageData as $newsImage)
                              @if($newsImage->articles_id == $HomepageNews->articles_id)
-                                 <img class="sliding-annonuncement-image" src="{{ asset('files/'.$newsImage->file) }}" style="object-fit: contain;">
+                                 <img class="sliding-annonuncement-image" src="{{ asset('files/'.$newsImage->file) }}" style="object-fit: contain; height: 80vh;">
                              @endif
                          @endforeach
                    </div>
@@ -323,34 +324,25 @@
                    </button>
                </span>
                </a>
-                                  <x-jet-dropdown align="right" width="60">
-                                      <x-slot name="trigger">
-                                          <span class="inline-flex rounded-md">
-                                              <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
-                                                  <i class="fas fa-users"></i>
-                                                  <span class="ml-1">Organization</span>
-                                                  <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                      <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                                  </svg>
-                                              </button>
-                                          </span>
-                                      </x-slot>
-                                      <x-slot name="content">
-                                          <div class="w-60">
-                                              <!-- Team Management -->
-                                              <div class="block px-4 py-2 text-xs text-gray-400">
-                                                  {{ __('PUP ORGANIZATIONS') }}
-                                              </div>
-                                              <!-- Team Settings -->
-                                              @foreach($orgLinks as $orgWebLinks)
-                                                  <x-jet-dropdown-link href="{{ url($orgWebLinks->organization_slug) }}" class="frontpage-nav-bar-design">
-                                                      {{ $orgWebLinks->organization_name }}
-                                                  </x-jet-dropdown-link>
-                                              @endforeach
-                                              <div class="border-t border-gray-100"></div>
-                                          </div>
-                                      </x-slot>
-                                  </x-jet-dropdown>
+                <div class="Panel frontpage-nav-button">
+                    <span class="inline-flex rounded-md">
+                  <button class=" frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                      <i class="fas fa-users"></i>
+                                <span class="ml-1">Organization</span>
+                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                  </button>
+                    </span>
+                  <div id="myDropdown" class="dropdown-content">
+                    <div class="block px-4 py-2 text-xs text-gray-400">
+                        {{ __('PUP ORGANIZATIONS') }}
+                    </div>
+                    @foreach($orgLinks as $orgWebLinks)
+                        <a href="{{ url($orgWebLinks->organization_slug) }}" class="frontpage-nav-bar-design">{{ $orgWebLinks->organization_name }}</a>
+                    @endforeach
+                  </div>
+                </div>
 
                <a href="{{ url('/login') }}">
                <span class="inline-flex rounded-md">
@@ -657,34 +649,25 @@
                    </button>
                </span>
                </a>
-                                  <x-jet-dropdown align="right" width="60">
-                                      <x-slot name="trigger">
-                                          <span class="inline-flex rounded-md">
-                                              <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
-                                                  <i class="fas fa-users"></i>
-                                                  <span class="ml-1">Organization</span>
-                                                  <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                      <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                                  </svg>
-                                              </button>
-                                          </span>
-                                      </x-slot>
-                                      <x-slot name="content">
-                                          <div class="w-60">
-                                              <!-- Team Management -->
-                                              <div class="block px-4 py-2 text-xs text-gray-400">
-                                                  {{ __('PUP ORGANIZATIONS') }}
-                                              </div>
-                                              <!-- Team Settings -->
-                                              @foreach($orgLinks as $orgWebLinks)
-                                                  <x-jet-dropdown-link href="{{ url($orgWebLinks->organization_slug) }}" class="frontpage-nav-bar-design">
-                                                      {{ $orgWebLinks->organization_name }}
-                                                  </x-jet-dropdown-link>
-                                              @endforeach
-                                              <div class="border-t border-gray-100"></div>
-                                          </div>
-                                      </x-slot>
-                                  </x-jet-dropdown>
+                <div class="Panel frontpage-nav-button">
+                    <span class="inline-flex rounded-md">
+                  <button class=" frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                      <i class="fas fa-users"></i>
+                                <span class="ml-1">Organization</span>
+                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                  </button>
+                    </span>
+                  <div id="myDropdown" class="dropdown-content">
+                    <div class="block px-4 py-2 text-xs text-gray-400">
+                        {{ __('PUP ORGANIZATIONS') }}
+                    </div>
+                    @foreach($orgLinks as $orgWebLinks)
+                        <a href="{{ url($orgWebLinks->organization_slug) }}" class="frontpage-nav-bar-design">{{ $orgWebLinks->organization_name }}</a>
+                    @endforeach
+                  </div>
+                </div>
 
                <a href="{{ url('/login') }}">
                <span class="inline-flex rounded-md">
@@ -703,22 +686,24 @@
 @section('title', $articleSelectedData->article_title)
 
      @if($articleSelectedData->article_slug == $urlslug)
-               <div class="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 mb-5" style="background: #1a1b1b; ">
+
+
+               <div class="flex flex-col flex-wrap items-center justify-center mb-5" style="background: #1a1b1b; ">
                     <div style="">
                          <div class="flex flex-col flex-wrap items-center justify-center" style="">
                          @foreach($getDisplaySelectedNewsImageDataOnSelectedNews as $data)
-                              <img style="max-height: 100%;object-fit: contain;" src="{{asset('files/'.$data->file)}}">
+                              <img style="height: 60vh;object-fit: contain;" src="{{asset('files/'.$data->file)}}">
                          @endforeach
                          </div>
-                    </div>
-                    <div class="flex flex-col flex-wrap items-center justify-center text-center" style="color:white;">
-                         <p class="">{{$articleSelectedData->article_title}}</p>
                     </div>
                </div>
 
 
 
 <div class="selected-news-data-announcement-wrapper">
+    <div class="pt-6 pr-6 pb-6 pl-36 flex flex-col flex-wrap items-center justify-center text-center">
+         <p class="">{{$articleSelectedData->article_title}}</p>
+    </div>
   <div class="selected-news-announcement pt-6 pr-6 pb-6 pl-36">
        <p class=""><?php echo htmlspecialchars_decode(stripslashes($articleSelectedData->article_content));  ?></p>
   </div>
@@ -848,34 +833,25 @@
                    </button>
                </span>
                </a>
-                                  <x-jet-dropdown align="right" width="60">
-                                      <x-slot name="trigger">
-                                          <span class="inline-flex rounded-md">
-                                              <button type="button" class="frontpage-nav-bar-design inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-opacity-0 hover:bg-yellow-50 hover:text-yellow-700 focus:outline-none focus:bg-yellow-50 focus:text-white transition text-white">
-                                                  <i class="fas fa-users"></i>
-                                                  <span class="ml-1">Organization</span>
-                                                  <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                      <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                                  </svg>
-                                              </button>
-                                          </span>
-                                      </x-slot>
-                                      <x-slot name="content">
-                                          <div class="w-60">
-                                              <!-- Team Management -->
-                                              <div class="block px-4 py-2 text-xs text-gray-400">
-                                                  {{ __('PUP ORGANIZATIONS') }}
-                                              </div>
-                                              <!-- Team Settings -->
-                                              @foreach($orgLinks as $orgWebLinks)
-                                                  <x-jet-dropdown-link href="{{ url($orgWebLinks->organization_slug) }}" class="frontpage-nav-bar-design">
-                                                      {{ $orgWebLinks->organization_name }}
-                                                  </x-jet-dropdown-link>
-                                              @endforeach
-                                              <div class="border-t border-gray-100"></div>
-                                          </div>
-                                      </x-slot>
-                                  </x-jet-dropdown>
+                <div class="Panel frontpage-nav-button">
+                    <span class="inline-flex rounded-md">
+                  <button class=" frontpage-nav-bar-design inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  px-4 py-2 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                      <i class="fas fa-users"></i>
+                                <span class="ml-1">Organization</span>
+                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                  </button>
+                    </span>
+                  <div id="myDropdown" class="dropdown-content">
+                    <div class="block px-4 py-2 text-xs text-gray-400">
+                        {{ __('PUP ORGANIZATIONS') }}
+                    </div>
+                    @foreach($orgLinks as $orgWebLinks)
+                        <a href="{{ url($orgWebLinks->organization_slug) }}" class="frontpage-nav-bar-design">{{ $orgWebLinks->organization_name }}</a>
+                    @endforeach
+                  </div>
+                </div>
 
                <a href="{{ url('/login') }}">
                <span class="inline-flex rounded-md">

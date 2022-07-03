@@ -3,27 +3,54 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
+use App\Models\Article;
+use App\Models\User;
+use App\Http\Livewire\Objects;
+
+
+use Illuminate\Validation\Rule;
+use Livewire\WithPagination;
+
+use Illuminate\Support\STR;
+
+use Storage;
+
+use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Support\Facades\DB;
 
-class CreationTest extends Controller
+use Auth;
+
+
+use Datetime;
+use DatePeriod;
+use DateInterval;
+
+class AdminSlider extends Controller
 {
+
+    public $articleData;
+    public $articleID;
+    public $userId;
+    public $user;
+    public $va;
+    public $organization_id;
+    public $articleOrgData;
+
+    private $userRoleData;
+    private $role_name;
+
+    private $object;
+    public $userRole;
+    public $userRoleString;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public $tags_name;
-    public $tags_description;
-    public $tags_type;
-    public $user_id;
-
     public function index()
     {
-
-        return view('normlaravel.text',[
-            'articleDatas' => DB::table('tags')->paginate(15),
-        ]);
+        //
     }
 
     /**
@@ -33,7 +60,9 @@ class CreationTest extends Controller
      */
     public function create()
     {
-        //
+        return view('normlaravel\admin-slider',[
+            'getDisplayArticleOnSelectModal' => Article::where('status','=','1')->get(),
+        ]);
     }
 
     /**
@@ -44,37 +73,21 @@ class CreationTest extends Controller
      */
     public function store(Request $request)
     {
-        // insertModel();
-        $tags_name = $request->tags_name;
-        $tags_description = $request->tags_description;
-        $tags_type = $request->tags_type;
-        $user_id = $request->user_id;
-           
-        $this->insertModel($tags_name,$tags_description,$tags_type,$user_id);
-        // echo "$request->tags_name";
-        // echo "$request->tags_description";
-        // echo "$request->tags_type";
-        // echo "$request->user_id";
-        // $post = new Post;
-        DB::table('tags')->insert($this->insertModel($tags_name,$tags_description,$tags_type,$user_id));
-        // $post->title = $request->title;
-        // $post->description = $request->description;
-        // $post->save();
-        // echo $request->title;
-        // echo $request->description;
-        // dd("Hello");
-        return redirect('test/normal/controller')->with('status', 'Blog Post Form Data Has Been inserted');
+        $article_type_id = $request->article_type_id;
+        // dd(Article::find($article_type_id));
+        
+        Article::find($article_type_id)->update(['is_carousel_homepage'=>'1']);
+        // dd($article_type_id);
+        return redirect('/admin-default-interfaces');
     }
 
-    public function insertModel($tags,$description,$type,$userID)
+    public function accessControlBack()
     {
-        return [
-            'tags_name' => $tags,
-            'tags_description' => $description,
-            'tags_type' => $type,
-            'user_id' => $userID,
-        ];
+        return view('normlaravel\admin-slider',[
+            'getDisplayArticleOnSelectModal' => Article::where('status','=','1')->get(),
+        ]);
     }
+
     /**
      * Display the specified resource.
      *

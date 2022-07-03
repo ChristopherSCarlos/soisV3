@@ -250,6 +250,7 @@ class UserCRUD extends Controller
     {
         // dd($id);
         // dd(DB::table('permission_user')->where('user_id','=',$id)->get('permission_id'));
+        $role_id = null;
         echo $error;
         $getUserData = DB::table('users')->where('user_id','=',$id)->get();
         // dd(DB::table('users')->where('user_id','=',$id)->get());
@@ -278,9 +279,15 @@ class UserCRUD extends Controller
         // dd(DB::table('organizations')->where('organization_id','=',$this->UserOrg)->get());
 
             // 'displayUserRoleData' => $this->getUserRole(),
-        $UserRoleOrgData = DB::table('role_user')->where('user_id','=',$id)->first();
-        $UserRole = $UserRoleOrgData->role_id;
-        // dd($UserRole);
+        $UserRoleOrgData = DB::table('role_user')->where('user_id','=',$id)->get();
+        // $UserRoleOrgData = DB::table('role_user')->join('roles','roles.role_id','=','users.role_id')
+        //                        ->where('users.user_id',$id)
+        //                        ->select('roles.role')
+        //                        ->get();
+        // $UserRole = $UserRoleOrgData->role_id;
+        // dd($UserRoleOrgData);
+        $listofroles = DB::table('roles')->get();
+        // dd($listofroles);
 
 
 
@@ -323,17 +330,22 @@ class UserCRUD extends Controller
 
         $xxx = DB::table('permission_user')->where('user_id','=',$id)->get();
 // echo gettype($xxx);
-        if ($xxx != null) {
-            $data[] = [0];
-        }else{
-            foreach ($xxx as $zzz) {
-                $data[] = $zzz->permission_id;
-            }
+// dd($xxx);
+    if ($xxx != null) {
+        $data[] = [0];
+    }else{
+        foreach ($xxx as $zzz) {
+            $data[] = $zzz->permission_id;
         }
+    }
+// dd("hello");
+        // foreach ($xxx as $zzz) {
+        //     $data[] = $zzz->permission_id;
+        // }
 // dd($data);
 
         // $c = DB::table('permissions')->whereNotIn('permission_id', $x)->get();;
-        $c = DB::table('permissions')->whereNotIn('permission_id', $data)->get();
+        // $c = DB::table('permissions')->whereNotIn('permission_id', $data)->get();
         // dd($c);
         // dd($f);
         // $d = DB::table('permissions')
@@ -346,7 +358,7 @@ class UserCRUD extends Controller
         // dd($c);
         // dd("Hello");
         // return view('normlaravel/users-update');
-        return view('normlaravel/users-update-access')
+        return view('normlaravel\users-update-access')
                 ->with('errorMessage', $error)
                 ->with('displayUserSelectedData', $getUserData)
                 ->with('rolesList', $getRolesData)
@@ -360,17 +372,18 @@ class UserCRUD extends Controller
                 // ->with('displayUserOrganizationData',DB::table('organizations')->where('organization_id','=',$UserOrg)->get())
                 ->with('displayUserOrganizationData',DB::table('organizations')->where('organization_id','=',$UserOrg)->get())
                 ->with('displayUserOrganizationDataMessage',$userOrgResultMessage)
-                ->with('displayUserRoleData',DB::table('roles')->where('role_id','=',$UserRole)->get())
+                // ->with('displayUserRoleData',DB::table('roles')->where('role_id','=',$UserRole)->get())
+                ->with('displayUserRoleData',$UserRoleOrgData)
                 ->with('displayUserGateData',DB::table('sois_gates')->where('user_id','=',$id)->get())
                 ->with('displayUserGateKeyData',DB::table('sois_gates')->where('user_id','=',$id)->get())
                 ->with('displayUserPermsData',$permissionDataFromDB)
+                ->with('displayListOgRoles',$listofroles)
                 ->with('displayUserSelectedPermsData',DB::table('permissions')->whereNotIn('permission_id', $data)->get());
     }
 
     public function addRole(Request $request, $id)
     {
         $role_id = $request->role_id;
-        // echo $role_id;
         $orgainzation_id = $request->organization_id;
         
         $userWithOrgData = DB::table('role_user')->where('user_id','=',$id)->where('organization_id','!=',null)->first();
@@ -378,7 +391,7 @@ class UserCRUD extends Controller
 
         // dd(DB::table('role_user')->where('user_id','=',$id)->where('organization_id','!=',null)->first());
         // echo $role_id;
-                
+
         DB::table('role_user')->insert([
                  'role_id' => $role_id, 'user_id' => $id, 'organization_id' => $userWithOrgData->organization_id,   
             ]);
@@ -394,6 +407,34 @@ class UserCRUD extends Controller
                 ['organization_id' => $userRoleData->organization_id,'role_id' => $userRoleDataInt, 'user_id' => $id],
             ]);
         }
+        // dd(DB::table('event_signatures')->where('user_id','=',$id)->first());
+
+        // if($RoleUSerChecker){
+        //     DB::table('role_user')->where('user_id','=',$id)->delete();
+        //     DB::table('role_user')->insert([
+        //         ['organization_id' => $organization_id,'role_id' => $userRoleDataInt, 'user_id' => $id],
+        //     ]);
+        // }else{
+        //     DB::table('role_user')->insert([
+        //         ['organization_id' => $organization_id,'role_id' => $userRoleDataInt, 'user_id' => $id],
+        //     ]);
+        // }
+        // $RoleSignatureChecker = DB::table('event_signatures')->where('user_id','=',$id)->first();
+        // // dd($RoleSignatureChecker);
+        // if ($RoleSignatureChecker) {
+        //     DB::table('event_signatures')->where('user_id','=',$id)->delete();
+        //     DB::table('event_signatures')->insert([
+        //         ['organization_id' => $organization_id,'role_id' => $userRoleDataInt, 'user_id' => $id],
+        //     ]);
+        // }else{
+        //     DB::table('event_signatures')->insert([
+        //         ['organization_id' => $organization_id,'role_id' => $userRoleDataInt, 'user_id' => $id],
+        //     ]);
+        // }
+
+
+
+            
         
         // echo "Hello";
         $role_id = null;

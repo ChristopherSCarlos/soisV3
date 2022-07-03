@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<div class="p-5">
+<div class="">
 @extends('layouts.headlines')
 
 @section('page-title','Article Create')

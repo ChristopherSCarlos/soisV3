@@ -29,6 +29,18 @@ use App\Models\SoisSubGate;
 
 class SoisSubLinksCRUD extends Controller
 {
+
+     public function getRole()
+    {
+        $userRole = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        // dd(DB::table('role_user')->where('user_id','=',Auth::id())->first());
+        $userroles = DB::table('roles')->where('role_id','=',$userRole->role_id)->first();
+        // dd(DB::table('roles')->where('role_id','=',$userRole->role_id)->first());
+        $Returnuserroles = $userroles->role;
+        // dd($userroles->role);
+        // return $userroles;
+        return $Returnuserroles;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -50,10 +62,20 @@ class SoisSubLinksCRUD extends Controller
         // dd($sois_links_data);
         // dd(DB::table('sois_links')->where('status','=',1)->get());
         // dd("Hello");
-        return view('normLaravel/sois-sub-links-create',[
-            'soislinks' => DB::table('sois_links')->where('status','=',1)->get(),
-            'roleList' => DB::table('roles')->get(),
-        ]);
+
+        if ($this->getRole() == 'Super Admin') {
+            return view('normlaravel/sois-sub-links-create',[
+                'soislinks' => DB::table('sois_links')->where('status','=',1)->get(),
+                'roleList' => DB::table('roles')->get(),
+            ]);
+        }
+        if ($this->getRole() == 'Head of Student Services') {
+            return view('normlaravel/admin-sois-sub-links',[
+                'soislinks' => DB::table('sois_links')->where('status','=',1)->get(),
+                'roleList' => DB::table('roles')->get(),
+            ]);
+        }
+        
     }
 
     /**
@@ -87,7 +109,13 @@ class SoisSubLinksCRUD extends Controller
         $sub_under_for = null;
         $role_id = null;
 
-        return redirect()->route('sub-links')->with('success','User has been created');
+        if ($this->getRole() == 'Super Admin') {
+            return redirect()->route('sub-links')->with('success','User has been created');
+        }
+        if ($this->getRole() == 'Head of Student Services') {
+            return redirect()->route('adminSub-links')->with('success','User has been created');
+        }
+        
 
         // return $this->SoisSubGate();
 
@@ -109,7 +137,7 @@ class SoisSubLinksCRUD extends Controller
     public function show($id)
     {
         // dd($id);
-        return view('normLaravel/sois-sub-links-update',[
+        return view('normlaravel/sois-sub-links-update',[
             'soislinks' => DB::table('sois_links')->where('status','=',1)->get(),
             'roleList' => DB::table('roles')->get(),
         ]);
@@ -123,7 +151,7 @@ class SoisSubLinksCRUD extends Controller
      */
     public function edit($id)
     {
-        return view('normLaravel/sois-sub-links-update',[
+        return view('normlaravel/sois-sub-links-update',[
             'soislinks' => DB::table('sois_links')->where('status','=',1)->get(),
             'selectedSublinks' => DB::table('sois_sub_gates')->where('sois_sub_gates_id','=',$id)->where('status','=',1)->get(),
             'roleList' => DB::table('roles')->get(),

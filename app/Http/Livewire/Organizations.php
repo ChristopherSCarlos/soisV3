@@ -67,7 +67,7 @@ class Organizations extends Component
     public $title;
 
     public $authUser;
-    public $OrgDataFromUser;
+    private $OrgDataFromUser;
     public $user;
     public $userOrganization;
     public $orgCount = false;
@@ -117,12 +117,19 @@ class Organizations extends Component
     public $latestSystemAssetForImageUpload;
     public $getSystemAssetData;
 
+    private $orgData;
+
+    private $RoleUserDataOnNull;
+    private $RoleDataOnNull;
+
+    private $OrganizationDataonNull;
+
 
 
     public function mount()
     {
         $this->organization_slug = $this->organization_name;
-
+        // dd("Hello");
     }
 
 
@@ -651,46 +658,46 @@ class Organizations extends Component
 
 
 
-
-
     public function specificOrganization()
     {
         $this->authUser = Auth::id();
         $this->user = User::find($this->authUser);
-        $this->OrgDataFromUser = $this->user->organizations->first();
-        // dd($this->OrgDataFromUser->id);
-        if($this->OrgDataFromUser){
-            $this->orgUserId = $this->OrgDataFromUser->organization_id;
-            $this->userOrganization = $this->OrgDataFromUser->organization_name;
-            // dd($this->orgUserId);
-            $this->orgCount = true;
-            // dd($this->orgCount);
-            // dd(DB::table('organizations')->where('organization_id', '=', $this->orgUserId)->get());
-            return DB::table('organizations')
-           ->where('organization_id', '=', $this->orgUserId)
-           ->get();
-
-
-
+        // dd();
+        $this->OrgDataFromUser = DB::Table('role_user')->where('user_id','=',Auth::id())->first();
+        // dd($this->OrgDataFromUser);
+        if ($this->OrgDataFromUser->organization_id != null) {
+            $this->orgData = DB::table('organizations')->where('organization_id','=',$this->OrgDataFromUser->organization_id)->first();
+            // dd($this->orgData->organization_name);
+            if($this->OrgDataFromUser){
+                $this->orgUserId = $this->OrgDataFromUser->organization_id;
+                $this->userOrganization = $this->orgData->organization_name;
+                // dd($this->orgUserId);
+                $this->orgCount = true;
+                // dd($this->orgCount);
+                // dd(DB::table('organizations')->where('organization_id', '=', $this->orgUserId)->get());
+                return DB::table('organizations')
+               ->where('organization_id', '=', $this->orgUserId)
+               ->get();
+            }else{
+                $this->orgCount = false;
+                return DB::table('organizations')
+               ->where('status', '=', '1')
+               ->get();            
+                // dd("2");
+            }
         }else{
-            $this->orgCount = false;
+            $this->OrganizationDataonNull = DB::table('organizations')->where('organization_acronym','=','PUP')->first();
+            // dd($this->OrganizationDataonNull->organization);
+            // dd(DB::table('organizations')
+            //    ->where('status', '=', '1')
+            //    ->get());
             return DB::table('organizations')
-           ->where('status', '=', '1')
-           ->get();            
-            // dd("2");
+               ->where('status', '=', '1')
+               ->get();
         }
-        // dd($this->orgUserId);
-        // $this->organizationUserData = Organization::find($this->orgUserId);        
-        // return $this->organizationUserData;
-        // dd(gettype(Organization::where($this->orgUserId)));
-        // return Organization::where($this->orgUserId);
-                
-        // dd($this->organizationUserData);
-        // dd(gettype($this->OrgDataFromUser));        
-
-        // $this->user = User::find($this->userId);
-        // dd($this->OrgDataFromUser->organization_name);
     }
+
+    
 
     /**
      *
@@ -701,10 +708,21 @@ class Organizations extends Component
     {
         $this->authUserId = Auth::id();
         $this->authUserData = User::find($this->authUserId);        
-        $this->authUserRole = $this->authUserData->roles->first();
-        $this->authUserRoleType = $this->authUserRole->role;         
+        if($this->authUserData->roles->first() != null){
+            $this->authUserRole = $this->authUserData->roles->first();
+            print_r($this->authUserRole->role);           
+            $this->authUserRoleType = $this->authUserRole->role;         
+            echo "Not Null";
+        }else{
+            $this->RoleUserDataOnNull = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+            // dd($this->RoleUserDataOnNull->role_id);
+            $this->RoleDataOnNull = DB::table('roles')->where('role_id','=',$this->RoleUserDataOnNull->role_id)->first();        
+            // dd($this->RoleDataOnNull->role);        
+            echo "Null";
+            $this->authUserRoleType = $this->RoleDataOnNull->role;         
+        }
         // dd($this->authUserRoleType);
-        // dd($this->authUserRoleType);
+        // dd($this->authUserId);
         return $this->authUserRoleType;
     }
 

@@ -73,7 +73,8 @@ class Announcements extends Component
         public $date;
         private $data;
         public $param;
-        public $userroles;
+        private $userroles;
+        public $Returnuserroles;
 
         public $currentDate;
         public $newDate;
@@ -106,7 +107,6 @@ class Announcements extends Component
         private $roles;
         private $orgID;
         public $organizationDisplayID;
-
 
 
 
@@ -194,6 +194,7 @@ class Announcements extends Component
 
         OrganizationAsset::create([
             'asset_type_id' => '5',
+            'asset_name' => $this->asset_name,
             'file' => $this->asset_name,
             'is_latest_logo' => '0',
             'is_latest_banner' => '0',
@@ -412,10 +413,14 @@ class Announcements extends Component
     public function getAuthRoleUser()
     {
         $this->object = new Objects();
-        $this->userRole = $this->object->roles();
-        // dd($this->userRole->role);
-        $this->userroles = $this->userRole->role;
-        return $this->userroles;
+        $this->userRole = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        // dd(DB::table('role_user')->where('user_id','=',Auth::id())->first());
+        $this->userroles = DB::table('roles')->where('role_id','=',$this->userRole->role_id)->first();
+        // dd(DB::table('roles')->where('role_id','=',$this->userRole->role_id)->first());
+        $this->Returnuserroles = $this->userroles->role;
+        // dd($this->userroles->role);
+        // return $this->userroles;
+        return $this->Returnuserroles;
 
         // dd($this->role->role_name);
     }
@@ -444,13 +449,18 @@ class Announcements extends Component
     public function getOrganizationAnnouncement()
     {
         $this->user = User::find(Auth::id());
-        $this->v = $this->user->organizations->first();
-        // dd($this->v->organization_id);
+        // $this->v = $this->user->organizations->first();
+        $this->v = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        // dd($this->v->role_id);
         $this->organizationDisplayID = $this->v->organization_id;
         // dd($this->organizationDisplayID);
         // dd(DB::table('announcements')->where('status','=','1')->where('organization_id','=',$this->organizationDisplayID)->orderBy('created_at','desc')->paginate(5));
-        // dd(DB::table('announcements')->where('organization_id','=',$this->organizationDisplayID)->orderBy('created_at','desc')->paginate(5));
-        return DB::table('announcements')->where('status','=','1')->where('organization_id','=',$this->organizationDisplayID)->orderBy('created_at','desc')->paginate(5);
+        // dd(DB::table('announcements')->where('organization_id','=',$this->organizationDisplayID)->orderBy('created_at','desc')->get());
+        // dd($this->organizationDisplayID);
+        // dd(DB::table('announcements')->where('status','=','1')->where('organization_id','=',$this->organizationDisplayID)->orderBy('created_at','desc')->get());
+        // dd(DB::table('announcements')->where('organization_id','=',$this->organizationDisplayID)->orderBy('created_at','desc')->get());
+        // return DB::table('announcements')->where('status','=','1')->where('organization_id','=',$this->organizationDisplayID)->orderBy('created_at','desc')->paginate(5);
+        return DB::table('announcements')->where('organization_id','=',$this->organizationDisplayID)->orderBy('created_at','desc')->paginate(5);
     }
 
     public function render()

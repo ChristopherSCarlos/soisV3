@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<div class="">
 @extends('layouts.headlines')
 
-@section('page-title','Article Create')
+@section('page-title','SOIS|Create Gate Sub Link')
 
 @livewire('admin-nav-bars')
 
@@ -15,7 +12,6 @@
 
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-
 
 <style>
     .modal-backdrop {
@@ -49,32 +45,38 @@
 
 <div class="flex flex-col p-5">
 	<div class="max-w-lg rounded overflow-hidden shadow-lg">
-		<form name="add-articles" id="add-articles" method="POST" action="{{ route('articles.store') }}" enctype="multipart/form-data">
+		<form name="add-articles" id="add-articles" method="POST" action="{{route('admin-sub-links.store')}}">
 		@csrf
 		{{ csrf_field() }}
 			<div class="px-6 py-4">
 				<div class="form-group">
-					<label for="article_featured_image">article_featured_image</label>
-					<input type="file" id="article_featured_image" name="article_featured_image" class="form-control" required="">
+					<label for="sub_name">sub_name</label>
+					<input type="text" id="sub_name" name="sub_name" class="form-control" required="">
 				</div>
 				<div class="form-group">
-					<label for="article_title">article_title</label>
-					<input type="text" id="article_title" name="article_title" class="form-control" required="">
+					<label for="sub_description">sub_description</label>
+					<input type="text" id="sub_description" name="sub_description" class="form-control" required="">
 				</div>
 				<div class="form-group">
-					<label for="article_subtitle">article_subtitle</label>
-					<input type="text" id="article_subtitle" name="article_subtitle" class="form-control" required="">
-				</div>
-				<div class="form-group" wire:ignore>
-					<label for="article_content">article_content</label>
-					<textarea type="text" input="article_content" name="article_content" id="summernote" class="summernote"></textarea>
+					<label for="sub_link">sub_link</label>
+					<input type="text" id="sub_link" name="sub_link" class="form-control" required="">
 				</div>
 				<div class="form-group">
-					<label for="article_type_id">Choose Article Type:</label>
-  					<select name="article_type_id" id="article_type_id" class="form-control" required="">
-  					  <option value="1">Select Article Type</option>
-  					  <option value="1">School News</option>
-  					  <option value="2">Event News</option>
+					<label for="sub_under_for">Sub under for:</label>
+  					<select name="sub_under_for" id="sub_under_for" class="form-control" required="">
+  					  <option hidden>Select SOIS Type</option>
+  					  @foreach($soislinks as $links)
+  					  	<option value="{{$links->sois_links_id}}">{{$links->link_name}}</option>
+  					  @endforeach
+  					</select>
+				</div>
+				<div class="form-group">
+					<label for="role_id">Select Link for Role:</label>
+  					<select name="role_id" id="role_id" class="form-control" required="">
+  					  <option hidden>Select Link for Role</option>
+  					  @foreach($roleList as $eoles)
+  					  	<option value="{{$eoles->role_id}}">{{$eoles->role}}</option>
+  					  @endforeach
   					</select>
 				</div>
 	  		</div>
@@ -93,29 +95,12 @@
 
         </div>
     </div>
-<!--========================================
-=            Summernote Section            =
-=========================================-->
-
-<script>
-      $('#summernote').summernote({
-        tabsize: 2,
-        height: 120,
-        toolbar: [
-          ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture', 'video']],
-          ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-      });
-    </script>
-
-<!--====  End of Summernote Section  ====-->
-
 </div>
+
+
+
+
+
 
 
 
@@ -123,6 +108,4 @@
 
 
 @extends('layouts.closing-tag')
-</div>
-</html>
 

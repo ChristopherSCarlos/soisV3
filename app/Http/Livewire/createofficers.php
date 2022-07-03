@@ -129,20 +129,20 @@ class createofficers extends Component
     {
         // $this->validate();
         // dd($this);
-        $this->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'middle_name' => 'required',
-            'suffix' => 'nullable',
-            'organization_id' => 'required',
-            // 'school_year' => 'required',
-            // 'semester' => 'required',
-            'position_title_id' => 'required',
-            'term_end' => 'required',
-            'term_start' => 'required',
-            // 'position_category' => 'required',
-            // 'officer_signature' => 'file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
-        ]);
+        // $this->validate([
+        //     'first_name' => 'required',
+        //     'last_name' => 'required',
+        //     'middle_name' => 'required',
+        //     'suffix' => 'nullable',
+        //     'organization_id' => 'required',
+        //     'school_year' => 'required',
+        //     'semester' => 'required',
+        //     'position_title_id' => 'required',
+        //     'term_end' => 'required',
+        //     'term_start' => 'required',
+        //     // 'position_category' => 'required',
+        //     // 'officer_signature' => 'file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip',
+        // ]);
 
         // $this->fileName = time().'.'.$this->officer_signature->extension();  
 
@@ -158,8 +158,6 @@ class createofficers extends Component
             'middle_name' => $this->middle_name,
             'suffix' => $this->suffix,
             'organization_id' => $this->organization_id,
-            // 'school_year' => $this->school_year,
-            // 'semester' => $this->semester,
             'position_title_id' => $this->position_title_id,
             'term_end' => $this->term_end,
             'term_start' => $this->term_start,
@@ -182,8 +180,6 @@ class createofficers extends Component
             'middle_name' => $this->middle_name,
             'suffix' => $this->suffix,
             'organization_id' => $this->organization_id,
-            // 'school_year' => $this->school_year,
-            // 'semester' => $this->semester,
             'position_title_id' => $this->position_title_id,
             'term_end' => $this->term_end,
             'term_start' => $this->term_start,

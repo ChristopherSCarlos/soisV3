@@ -120,6 +120,16 @@ class Articles extends Component
 
     private $permission_data;
 
+    private $RoleUserOnNull;
+    private $RoleUserDataOnNull;
+    private $RoleDataOnNull;
+
+    private $OrganizationDataonNull;
+
+    private $authUserData;
+
+    
+
     public function mount()
     {
         $this->user = User::find(Auth::id());
@@ -656,11 +666,32 @@ class Articles extends Component
         // dd($this->userId);
         // dd($this->articleCreatedDataId);
         $this->userData = User::find($this->userId);
-        $this->userRoles = $this->userData->roles->first();
-        $this->userRolesString = $this->userRoles->role;
+
+        $this->RoleUserOnNull = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        // dd($this->RoleUserOnNull->role_id);
+        // dd($this->userData->roles->first());
+        if($this->userData->roles->first() != null){
+            $this->authUserRole = $this->userData->roles->first();
+            print_r($this->authUserRole->role);           
+            $this->authUserRoleType = $this->authUserRole->role;         
+            echo "Not Null";
+        }else{
+            $this->RoleUserDataOnNull = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+            // dd($this->RoleUserDataOnNull->role_id);
+            $this->RoleDataOnNull = DB::table('roles')->where('role_id','=',$this->RoleUserDataOnNull->role_id)->first();        
+            // dd($this->RoleDataOnNull->role);        
+            echo "Null";
+            $this->authUserRoleType = $this->RoleDataOnNull->role;         
+        }
+        // dd($this->authUserRoleType);
+        // dd($this->authUserId);
+        return $this->authUserRoleType;
+
+        // $this->userRoles = $this->userData->roles->first();
+        // $this->userRolesString = $this->userRoles->role;
         // dd($this->userRolesString);
         // dd(gettype($this->userRolesString));
-        return $this->userRolesString;
+        // return $this->userRolesString;
     }
 
     /**

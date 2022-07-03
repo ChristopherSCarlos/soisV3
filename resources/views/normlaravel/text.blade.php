@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>SOIS: @yield('title')</title>
         @extends('layouts.headlines')
@@ -65,30 +65,30 @@
   @endif
 
 <div class="max-w-lg rounded overflow-hidden shadow-lg">
-	<form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{url('store-form')}}">
-	@csrf
-		<div class="px-6 py-4">
-			<div class="form-group">
-				<label for="tags_name">tags_name</label>
-				<input type="text" id="tags_name" name="tags_name" class="form-control" required="">
-			</div>
-			<div class="form-group">
-				<label for="tags_description">tags_description</label>
-				<input type="text" id="tags_description" name="tags_description" class="form-control" required="">
-			</div>
-			<div class="form-group">
-				<label for="tags_type">tags_type</label>
-				<input type="number" id="tags_type" name="tags_type" class="form-control" required="">
-			</div>
-			<div class="form-group">
-				<label for="user_id">user_id</label>
-				<input type="number" id="user_id" name="user_id" class="form-control" required="">
-			</div>
-  		</div>
-  		<div class="px-6 pt-4 pb-2">
-			<button class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" type="submit" class="btn btn-primary">Submit</button>
-  		</div>
-	</form>
+    <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{url('store-form')}}">
+    @csrf
+        <div class="px-6 py-4">
+            <div class="form-group">
+                <label for="tags_name">tags_name</label>
+                <input type="text" id="tags_name" name="tags_name" class="form-control" required="">
+            </div>
+            <div class="form-group">
+                <label for="tags_description">tags_description</label>
+                <input type="text" id="tags_description" name="tags_description" class="form-control" required="">
+            </div>
+            <div class="form-group">
+                <label for="tags_type">tags_type</label>
+                <input type="number" id="tags_type" name="tags_type" class="form-control" required="">
+            </div>
+            <div class="form-group">
+                <label for="user_id">user_id</label>
+                <input type="number" id="user_id" name="user_id" class="form-control" required="">
+            </div>
+        </div>
+        <div class="px-6 pt-4 pb-2">
+            <button class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
 </div>
 
 
