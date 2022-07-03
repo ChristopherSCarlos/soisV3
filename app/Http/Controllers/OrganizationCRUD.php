@@ -132,7 +132,7 @@ class OrganizationCRUD extends Controller
         $organization_acronym = $request->organization_acronym;
 
         $organization_slug = str_replace(" ", "_", $organization_name);
-        echo $organization_type_id;
+        // echo $organization_type_id;
 
 
         $status = 1;

@@ -142,11 +142,11 @@ class SelectedUser extends Component
     }
     public function generateKey()
     {
-        echo Str::uuid();
+        // echo Str::uuid();
         $this->uuid = Str::uuid();
-        echo "<br><br>";
+        // echo "<br><br>";
         $this->encrypted =  Hash::make($this->uuid);
-        echo "<br><br>";
+        // echo "<br><br>";
         // dd(DB::table('sois_gates')->where('user_id','=',$this->userInt)->first());
         $this->selected_key = DB::table('sois_gates')->where('user_id','=',$this->userInt)->first();
         // dd($this->selected_key);
@@ -155,9 +155,9 @@ class SelectedUser extends Component
             // DB::table('sois_gates')->inse
             // dd(SoisGate::where('gate_key','=',$this->encrypted)->exists());
             if (SoisGate::where('gate_key','=',$this->encrypted)->exists()) {
-                echo 1;
+                // echo 1;
             }else{
-                echo 2;
+                // echo 2;
             }
             dd("Hello");
             // SoisGate::where('user_id','=',$this->userInt)->update($this->modelUpdateGenerateKey());
@@ -234,7 +234,7 @@ class SelectedUser extends Component
     {
         $this->UserRoleOrgData = DB::table('role_user')->where('user_id','=',$this->userInt)->first();
         $this->UserRole = $this->UserRoleOrgData->role_id;
-        // print_r(DB::table('role_user')->where('user_id','=',$this->userInt)->get());
+        // //print_rDB::table('role_user')->where('user_id','=',$this->userInt)->get());
         // dd(DB::table('roles')->where('role_id','=',$this->UserRole)->get());
         // dd($this->UserRoleOrgData);
         return DB::table('roles')->where('role_id','=',$this->UserRole)->get();

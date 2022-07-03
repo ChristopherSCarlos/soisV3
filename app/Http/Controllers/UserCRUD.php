@@ -123,7 +123,7 @@ class UserCRUD extends Controller
             }
         }else{
             $error = 'same_password_From_last_pw';
-            return $this->accessControl($id,$error);
+            // return $this->accessControl($id,$error);
         }
         // dd($id);
     }
@@ -187,7 +187,7 @@ class UserCRUD extends Controller
         //     // $this->resetValidation();
         //     // $this->reset();
         }else{
-        //     echo "Do tno Exist";
+            // echo "Do tno Exist";
             SoisGate::create($this->modelGenerateKey($id,$uuid));
         //     // $this->modelConfirmUserGenerateKeyVisible = false;
         //     // $this->redirector($this->userInt);
@@ -321,7 +321,7 @@ class UserCRUD extends Controller
         $d = DB::table('permission_user')->where('user_id','=',Auth::id())->get('permission_id');
         $x = (array) $d;
         // echo gettype($x);
-        // print_r($x->permission_id);
+        // //print_r$x->permission_id);
         $f = DB::table('permission_user')->where('user_id', '=', $id)->get('permission_id');
         // $f = DB::table('permission_user')->select('permission_id')->where('user_id', '=', $id)->get('permission_id');
         // echo gettype((string)$f);
@@ -587,124 +587,124 @@ class UserCRUD extends Controller
         $mobile_number = $request->mobile_number;
         $student_number = $request->student_number;
         
-        echo "first_name: ".$first_name;
-        echo "<br><br>";
-        echo "middle_name: ".$middle_name;
-        echo "<br><br>";
-        echo "last_name: ".$last_name;
-        echo "<br><br>";
-        echo "date_of_birth: ".$date_of_birth;
-        echo "<br><br>";
-        echo "address: ".$address;
-        echo "<br><br>";
-        echo "email: ".$email;
-        echo "<br><br>";
-        echo "course_id: ".$course_id;
-        echo "<br><br>";
-        echo "gender_id: ".$gender_id;
-        echo "<br><br>";
-        echo "mobile_number: ".$mobile_number;
-        echo "<br><br>";
-        echo "student_number: ".$student_number;
-        echo "<br><br>";
+        // echo "first_name: ".$first_name;
+        // echo "<br><br>";
+        // echo "middle_name: ".$middle_name;
+        // echo "<br><br>";
+        // echo "last_name: ".$last_name;
+        // echo "<br><br>";
+        // echo "date_of_birth: ".$date_of_birth;
+        // echo "<br><br>";
+        // echo "address: ".$address;
+        // echo "<br><br>";
+        // echo "email: ".$email;
+        // echo "<br><br>";
+        // echo "course_id: ".$course_id;
+        // echo "<br><br>";
+        // echo "gender_id: ".$gender_id;
+        // echo "<br><br>";
+        // echo "mobile_number: ".$mobile_number;
+        // echo "<br><br>";
+        // echo "student_number: ".$student_number;
+        // echo "<br><br>";
                     if($first_name != null){
                         $first_name_DB = $first_name;
-                        echo "first_name_DB: ".$first_name_DB." : This is not null"; 
-                        echo "<br><br>";
+                        // echo "first_name_DB: ".$first_name_DB." : This is not null"; 
+                        // echo "<br><br>";
                     }else{
                         $first_name_DB= $get_user_data_from_database->first_name;
-                        echo "first_name_DB: ".$first_name_DB." : This is null";
-                        echo "<br><br>";
+                        // echo "first_name_DB: ".$first_name_DB." : This is null";
+                        // echo "<br><br>";
                     }
                     // middle_name_DB,
                     if($middle_name != null){
                         $middle_name_DB = $middle_name;
-                        echo "middle_name_DB: ".$middle_name_DB." : This is not null";
-                        echo "<br><br>"; 
+                        // echo "middle_name_DB: ".$middle_name_DB." : This is not null";
+                        // echo "<br><br>"; 
                     }else{
                         $middle_name_DB= $get_user_data_from_database->middle_name;
-                        echo "middle_name_DB: ".$middle_name_DB." : This is null";
-                        echo "<br><br>";
+                        // echo "middle_name_DB: ".$middle_name_DB." : This is null";
+                        // echo "<br><br>";
                     }
                 // last_name_DB,
                     if($last_name != null){
                         $last_name_DB = $last_name;
-                        echo "last_name_DB: ".$last_name_DB." : This is not null";
-                        echo "<br><br>"; 
+                        // echo "last_name_DB: ".$last_name_DB." : This is not null";
+                        // echo "<br><br>"; 
                     }else{
                         $last_name_DB= $get_user_data_from_database->last_name;
-                        echo "last_name_DB: ".$last_name_DB." : This is null";
-                        echo "<br><br>";
+                        // echo "last_name_DB: ".$last_name_DB." : This is null";
+                        // echo "<br><br>";
                     }
                 // date_of_birth_DB,
                     if($date_of_birth != null){
                         $date_of_birth_DB = $date_of_birth;
-                        echo "date_of_birth_DB: ".$date_of_birth_DB." : This is not null";
-                        echo "<br><br>"; 
+                        // echo "date_of_birth_DB: ".$date_of_birth_DB." : This is not null";
+                        // echo "<br><br>"; 
                     }else{
                         $date_of_birth_DB= $get_user_data_from_database->date_of_birth;
-                        echo "date_of_birth_DB: ".$date_of_birth_DB." : This is null";
-                        echo "<br><br>";
+                        // echo "date_of_birth_DB: ".$date_of_birth_DB." : This is null";
+                        // echo "<br><br>";
                     }
                 // course_id_DB,
                     if($course_id != null){
                         $course_id_DB = $course_id;
-                        echo "course_id_DB: ".$course_id_DB." : This is not null";
-                        echo "<br><br>"; 
+                        // echo "course_id_DB: ".$course_id_DB." : This is not null";
+                        // echo "<br><br>"; 
                     }else{
                         $course_id_DB= $get_user_data_from_database->course_id;
-                        echo "course_id_DB: ".$course_id_DB." : This is null";
-                        echo "<br><br>";
+                        // echo "course_id_DB: ".$course_id_DB." : This is null";
+                        // echo "<br><br>";
                     }
                 // address_DB,
                     if($address != null){
                         $address_DB = $address;
-                        echo "address_DB: ".$address_DB." : This is not null";
-                        echo "<br><br>"; 
+                        // echo "address_DB: ".$address_DB." : This is not null";
+                        // echo "<br><br>"; 
                     }else{
                         $address_DB= $get_user_data_from_database->address;
-                        echo "address_DB: ".$address_DB." : This is null";
-                        echo "<br><br>";
+                        // echo "address_DB: ".$address_DB." : This is null";
+                        // echo "<br><br>";
                     }
                 // gender_id_DB,
                     if($gender_id != null){
                         $gender_id_DB = $gender_id;
-                        echo "gender_id_DB: ".$gender_id_DB." : This is not null";
-                        echo "<br><br>"; 
+                        // echo "gender_id_DB: ".$gender_id_DB." : This is not null";
+                        // echo "<br><br>"; 
                     }else{
                         $gender_id_DB= $get_user_data_from_database->gender_id;
-                        echo "gender_id_DB: ".$gender_id_DB." : This is null";
-                        echo "<br><br>";
+                        // echo "gender_id_DB: ".$gender_id_DB." : This is null";
+                        // echo "<br><br>";
                     }
                 // email_DB,
                     if($email != null){
                         $email_DB = $email;
-                        echo "email_DB: ".$email_DB." : This is not null";
-                        echo "<br><br>"; 
+                        // echo "email_DB: ".$email_DB." : This is not null";
+                        // echo "<br><br>"; 
                     }else{
                         $email_DB= $get_user_data_from_database->email;
-                        echo "email_DB: ".$email_DB." : This is null";
-                        echo "<br><br>";
+                        // echo "email_DB: ".$email_DB." : This is null";
+                        // echo "<br><br>";
                     }
                 // mobile_number_DB,
                     if($mobile_number != null){
                         $mobile_number_DB = $mobile_number;
-                        echo "mobile_number_DB: ".$mobile_number_DB." : This is not null";
-                        echo "<br><br>"; 
+                        // echo "mobile_number_DB: ".$mobile_number_DB." : This is not null";
+                        // echo "<br><br>"; 
                     }else{
                         $mobile_number_DB= $get_user_data_from_database->mobile_number;
-                        echo "mobile_number_DB: ".$mobile_number_DB." : This is null";
-                        echo "<br><br>";
+                        // echo "mobile_number_DB: ".$mobile_number_DB." : This is null";
+                        // echo "<br><br>";
                     }
                 // student_number_DB,            
                     if($student_number != null){
                         $student_number_DB = $student_number;
-                        echo "student_number_DB: ".$student_number_DB." : This is not null";
-                        echo "<br><br>"; 
+                        // echo "student_number_DB: ".$student_number_DB." : This is not null";
+                        // echo "<br><br>"; 
                     }else{
                         $student_number_DB= $get_user_data_from_database->student_number;
-                        echo "student_number_DB: ".$student_number_DB." : This is null";
-                        echo "<br><br>";
+                        // echo "student_number_DB: ".$student_number_DB." : This is null";
+                        // echo "<br><br>";
                     }
         //     /*=====  End of Selector if data is inputted Section comment block  ======*/
 
