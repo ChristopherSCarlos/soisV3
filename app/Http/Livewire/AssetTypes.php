@@ -31,6 +31,9 @@ class AssetTypes extends Component
 
     public $assetTypeData;
     public $InformationBox;
+
+    private $RoleUserDataOnNull;
+    private $RoleDataOnNull;
     
     /*===============================================================
     =            Create Asset Type Section comment block            =
@@ -106,15 +109,15 @@ class AssetTypes extends Component
         $this->authUserData = User::find($this->authUserId);        
         if($this->authUserData->roles->first() != null){
             $this->authUserRole = $this->authUserData->roles->first();
-            // //print_r$this->authUserRole->role);           
+            print_r($this->authUserRole->role);           
             $this->authUserRoleType = $this->authUserRole->role;         
-            // echo "Not Null";
+            echo "Not Null";
         }else{
             $this->RoleUserDataOnNull = DB::table('role_user')->where('user_id','=',Auth::id())->first();
             // dd($this->RoleUserDataOnNull->role_id);
             $this->RoleDataOnNull = DB::table('roles')->where('role_id','=',$this->RoleUserDataOnNull->role_id)->first();        
             // dd($this->RoleDataOnNull->role);        
-            // echo "Null";
+            echo "Null";
             $this->authUserRoleType = $this->RoleDataOnNull->role;         
         }
         // dd($this->authUserRoleType);

@@ -19,7 +19,7 @@ class SoisLinkSeeder extends Seeder
         $data = [
             [
                 'sois_links_id' => 1,
-                'link_name' => 'GPOA',
+                'link_name' => 'Accomplishment Report',
                 'link_description' => 'This link is to access Accomplishment Reports website',
                 'external_link' => 'https://sois-ar.puptaguigcs.net/',
                 'status' => 1,
@@ -36,15 +36,15 @@ class SoisLinkSeeder extends Seeder
                 'updated_at' => $currentTime,
             ],
             [
-                'sois_links_id' => 2,
-                'link_name' => 'GPOA',
-                'link_description' => 'This link is to access Sois Membership website',
+                'sois_links_id' => 3,
+                'link_name' => 'Membership',
+                'link_description' => 'This link is to access Membership website',
                 'external_link' => 'https://sois-membership.puptaguigcs.net/',
                 'status' => 1,
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
             ],
         ];
-        DB::table('page_types')->insert($data);
+        DB::table('sois_links')->insert($data);
     }
 }

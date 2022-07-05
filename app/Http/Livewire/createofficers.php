@@ -75,6 +75,9 @@ class createofficers extends Component
     public $userData;
     public $userOrganizationData;
 
+    private $RoleUserDataOnNull;
+    private $RoleDataOnNull;
+
     public function rules()
     {
         return [
@@ -352,7 +355,7 @@ class createofficers extends Component
         $this->authUserData = User::find($this->authUserId);        
         if($this->authUserData->roles->first() != null){
             $this->authUserRole = $this->authUserData->roles->first();
-            //print_r$this->authUserRole->role);           
+            print_r($this->authUserRole->role);           
             $this->authUserRoleType = $this->authUserRole->role;         
             echo "Not Null";
         }else{

@@ -29,7 +29,7 @@ class SoisSystemLinks extends Controller
      */
     public function create()
     {
-        return view('normlaravel.admin-sois-links-create');
+        return view('normlaravel\admin-sois-links-create');
     }
 
     /**

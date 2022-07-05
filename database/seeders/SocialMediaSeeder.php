@@ -42,6 +42,6 @@ class SocialMediaSeeder extends Seeder
                 'updated_at' => $currentTime,
             ],
         ];
-        DB::table('organization_assets')->insert($data);
+        DB::table('social_media')->insert($data);
     }
 }

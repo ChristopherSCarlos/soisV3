@@ -51,6 +51,8 @@ class AdminAnnouncement extends Controller
         $article_title = $request->article_title;
         $article_subtitle = $request->article_subtitle;
         $article_content = $request->article_content;
+        $exp_date = $request->exp_date;
+        $exp_time = $request->exp_time;
         $article_type_id = $request->article_type_id;
 
         $request->validate([
@@ -129,7 +131,7 @@ class AdminAnnouncement extends Controller
      */
     public function show($id)
     {
-        //
+        dd($id);
     }
 
     /**

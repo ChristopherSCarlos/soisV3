@@ -28,13 +28,10 @@ class CreateOfficersTable extends Migration
             
             $table->foreign('position_title_id')->references('position_title_id')->on('position_titles');
 
-            $table->unsignedBigInteger('organization_id');
+            $table->unsignedBigInteger('organization_id')->nullable()->default(NULL);
             $table->foreign('organization_id')->references('organization_id')->on('organizations');
         
-            $table->string('school_year');
-            $table->string('semester');
-
-            $table->date('exp_date');
+            
         });
     }
 

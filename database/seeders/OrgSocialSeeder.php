@@ -15,6 +15,7 @@ class OrgSocialSeeder extends Seeder
      */
     public function run()
     {
+        $currentTime = Carbon::now();
         $data = [
             [
                 'org_socials_id' => 1,

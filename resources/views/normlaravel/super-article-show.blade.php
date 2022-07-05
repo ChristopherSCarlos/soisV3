@@ -52,21 +52,30 @@
                                                                 @endif">
             	<a href="{{ route('articles/featureNews',$item->articles_id) }}">
                     <x-jet-button>
-                        
                         {{__('Feature')}}
                     </x-jet-button>
                 </a>
+                <a href="{{ route('articles/unfeatureNews',$item->articles_id) }}">
                     <x-jet-danger-button>
                         {{__('UnFeature')}}
                     </x-jet-danger-button>
                 </div>
-                <div class="px-6 py-4 text-sm whitespace-no-wrap">
-                    <x-jet-button>
-                        {{__('Set As Top News')}}
-                    </x-jet-button>
-                    <x-jet-danger-button>
-                        {{__('Not Set as top News')}}
-                    </x-jet-danger-button>
+                </a>
+                <div class="px-6 py-4 text-sm whitespace-no-wrap" style="@if($item->is_article_featured_home_page == 1)  
+                                                                    background: rgba(25, 98, 181, 1);
+                                                                @else
+                                                                    background: rgba(173, 45, 16, 1.0);
+                                                                @endif">
+                    <a href="{{ route('articles/setAsTopNews',$item->articles_id) }}">
+                        <x-jet-button>
+                            {{__('Set As Top News')}}
+                        </x-jet-button>
+                    </a>
+                    <a href="{{ route('articles/NotsetAsTopNews',$item->articles_id) }}">
+                        <x-jet-danger-button>
+                            {{__('Not Set as top News')}}
+                        </x-jet-danger-button>
+                    </a>
                 </div>
                 @endforeach
                 <p>Option Buttons</p>

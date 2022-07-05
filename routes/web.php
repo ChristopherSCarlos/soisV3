@@ -56,7 +56,7 @@ Route::group(['middleware' => [
         Route::resource('admin-officers', 'App\Http\Controllers\OfficerControl');
         Route::resource('admin-position-titles', 'App\Http\Controllers\PositionTitles');
         Route::resource('admin-organization', 'App\Http\Controllers\OrganizationCRUD');
-        Route::resource('admin-announcement', 'App\Http\Controllers\AnouncementCRUD');
+        Route::resource('admin-announcement', 'App\Http\Controllers\AnnouncementCRUD');
         Route::resource('admin-users', 'App\Http\Controllers\UserCRUD');
         Route::resource('admin-roles', 'App\Http\Controllers\RoleController');
         Route::resource('admin-sub-links', 'App\Http\Controllers\SoisSubLinksCRUD');
@@ -227,12 +227,27 @@ Route::group(['middleware' => [
 
         Route::resource('articles', 'App\Http\Controllers\ArticleCreate');
         Route::resource('organization', 'App\Http\Controllers\OrganizationCRUD');
-        Route::resource('announcement', 'App\Http\Controllers\AnouncementCRUD');
+        Route::resource('announcement', 'App\Http\Controllers\AnnouncementCRUD');
         Route::resource('users', 'App\Http\Controllers\UserCRUD');
         Route::resource('roles', 'App\Http\Controllers\RoleController');
         Route::resource('sub-links', 'App\Http\Controllers\SoisSubLinksCRUD');
         Route::resource('AR-Events', 'App\Http\Controllers\AccomplishEventsCRUD');
         // Route::resource('articles', ArticleCreate::class);
+
+        Route::get('announcement/delete/{id}','App\Http\Controllers\AnnouncementCRUD@delete')->name('announcement/delete');
+
+
+        Route::get('articles/updateImage/{id}','App\Http\Controllers\ArticleCreate@updateImage')->name('articles/updateImage');
+        Route::post('articles/updateImageProcess/{id}/{artID}','App\Http\Controllers\ArticleCreate@updateImageProcess')->name('articles/updateImageProcess');
+        Route::get('articles/featureNews/{id}','App\Http\Controllers\ArticleCreate@featureNews')->name('articles/featureNews');
+
+        Route::get('articles/unfeatureNews/{id}','App\Http\Controllers\ArticleCreate@unfeatureNews')->name('articles/unfeatureNews');
+        
+
+        Route::get('articles/setAsTopNews/{id}','App\Http\Controllers\ArticleCreate@setAsTopNews')->name('articles/setAsTopNews');
+        Route::get('articles/NotsetAsTopNews/{id}','App\Http\Controllers\ArticleCreate@NotsetAsTopNews')->name('articles/NotsetAsTopNews');
+        Route::get('articles/delete/{id}','App\Http\Controllers\ArticleCreate@delete')->name('articles/delete');
+
 
         Route::resource('sadmin-sois-sub-links', 'App\Http\Controllers\SoisSystemLinks');
         Route::resource('sadmin-system-assets-type', 'App\Http\Controllers\SystemAssetTypes');
@@ -241,6 +256,16 @@ Route::group(['middleware' => [
         Route::resource('sadmin-position-titles', 'App\Http\Controllers\PositionTitles');
         Route::resource('sadmin-organization', 'App\Http\Controllers\OrganizationCRUD');
         Route::resource('admin-sliders', 'App\Http\Controllers\AdminSlider');
+        Route::resource('sadmin-sois-sub-links', 'App\Http\Controllers\SASoisSystemLinks');
+        Route::resource('sadmin-system-assets-type', 'App\Http\Controllers\SASystemAssetTypes');
+        Route::resource('sadmin-web-page-type', 'App\Http\Controllers\SAWebPageType');
+        Route::resource('sadmin-officers', 'App\Http\Controllers\SAOfficerControl');
+        Route::resource('sadmin-position-titles', 'App\Http\Controllers\SAPositionTitles');
+        Route::resource('sadmin-organization', 'App\Http\Controllers\OrganizationCRUD');
+        Route::resource('sadmin-sliders', 'App\Http\Controllers\SAAdminSlider');
+        Route::resource('sadmin-announcement', 'App\Http\Controllers\SAAnnouncementCRUD');
+        Route::resource('sadmin-role', 'App\Http\Controllers\SARoleCRUD');
+        Route::resource('sadmin-permission', 'App\Http\Controllers\SAPermissionCRUD');
 
         Route::put('users/addRoleToUser/{id}','App\Http\Controllers\UserCRUD@addRole')->name('users/addRoleToUser');
         Route::put('users/addOrganizationToUser/{id}','App\Http\Controllers\UserCRUD@addOrg')->name('users/addOrganizationToUser');
@@ -540,6 +565,12 @@ Route::group(['middleware' => [
         Route::resource('org-articles', 'App\Http\Controllers\OrgAccArticleCreate');
         Route::resource('organizations', 'App\Http\Controllers\OrganizationController');
         Route::resource('orgAnnouncements', 'App\Http\Controllers\AnnouncementOrganizationController');
+
+        Route::resource('oadmin-sliders', 'App\Http\Controllers\OAdminSlider');
+        Route::resource('oadmin-announcement', 'App\Http\Controllers\OAnnouncementCRUD');
+        Route::resource('oadmin-officers', 'App\Http\Controllers\OOfficerControl');
+        Route::resource('oadmin-position-titles', 'App\Http\Controllers\OPositionTitles');
+        Route::resource('oadmin-social', 'App\Http\Controllers\OSocialMedia');
 
         Route::post('/org-store-announcement', 'App\Http\Controllers\AnnouncementOrganizationController@store');
 

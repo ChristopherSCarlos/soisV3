@@ -29,7 +29,7 @@ class WebPageType extends Controller
      */
     public function create()
     {
-        return view('normlaravel.admin-sois-web-page-type-create');
+        return view('normlaravel\admin-sois-web-page-type-create');
     }
 
     /**

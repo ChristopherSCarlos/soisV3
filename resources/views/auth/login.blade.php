@@ -1,92 +1,4 @@
-<style>
-    /*start of login page*/
-.login-main-container{
-    display: flex;
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
-    align-content: center;
-
-
-    background: linear-gradient(to bottom, transparent, #0a0000), url('/image/pup-newspage.jpg');
-
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  
-  /* Needed to position the navbar */
-    position: relative;
-    transition: all 1s ease;
-    -webkit-filter: brightness(80%);
-}
-.login-main-container:hover{
-    -webkit-filter: brightness(100%);
-    -webkit-transition: all 1s ease;
-    -moz-transition: all 1s ease;
-    -o-transition: all 1s ease;
-    -ms-transition: all 1s ease;
-    transition: all 1s ease;
-}
-.login-inner-container{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap ;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-}
-.login-inner-elements-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center; 
-    /*max-width: 50vw;*/
-    /*height: 100%;*/
-    padding: 5%;
-}
-@media(max-width: 789px){
-    .login-inner-elements-container{
-        padding: 5% 5% 0% 5%;
-    }    
-}
-
-.login-image{
-    height: 50vh;
-    object-fit: contain;
-}
-
-.glass{
-    background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
-  color: white;
-  font-weight: bold;
-  /*border: 3px solid #f1f1f1;*/
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  width: 80%;
-  padding: 20px;
-  text-align: center;
-}
-.login-label{
-    color: rgba(255, 255, 255, 1.0);
-}
-.login-input{
-    color: black;
-}
-/*End of login page*/
-
-
-
-
-
-</style>
 <x-guest-layout>
-
-
 <div class="login-main-container" style="width: 100vw; height: 100vh;">
     <div class="login-inner-container glass" style="">
         <div class="login-inner-elements-container" style="">
@@ -131,6 +43,8 @@
     </div>
 </div>
     
+
+
 
 
 

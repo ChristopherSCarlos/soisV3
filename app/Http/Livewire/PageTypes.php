@@ -8,6 +8,8 @@ use App\Models\PageType;
 use Livewire\WithPagination;
 use App\Http\Livewire\Objects;
 use App\Models\User;
+
+use Illuminate\Support\Facades\DB;
 use Auth;
 
 class PageTypes extends Component
@@ -28,6 +30,9 @@ class PageTypes extends Component
 
     public $pageTypeID;
     public $pageTypeData;
+
+    private $RoleUserDataOnNull;
+    private $RoleDataOnNull;
 
     /*=============================================================
     =            Create Page TypeSection comment block            =
@@ -103,15 +108,15 @@ class PageTypes extends Component
         $this->authUserData = User::find($this->authUserId);        
         if($this->authUserData->roles->first() != null){
             $this->authUserRole = $this->authUserData->roles->first();
-            //print_r$this->authUserRole->role);           
+            print_r($this->authUserRole->role);           
             $this->authUserRoleType = $this->authUserRole->role;         
-            // echo "Not Null";
+            echo "Not Null";
         }else{
             $this->RoleUserDataOnNull = DB::table('role_user')->where('user_id','=',Auth::id())->first();
             // dd($this->RoleUserDataOnNull->role_id);
             $this->RoleDataOnNull = DB::table('roles')->where('role_id','=',$this->RoleUserDataOnNull->role_id)->first();        
             // dd($this->RoleDataOnNull->role);        
-            // echo "Null";
+            echo "Null";
             $this->authUserRoleType = $this->RoleDataOnNull->role;         
         }
         // dd($this->authUserRoleType);

@@ -102,7 +102,24 @@ class OrganizationCRUD extends Controller
     {
         // $this->permission_data = new PermissionCheckerController;
         // $this->permission_data->permssionChecker('HP-Create_Organization_Page');
-        return view('normlaravel.organization-create');
+        $authUserRole = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        $role_name = DB::table('roles')->where('role_id','=',$authUserRole->role_id)->first();
+        $authUserRoleType = $role_name->role;
+
+        if ($role_name->role == "Super Admin") {
+            return view('normlaravel.organization-create',[
+                'userAuthRole' => $authUserRoleType,
+            ]);
+        }
+        if ($role_name->role == "Head of Student Services") {
+            return view('normlaravel.admin-organization-create',[
+                'userAuthRole' => $authUserRoleType,
+            ]);
+        }
+        // return $authUserRoleType;
+        // dd($authUserRoleType);
+
+        // $this->accessOrgControll();
     }
 
     /**
@@ -132,7 +149,6 @@ class OrganizationCRUD extends Controller
         $organization_acronym = $request->organization_acronym;
 
         $organization_slug = str_replace(" ", "_", $organization_name);
-        // echo $organization_type_id;
 
 
         $status = 1;
@@ -177,15 +193,24 @@ class OrganizationCRUD extends Controller
 
         $authUserId = Auth::id();
         $authUserData = User::find($authUserId);        
-        $authUserRole = $authUserData->roles->first();
-        $authUserRoleType = $authUserRole->role;         
+        $authUserRole = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        $role_name = DB::table('roles')->where('role_id','=',$authUserRole->role_id)->first();
+        $authUserRoleType = $role_name->role;
         // return $authUserRoleType;
         // dd($authUserRoleType);
 
         // $this->accessOrgControll();
-        return view('normlaravel.organization-create',[
-            // 'userAuthRole' => $authUserRoleType,
-        ]);         
+        if ($role_name->role == "Super Admin") {
+            return view('normlaravel.organization-create',[
+                'userAuthRole' => $authUserRoleType,
+            ]);
+        }
+        if ($role_name->role == "Head of Student Services") {
+            return view('normlaravel.admin-organization-create',[
+                'userAuthRole' => $authUserRoleType,
+            ]);
+        }
+                 
     }
 
     public function accessOrgControll($id)
@@ -215,7 +240,7 @@ class OrganizationCRUD extends Controller
         }
         
         // return $authUserRoleType;
-        return view('normlaravel.organization-view',[
+        return view('normlaravel\organization-view',[
             'displayOrganizationData' => DB::table('organizations')->where('organization_id','=',$id)->get(),
             'displayOrganizationLogo' => DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_logo','=',1)->get(),
             'displayOrganizationBanner' => DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_banner','=',1)->get(),
@@ -343,7 +368,7 @@ class OrganizationCRUD extends Controller
         }else{
             $organization_primary_color_DB= $get_org_data_from_DB->organization_primary_color;
             // echo "organization_primary_color_DB: ".$organization_primary_color_DB." : This is null";
-            // echo "<br><br>";
+            // echo "<javascript:void(0);br><br>";
         }
         if($organization_secondary_color != null){
             $organization_secondary_color_DB = $organization_secondary_color;
@@ -369,7 +394,7 @@ class OrganizationCRUD extends Controller
         // dd("hello");
         $this->cleanVars();
         return $this->accessOrgControll($id);
-        // return view('normlaravel.organization-view');
+        // return view('normlaravel\organization-view');
         // dd("hello");
     }
 

@@ -187,14 +187,7 @@ class Sliders extends Component
         return Article::where('status','=','1')->get();
     }
 
-    public function read()
-    {
-
-        // dd(DB::table('articles')->where('is_carousel_homepage','=','1')->get());
-        // dd(DB::table('articles')->where('is_carousel_homepage','=','1')->paginate(10));
-        return DB::table('articles')->where('is_carousel_homepage','=','1')->paginate(10);
-    }
-
+    
     public function userOrg()
     {
         $this->userId = Auth::id();
@@ -215,9 +208,19 @@ class Sliders extends Component
         $this->userRoleData = DB::table('role_user')->where('user_id','=',$this->userId)->first();
         
         $this->role_name = DB::table('roles')->where('role_id','=',$this->userRoleData->role_id)->first();
+        // dd($this->role_name->role);
         return $this->role_name->role;
         // dd($this->userRoleData->role_id);
     }
+
+    public function read()
+    {
+
+        // dd(DB::table('articles')->where('is_carousel_homepage','=','1')->get());
+        // dd(DB::table('articles')->where('is_carousel_homepage','=','1')->paginate(10));
+        return DB::table('articles')->where('is_carousel_homepage','=','1')->paginate(10);
+    }
+
 
     public function render()
     {

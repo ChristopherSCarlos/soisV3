@@ -70,40 +70,77 @@ class ArticleCreate extends Controller
      */
     public function store(Request $request)
     {
-        // dd("Hello");
-        $checkUserData = DB::table('role_user')->where('user_id','=',Auth::id())->first();
-        $UserRole = DB::table('roles')->where('role_id','=',$checkUserData->role_id)->first();
+
+        $userDataOnArticleCreate = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        if ($userDataOnArticleCreate->organization_id != null) {
+            $checkUserData = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+            $UserRole = DB::table('roles')->where('role_id','=',$checkUserData->role_id)->first();
             $orgDataOnNull = DB::table('organizations')->where('organization_acronym','=','PUP')->first();
             $orgID2 = $orgDataOnNull->organization_id;
-                $article_title = $request->article_title;
-                $article_subtitle = $request->article_subtitle;
-                $article_content = $request->article_content;
-                $article_type_id = $request->article_type_id;
-                $request->validate([
-                    'article_featured_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                ]);
-                $article_featured_image_name = time().'.'.$request->article_featured_image->extension();  
-                $request->article_featured_image->storeAs('files', $article_featured_image_name);
-                $request->article_featured_image->move(public_path('files'), $article_featured_image_name);
-                $userID = Auth::id();
-                $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('organization_id');
-                $orgID2 = (int) $orgIDHolder->organization_id;
-                $artSlug = str_replace(' ', '-', $article_title);
-                Article::create($this->articleInsertModel($article_title,$article_subtitle,$article_content,$article_type_id,$status = 1,$userID,$artSlug,$orgID2));
-                $latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
-                OrganizationAsset::create([
-                    'organization_id' => $orgID2,
-                    'asset_type_id' => '4',
-                    'file' => $article_featured_image_name,
-                    'is_latest_logo' => '0',
-                    'is_latest_banner' => '0',
-                    'is_latest_image' => '1',
-                    'user_id' => $userID,
-                    'page_type_id' => '2',
-                    'status' => '1',
-                    'articles_id' => $latestNewsID,
-                ]);
-                return redirect('articles/create')->with('status', 'School news article has been created.');
+            $article_title = $request->article_title;
+            $article_subtitle = $request->article_subtitle;
+            $article_content = $request->article_content;
+            $article_type_id = $request->article_type_id;
+            $request->validate([
+                'article_featured_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $article_featured_image_name = time().'.'.$request->article_featured_image->extension();  
+            $request->article_featured_image->storeAs('files', $article_featured_image_name);
+            $request->article_featured_image->move(public_path('files'), $article_featured_image_name);
+            $userID = Auth::id();
+            $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('organization_id');
+            $orgID2 = (int) $orgIDHolder->organization_id;
+            $artSlug = str_replace(' ', '-', $article_title);
+            Article::create($this->articleInsertModel($article_title,$article_subtitle,$article_content,$article_type_id,$status = 1,$userID,$artSlug,$orgID2));
+            $latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
+            OrganizationAsset::create([
+                'organization_id' => $orgID2,
+                'asset_type_id' => '4',
+                'file' => $article_featured_image_name,
+                'is_latest_logo' => '0',
+                'is_latest_banner' => '0',
+                'is_latest_image' => '1',
+                'user_id' => $userID,
+                'page_type_id' => '2',
+                'status' => '1',
+                'articles_id' => $latestNewsID,
+            ]);
+            return redirect('articles/create')->with('status', 'School news article has been created.');
+        }else{
+            $checkUserData = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+            $UserRole = DB::table('roles')->where('role_id','=',$checkUserData->role_id)->first();
+            $orgDataOnNull = DB::table('organizations')->where('organization_acronym','=','PUP')->first();
+            $orgID2 = $orgDataOnNull->organization_id;
+            $article_title = $request->article_title;
+            $article_subtitle = $request->article_subtitle;
+            $article_content = $request->article_content;
+            $article_type_id = $request->article_type_id;
+            $request->validate([
+                'article_featured_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $article_featured_image_name = time().'.'.$request->article_featured_image->extension();  
+            $request->article_featured_image->storeAs('files', $article_featured_image_name);
+            $request->article_featured_image->move(public_path('files'), $article_featured_image_name);
+            $userID = Auth::id();
+            $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('organization_id');
+            $orgID2 = (int) $orgIDHolder->organization_id;
+            $artSlug = str_replace(' ', '-', $article_title);
+            Article::create($this->articleInsertModelIfNoOrganization($article_title,$article_subtitle,$article_content,$article_type_id,$status = 1,$userID,$artSlug,$orgID2));
+            $latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
+            OrganizationAsset::create([
+                'organization_id' => '1',
+                'asset_type_id' => '4',
+                'file' => $article_featured_image_name,
+                'is_latest_logo' => '0',
+                'is_latest_banner' => '0',
+                'is_latest_image' => '1',
+                'user_id' => $userID,
+                'page_type_id' => '2',
+                'status' => '1',
+                'articles_id' => $latestNewsID,
+            ]);
+            return redirect('articles/create')->with('status', 'School news article has been created.');
+        }
     }
 
     public function articleInsertModel($artTitle,$artSubtitle,$artContent,$type,$status,$userID,$artSlug,$orgID)
@@ -117,6 +154,20 @@ class ArticleCreate extends Controller
             'user_id' => $userID,
             'article_slug' => $artSlug,
             'organization_id' => $orgID,
+        ];
+    }
+
+    public function articleInsertModelIfNoOrganization($artTitle,$artSubtitle,$artContent,$type,$status,$userID,$artSlug,$orgID)
+    {
+        return [
+            'article_title' => $artTitle,
+            'article_subtitle' => $artSubtitle,
+            'article_content' => $artContent,
+            'type' => $type,
+            'status' => $status,
+            'user_id' => $userID,
+            'article_slug' => $artSlug,
+            'organization_id' => '1',
         ];
     }
 
@@ -168,19 +219,46 @@ class ArticleCreate extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd("Hello");
+        // dd(" news update Hello");
         // dd(Article::where('articles_id','=',$id)->get());
-        $validatedData = $request->validate([
-            'article_title' => 'required',
-            'article_subtitle' => 'required',
-            'article_content' => 'required',
-            'article_type_id' => 'required',
-        ]);
+        // $validatedData = $request->validate([
+        //     'article_title' => 'required',
+        //     'article_subtitle' => 'required',
+        //     'article_content' => 'required',
+        //     'article_type_id' => 'required',
+        // ]);
         $article_title = $request->article_title;
         $article_subtitle = $request->article_subtitle;
         $article_content = $request->article_content;
         $article_type_id = $request->article_type_id;
 
+
+        // dd(Article::where('articles_id','=',$id)->first());
+
+        $data = Article::where('articles_id','=',$id)->first();
+        // dd($data->article_subtitle);
+
+        if($article_title != null){
+            $article_title_for_null = $article_title;
+        }else{
+            $article_title_for_null = $data->article_title;
+        }
+        if($article_subtitle != null){
+            $article_subtitle_for_null = $article_subtitle;
+        }else{
+            $article_subtitle_for_null = $data->article_subtitle;
+        }
+        if($article_content != null){
+            $article_content_for_null = $article_content;
+        }else{
+            $article_content_for_null = $data->article_content;
+        }
+        if($article_type_id != null){
+            $article_type_id_for_null = $article_type_id;
+        }else{
+            $article_type_id_for_null = $data->article_type_id;
+        }
+        // dd($article_subtitle);
 
         $userID = Auth::id();
         $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('organization_id');
@@ -189,7 +267,12 @@ class ArticleCreate extends Controller
         // echo $convertedArticleSlug;
             // Article::create($createModelWithoutOrg());
         // $syncArticleOrganization();
-        Article::where('articles_id','=',$id)->update($validatedData);
+        Article::where('articles_id','=',$id)->update([
+            'article_title' =>      $article_title_for_null,
+            'article_subtitle' =>   $article_subtitle_for_null,
+            'article_content' =>    $article_content_for_null,
+            'article_type_id' =>    $article_type_id_for_null,
+        ]);
         // Article::where('articles_id','=',$id)->update($this->articleInsertModel($article_title,$article_subtitle,$article_content,$article_type_id,$status = 1,$userID,$artSlug,$orgID));
         $latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
         // dd($latestNewsID);
@@ -198,7 +281,7 @@ class ArticleCreate extends Controller
 
 
         // dd("Hello");
-         return redirect('viewarticle')->with('status', 'Blog Post Form Data Has Been inserted');
+         return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
     }
 
     public function updateImage($id)
@@ -237,43 +320,115 @@ class ArticleCreate extends Controller
         $latestOrganizationIDtoInsertToDB = (int) $vaHolder;
         // dd($latestOrganizationIDtoInsertToDB);
 
-        OrganizationAsset::create([
-            'asset_type_id' => '4',
-            'asset_name' => $article_featured_image_name,
-            'file' => $article_featured_image_name,
-            'is_latest_logo' => '0',
-            'is_latest_banner' => '0',
-            'is_latest_image' => '1',
-            'user_id' => $userId,
-            'page_type_id' => '2',
-            'organization_id' => $latestOrganizationIDtoInsertToDB,
-            'status' => '1',
-            'articles_id' => $artID,
-        ]);
+        $image_org_data = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        if ($image_org_data->organization_id != null) {
+            OrganizationAsset::create([
+                'asset_type_id' => '4',
+                'asset_name' => $article_featured_image_name,
+                'file' => $article_featured_image_name,
+                'is_latest_logo' => '0',
+                'is_latest_banner' => '0',
+                'is_latest_image' => '1',
+                'user_id' => $userId,
+                'page_type_id' => '2',
+                'organization_id' => $latestOrganizationIDtoInsertToDB,
+                'status' => '1',
+                'articles_id' => $artID,
+            ]);
+        }else{
+            OrganizationAsset::create([
+                'asset_type_id' => '4',
+                'asset_name' => $article_featured_image_name,
+                'file' => $article_featured_image_name,
+                'is_latest_logo' => '0',
+                'is_latest_banner' => '0',
+                'is_latest_image' => '1',
+                'user_id' => $userId,
+                'page_type_id' => '2',
+                'organization_id' => '1',
+                'status' => '1',
+                'articles_id' => $artID,
+            ]);
+        }
 
         $selectedNewsAssetDataIsLatestImage = OrganizationAsset::latest()->where('articles_id','=',$artID)->where('status','=','1')->first();
         // dd($selectedNewsAssetDataIsLatestImage);
         // dd($selectedNewsAssetDataIsLatestImage);
         if ($selectedNewsAssetDataIsLatestImage != null) {
             $selectedNewsAssetDataID = $selectedNewsAssetDataIsLatestImage->organization_asset_id;
-            // dd($selectedNewsAssetDataID);
-            // dd(OrganizationAsset::find('organization_id','=',$artID)->where('is_latest_logo','=','1'));
-            OrganizationAsset::where('articles_id','=',$artID)->where('is_latest_image','=','1')->update([
-                'is_latest_image' => '0',
-            ]);
-            DB::table('organization_assets')->where('organization_asset_id','=',$selectedNewsAssetDataID)->update(['is_latest_image'=>'1']);
+            dd($selectedNewsAssetDataID);
+            // // dd(OrganizationAsset::find('organization_id','=',$artID)->where('is_latest_logo','=','1'));
+            // OrganizationAsset::where('articles_id','=',$artID)->where('is_latest_image','=','1')->update([
+            //     'is_latest_image' => '0',
+            // ]);
+            if ($image_org_data->organization_id != null) {
+                // dd("org is not null");
+                DB::table('organization_assets')->where('organization_asset_id','=',$selectedNewsAssetDataID)->update(['is_latest_image'=>'1']);
+            }else{
+                // dd("org is null");
+                DB::table('organization_assets')->where('organization_asset_id','=','1')->update(['is_latest_image'=>'1']);
+            }
         }else{
-         return redirect('viewarticle')->with('status', 'Blog Post Form Data Has Been inserted');
+
+         return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
         }
 
-         return redirect('viewarticle')->with('status', 'Blog Post Form Data Has Been inserted');
+         return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
     }
+
 
 
     public function featureNews($id)
     {
         Article::where('articles_id',$id)->update(['is_featured_in_newspage' => '1']);
-        return redirect('articles.show', array('id' =>$id));
+        return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
+    }
+    public function UNfeatureNews($id)
+    {
+        Article::where('articles_id',$id)->update(['is_featured_in_newspage' => '0']);
+        return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
+    }
+
+
+    public function setAsTopNews($id)
+    {
+        $isArticleTopNews = Article::find($id);
+        if ($isArticleTopNews != null) {
+            Article::where('is_article_featured_home_page',true)->update([
+                'is_article_featured_home_page' => false,
+            ]);
+            DB::table('articles')->where('articles_id','=',$isArticleTopNews->articles_id)->update(['is_article_featured_home_page'=>"1"]);
+        }
+        return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
+    }
+
+    public function NotsetAsTopNews($id)
+    {
+        $isArticleTopNews = Article::find($id);
+        if ($isArticleTopNews != null) {
+            Article::where('is_article_featured_home_page',true)->update([
+                'is_article_featured_home_page' => false,
+            ]);
+            DB::table('articles')->where('articles_id','=',$isArticleTopNews->articles_id)->update(['is_article_featured_home_page'=>"0"]);
+        }
+        return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
+    }
+
+    public function delete($id)
+    {
+        // dd(DB::table('organization_assets')->where('articles_id','=',$id)->first());
+        // $destroyAsset = DB::table('organization_assets')->where('articles_id','=',$id)->first();
+        // $asetid = DB::table('organization_assets')->where('articles_id','=',$id)->first();
+        // dd($asetid);
+        // $destroyAsset  = OrganizationAsset::findOrFail($asetid->organization_asset_id);
+        // dd($destroyAsset);
+        // $destroyAsset->delete();
+        // Article::destroy($id);
+        DB::table('articles')->where('articles_id','=',$id)->update([
+            'status' => '0',
+        ]);
+        return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
+        // dd(Article::find($id));
     }
 
     /**
@@ -284,6 +439,6 @@ class ArticleCreate extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd("HEllo");
     }
 }

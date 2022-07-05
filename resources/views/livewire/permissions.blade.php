@@ -1,9 +1,11 @@
 <div class="p-6">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">Permissions</h2>
     <div class="flex items-center justify-end px-4 py-3 text-right sm:px-6">
-        <x-jet-button wire:click="createShowPermissionModel">
-            {{ __('Create Permissions') }}
-        </x-jet-button>
+         <a href="{{route('sadmin-permission.create')}}">
+                <x-jet-button>
+                    {{ __('Add Permission') }}
+                </x-jet-button>
+            </a>
     </div> 
 
     <div class="flex flex-col ">

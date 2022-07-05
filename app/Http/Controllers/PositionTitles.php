@@ -40,7 +40,7 @@ class PositionTitles extends Controller
      */
     public function create()
     {
-        return view('normlaravel.admin-position-titles',[
+        return view('normlaravel\admin-position-titles',[
             'getOrganization' => Organization::where('status','=','1')->get(),
             'getPositionCategory' => PositionCategory::get(),
         ]);

@@ -28,7 +28,7 @@ class SystemAssetTypes extends Controller
      */
     public function create()
     {
-        return view('normlaravel.admin-sois-asset-type-create');
+        return view('normlaravel\admin-sois-asset-type-create');
     }
 
     /**

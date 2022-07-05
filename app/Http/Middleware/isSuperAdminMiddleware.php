@@ -8,6 +8,10 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use \Carbon\Carbon;
+use Datetime;
+use DatePeriod;
+use DateInterval;
 
 class isSuperAdminMiddleware
 {
@@ -20,6 +24,9 @@ class isSuperAdminMiddleware
     protected $userData;
     protected $role;
     protected $userId;
+    protected $newTime;
+    protected $currentTime;
+    protected $dbTime;
     /**
      * Create a new filter instance.
      *
@@ -32,6 +39,11 @@ class isSuperAdminMiddleware
         $this->hello = "hello";
     }
 
+
+
+
+
+
     /**
      * Handle an incoming request.
      *
@@ -39,14 +51,16 @@ class isSuperAdminMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
+
     public function handle($request, Closure $next)
     {
         // dd(Auth::id());
         $this->userId = Auth::id();
+
         $this->userData = User::find($this->userId);
-        // dd($this->userData);
+        // dd($this->userData->role);
         $this->role = $this->userData->roles->first();
-        // dd($this->role->role_name);
+        // dd($this->role->role);
 
 
         if ($this->role->role !== "Super Admin") {

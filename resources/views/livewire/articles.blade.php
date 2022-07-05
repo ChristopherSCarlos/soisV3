@@ -48,7 +48,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @if($articleDataController == 'Super Admin')                                    
+                            @if($articleDataController == 'Super Admin' || $articleDataController == 'Head of Student Services')                                    
                             <!-- this is super admin -->
                                 @if($articleDatas->count())
                                     @foreach($articleDatas as $item)
@@ -80,9 +80,11 @@
                                                         {{__('Show Article')}}
                                                     </x-jet-button>
                                                 </a>
-                                                <x-jet-danger-button wire:click="deleteNewsShowModal({{ $item->articles_id }})">
-                                                    {{__('Delete')}}
-                                                </x-jet-danger-button>
+                                                <a href="{{ route('articles/delete',$item->articles_id) }}">
+                                                    <x-jet-danger-button>
+                                                        {{__('Delete')}}
+                                                    </x-jet-danger-button>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

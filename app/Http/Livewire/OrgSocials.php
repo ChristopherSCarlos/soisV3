@@ -50,6 +50,9 @@ class OrgSocials extends Component
     public $org_social_name;
 
     private $data;
+    private $object;
+    private $userRole;
+    private $userroles;
 
 
     public function mount()
@@ -167,6 +170,21 @@ class OrgSocials extends Component
         $this->resetValidation();
     }
 
+     public function getAuthRoleUser()
+    {
+        $this->object = new Objects();
+        $this->userRole = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        // dd(DB::table('role_user')->where('user_id','=',Auth::id())->first());
+        $this->userroles = DB::table('roles')->where('role_id','=',$this->userRole->role_id)->first();
+        // dd(DB::table('roles')->where('role_id','=',$this->userRole->role_id)->first());
+        $this->Returnuserroles = $this->userroles->role;
+        // dd($this->userroles->role);
+        // return $this->userroles;
+        return $this->Returnuserroles;
+
+        // dd($this->role->role_name);
+    }
+
     /**
      *
      * Get Organization Data
@@ -204,6 +222,7 @@ class OrgSocials extends Component
             'getOrganization' => $this->getOrganizationDataFromDB(),
             'getSocial' => $this->getSocialMediaDataFromDB(),
             'getOrganizationSocialData' => $this->getOrganizationSocialsDataFromDB(),
+            'roleUser' => $this->getAuthRoleUser(),
         ]);
     }
 }

@@ -53,12 +53,12 @@ class RoleController extends Controller
     public function displayPermissions($perms_array)
     {
         for ($i=0; $i < count($perms_array); $i++) { 
-            // echo "<br>";
+            echo "<br>";
             $permsData = DB::table('permissions')->where('permission_id','=',$perms_array[$i])->first();
-            // echo $i + 1;
+            echo $i + 1;
             $perms = (array) $permsData;
-            //print_r$perms);
-            // echo gettype($perms);
+            print_r($perms);
+            echo gettype($perms);
             // return $perms;
         }
         // dd("hello");

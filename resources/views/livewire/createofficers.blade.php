@@ -5,8 +5,14 @@
                     {{ __('Add Officer') }}
                 </x-jet-button>
             </a>
-        @else
+        @elseif($getUserRole == 'Head of Student Services')
             <a href="{{route('admin-officers.create')}}">
+                <x-jet-button>
+                    {{ __('Add Officer') }}
+                </x-jet-button>
+            </a>
+        @elseif($getUserRole == 'Home Page Admin')
+            <a href="{{route('oadmin-officers.create')}}">
                 <x-jet-button>
                     {{ __('Add Officer') }}
                 </x-jet-button>

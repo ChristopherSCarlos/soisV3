@@ -234,7 +234,7 @@ class AdminOrganization extends Controller
         }
         
         // return $authUserRoleType;
-        return view('normlaravel.admin-organization-view',[
+        return view('normlaravel\admin-organization-view',[
             'displayOrganizationData' => DB::table('organizations')->where('organization_id','=',$id)->get(),
             'displayOrganizationLogo' => DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_logo','=',1)->get(),
             'displayOrganizationBanner' => DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_banner','=',1)->get(),
@@ -415,7 +415,7 @@ class AdminOrganization extends Controller
         // dd("hello");
         $this->cleanVars();
         return $this->accessOrgControll($id);
-        // return view('normlaravel.organization-view');
+        // return view('normlaravel\organization-view');
         // dd("hello");
     }
 

@@ -433,8 +433,9 @@ class Announcements extends Component
     {
         $this->user_id = Auth::id();
         // dd($this->user_id);
+        // dd(DB::table('announcements')->where('status','=','1')->orderBy('created_at','desc')->get());
         // if ($this->getAuthRoleUser() == 'Super Admin') {
-            return DB::table('announcements')->where('status','=','1')->orderBy('created_at','desc')->paginate(5);
+        return DB::table('announcements')->where('status','=','1')->orderBy('created_at','desc')->paginate(5);
         // dd(DB::table('announcements')->where('status','=','1')->orderBy('created_at','desc')->paginate(5));
         // dd(DB::table('announcements')->where('status','=','1')->paginate(5));
         // }elseif ($this->getAuthRoleUser() == 'Organization Admin') {
