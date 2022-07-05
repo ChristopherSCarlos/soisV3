@@ -300,6 +300,7 @@ class Frontpage extends Component
     {
         return DB::table('articles')
             ->where('article_slug','=',$this->urlslug)
+            ->where('status','=','1')
             ->get();    
     }
 
