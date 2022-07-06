@@ -68,16 +68,57 @@
                                                 </a>
                                             </td>
                                                 @if($RoleUSerString == 'Super Admin')
-                                                    <a href="{{ route('articles.show',$item->articles_id) }}">
+                                                    <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    <a href="{{ route('articles.edit',$item->articles_id) }}">
                                                         <x-jet-button>
-                                                            {{__('Show Article')}}
+                                                            {{__('Update Article')}}
                                                         </x-jet-button>
                                                     </a>
+                                                    <a href="{{ url('articles/updateImage',$item->articles_id) }}">
+                                                        <x-jet-button>
+                                                            {{__('Edit Image')}}
+                                                        </x-jet-button>
+                                                    </a>
+                                                    <div class="px-6 py-4 text-sm whitespace-no-wrap" style="@if($item->is_featured_in_newspage == 1)  
+                                                                                                        background: rgba(25, 98, 181, 1);
+                                                                                                    @else
+                                                                                                        background: rgba(173, 45, 16, 1.0);
+                                                                                                    @endif">
+                                                    <a href="{{ route('articles/featureNews',$item->articles_id) }}">
+                                                        <x-jet-button>
+                                                            {{__('Feature')}}
+                                                        </x-jet-button>
+                                                    </a>
+                                                    <a href="{{ route('articles/unfeatureNews',$item->articles_id) }}">
+                                                        <x-jet-danger-button>
+                                                            {{__('UnFeature')}}
+                                                        </x-jet-danger-button>
+                                                    </div>
+                                                    </a>
+                                                </td>
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    <div class="px-6 py-4 text-sm whitespace-no-wrap" style="@if($item->is_article_featured_home_page == 1)  
+                                                                                                        background: rgba(25, 98, 181, 1);
+                                                                                                    @else
+                                                                                                        background: rgba(173, 45, 16, 1.0);
+                                                                                                    @endif">
+                                                        <a href="{{ route('articles/setAsTopNews',$item->articles_id) }}">
+                                                            <x-jet-button>
+                                                                {{__('Set As Top News')}}
+                                                            </x-jet-button>
+                                                        </a>
+                                                        <a href="{{ route('articles/NotsetAsTopNews',$item->articles_id) }}">
+                                                            <x-jet-danger-button>
+                                                                {{__('Not Set as top News')}}
+                                                            </x-jet-danger-button>
+                                                        </a>
+                                                    </div>
                                                     <a href="{{ route('articles/delete',$item->articles_id) }}">
                                                         <x-jet-danger-button>
                                                             {{__('Delete')}}
                                                         </x-jet-danger-button>
                                                     </a>
+                                                </td>
                                                 @elseif($RoleUSerString == 'Head of Student Services')
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                     <a href="{{ route('admin-articles.edit',$item->articles_id) }}">
