@@ -179,15 +179,31 @@ class ArticleCreate extends Controller
      */
     public function show($id)
     {
-        // dd($id);
+        
+        $userID = Auth::id();
+        $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('role_id');
+        $role_name  = DB::table('roles')->where('role_id','=',$orgIDHolder->role_id)->first();
+        if ($role_name->role == 'Super Admin') {
+            $article_Data = DB::table('articles')->where('articles_id','=',$id)->get();
+            // dd(DB::table('articles')->where('articles_id','=',$id)->first());
+            $article_image = DB::table('organization_assets')->where('articles_id','=',$id)->get();
+            return view('normlaravel.super-article-show', [
+                'artData' => $article_Data,
+                'artImage' => $article_image,
+            ]);
+        }
+        if ($role_name->role == 'Head of Student Services') {
+            $article_Data = DB::table('articles')->where('articles_id','=',$id)->get();
+            // dd(DB::table('articles')->where('articles_id','=',$id)->first());
+            $article_image = DB::table('organization_assets')->where('articles_id','=',$id)->get();
+            return view('normlaravel.admin-article-show', [
+                'artData' => $article_Data,
+                'artImage' => $article_image,
+            ]);
+        }
+
         // dd(DB::table('organization_assets')->where('articles_id','=',$id)->get());
-        $article_Data = DB::table('articles')->where('articles_id','=',$id)->get();
-        // dd(DB::table('articles')->where('articles_id','=',$id)->first());
-        $article_image = DB::table('organization_assets')->where('articles_id','=',$id)->get();
-        return view('normlaravel.super-article-show', [
-            'artData' => $article_Data,
-            'artImage' => $article_image,
-        ]);
+        
     }
 
     /**
@@ -200,14 +216,24 @@ class ArticleCreate extends Controller
     {
         // $this->permission_data = new PermissionCheckerController;
         // $this->permission_data->permssionChecker('HP-Edit_News_Article');
-        $artData = Article::findOrFail($id);
-        $selectedArticle = DB::table('articles')->where('articles_id','=',$id)->get();
-        // dd($selectedArticle);
-        return view('normlaravel.article-update', compact('artData'), compact('selectedArticle'));
-        // return view('normlaravel.article-update',[
-            // 'selectedArticle' => DB::table('articles')->where('articles_id','=',$id)->get(),
-            // 'art' => $artData,
-        // ]);
+
+
+        $userID = Auth::id();
+        $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('role_id');
+        $role_name  = DB::table('roles')->where('role_id','=',$orgIDHolder->role_id)->first();
+
+        if ($role_name->role == 'Super Admin') {
+            $artData = Article::findOrFail($id);
+            $selectedArticle = DB::table('articles')->where('articles_id','=',$id)->get();
+            // dd($selectedArticle);
+            return view('normlaravel.article-update', compact('artData'), compact('selectedArticle'));
+        }
+        if ($role_name->role == 'Head of Student Services') {
+            $artData = Article::findOrFail($id);
+            $selectedArticle = DB::table('articles')->where('articles_id','=',$id)->get();
+            // dd($selectedArticle);
+            return view('normlaravel.admin-article-update', compact('artData'), compact('selectedArticle'));
+        }
     }
 
     /**
@@ -219,89 +245,136 @@ class ArticleCreate extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd(" news update Hello");
-        // dd(Article::where('articles_id','=',$id)->get());
-        // $validatedData = $request->validate([
-        //     'article_title' => 'required',
-        //     'article_subtitle' => 'required',
-        //     'article_content' => 'required',
-        //     'article_type_id' => 'required',
-        // ]);
-        $article_title = $request->article_title;
-        $article_subtitle = $request->article_subtitle;
-        $article_content = $request->article_content;
-        $article_type_id = $request->article_type_id;
-
-
-        // dd(Article::where('articles_id','=',$id)->first());
-
-        $data = Article::where('articles_id','=',$id)->first();
-        // dd($data->article_subtitle);
-
-        if($article_title != null){
-            $article_title_for_null = $article_title;
-        }else{
-            $article_title_for_null = $data->article_title;
-        }
-        if($article_subtitle != null){
-            $article_subtitle_for_null = $article_subtitle;
-        }else{
-            $article_subtitle_for_null = $data->article_subtitle;
-        }
-        if($article_content != null){
-            $article_content_for_null = $article_content;
-        }else{
-            $article_content_for_null = $data->article_content;
-        }
-        if($article_type_id != null){
-            $article_type_id_for_null = $article_type_id;
-        }else{
-            $article_type_id_for_null = $data->article_type_id;
-        }
-        // dd($article_subtitle);
-
         $userID = Auth::id();
-        $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('organization_id');
-        $orgID = (int) $orgIDHolder->organization_id;
-        $artSlug = str_replace(' ', '-', $article_title);
-        // echo $convertedArticleSlug;
-            // Article::create($createModelWithoutOrg());
-        // $syncArticleOrganization();
-        Article::where('articles_id','=',$id)->update([
-            'article_title' =>      $article_title_for_null,
-            'article_subtitle' =>   $article_subtitle_for_null,
-            'article_content' =>    $article_content_for_null,
-            'article_type_id' =>    $article_type_id_for_null,
-        ]);
-        // Article::where('articles_id','=',$id)->update($this->articleInsertModel($article_title,$article_subtitle,$article_content,$article_type_id,$status = 1,$userID,$artSlug,$orgID));
-        $latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
-        // dd($latestNewsID);
+        $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('role_id');
+        $role_name  = DB::table('roles')->where('role_id','=',$orgIDHolder->role_id)->first();
 
+        if ($role_name->role == 'Super Admin') {
+            $article_title = $request->article_title;
+            $article_subtitle = $request->article_subtitle;
+            $article_content = $request->article_content;
+            $article_type_id = $request->article_type_id;
+            $data = Article::where('articles_id','=',$id)->first();
+            if($article_title != null){
+                $article_title_for_null = $article_title;
+            }else{
+                $article_title_for_null = $data->article_title;
+            }
+            if($article_subtitle != null){
+                $article_subtitle_for_null = $article_subtitle;
+            }else{
+                $article_subtitle_for_null = $data->article_subtitle;
+            }
+            if($article_content != null){
+                $article_content_for_null = $article_content;
+            }else{
+                $article_content_for_null = $data->article_content;
+            }
+            if($article_type_id != null){
+                $article_type_id_for_null = $article_type_id;
+            }else{
+                $article_type_id_for_null = $data->article_type_id;
+            }
+            $userID = Auth::id();
+            $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('organization_id');
+            $orgID = (int) $orgIDHolder->organization_id;
+            $artSlug = str_replace(' ', '-', $article_title);
+            Article::where('articles_id','=',$id)->update([
+                'article_title' =>      $article_title_for_null,
+                'article_subtitle' =>   $article_subtitle_for_null,
+                'article_content' =>    $article_content_for_null,
+                'article_type_id' =>    $article_type_id_for_null,
+            ]);
+            $latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
+            return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
+        }
+        if ($role_name->role == 'Head of Student Services') {
+            $article_title = $request->article_title;
+            $article_subtitle = $request->article_subtitle;
+            $article_content = $request->article_content;
+            $article_type_id = $request->article_type_id;
+            $data = Article::where('articles_id','=',$id)->first();
+            if($article_title != null){
+                $article_title_for_null = $article_title;
+            }else{
+                $article_title_for_null = $data->article_title;
+            }
+            if($article_subtitle != null){
+                $article_subtitle_for_null = $article_subtitle;
+            }else{
+                $article_subtitle_for_null = $data->article_subtitle;
+            }
+            if($article_content != null){
+                $article_content_for_null = $article_content;
+            }else{
+                $article_content_for_null = $data->article_content;
+            }
+            if($article_type_id != null){
+                $article_type_id_for_null = $article_type_id;
+            }else{
+                $article_type_id_for_null = $data->article_type_id;
+            }
+            $userID = Auth::id();
+            $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('organization_id');
+            $orgID = (int) $orgIDHolder->organization_id;
+            $artSlug = str_replace(' ', '-', $article_title);
+            Article::where('articles_id','=',$id)->update([
+                'article_title' =>      $article_title_for_null,
+                'article_subtitle' =>   $article_subtitle_for_null,
+                'article_content' =>    $article_content_for_null,
+                'article_type_id' =>    $article_type_id_for_null,
+            ]);
+            $latestNewsID = Article::latest()->where('status','=','1')->pluck('articles_id')->first();
+            return redirect('adminArticles')->with('status', 'Blog Post Form Data Has Been inserted');
+        }
         
-
-
-        // dd("Hello");
-         return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
     }
 
     public function updateImage($id)
     {
-        $article_image = DB::table('organization_assets')->where('articles_id','=',$id)->get();
-        // dd($article_image);
-        $article_id = DB::table('organization_assets')->where('articles_id','=',$id)->first();
-        $imageID = $article_id->organization_asset_id;
-        // dd($imageID);
-        $article_Data = DB::table('articles')->where('articles_id','=',$id)->first();
-        $article_id = $article_Data->articles_id;
-        return view('normlaravel.super-article-updateImage', [
-            'artImage' => $article_image,
-            'id' => $imageID,
-            'artID' => $article_id,
-        ]);
+        $userID = Auth::id();
+        $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('role_id');
+        $role_name  = DB::table('roles')->where('role_id','=',$orgIDHolder->role_id)->first();
+
+        if ($role_name->role == 'Super Admin') {
+            $article_image = DB::table('organization_assets')->where('articles_id','=',$id)->get();
+            // dd($article_image);
+            $article_id = DB::table('organization_assets')->where('articles_id','=',$id)->first();
+            $imageID = $article_id->organization_asset_id;
+            // dd($imageID);
+            $article_Data = DB::table('articles')->where('articles_id','=',$id)->first();
+            $article_id = $article_Data->articles_id;
+            return view('normlaravel.super-article-updateImage', [
+                'artImage' => $article_image,
+                'id' => $imageID,
+                'artID' => $article_id,
+            ]);
+        }
+        if ($role_name->role == 'Head of Student Services') {
+            $article_image = DB::table('organization_assets')->where('articles_id','=',$id)->get();
+            // dd($article_image);
+            $article_id = DB::table('organization_assets')->where('articles_id','=',$id)->first();
+            $imageID = $article_id->organization_asset_id;
+            // dd($imageID);
+            $article_Data = DB::table('articles')->where('articles_id','=',$id)->first();
+            $article_id = $article_Data->articles_id;
+            return view('normlaravel.admin-update-image', [
+                'artImage' => $article_image,
+                'id' => $imageID,
+                'artID' => $article_id,
+            ]);
+        }
+
+        
     }
     public function updateImageProcess(Request $request, $id, $artID)
     {
 
+        $userID = Auth::id();
+        $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('role_id');
+        $role_name  = DB::table('roles')->where('role_id','=',$orgIDHolder->role_id)->first();
+
+        if ($role_name->role == 'Super Admin') {
         $validate = $request->validate([
             'article_featured_image' => 'required',
         ]);
@@ -356,7 +429,7 @@ class ArticleCreate extends Controller
         // dd($selectedNewsAssetDataIsLatestImage);
         if ($selectedNewsAssetDataIsLatestImage != null) {
             $selectedNewsAssetDataID = $selectedNewsAssetDataIsLatestImage->organization_asset_id;
-            dd($selectedNewsAssetDataID);
+            // dd($selectedNewsAssetDataID);
             // // dd(OrganizationAsset::find('organization_id','=',$artID)->where('is_latest_logo','=','1'));
             // OrganizationAsset::where('articles_id','=',$artID)->where('is_latest_image','=','1')->update([
             //     'is_latest_image' => '0',
@@ -370,48 +443,170 @@ class ArticleCreate extends Controller
             }
         }else{
 
+        }
          return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
         }
+        if ($role_name->role == 'Head of Student Services') {
+        $validate = $request->validate([
+            'article_featured_image' => 'required',
+        ]);
+        $article_featured_image= $request->article_featured_image;
+        $article_featured_image_name = time().'.'.$article_featured_image->extension();
 
-         return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
+        $article_featured_image->store('files', 'imgfolder',$article_featured_image_name);
+
+        $article_featured_image->storeAs('files',$article_featured_image_name, 'imgfolder');
+
+
+        $userId = Auth::user()->user_id;
+        $user = User::find($userId);
+        $va = DB::table('role_user')->where('user_id','=',$userId)->first();
+        $vaHolder = $va->organization_id;
+        $latestOrganizationIDtoInsertToDB = (int) $vaHolder;
+        // dd($latestOrganizationIDtoInsertToDB);
+
+        $image_org_data = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        // dd($image_org_data);
+        if ($image_org_data->organization_id != null) {
+            DB::table('organization_assets')->insert([
+                'asset_type_id' => '4',
+                'file' => $article_featured_image_name,
+                'is_latest_logo' => '0',
+                'is_latest_banner' => '0',
+                'is_latest_image' => '1',
+                'user_id' => $userId,
+                'page_type_id' => '2',
+                'organization_id' => $latestOrganizationIDtoInsertToDB,
+                'status' => '1',
+                'articles_id' => $artID,
+            ]);
+        }else{
+            DB::table('organization_assets')->insert([
+                'asset_type_id' => '4',
+                'file' => $article_featured_image_name,
+                'is_latest_logo' => '0',
+                'is_latest_banner' => '0',
+                'is_latest_image' => '1',
+                'user_id' => $userId,
+                'page_type_id' => '2',
+                'organization_id' => '1',
+                'status' => '1',
+                'articles_id' => $artID,
+            ]);
+        }
+
+        $selectedNewsAssetDataIsLatestImage = OrganizationAsset::latest()->where('articles_id','=',$artID)->where('status','=','1')->first();
+        // dd($selectedNewsAssetDataIsLatestImage);
+        // dd($selectedNewsAssetDataIsLatestImage);
+        if ($selectedNewsAssetDataIsLatestImage != null) {
+            $selectedNewsAssetDataID = $selectedNewsAssetDataIsLatestImage->organization_asset_id;
+            // dd($selectedNewsAssetDataID);
+            // // dd(OrganizationAsset::find('organization_id','=',$artID)->where('is_latest_logo','=','1'));
+            // OrganizationAsset::where('articles_id','=',$artID)->where('is_latest_image','=','1')->update([
+            //     'is_latest_image' => '0',
+            // ]);
+            if ($image_org_data->organization_id != null) {
+                // dd("org is not null");
+                DB::table('organization_assets')->where('organization_asset_id','=',$selectedNewsAssetDataID)->update(['is_latest_image'=>'1']);
+            }else{
+                // dd("org is null");
+                DB::table('organization_assets')->where('organization_asset_id','=','1')->update(['is_latest_image'=>'1']);
+            }
+        }
+         return redirect('adminArticles')->with('status', 'Blog Post Form Data Has Been inserted');
+        }
     }
 
 
 
     public function featureNews($id)
     {
-        Article::where('articles_id',$id)->update(['is_featured_in_newspage' => '1']);
-        return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
+        $userID = Auth::id();
+        $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('role_id');
+        $role_name  = DB::table('roles')->where('role_id','=',$orgIDHolder->role_id)->first();
+
+        if ($role_name->role == 'Super Admin') {
+            Article::where('articles_id',$id)->update(['is_featured_in_newspage' => '1']);
+            return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
+        }
+        if ($role_name->role == 'Head of Student Services') {
+            Article::where('articles_id',$id)->update(['is_featured_in_newspage' => '1']);
+            return redirect('adminArticles')->with('status', 'Blog Post Form Data Has Been inserted');
+        }
     }
     public function UNfeatureNews($id)
     {
-        Article::where('articles_id',$id)->update(['is_featured_in_newspage' => '0']);
-        return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
+        $userID = Auth::id();
+        $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('role_id');
+        $role_name  = DB::table('roles')->where('role_id','=',$orgIDHolder->role_id)->first();
+
+        if ($role_name->role == 'Super Admin') {
+            Article::where('articles_id',$id)->update(['is_featured_in_newspage' => '0']);
+            return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
+        }
+        if ($role_name->role == 'Head of Student Services') {
+            Article::where('articles_id',$id)->update(['is_featured_in_newspage' => '0']);
+            return redirect('adminArticles')->with('status', 'Blog Post Form Data Has Been inserted');
+        }
     }
 
 
     public function setAsTopNews($id)
     {
-        $isArticleTopNews = Article::find($id);
-        if ($isArticleTopNews != null) {
-            Article::where('is_article_featured_home_page',true)->update([
-                'is_article_featured_home_page' => false,
-            ]);
-            DB::table('articles')->where('articles_id','=',$isArticleTopNews->articles_id)->update(['is_article_featured_home_page'=>"1"]);
+        $userID = Auth::id();
+        $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('role_id');
+        $role_name  = DB::table('roles')->where('role_id','=',$orgIDHolder->role_id)->first();
+
+        if ($role_name->role == 'Super Admin') {
+            $isArticleTopNews = Article::find($id);
+            if ($isArticleTopNews != null) {
+                Article::where('is_article_featured_home_page',true)->update([
+                    'is_article_featured_home_page' => false,
+                ]);
+                DB::table('articles')->where('articles_id','=',$isArticleTopNews->articles_id)->update(['is_article_featured_home_page'=>"1"]);
+            }
+            return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
         }
-        return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
+        if ($role_name->role == 'Head of Student Services') {
+            $isArticleTopNews = Article::find($id);
+            if ($isArticleTopNews != null) {
+                Article::where('is_article_featured_home_page',true)->update([
+                    'is_article_featured_home_page' => false,
+                ]);
+                DB::table('articles')->where('articles_id','=',$isArticleTopNews->articles_id)->update(['is_article_featured_home_page'=>"1"]);
+            }
+            return redirect('adminArticles')->with('status', 'Blog Post Form Data Has Been inserted');
+        }
+        
     }
 
     public function NotsetAsTopNews($id)
     {
-        $isArticleTopNews = Article::find($id);
-        if ($isArticleTopNews != null) {
-            Article::where('is_article_featured_home_page',true)->update([
-                'is_article_featured_home_page' => false,
-            ]);
-            DB::table('articles')->where('articles_id','=',$isArticleTopNews->articles_id)->update(['is_article_featured_home_page'=>"0"]);
+        $userID = Auth::id();
+        $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('role_id');
+        $role_name  = DB::table('roles')->where('role_id','=',$orgIDHolder->role_id)->first();
+
+        if ($role_name->role == 'Super Admin') {
+            $isArticleTopNews = Article::find($id);
+            if ($isArticleTopNews != null) {
+                Article::where('is_article_featured_home_page',true)->update([
+                    'is_article_featured_home_page' => false,
+                ]);
+                DB::table('articles')->where('articles_id','=',$isArticleTopNews->articles_id)->update(['is_article_featured_home_page'=>"0"]);
+            }
+            return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
         }
-        return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
+        if ($role_name->role == 'Head of Student Services') {
+            $isArticleTopNews = Article::find($id);
+            if ($isArticleTopNews != null) {
+                Article::where('is_article_featured_home_page',true)->update([
+                    'is_article_featured_home_page' => false,
+                ]);
+                DB::table('articles')->where('articles_id','=',$isArticleTopNews->articles_id)->update(['is_article_featured_home_page'=>"0"]);
+            }
+            return redirect('adminArticles')->with('status', 'Blog Post Form Data Has Been inserted');
+        }
+        
     }
 
     public function delete($id)
@@ -429,6 +624,12 @@ class ArticleCreate extends Controller
         ]);
         return redirect('viewarticles')->with('status', 'Blog Post Form Data Has Been inserted');
         // dd(Article::find($id));
+    }
+
+    public function deleteAdmin($id)
+    {
+        Article::find($id)->update(['status'=>'0']);
+        return redirect('/adminArticles');
     }
 
     /**

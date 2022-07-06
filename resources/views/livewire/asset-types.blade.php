@@ -57,12 +57,30 @@
                                             {{ $item->asset_type_description }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            <x-jet-button wire:click="updateAssetTypeShowModal({{ $item->asset_type_id }})">
-                                                {{__('Update')}}
-                                            </x-jet-button>
-                                            <x-jet-danger-button wire:click="deleteAssetTypeShowModal({{ $item->asset_type_id }})">
-                                                {{__('Delete')}}
-                                            </x-jet-danger-button>
+                                            @if($getUserRole == 'Super Admin')
+                                                <a href="{{ route('sadmin-system-assets-type.edit',$item->asset_type_id) }}">
+                                                    <x-jet-button>
+                                                        {{ __('Edit') }}
+                                                    </x-jet-button>
+                                                </a>
+                                                <a href="{{ route('admin-system-assets-type/delete',$item->asset_type_id) }}">
+                                                    <x-jet-danger-button>
+                                                        {{__('Delete')}}
+                                                    </x-jet-danger-button>
+                                                </a>
+                                            @else
+                                                <a href="{{ route('admin-system-assets-type.edit',$item->asset_type_id) }}">
+                                                    <x-jet-button>
+                                                        {{ __('Edit') }}
+                                                    </x-jet-button>
+                                                </a>
+                                                <a href="{{ route('student-services-admin-system-assets-type/delete',$item->asset_type_id) }}">
+                                                    <x-jet-danger-button>
+                                                        {{__('Delete')}}
+                                                    </x-jet-danger-button>
+                                                </a>
+                                            @endif
+                                            
                                         </td>
                                     </tr>
                                 @endforeach

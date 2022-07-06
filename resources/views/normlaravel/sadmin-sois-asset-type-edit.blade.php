@@ -1,6 +1,6 @@
 @extends('layouts.headlines')
 
-@section('page-title','Announcements Update')
+@section('page-title','SOIS | Edit System Assets')
 
 @livewire('admin-nav-bars')
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
@@ -35,21 +35,21 @@
 	@endif	
 </div>
 
+
 	<div class=" col-span-6 max-w-lg rounded overflow-hidden shadow-lg">
-		<form name="add-articles" id="add-articles" method="post" action="{{ route('announcement.update', $artData->announcements_id ) }}" enctype="multipart/form-data">
+		<form name="add-articles" id="add-articles" method="post" action="{{ route('sadmin-system-assets-type.update', $sasset->asset_type_id ) }}" enctype="multipart/form-data">
 		@csrf
 		@method('PUT')
 			<div class="px-6 py-4">
-				@foreach($selectedArticle as $selectArt)
+				@foreach($selectedAsset as $selectAsset)
 				<div class="form-group">
-					<label for="announcement_title">announcement_title :</label>
-					<input type="text" id="announcement_title" name="announcement_title" placeholder="{{$selectArt->announcement_title}}" class="form-control" >
+					<label for="type">Type :</label>
+					<input type="text" id="type" name="type" placeholder= "{{$selectAsset->type}}" class="form-control" >
 				</div>
-				<div class="form-group" wire:ignore>
-					<label for="announcement_content">Announcement Content</label>
-					<textarea type="text" input="announcement_content" name="announcement_content" placeholder="{{$selectArt->announcement_content}}" id="summernote" class="summernote"></textarea>
+				<div class="form-group">
+					<label for="asset_type_description">Asset Type Description : </label>
+					<input type="text" id="asset_type_description" name="asset_type_description" placeholder="{{$selectAsset->asset_type_description}}" class="form-control" >
 				</div>
-
 				@endforeach
 	  		</div>
 	  		<div class="px-6 pt-4 pb-2">
@@ -59,27 +59,7 @@
 	</div>
 </div>
 
-<!--========================================
-=            Summernote Section            =
-=========================================-->
 
-<script>
-      $('#summernote').summernote({
-        tabsize: 2,
-        height: 120,
-        toolbar: [
-          ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture', 'video']],
-          ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-      });
-    </script>
-
-<!--====  End of Summernote Section  ====-->
 
 
 
@@ -100,4 +80,3 @@
 
 
 @extends('layouts.closing-tag')
-

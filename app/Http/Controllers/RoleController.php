@@ -11,6 +11,7 @@ use App\Models\User;
 use NumberFormatter;
 class RoleController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -104,6 +105,52 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         //
+    }
+
+    public function sync($id)
+    {
+        // dd(DB::Table('permissions')->get());
+        return view('normlaravel/super-roles-sync',[
+            'id' => $id,
+            'perms' => DB::Table('permissions')->get(),
+            'role_data' => DB::Table('roles')->where('role_id','=',$id)->get(),
+        ]);
+    }
+
+    public function rolesSync(Request $request, $id)
+    {
+        // dd($id);
+        $roleData = Role::find($id);
+        // dd($roleData->permissions());
+        // $input = $request->all();
+        
+        $input['category'] = $request->input('category');
+
+        
+        // $roleData->permissions()->sync($input);
+
+        // Auth::user()->permissions()->attach($request->cate);
+        // DB::Table('permission_role')->insert([
+        //     'permission_id' => implode(',', (array) $input['category']),
+        //     'role_id' => $id,
+        // ]);
+
+        $input = $request->all();
+        $input['category'] = $request->input('category');
+        DB::table('permission_role')create($input);
+
+
+        dd($input);
+        // Role::create($input);
+        // return redirect('/roles');
+
+
+    }
+
+    public function delete($id)
+    {
+        DB::table('roles')->where('role_id','=',$id)->delete();
+        return redirect('/roles');
     }
 
     /**

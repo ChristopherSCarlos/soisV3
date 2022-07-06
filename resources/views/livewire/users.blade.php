@@ -102,9 +102,11 @@
                                                     {{__('Selected User')}}
                                                 </x-jet-button>
                                             </a>
-                                            <x-jet-danger-button wire:click="deleteShowUserModal({{ $item->user_id }})">
-                                                {{__('Delete')}}
-                                            </x-jet-danger-button>
+                                            <a href="{{ route('user-selected-user/delete',$item->user_id) }}">
+                                                <x-jet-danger-button>
+                                                    {{__('Delete')}}
+                                                </x-jet-danger-button>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -158,9 +160,11 @@
                                                     {{__('Selected User')}}
                                                 </x-jet-button>
                                             </a>
-                                            <x-jet-danger-button wire:click="deleteShowUserModal({{ $item->user_id }})">
-                                                {{__('Delete')}}
-                                            </x-jet-danger-button>
+                                            <a href="{{ route('user-selected-user/delete',$item->user_id) }}">
+                                                <x-jet-danger-button>
+                                                    {{__('Delete')}}
+                                                </x-jet-danger-button>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

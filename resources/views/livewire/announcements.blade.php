@@ -57,7 +57,7 @@
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Id</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Announcement Title</th>
                                 <!-- <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Announcement Content</th> -->
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Signature</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Slug</th>
                                 <!-- <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Signer Position</th> -->
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Expiration Data</th>
                                 <!-- <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">User Id</th> -->
@@ -82,7 +82,9 @@
                                                     {{ $item->announcement_content }}
                                                 </td> -->
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                    {{ $item->signature }}
+                                                <a href="{{ url($item->announcement_slug) }}" class="text-indigo-600 hover:text-indigo-900" target="_blank">
+                                                   {{ $item->announcement_slug }}
+                                                </a>
                                                 </td>
                                                 <!-- <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                     {{ $item->signer_position }}
@@ -96,6 +98,8 @@
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                     {{ $item->created_at }}
                                                 </td>
+                                                
+                                                @if($roleUser == 'Super Admin')
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                     <a href="{{ route('announcement.show',$item->announcements_id) }}">
                                                         <x-jet-button>
@@ -110,6 +114,23 @@
                                                         </x-jet-danger-button>
                                                     </a>
                                                 </td>
+                                                @elseif($roleUser == 'Head of Student Services')
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    <a href="{{ route('admin-announcement/delete',$item->announcements_id) }}">
+                                                        <x-jet-danger-button>
+                                                            {{__('Delete')}}
+                                                        </x-jet-danger-button>
+                                                    </a>
+                                                </td>
+                                                @elseif($roleUser == 'Home Page Admin')
+                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                    <a href="{{ route('oadmin-announcement/delete',$item->announcements_id) }}">
+                                                        <x-jet-danger-button>
+                                                            {{__('Delete')}}
+                                                        </x-jet-danger-button>
+                                                    </a>
+                                                </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     @else
@@ -132,8 +153,10 @@
                                                 <!-- <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                     {{ $item->announcement_content }}
                                                 </td> -->
-                                                <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                    {{ $item->signature }}
+                                                <<td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                <a href="{{ url($item->announcement_slug) }}" class="text-indigo-600 hover:text-indigo-900" target="_blank">
+                                                   {{ $item->announcement_slug }}
+                                                </a>
                                                 </td>
                                                 <!-- <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                     {{ $item->signer_position }}

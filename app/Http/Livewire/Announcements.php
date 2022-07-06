@@ -107,6 +107,7 @@ class Announcements extends Component
         private $roles;
         private $orgID;
         public $organizationDisplayID;
+        public $announcement_slug;
 
 
 
@@ -461,7 +462,7 @@ class Announcements extends Component
         // dd(DB::table('announcements')->where('status','=','1')->where('organization_id','=',$this->organizationDisplayID)->orderBy('created_at','desc')->get());
         // dd(DB::table('announcements')->where('organization_id','=',$this->organizationDisplayID)->orderBy('created_at','desc')->get());
         // return DB::table('announcements')->where('status','=','1')->where('organization_id','=',$this->organizationDisplayID)->orderBy('created_at','desc')->paginate(5);
-        return DB::table('announcements')->where('organization_id','=',$this->organizationDisplayID)->orderBy('created_at','desc')->paginate(5);
+        return DB::table('announcements')->where('organization_id','=',$this->organizationDisplayID)->where('status','=','1')->orderBy('created_at','desc')->paginate(5);
     }
 
     public function render()

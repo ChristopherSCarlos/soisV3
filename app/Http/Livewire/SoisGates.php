@@ -35,6 +35,8 @@ class SoisGates extends Component
         
         $this->getKey = DB::table('sois_gates')->where('user_id','=',$this->userId)->first();
 
+        // dd($this->getKey);
+
         if ($this->getKey != null) {
             $this->gateKey = $this->getKey->gate_key;
         }else{

@@ -718,20 +718,33 @@ class UserCRUD extends Controller
 
     }
     public function modelUpdateUser($first_name_DB,$middle_name_DB,$last_name_DB,$date_of_birth_DB,$address_DB,$email_DB,$mobile_number_DB,$student_number_DB,$course_id_DB,$gender_id_DB)
-        {
-            return [
-                'first_name' => $first_name_DB,
-                'middle_name' => $middle_name_DB,
-                'last_name' => $last_name_DB,
-                'date_of_birth' => $date_of_birth_DB,
-                'course_id' => $course_id_DB,
-                'address' => $address_DB,
-                'gender_id' => $gender_id_DB,
-                'email' => $email_DB,
-                'mobile_number' => $mobile_number_DB,
-                'student_number' => $student_number_DB,
-            ];
-        }
+    {
+        return [
+            'first_name' => $first_name_DB,
+            'middle_name' => $middle_name_DB,
+            'last_name' => $last_name_DB,
+            'date_of_birth' => $date_of_birth_DB,
+            'course_id' => $course_id_DB,
+            'address' => $address_DB,
+            'gender_id' => $gender_id_DB,
+            'email' => $email_DB,
+            'mobile_number' => $mobile_number_DB,
+            'student_number' => $student_number_DB,
+        ];
+    }
+
+    public function deleteAdmin($id)
+    {
+        DB::table('users')->where('user_id','=',$id)->update(['status'=>'0']);
+        return redirect('/Adminusers');
+    }
+
+    public function delete($id)
+    {
+        // dd($id);
+        DB::table('users')->where('user_id','=',$id)->update(['status'=>'0']);
+        return redirect('/users');
+    }
 
     /**
      * Remove the specified resource from storage.

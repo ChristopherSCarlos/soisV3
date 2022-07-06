@@ -263,6 +263,12 @@ class OrgAccArticleCreate extends Controller
          return redirect('article/create')->with('status', 'Blog Post Form Data Has Been inserted');
     }
 
+    public function deleteCommsOfficer($id)
+    {
+        Article::find($id)->update(['status'=>'0']);
+        return redirect('/Organization/articles');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

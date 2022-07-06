@@ -272,7 +272,7 @@ class OrganizationCRUD extends Controller
             // echo $organization_banner_checker;
         }
         // dd(DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_banner','=',1)->get());
-        return view('normlaravel.organization-view',[
+        return view('normlaravel.admin-organization-view',[
             'displayOrganizationData' => DB::table('organizations')->where('organization_id','=',$id)->get(),
             'displayOrganizationLogo' => DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_logo','=',1)->get(),
             'displayOrganizationBanner' => DB::table('organization_assets')->where('organization_id','=',$id)->where('is_latest_banner','=',1)->get(),
@@ -303,7 +303,7 @@ class OrganizationCRUD extends Controller
 
         // echo $organization_acronym;
         // dd("hello");
-        return view('normlaravel.organization-update',[
+        return view('normlaravel.admin-organization-update',[
             'displayOrganizationData' => DB::table('organizations')->where('organization_id','=',$id)->get(),
         ]);
     }
@@ -538,6 +538,24 @@ class OrganizationCRUD extends Controller
         $asset_status = null;
         $selectedOrganizationAssetDataIsLatestLogo = null;
         $selectedOrganizationAssetDataID = null;
+    }
+
+    public function deleteCommsOfficer($id)
+    {
+        dd($id);
+    }
+
+    public function deleteAdmin($id)
+    {
+        
+        Organization::find($id)->update(['status'=>'0']);
+        return redirect('/admin-org');
+    }
+
+    public function delete($id)
+    {
+        Organization::find($id)->update(['status'=>'0']);
+        return redirect('/superorganization');
     }
 
     /**

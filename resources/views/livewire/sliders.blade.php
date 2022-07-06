@@ -14,7 +14,8 @@
                     {{ __('Add Data in Homepage Slider') }}
                 </x-jet-button>
             </a>
-        @elseif($getUserRole == 'Home Page Admin')
+        @endif
+        @if($getUserRole == 'Home Page Admin')
             <a href="{{route('oadmin-sliders.create')}}">
             <x-jet-button>
                 {{ __('Add News to Slider') }}
@@ -53,9 +54,6 @@
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                     {{ $item->article_subtitle }}
                                                 </td>
-<!--                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                    {{ $item->article_content }}
-                                                </td> -->
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                     {{ $item->created_at }}
                                                 </td>
@@ -65,9 +63,19 @@
                                                     </a>
                                                 </td>
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                    <x-jet-danger-button wire:click="deleteNewsShowModal({{ $item->articles_id }})">
-                                                        {{__('Remove in Carousel')}}
-                                                    </x-jet-danger-button>
+                                                    @if($getUserRole == 'Super Admin')
+                                                        <a href="{{route('admin-sliders/delete',$item->articles_id)}}">
+                                                            <x-jet-danger-button>
+                                                                {{__('Remove in Carousel')}}
+                                                            </x-jet-danger-button>
+                                                        </a>
+                                                    @else
+                                                        <a href="{{ route('sliders/delete',$item->articles_id) }}">
+                                                            <x-jet-danger-button>
+                                                                {{__('Admin Remove in Carousel')}}
+                                                            </x-jet-danger-button>
+                                                        </a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -85,9 +93,6 @@
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                     {{ $item->article_subtitle }}
                                                 </td>
-<!--                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                    {{ $item->article_content }}
-                                                </td> -->
                                                 <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                                     {{ $item->created_at }}
                                                 </td>
@@ -111,7 +116,7 @@
             </div>
         </div>
     </div>
-    @if($getUserRole == 'Super Admin' || $getUserRole == 'Head of Student Serv')
+    @if($getUserRole == 'Super Admin' || $getUserRole == 'Head of Student Services')
         {{$getCarouselHomepage->links()}}
     @else
         {{$getDisplayOrganizationArticleOnSelectModal->links()}}

@@ -62,7 +62,23 @@ Route::group(['middleware' => [
         Route::resource('admin-sub-links', 'App\Http\Controllers\SoisSubLinksCRUD');
         Route::resource('admin-AR-Events', 'App\Http\Controllers\AccomplishEventsCRUD');
 
+        Route::get('announcement/delete/{id}','App\Http\Controllers\AnnouncementCRUD@delete')->name('announcement/delete');
+
         Route::resource('admin-org-articles', 'App\Http\Controllers\OrgAccArticleCreate');
+
+
+
+        Route::get('admin-articles/updateImage/{id}','App\Http\Controllers\ArticleCreate@updateImage')->name('admin-articles/updateImage');
+        Route::post('admin-articles/updateImageProcess/{id}/{artID}','App\Http\Controllers\ArticleCreate@updateImageProcess')->name('admin-articles/updateImageProcess');
+        Route::get('admin-articles/featureNews/{id}','App\Http\Controllers\ArticleCreate@featureNews')->name('admin-articles/featureNews');
+
+        Route::get('admin-articles/unfeatureNews/{id}','App\Http\Controllers\ArticleCreate@unfeatureNews')->name('admin-articles/unfeatureNews');
+
+        Route::get('admin-articles/setAsTopNews/{id}','App\Http\Controllers\ArticleCreate@setAsTopNews')->name('admin-articles/setAsTopNews');
+        Route::get('admin-articles/NotsetAsTopNews/{id}','App\Http\Controllers\ArticleCreate@NotsetAsTopNews')->name('admin-articles/NotsetAsTopNews');
+        Route::get('admin-articles/delete/{id}','App\Http\Controllers\ArticleCreate@delete')->name('admin-articles/delete');
+
+
 
         Route::put('adminorganization/updateBanner/{id}','App\Http\Controllers\AdminOrganization@updateBnner')->name('adminorganization/updateBanner');
         Route::put('adminorganization/updateLogo/{id}','App\Http\Controllers\AdminOrganization@updateLogo')->name('adminorganization/updateLogo');
@@ -209,6 +225,20 @@ Route::group(['middleware' => [
         Route::get('/AdminARSubmitAccomplishments', function(){
             return view('admin.s-a-page-if-no-data');
         })->name('AdminARSubmitAccomplishments');
+
+
+
+        Route::get('sliders/delete/{id}','App\Http\Controllers\AdminSlider@deleteAdmin')->name('sliders/delete');
+
+        Route::get('student-services-admin-sois-sub-links/delete/{id}','App\Http\Controllers\SoisSystemLinks@deleteAdmin')->name('student-services-admin-sois-sub-links/delete');
+        
+        Route::get('student-services-admin-system-assets-type/delete/{id}','App\Http\Controllers\SystemAssetTypes@deleteAdmin')->name('student-services-admin-system-assets-type/delete');
+        Route::get('admin-organization/delete/{id}','App\Http\Controllers\OrganizationCRUD@deleteAdmin')->name('admin-organization/delete');
+        Route::get('admin-articles/delete/{id}','App\Http\Controllers\ArticleCreate@deleteAdmin')->name('admin-articles/delete');
+        Route::get('admin-announcement/delete/{id}','App\Http\Controllers\AnnouncementCRUD@deleteAdmin')->name('admin-announcement/delete');
+        Route::get('admin-user-selected-user/delete/{id}','App\Http\Controllers\UserCRUD@deleteAdmin')->name('admin-user-selected-user/delete');
+
+        Route::get('organization/delete/{id}','App\Http\Controllers\OrganizationCRUD@delete')->name('organization/delete');
 });
 
 
@@ -234,7 +264,44 @@ Route::group(['middleware' => [
         Route::resource('AR-Events', 'App\Http\Controllers\AccomplishEventsCRUD');
         // Route::resource('articles', ArticleCreate::class);
 
+
+        Route::get('admin-sliders/delete/{id}','App\Http\Controllers\AdminSlider@delete')->name('admin-sliders/delete');
+        Route::get('admin-sois-sub-links/delete/{id}','App\Http\Controllers\SoisSystemLinks@delete')->name('admin-sois-sub-links/delete');
+        Route::get('admin-system-assets-type/delete/{id}','App\Http\Controllers\SystemAssetTypes@delete')->name('admin-system-assets-type/delete');
+        
         Route::get('announcement/delete/{id}','App\Http\Controllers\AnnouncementCRUD@delete')->name('announcement/delete');
+        
+        Route::get('sadmin-web-page-type/delete/{id}','App\Http\Controllers\WebPageType@delete')->name('sadmin-web-page-type/delete');
+        
+        Route::get('organization/delete/{id}','App\Http\Controllers\OrganizationCRUD@delete')->name('organization/delete');
+
+        Route::get('user-selected-user/delete/{id}','App\Http\Controllers\UserCRUD@delete')->name('user-selected-user/delete');
+
+        Route::get('roles/delete/{id}','App\Http\Controllers\RoleController@delete')->name('roles/delete');
+        
+        Route::get('roles/sync/{id}','App\Http\Controllers\RoleController@sync')->name('roles/sync');
+
+        Route::put('roles/syncPage/{id}','App\Http\Controllers\RoleController@rolesSync')->name('roles/syncPage');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         Route::get('articles/updateImage/{id}','App\Http\Controllers\ArticleCreate@updateImage')->name('articles/updateImage');
@@ -571,6 +638,17 @@ Route::group(['middleware' => [
         Route::resource('oadmin-officers', 'App\Http\Controllers\OOfficerControl');
         Route::resource('oadmin-position-titles', 'App\Http\Controllers\OPositionTitles');
         Route::resource('oadmin-social', 'App\Http\Controllers\OSocialMedia');
+        Route::resource('oadmin-organization', 'App\Http\Controllers\OrganizationUserController');
+
+
+        Route::get('oadmin-articles/delete/{id}','App\Http\Controllers\OrgAccArticleCreate@deleteCommsOfficer')->name('oadmin-articles/delete');
+        Route::get('oadmin-announcement/delete/{id}','App\Http\Controllers\OAnnouncementCRUD@deleteCommsOfficer')->name('oadmin-announcement/delete');
+
+
+
+
+
+
 
         Route::post('/org-store-announcement', 'App\Http\Controllers\AnnouncementOrganizationController@store');
 
@@ -734,6 +812,8 @@ Route::group(['middleware' => [
         })->name('Organization/myAccomplishments');
 
 
+
+        Route::put('oadmin-organization/{id}','App\Http\Controllers\OrganizationCRUD@deleteCommsOfficer')->name('oadmin-organization');
 
 });
 

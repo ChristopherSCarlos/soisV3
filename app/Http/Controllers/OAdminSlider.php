@@ -78,7 +78,7 @@ class OAdminSlider extends Controller
         
         Article::find($article_type_id)->update(['is_carousel_homepage'=>'1']);
         // dd($article_type_id);
-        return redirect('/admin-default-interfaces');
+        return redirect('/Organization/articles');
     }
 
     public function accessControlBack()

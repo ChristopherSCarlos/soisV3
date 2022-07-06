@@ -500,6 +500,7 @@ class Users extends Component
         return DB::table('users')
             ->join('role_user', 'users.user_id', '=', 'role_user.user_id')
             ->where('role_id','=','1')
+            ->where('status','=','1')
             ->orderBy('users.user_id','asc')
             ->paginate(20);
     }
@@ -508,7 +509,7 @@ class Users extends Component
     {
         return DB::table('users')
             ->join('role_user', 'users.user_id', '=', 'role_user.user_id')
-            ->where('role_id','=','2')
+            ->where('status','=','1')
             ->orderBy('users.user_id','asc')
             ->paginate(10);
     }
@@ -519,6 +520,7 @@ class Users extends Component
             ->join('role_user', 'users.user_id', '=', 'role_user.user_id')
             ->where('role_id','!=','2')
             ->where('role_id','!=','1')
+            ->where('status','=','1')
             ->orderBy('users.user_id','asc')
             ->paginate(20);
     }

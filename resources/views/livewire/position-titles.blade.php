@@ -56,9 +56,25 @@
                                             @endforeach
                                             
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                <x-jet-button wire:click="updatePositionTitleModal({{ $item->position_title_id }})">
-                                                    {{__('Update')}}
-                                                </x-jet-button>
+                                                @if($getUserRole == 'Super Admin')
+                                                <a href="{{ route('sadmin-position-titles.edit',$item->position_title_id) }}">
+                                                    <x-jet-button>
+                                                        {{ __('Edit') }}
+                                                    </x-jet-button>
+                                                </a>
+                                                @elseif($getUserRole == 'Head of Student Services')
+                                                    <a href="{{route('admin-position-titles.edit',$item->position_title_id)}}">
+                                                    <x-jet-button>
+                                                        {{ __('Edit') }}
+                                                    </x-jet-button>
+                                                    </a>
+                                                @elseif($getUserRole == 'Home Page Admin')
+                                                    <a href="{{route('oadmin-position-titles.edit',$item->position_title_id)}}">
+                                                        <x-jet-button>
+                                                            {{ __('Edit') }}
+                                                        </x-jet-button>
+                                                    </a>
+                                            @endif
                                                 <x-jet-danger-button wire:click="deletePositionTitleModal({{ $item->position_title_id }})">
                                                     {{__('Delete')}}
                                                 </x-jet-danger-button>
@@ -81,9 +97,19 @@
                                                 @endif
                                             @endforeach
                                             <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                <x-jet-button wire:click="updatePositionTitleModal({{ $item->position_title_id }})">
-                                                    {{__('Update')}}
-                                                </x-jet-button>
+                                                @if($getUserRole == 'Super Admin')
+                                                <a href="{{ route('sadmin-position-titles.edit',$item->position_title_id) }}">
+                                                    <x-jet-button>
+                                                        {{ __('Edit') }}
+                                                    </x-jet-button>
+                                                </a>
+                                            @else
+                                                <a href="{{ route('admin-position-titles.edit',$item->position_title_id) }}">
+                                                    <x-jet-button>
+                                                        {{ __('Edit') }}
+                                                    </x-jet-button>
+                                                </a>
+                                            @endif
                                                 <x-jet-danger-button wire:click="deletePositionTitleModal({{ $item->position_title_id }})">
                                                     {{__('Delete')}}
                                                 </x-jet-danger-button>     

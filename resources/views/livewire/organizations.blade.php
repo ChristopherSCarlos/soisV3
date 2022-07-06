@@ -74,6 +74,11 @@
                                                             {{__('Super View')}}
                                                         </x-jet-button>
                                                     </a>
+                                                    <a href="{{route('organization/delete', $item->organization_id)}}">
+                                                        <x-jet-danger-button>
+                                                            {{__('Deletes')}}
+                                                        </x-jet-danger-button>
+                                                    </a>
                                                     @endif
                                                     @if($userAuthRole == 'Head of Student Services')
                                                     <a href="{{route('admin-organization.show', $item->organization_id)}}">
@@ -81,10 +86,12 @@
                                                             {{__('Admin View ')}}
                                                         </x-jet-button>
                                                     </a>
+                                                    <a href="{{route('admin-organization/delete', $item->organization_id)}}">
+                                                        <x-jet-danger-button>
+                                                            {{__('Deletes')}}
+                                                        </x-jet-danger-button>
+                                                    </a>
                                                     @endif
-                                                    <x-jet-danger-button wire:click="deleteShowModal({{ $item->organization_id }})">
-                                                        {{__('Deletes')}}
-                                                    </x-jet-danger-button>
                                                 </td>
                                                 </td>
                                             </tr>

@@ -5,6 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AssetType;
 
+use Auth;
+use Storage;
+
+use App\Models\User;
+use App\Models\Organization;
+use App\Models\Article;
+use App\Models\Announcement;
+use App\Models\OrganizationAsset;
+use App\Models\SystemAsset;
+
+use Illuminate\Support\STR;
+use Illuminate\Validation\Rule;
+use Intervention\Image\ImageManager;
+use Illuminate\Support\Facades\DB;
+
 class SASystemAssetTypes extends Controller
 {
     public $type;
@@ -68,7 +83,9 @@ class SASystemAssetTypes extends Controller
      */
     public function edit($id)
     {
-        //
+        $sasset = AssetType::findOrFail($id);
+        $selectedAsset = DB::table('asset_types')->where('asset_type_id','=',$id)->get();
+        return view('normlaravel.sadmin-sois-asset-type-edit',compact('sasset'),compact('selectedAsset'));
     }
 
     /**
@@ -80,7 +97,39 @@ class SASystemAssetTypes extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $type = $request->type;
+        $asset_type_description = $request->asset_type_description;
+        
+        $data = AssetType::where('asset_type_id','=',$id)->first();
+        // dd($data);
+
+        if($type != null){
+            $type_for_null = $type;
+        }else{
+            $type_for_null = $data->type;
+        }
+        if($asset_type_description != null){
+            $asset_type_description_for_null = $asset_type_description;
+        }else{
+            $asset_type_description_for_null = $data->asset_type_description;
+        }
+        
+
+
+        $userID = Auth::id();
+        $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('organization_id');
+        $orgID = (int) $orgIDHolder->organization_id;
+        $artSlug = str_replace(' ', '-', $type_for_null);
+
+
+        // echo $convertedArticleSlug;
+            // Article::create($createModelWithoutOrg());
+        // $syncArticleOrganization();
+        AssetType::where('asset_type_id','=',$id)->update([
+            'type' => $type_for_null,
+            'asset_type_description' =>    $asset_type_description_for_null,
+        ]);
+         return redirect('default-interfaces')->with('status', 'Link Form Data Has Been edited');
     }
 
     /**

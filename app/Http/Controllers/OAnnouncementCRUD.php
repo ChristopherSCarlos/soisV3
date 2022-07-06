@@ -108,6 +108,12 @@ class OAnnouncementCRUD extends Controller
         //
     }
 
+    public function deleteCommsOfficer($id)
+    {
+        Announcement::find($id)->delete();
+        return redirect('/OrganizationAnnouncements');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

@@ -57,12 +57,24 @@
                                             {{ $item->page_description }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            <x-jet-button wire:click="updatePageTypeShowModal({{ $item->page_types_id }})">
-                                                {{__('Update')}}
-                                            </x-jet-button>
-                                            <x-jet-danger-button wire:click="deletePageTypeShowModal({{ $item->page_types_id }})">
-                                                {{__('Delete')}}
-                                            </x-jet-danger-button>
+                                            @if($getUserRole == 'Super Admin')
+                                                <a href="{{ route('sadmin-web-page-type.edit',$item->page_types_id) }}">
+                                                    <x-jet-button>
+                                                        {{ __('Edit') }}
+                                                    </x-jet-button>
+                                                </a>
+                                                <a href="{{ route('sadmin-web-page-type/delete',$item->page_types_id) }}">
+                                                    <x-jet-danger-button>
+                                                        {{__('Delete')}}
+                                                    </x-jet-danger-button>
+                                                </a>
+                                            @else
+                                                <a href="{{ route('admin-web-page-type.edit',$item->page_types_id) }}">
+                                                    <x-jet-button>
+                                                        {{ __('Edit') }}
+                                                    </x-jet-button>
+                                                </a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

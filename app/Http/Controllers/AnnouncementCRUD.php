@@ -55,6 +55,8 @@ class AnnouncementCRUD extends Controller
         $exp_date = $request->exp_date;
         $exp_time = $request->exp_time;
 
+        $artSlug = str_replace(' ', '-', $announcement_title);
+
         $userID = Auth::id();
         $orgIDHolder = DB::table('role_user')->where('user_id','=',$userID)->first('organization_id');
         // dd($orgIDHolder);
@@ -65,6 +67,7 @@ class AnnouncementCRUD extends Controller
             'user_id' => $userID,
             'exp_date' =>$exp_date,
             'exp_time' =>$exp_time,
+            'announcement_slug' =>$artSlug,
             'status' => '1',
         ]);
        
@@ -160,6 +163,12 @@ class AnnouncementCRUD extends Controller
         ]);
          return redirect('announcements')->with('status', 'Blog Post Form Data Has Been inserted');
 
+    }
+
+    public function deleteAdmin($id)
+    {
+        Announcement::destroy($id);
+        return redirect('adminAnnouncements')->with('status', 'Blog Post Form Data Has Been inserted');
     }
 
     public function delete($id)

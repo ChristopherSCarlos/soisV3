@@ -46,14 +46,18 @@
                                             {{ $item->updated_at }}
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            <x-jet-danger-button wire:click="deleteRoleModal({{ $item->role_id }})">
-                                                {{__('Delete Role')}}
-                                            </x-jet-danger-button>
+                                            <a href="{{ route('roles/delete',$item->role_id) }}">
+                                                <x-jet-danger-button>
+                                                    {{__('Delete Role')}}
+                                                </x-jet-danger-button>
+                                            </a>
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                            <x-jet-button wire:click="syncPermissionModel({{ $item->role_id }})">
-                                                {{__('Sync Permission')}}
-                                            </x-jet-button>
+                                            <a href="{{ route('roles/sync',$item->role_id) }}">
+                                                <x-jet-button>
+                                                    {{__('Sync Permission')}}
+                                                </x-jet-button>
+                                            </a>
                                         </td>
                                         <td class="px-6 py-4 text-sm whitespace-no-wrap">
                                             <a href="{{route('roles.show', $item->role_id)}}">

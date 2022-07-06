@@ -53,13 +53,29 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <x-jet-button wire:click="updateSOISLinkShowModal({{ $item->sois_links_id }})">
-                                                {{__('Update')}}
-                                            </x-jet-button>
-
-                                            <x-jet-danger-button wire:click="deleteSOISLinkShowModal({{ $item->sois_links_id }})">
-                                                {{__('Delete')}}
-                                            </x-jet-danger-button>
+                                            @if($getUserRole == 'Super Admin')
+                                                <a href="{{ route('sadmin-sois-sub-links.edit',$item->sois_links_id) }}">
+                                                    <x-jet-button>
+                                                        {{ __('Edit') }}
+                                                    </x-jet-button>
+                                                </a>
+                                                <a href="{{ route('admin-sois-sub-links/delete',$item->sois_links_id) }}">
+                                                    <x-jet-danger-button>
+                                                        {{__('Delete')}}
+                                                    </x-jet-danger-button>
+                                                </a>
+                                            @else
+                                                <a href="{{ route('admin-sois-sub-links.edit',$item->sois_links_id) }}">
+                                                    <x-jet-button>
+                                                        {{ __('Edit') }}
+                                                    </x-jet-button>
+                                                </a>
+                                                <a href="{{ route('student-services-admin-sois-sub-links/delete',$item->sois_links_id) }}">
+                                                    <x-jet-danger-button>
+                                                        {{__('Delete')}}
+                                                    </x-jet-danger-button>
+                                                </a>
+                                            @endif
                                         </td>
                                     </tr>
                                  @endforeach

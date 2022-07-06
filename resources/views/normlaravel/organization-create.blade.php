@@ -59,7 +59,7 @@
                 <x-jet-input name="organization_name" id="organization_name" class="form-control block mt-1 w-full" type="text" />
             </div>
             <div class="mt-4">
-                <x-jet-label for="organization_acronym" value="{{ __('Organization name') }}" />
+                <x-jet-label for="organization_acronym" value="{{ __('Organization Acronym') }}" />
                 <x-jet-input name="organization_acronym" id="organization_acronym" class="form-control block mt-1 w-full" type="text" />
             </div>
             <div class="mt-4">
