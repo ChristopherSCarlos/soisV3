@@ -154,7 +154,7 @@
                                                     {{ $item->announcement_content }}
                                                 </td> -->
                                                 <<td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                <a href="{{ url($item->announcement_slug) }}" class="text-indigo-600 hover:text-indigo-900" target="_blank">
+                                                <a href="{{ url('$item->announcement_slug') }}" class="text-indigo-600 hover:text-indigo-900" target="_blank">
                                                    {{ $item->announcement_slug }}
                                                 </a>
                                                 </td>
