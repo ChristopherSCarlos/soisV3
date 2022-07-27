@@ -23,6 +23,28 @@ class SoisGates extends Component
 
     public $testRoute = 'reroute-test';
 
+    private $roleData;
+    private $button;
+
+    public function buttons()
+    {
+        $this->roleData = DB::table('roles')->where('role_id','=',Auth::id())->first();
+
+        if ($this->roleData) {
+            if ($this->roleData->role == 'Membership Admin') {
+                $this->button = DB::table('sois_links')->where('link_name','=','Membership')->where('status','=','1')->get();
+            }
+            if ($this->roleData->role == 'AR Officer Admin' || $this->roleData->role == 'AR President Admin') {
+                $this->button = DB::table('sois_links')->where('link_name','=','Accomplishment Report')->where('status','=','1')->get();
+            }
+            if ($this->roleData->role == 'GPOA Admin') {
+                $this->button = DB::table('sois_links')->where('link_name','=','GPOA Admin')->where('status','=','1')->get();
+            }
+        }
+        return $this->button;
+    }
+ 
+
     public function mount()
     {
         $this->userId = Auth::id();
@@ -117,7 +139,7 @@ class SoisGates extends Component
             'gpoa' => $this->gpoaFunction(),
             'member' => $this->membershipFunction(),
             'soisar' => $this->soisarFunction(),
-            'soisbuttons' => DB::table('sois_links')->where('status','=','1')->get(),
+            'soisbuttons' => $this->buttons(),
             'soisGateKey' => DB::table('sois_gates')->where('user_id','=',$this->userId)->get(),
         ]);
     }
