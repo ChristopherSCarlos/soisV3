@@ -236,7 +236,7 @@ class Frontpage extends Component
     public function getArticleLatestSix()
     {
         // dd(DB::table('articles')->orderBy('created_at','asc')->take(8)->get());
-        return DB::table('articles')->orderBy('created_at','asc')->take(8)->get();
+        return DB::table('articles')->where('status','=','1')->orderBy('created_at','asc')->paginate(16);
         // return DB::table('articles')->orderBy('created_at','asc')->paginate(10);
         // dd(DB::table('articles')->orderBy('created_at','asc')->take(6)->get());
     }
