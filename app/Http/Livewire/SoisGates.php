@@ -40,6 +40,9 @@ class SoisGates extends Component
             if ($this->roleData->role == 'GPOA Admin') {
                 $this->button = DB::table('sois_links')->where('link_name','=','GPOA Admin')->where('status','=','1')->get();
             }
+            if ($this->roleData->role == 'Home Page Admin') {
+                $this->button = DB::table('sois_links')->where('link_name','=','Home Page')->where('status','=','1')->get();
+            }
         }
         return $this->button;
     }
