@@ -43,7 +43,6 @@ class SoisGates extends Component
         }
         return $this->button;
     }
- 
 
     public function mount()
     {
@@ -130,6 +129,8 @@ class SoisGates extends Component
         $this->soisar = 'http://sois-ar.puptaguigcs.net/'; 
         return $this->soisar;
     }
+
+    
 
     public function render()
     {
