@@ -25,23 +25,31 @@ class SoisGates extends Component
 
     private $roleData;
     private $button;
+    private $errorbutton;
+    private $roleName;
 
     public function buttons()
     {
-        $this->roleData = DB::table('roles')->where('role_id','=',Auth::id())->first();
-
+        $this->roleData = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        $this->roleName = DB::table('roles')->where('role_id','=',$this->roleData->role_id)->first();
         if ($this->roleData) {
-            if ($this->roleData->role == 'Membership Admin') {
+            if ($this->roleName->role == 'Membership Admin') {
                 $this->button = DB::table('sois_links')->where('link_name','=','Membership')->where('status','=','1')->get();
             }
-            if ($this->roleData->role == 'AR Officer Admin' || $this->roleData->role == 'AR President Admin') {
+            if ($this->roleName->role == 'AR Officer Admin' || $this->roleName->role == 'AR President Admin') {
                 $this->button = DB::table('sois_links')->where('link_name','=','Accomplishment Report')->where('status','=','1')->get();
             }
-            if ($this->roleData->role == 'GPOA Admin') {
+            if ($this->roleName->role == 'GPOA Admin') {
                 $this->button = DB::table('sois_links')->where('link_name','=','GPOA Admin')->where('status','=','1')->get();
             }
-            if ($this->roleData->role == 'Home Page Admin') {
+            if ($this->roleName->role == 'Home Page Admin') {
                 $this->button = DB::table('sois_links')->where('link_name','=','Home Page')->where('status','=','1')->get();
+            }
+            if ($this->roleName->role == 'Head of Student Services') {
+                $this->button = DB::table('sois_links')->where('status','=','1')->get();
+            }
+            if ($this->roleName->role == 'Super Admin') {
+                $this->button = DB::table('sois_links')->where('status','=','1')->get();
             }
         }
         return $this->button;
@@ -60,6 +68,8 @@ class SoisGates extends Component
         $this->getKey = DB::table('sois_gates')->where('user_id','=',$this->userId)->first();
 
         // dd($this->getKey);
+        $this->roleData = DB::table('role_user')->where('user_id','=',Auth::id())->first();
+        $this->roleName = DB::table('roles')->where('role_id','=',$this->roleData->role_id)->first();
 
         if ($this->getKey != null) {
             $this->gateKey = $this->getKey->gate_key;
@@ -67,6 +77,19 @@ class SoisGates extends Component
             $this->errorMessage = 1;
         }
 
+        if ($this->roleData) {
+            if ($this->roleName->role == 'Super Admin') {
+                $this->errorMessage = 2;
+                // echo "1";
+            }
+            if ($this->roleName->role == 'Home Page Admin') {
+                $this->errorMessage = 3;
+                // echo "2";
+            }
+            if ($this->roleName->role != 'Head of Student Services') {
+                $this->errorMessage = 4;
+            }
+        }
 
 
         // dd($this->gateKey);
